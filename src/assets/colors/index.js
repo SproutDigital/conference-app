@@ -1,0 +1,31 @@
+export default {
+  black : '#000000',
+  blackShade: '#1d2025',
+  darkCard: '#2a2b30',
+  dakerCard: '#0f1011',
+  darkText: '#46474a',
+  white : '#ffffff',
+  whiteShade: '#dcdde1',
+  gray: '#dddddd',
+  liteGray2:'#dedede',
+  liteGray: '#ecf0f2',
+  errorColor : '#d93900',
+  lightGray : '#607D8B',
+  gold: '#deaf1b',
+  lightGold: '#e6be0b',
+  // green: '#27ae60',
+  green: '#508762',
+  softBlue: '#3498db',
+  darkRed: '#c0392b',
+  midnightBlue: '#2c3e50',
+  dull: '#cc9347',
+  silver: '#bdc3c7',
+  darkSilver: '#757575',
+  purple: '#5B4CAC',
+  red: '#d63031',
+  blue : '#1f78d1',
+  orange: '#f8b45d',
+  bg1 : '#27ae60'
+ // 
+
+}
