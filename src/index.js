@@ -6,7 +6,7 @@ import { Font } from 'expo';
 import Navigator from './routes';
 import colors from './assets/colors';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+// import store from './redux/store';
 TextInput.defaultProps.selectionColor = colors.green;
 
 export default class App extends Component {
@@ -17,13 +17,17 @@ export default class App extends Component {
     };
   }
   
-  
   componentDidMount() {
 
     (async() => {
       await Font.loadAsync({
-        'Montserrat-Bold' : require('../src/assets/fonts/Montserrat-Bold.ttf'),
-        'Montserrat-Regular' : require('../src/assets/fonts/Montserrat-Regular.ttf'),      
+        'Poppins-Bold' : require('../src/assets/fonts/Poppins-Bold.ttf'),
+        'Poppins-ExtraBold' : require('../src/assets/fonts/Poppins-ExtraBold.ttf'),  
+        'Poppins-ExtraLight' : require('../src/assets/fonts/Poppins-ExtraLight.ttf'),
+        'Poppins-Light' : require('../src/assets/fonts/Poppins-Light.ttf'),
+        'Poppins-Medium' : require('../src/assets/fonts/Poppins-Medium.ttf'),
+        'Poppins-Regular' : require('../src/assets/fonts/Poppins-Regular.ttf'),    
+        'Poppins-Thin' : require('../src/assets/fonts/Poppins-Thin.ttf'),  
       });
       
       this.setState({ fontsLoaded: true });
@@ -31,19 +35,18 @@ export default class App extends Component {
     })();
   }
   
-
   render() {
     const { fontsLoaded } = this.state
 
     return (
-        <Provider store={store}>
-          <View style={styles.container}>
-          {fontsLoaded?
-            <Navigator/>
-            :
-            null }
-          </View>
-        </Provider>
+      // <Provider store={store}>
+        <View style={styles.container}>
+        {fontsLoaded?
+          <Navigator/>
+          :
+          null }
+        </View>
+      // </Provider>
     );
   }
 }

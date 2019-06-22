@@ -1,16 +1,16 @@
 'use strict';
 
 import React, {Component} from 'react';
- import { View , StyleSheet, ScrollView, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
+ import { View ,Text, Image,StyleSheet, ScrollView, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import { saveProfile } from '../Utils/Utils';
+import { saveProfile} from '../../utils';
 import Toast from 'react-native-easy-toast';
-import gql from 'graphql-tag';
-import { compose, graphql } from 'react-apollo';
+import colors from '../../assets/colors';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,58 +73,18 @@ class Login extends Component {
   };
   onBlur() {
   }
-  handleSignIn = async() => {
-    const { username, password, } = this.state;
-
-    this.setState({
-      showLoading: true,
-    });
-
-    this.props.loginMutation({
-      variables : {
-        username, password, 
-      }
-    })
-    .then(data => {
-      let token = data.data.signIn.token,
-        role = data.data.signIn.user.role
-      
-      if(role !== 'user') {
-        return this.setState({
-          showLoading : false,
-          title : 'Hello',
-          showAlert : true,
-          message: 'You re not Authorized to Use this App'
-        });
-      }
-
-      this.setState({
-        showLoading : false
-      });
-      saveProfile(token)
-       return this.refs.toast.show('Login Successful', 300, ()=>{
-        this.props.navigation.navigate('Navigations')
-       });
-       
-    })
-    .catch(err => {
-      return  this.setState({ 
-        showLoading : false,
-        title : 'Hello',
-        message : err.message.split(':')[1],
-        showAlert : true,
-      });
-    })
-  }
-
+ 
 
   handleCloseNotification = () => {
     return this.setState({
       showAlert : false
     });
   }
+  handleSignIn = () => {
+    alert('You Clicked me!')
+  } 
 
-  handleUsernameChange = (username) => {
+  handleEmailChange = (username) => {
     if(username.length > 0) {
       this.setState({
         isUsernameValid: true,
@@ -177,26 +137,57 @@ class Login extends Component {
 
     return(
     <View style={styles.container}> 
-      <Animated.Image source={require('../../assets/images/icon.png')} style={[styles.logo, { height: this.imageHeight }]} />
+      <Text style={styles.logoTxt} >
+        ignite
+      </Text>
+        
         <ScrollView style={{flex:1}}>
           <KeyboardAvoidingView
             style={styles.wrapper}
             behavior="padding"
             >
+            <View style = {styles.textinputCont}>
+              <View style = {styles.textInputView}> 
+                <Image
+                  source={require('../../assets/images/email.png')}
+                  style={StyleSheet.flatten(styles.iconForm)}/> 
+                    <InputField
+                      placeholder={'Email'}
+                      placeholderTextColor = {colors.blackShade}
+                      textColor={colors.blackShade}
+                      inputType={'email'}
+                      keyboardType={'email'}
+                      onChangeText = {this.handleEmailChange}
+                      autoCapitalize = "none"
+                      height = {40}
+                      width = {'90%'}
+                      borderWidth = {1}
+                      borderColor = {colors.white}
+                  /> 
+              </View>
+              <View style = {styles.textInputView}> 
+                <Image
+                  source={require('../../assets/images/padlock.png')}
+                  style={StyleSheet.flatten(styles.iconForm)}/> 
+                    <InputField
+                      placeholder={'Password'}
+                      placeholderTextColor = {colors.blackShade}
+                      textColor={colors.blackShade}
+                      inputType={'name'}
+                      keyboardType={'default'}
+                      onChangeText = {this.handlePasswordChange}
+                      autoCapitalize = "none"
+                      height = {40}
+                      width = {'90%'}
+                      borderWidth = {1}
+                      borderColor = {colors.white}
+                  /> 
+              </View>
+            </View>
 
-            <InputField
-              placeholder={'Email or Phone'}
-              inputType = {'email'} 
-              onChangeText ={this.handleUsernameChange}
-              onBlur={this.onBlur}
-            />
+            
 
-            <InputField
-              placeholder={'Password'}
-              inputType = {'password'} 
-              onChangeText ={this.handlePasswordChange}
-              onBlur={this.onBlur}
-            />
+          
             <Toast
               ref="toast"
               style={{backgroundColor: 'green'}}
@@ -215,11 +206,25 @@ class Login extends Component {
             />
             <View style = {styles.btnView}>
 
-              <SubmitButton
+              {/* <SubmitButton
                 title={'LOGIN'}
-                disabled={!this.toggleButtonState()}
+                
+                // disabled={!this.toggleButtonState()}
                 onPress={this.handleSignIn}
-              />
+              /> */}
+              <TouchableOpacity 
+                onPress={this.handleSignIn}
+                style = {styles.buttonWithImage}>
+                <DisplayText
+                  styles = {StyleSheet.flatten(styles.buttonTxt)}
+                  text = {'Log in'}
+                  onPress={this.handleSignIn}
+                />
+                <Image
+                  source={require('../../assets/images/loginIcon.png')}
+                  style={StyleSheet.flatten(styles.iconDoor)}/> 
+              </TouchableOpacity>
+
             </View>
               
             <SingleButtonAlert
@@ -232,10 +237,11 @@ class Login extends Component {
         </ScrollView>
         <View style = {StyleSheet.flatten(styles.signupLinkView)}>
           <DisplayText
-            text={'Dont have an account? Sign Up '}
-            styles = {styles.signupText}
+            text={'Forgot Password?'}
+            styles = {styles.forgotPwd}
             onPress = {this.handleRegistration}
           />
+          
         </View>
      </View>
    )
@@ -244,20 +250,3 @@ class Login extends Component {
   
 } 
 
-const loginMutation = gql`
-  mutation SignIn( $username: String!, $password: String!, ) {
-    signIn( username : $username, password: $password){
-      token
-      user {
-        company_name
-        surname
-        role
-      }
-    }
-  }
-`
-export default compose(
-  graphql(loginMutation, {
-    name : 'loginMutation',
-  })
-)(Login);

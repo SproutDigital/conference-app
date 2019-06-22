@@ -7,12 +7,11 @@ import colors from '../../assets/colors';
 import {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from 'react-native';
-
-import FloatingLabel  from 'react-native-floating-labels';
-
 
 export default class InputField extends Component {
   constructor(props) {
@@ -25,7 +24,7 @@ export default class InputField extends Component {
     this.onChangeText = this.onChangeText.bind(this);
   }
 
-  toggleShowPassword() {
+  toggleShowPassword () {
     this.setState({ secureInput: !this.state.secureInput });
   }
 
@@ -36,113 +35,197 @@ export default class InputField extends Component {
 
   render() {
     const {
+      labelText,
+      labelTextSize,
+      labelTextWeight,
+      labelColor,
+      textColor,
+      borderBottomColor,
+      borderBottomWidth,
+      borderWidth,
+      borderColor,
+      borderRadius,
+      borderTopRightRadius,
+      borderTopLeftRadius,
+      borderBottomLeftRadius,
+      borderBottomRightRadius,
+      paddingLeft,
       inputType,
+      customStyle,
+      formStyle,
+      inputStyle,
       autoFocus,
+      autoCapitalize,
       placeholder,
+      placeholderTextColor,
       maxLength,
-      returnKeyType,
+      height,
+      width,
+      defaultValue,
+      editable,
+      selectTextOnFocus,
     } = this.props;
 
     const { secureInput, inputValue } = this.state;
-    const borderBottom =  colors.button_border || 'transparent';
+    const fontSize = labelTextSize || 16;
+    const fontWeight = labelTextWeight || '700';
+    const color = labelColor || colors.white;
+    const inputColor = textColor || colors.white;
+    const placeholderColor =  placeholderTextColor || colors.text;
+    const style = formStyle || styles.forms;
+    const customInputStyle = inputStyle || {};
+    if (!inputStyle || inputStyle && !inputStyle.paddingBottom) {
+      customInputStyle.paddingBottom = 5;
+    }
 
     let keyboardType;
 
-    if(inputType === 'email'){
-      keyboardType = 'email-address';
+    if(inputType === 'phone'){
+      keyboardType = 'phone-pad';
 
     }
     else if(inputType === 'number'){
       keyboardType = 'numeric';
+    } else if(inputType === 'name') {
+      keyboardType = 'default';
     }
   
 
     return (
-      <View style={[ styles.wrapper]}>
-       
-        {/* {inputType === 'password'
+      <View style={[customStyle, styles.wrapper]}>
+         {/* <Text style={[{ fontWeight, color, fontSize }, styles.label]}>
+          {labelText}
+        </Text> */}
+        
+   
+        <TextInput
+          style={[{ color: inputColor }, style,inputStyle, styles.inputField]}         
+          borderWidth={borderWidth}
+          borderColor={borderColor}
+          borderRadius={borderRadius}
+          borderTopRightRadius={borderTopRightRadius}
+          borderTopLeftRadius={borderTopLeftRadius}
+          borderBottomLeftRadius={borderBottomLeftRadius}
+          borderBottomRightRadius={borderBottomRightRadius}
+          secureTextEntry={secureInput}
+          onChangeText={this.onChangeText}
+          keyboardType={keyboardType}
+          autoFocus={autoFocus}
+          autoCapitalize={autoCapitalize}
+          autoCorrect={false}
+          paddingLeft={paddingLeft}
+          underlineColorAndroid="transparent"
+          placeholder={placeholder}
+          placeholderTextColor = {placeholderColor}
+          defaultValue={defaultValue}
+          value={inputValue}
+          inputType={inputType}
+          maxLength={maxLength}
+          height={height}    
+          width={width}
+        />
+        {inputType === 'password'
           ? (
             <TouchableOpacity
               style={styles.showButton}
               onPress={this.toggleShowPassword}
             >
+            {/* {
+              secureInput ? 
+              <Image
+                onPress={this.toggleShowPassword}               
+                source={require('../../assets/images/view.png')}
+                style={StyleSheet.flatten(styles.logoIcon)}/> 
+              : 
+              <Image
+                onPress={this.toggleShowPassword}
+                source={require('../../assets/images/hide.png')}
+                style={StyleSheet.flatten(styles.logoIcon)}/> 
+            } */}
+            
               <Text style={styles.showButtonText}>
                 {secureInput ? 'Show' : 'Hide'}
               </Text>
             </TouchableOpacity>
           )
-          : null } */}
-   
-        <FloatingLabel
-         style={[{ borderBottomColor: borderBottom }, styles.inputFields]}
-         inputStyle={styles.input}
-         labelStyle={styles.labelInput}
-          secureTextEntry={secureInput}
-          onChangeText={this.onChangeText}
-          keyboardType={keyboardType}
-          autoFocus={autoFocus}
-          autoCorrect={false}
-          underlineColorAndroid="transparent"
-          maxLength={maxLength}
-          returnKeyType={returnKeyType}
-          //defaultValue={inputValue}
-          value={inputValue}
-        >
-          {placeholder}
-        </FloatingLabel>
-        
+          : null } 
       </View>
     );
   }
 }
 
 InputField.propTypes = {
-  //labelText: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   labelTextSize: PropTypes.number,
   labelColor: PropTypes.string,
   textColor: PropTypes.string,
-  borderBottomColor: PropTypes.string,
+  borderRadius: PropTypes.number,
+  borderBottomLeftRadius: PropTypes.number,
+  borderBottomRightRadius: PropTypes.number,
+  borderTopRightRadius: PropTypes.number,
+  borderTopLeftRadius: PropTypes.number,
+  borderWidth: PropTypes.number,
+  backgroundColor: PropTypes.string,
+  borderColor: PropTypes.string,
+  paddingLeft : PropTypes.number,
   inputType: PropTypes.string.isRequired,
   customStyle: PropTypes.object,
   onChangeText: PropTypes.func,
   autoFocus: PropTypes.bool,
   autoCapitalize: PropTypes.string,
+  labelTextWeight: PropTypes.string,
   inputStyle: PropTypes.object,
-  placeholder: PropTypes.string.isRequired,
   defaultValue: PropTypes.string,
+  placeholderTextColor: PropTypes.string,
+  maxLength:PropTypes.number,
+  height: PropTypes.number,
+  width: PropTypes.string
 };
 
 const styles = StyleSheet.create({
   wrapper: {
     display: 'flex',
+    width: '100%'
   },
-
-  inputFields: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.button_border  
+  label: {
+    marginBottom:1,
+    fontFamily: 'Poppins-Regular',
   },
-
-  input: {
-    borderWidth: 0,
-    color: colors.text_color,
-    fontSize: 14,
-    paddingLeft: 10,
-    fontFamily: 'Montserrat-Regular',
-
+  forms: {
+    backgroundColor: colors.white,
   },
-
-  labelInput: {
-    color: colors.text_color,
-    fontFamily: 'Montserrat-Regular',
+  inputField : {
+    borderBottomWidth : 1,
+    paddingTop : 1,
+    fontFamily : 'Poppins-Regular',
+    fontSize : 16,
+    // backgroundColor: colors.white
+    // height :40,
   },
-
-
+  form: {
+    // backgroundColor: colors.white,
+  },
   showButton: {
     position: 'absolute',
     right: 0,
+    top : 6,
+    paddingTop : 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width : 40,
+    height : 40
+    //marginTop:15
   },
   showButtonText: {
-    color: colors.button_border,
-    fontWeight: '700',
+    color: colors.green_background,
+    fontWeight: '100',
+    fontFamily: 'Poppins-Regular'
   },
+  logoIcon : {
+    height : 20,
+    width : 20,
+    tintColor : colors.green_background,
+    // marginTop: 16,
+  },
+
 });

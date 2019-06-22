@@ -5,13 +5,13 @@ import Home  from '../screens/Home/Home';
 import Login  from '../screens/Login/Login';
 import Register  from '../screens/Register/Register'; 
 import ForgetPassword from '../screens/ForgetPassword/ForgetPassword';
-import Profile from '../screens/Profile/Profile';
-import Product from '../screens/Product/Product';
-import ProductList from '../screens/ProductList/ProductList';
-import EditProduct from '../screens/EditProduct/EditProduct';
-import Navigations from '../screens/Navigations/Navigations';
+// import Profile from '../screens/Profile/Profile';
+// import Product from '../screens/Product/Product';
+// import ProductList from '../screens/ProductList/ProductList';
+// import EditProduct from '../screens/EditProduct/EditProduct';
+// import Navigations from '../screens/Navigations/Navigations';
 import Logout from '../screens/Logout/Logout';
-
+import Profile from '../screens/Profile/Profile';
 const AuthStack = createStackNavigator({ 
   Home: {
     screen: Home,
@@ -49,36 +49,36 @@ const AuthStack = createStackNavigator({
 });
 
 export const MenuStack = createStackNavigator({ 
-  Navigations : {
-    screen : Navigations,
-    navigationOptions : {
-      header : null,
-    }
-  },
+  // Navigations : {
+  //   screen : Navigations,
+  //   navigationOptions : {
+  //     header : null,
+  //   }
+  // },
   Profile: {
     screen: Profile,
     navigationOptions: {
       header: null,
     }
   },
-  Product: {
-    screen: Product,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  ProductList: {
-    screen: ProductList,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  EditProduct: {
-    screen: EditProduct,
-    navigationOptions: {
-      header: null,
-    }
-  },
+  // Product: {
+  //   screen: Product,
+  //   navigationOptions: {
+  //     header: null,
+  //   }
+  // },
+  // ProductList: {
+  //   screen: ProductList,
+  //   navigationOptions: {
+  //     header: null,
+  //   }
+  // },
+  // EditProduct: {
+  //   screen: EditProduct,
+  //   navigationOptions: {
+  //     header: null,
+  //   }
+  // },
   
 },
   {
@@ -87,7 +87,6 @@ export const MenuStack = createStackNavigator({
     headerMode: 'none'
   },
 );
-
 
 const AppSwitchNavigator = createSwitchNavigator({
   AuthLoading:Home,
@@ -99,6 +98,6 @@ const AppSwitchNavigator = createSwitchNavigator({
   }
 );
 
-const appContainer = (AppSwitchNavigator);
 
-export default appContainer;
+export default createAppContainer(AppSwitchNavigator);
+

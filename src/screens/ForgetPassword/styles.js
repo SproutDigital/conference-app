@@ -11,7 +11,7 @@ export default styles = StyleSheet.create({
 
   text: {
     color: colors.gold,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Poppins-Bold',
     fontSize: 14,
     fontWeight: '200',
     marginLeft: 8,

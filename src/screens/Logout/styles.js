@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native';
 import colors from '../../assets/colors';
-import { Constants } from 'expo';
-
 export default styles = StyleSheet.create({
   container: {
     flex:1,
@@ -11,8 +9,6 @@ export default styles = StyleSheet.create({
   },
 
   navbarStyle: {
-    paddingTop: Constants.statusBarHeight,
-    height: Constants.startHeaderHeight,
     backgroundColor: colors.green,
     borderBottomWidth: 1,
     borderBottomColor: colors.green,
@@ -49,7 +45,7 @@ export default styles = StyleSheet.create({
   profileTxt: {
     marginLeft: 16,
     fontSize: 16,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
   },
   MenuIcon: {
@@ -60,7 +56,7 @@ export default styles = StyleSheet.create({
   },
   text: {
     color: colors.gold,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Poppins-Bold',
     fontSize: 14,
     fontWeight: '200',
     marginLeft: 8,
@@ -82,12 +78,12 @@ export default styles = StyleSheet.create({
   },
   nameTxt : {
     fontSize: 20,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
   },
   othernameTxt : {
     fontSize: 20,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
     marginLeft : 10
   },
@@ -115,18 +111,18 @@ export default styles = StyleSheet.create({
   },
   companyName : {
     fontSize: 16,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
   },
   email: {
     fontSize: 16,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
     textDecorationLine : 'underline',
   },
   phonenumber : {
     fontSize: 16,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
   },
   description : {
@@ -138,7 +134,7 @@ export default styles = StyleSheet.create({
   },
   descTxt : {
     fontSize: 12,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
     borderRadius : 4,
     borderWidth: 0.5,
@@ -151,7 +147,7 @@ export default styles = StyleSheet.create({
   },
   descHeader : {
     fontSize: 16,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     color: colors.white,
   },
   flatlistView : {

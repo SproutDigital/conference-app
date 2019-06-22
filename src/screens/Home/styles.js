@@ -38,13 +38,17 @@ export default styles = StyleSheet.create({
 
   signupLinkView: {
     justifyContent: 'center',
+    alignItems : 'center',
     flexDirection: 'row',
+    backgroundColor : 'transparent',
+    marginBottom : 16,
+    width : '40%',
+    height : 40
   },
   signupText: {
     fontSize: 16,
     color: colors.button_border,
-    marginTop: 15,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     alignSelf: 'center',
   },
 
@@ -52,6 +56,27 @@ export default styles = StyleSheet.create({
     height: IMAGE_HEIGHT,
     resizeMode: 'contain',
     alignSelf: 'center',
-
   },
+  textView : {
+    flex : 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding : 20,
+  },
+  welcomeTxt : {
+    fontSize: 20,
+    color: colors.blackShade,
+    marginBottom : 16,
+    fontFamily: 'Poppins-Medium',
+    alignSelf: 'center',
+  },
+  smallWelcomeTxt : {
+    fontSize : 12,
+    color : colors.blackShade,
+  },
+  smallTxtView : {
+    marginTop : 25,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  }
 });
