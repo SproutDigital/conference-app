@@ -92,16 +92,6 @@ export default class Home extends Component {
       })
       return(
         <View style={styles.container}>         
-          {/* <Animated.View style={[StyleSheet.flatten(styles.logoWrapper), { transform: [{scale: scaleText}] }]}>
-            <Animated.Image source={require('../../assets/images/icon.png')} style={[styles.logo, { height: this.imageHeight }]} />
-          </Animated.View>
-
-          <Animated.View style={[StyleSheet.flatten(styles.buttonWrapper)]}>
-            <SubmitButton
-              title={'Let\'s Get Started'}
-              disabled={false}
-              onPress={this.handleRegistration}/>
-          </Animated.View> */}
           <View style = {styles.textView}>
             <DisplayText
               text={'Welcome to ignite.'}

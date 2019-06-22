@@ -19,7 +19,6 @@ export default class Login extends Component {
       showAlert: false,
       showLoading: false,
       username : '',
-      passwordb: '',
       title: '',
       message: '',
       

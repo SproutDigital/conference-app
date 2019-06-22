@@ -20,5 +20,4 @@ export default {
   bg1 : '#27ae60',
   blueBg : '#6633FF',
   yellow : '#FFBB00',
-
 }
