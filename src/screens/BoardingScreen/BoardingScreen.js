@@ -114,8 +114,10 @@ export default class BoardingScreen extends Component {
             renderItem={this._renderItem} 
             slides={slides} 
             onDone={this._onDone}
-            onSkip={() => console.log("skipped")}
-
+            showSkipButton ={true}
+            showNextButton={false}
+            onSkip={() => this.props.navigation.navigate('Register')}
+            onDone={() => this.props.navigation.navigate('Register')}
           />
         </View>
       )

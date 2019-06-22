@@ -1,7 +1,8 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, AsyncStorage, KeyboardAvoidingView,} from 'react-native';
-import {DisplayText, } from '../../components';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView,} from 'react-native';
+import {DisplayText, InputField } from '../../components';
+import colors from '../../assets/colors'
 import styles from './styles';
 
 
@@ -14,7 +15,7 @@ export default class Register extends Component {
       name: '',
       isEmailValid : false,
       isPasswordValid : false,
-      isNameValid : fasle,
+      isNameValid : false,
       showAlert : false,
       message : '',
       refreshing: false,
