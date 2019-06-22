@@ -1,9 +1,9 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, StyleSheet, Animated, Easing } from 'react-native';
+import { View, StyleSheet, Animated, Easing, TouchableOpacity } from 'react-native';
 import {DisplayText, SubmitButton} from '../../components';
 import styles, { IMAGE_HEIGHT, }  from './styles';
-import { getProfile} from '../Utils/Utils';
+import { getProfile} from '../../utils';
 
 
 export default class Home extends Component {
@@ -92,26 +92,40 @@ export default class Home extends Component {
       })
       return(
         <View style={styles.container}>         
-        <Animated.View style={[StyleSheet.flatten(styles.logoWrapper), { transform: [{scale: scaleText}] }]}>
-          <Animated.Image source={require('../../assets/images/icon.png')} style={[styles.logo, { height: this.imageHeight }]} />
-        </Animated.View>
+          {/* <Animated.View style={[StyleSheet.flatten(styles.logoWrapper), { transform: [{scale: scaleText}] }]}>
+            <Animated.Image source={require('../../assets/images/icon.png')} style={[styles.logo, { height: this.imageHeight }]} />
+          </Animated.View>
 
           <Animated.View style={[StyleSheet.flatten(styles.buttonWrapper)]}>
             <SubmitButton
               title={'Let\'s Get Started'}
               disabled={false}
-              onPress={this.handleRegistration}
-            />
-
-          </Animated.View>
-
-          <View style = {StyleSheet.flatten(styles.signupLinkView)}>
+              onPress={this.handleRegistration}/>
+          </Animated.View> */}
+          <View style = {styles.textView}>
             <DisplayText
-              text={'Already have an account? Sign In '}
+              text={'Welcome to ignite.'}
+              styles = {styles.welcomeTxt}
+              onPress = {this.handleLogin}
+            />
+              <DisplayText
+                text={'Everything about your conference, right to'}
+                styles = {styles.smallWelcomeTxt}
+              />
+              <DisplayText
+                text={'your finger tips. Everything in 1 place.'}
+                styles = {styles.smallWelcomeTxt}
+              />
+
+          </View>
+
+          <TouchableOpacity style = {StyleSheet.flatten(styles.signupLinkView)}>
+            <DisplayText
+              text={'GET STARTED'}
               styles = {styles.signupText}
               onPress = {this.handleLogin}
             />
-          </View>
+          </TouchableOpacity>
         </View>
       )
     }  

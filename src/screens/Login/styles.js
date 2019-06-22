@@ -13,8 +13,8 @@ export default styles = StyleSheet.create({
     paddingRight: 10,
     paddingTop: 40,
     paddingBottom: 10, 
-    //backgroundColor: colors.background_color,
-    //opacity: 0.2,
+    backgroundColor: colors.blueBg,
+
   },
   wrapper: {
     flex: 1,
@@ -33,7 +33,7 @@ export default styles = StyleSheet.create({
     color: colors.gold,
     marginBottom: 10,
     marginTop: 16,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     alignItems: 'center',
     justifyContent : 'center',
   },
@@ -46,7 +46,7 @@ export default styles = StyleSheet.create({
     color: colors.gold,
     marginBottom: 10,
     marginTop:20,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Poppins-Bold',
     alignItems: 'center',
     justifyContent : 'center',
   },
@@ -59,7 +59,7 @@ export default styles = StyleSheet.create({
     fontSize: 16,
     color: colors.button_border,
     marginTop: 15,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     alignSelf: 'center',
   },
 
@@ -68,7 +68,7 @@ export default styles = StyleSheet.create({
     color: colors.gold,
     marginTop: 20,
     fontWeight: 'bold',
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     alignSelf: 'center',
   },
 
@@ -81,5 +81,61 @@ export default styles = StyleSheet.create({
     alignSelf: 'center',
 
   },
-  
+  backgroundImage: {
+		flex: 1,
+		width: '100%',
+		height: null,
+	},
+  forgotPwd : {
+    color : colors.white,
+    marginBottom : 8,
+  },
+  logoTxt : {
+    fontFamily : 'Poppins-ExtraBold',
+    color : colors.white,
+    fontSize : 55,
+    alignSelf : 'center',
+    marginTop : '25%'
+  },
+  textInputView : {
+    width : '100%',
+    height : 45,
+    backgroundColor : colors.white,
+    borderRadius : 4,
+    flexDirection : 'row',
+    alignItems : 'center',
+    marginTop : 8,
+    paddingLeft : 8
+
+  },
+  textinputCont :{},
+  iconForm: {
+    height : 20,
+    width : 20,
+    resizeMode : 'contain',
+    marginRight: 8,
+  },
+  buttonWithImage : {
+    borderRadius : 30,
+    width : '60%',
+    height : 45,
+    backgroundColor : colors.yellow,
+    justifyContent: 'center',
+    alignItems : 'center',
+    flexDirection : 'row',
+    marginTop : 25,
+    paddingRight : 8,
+  },
+  buttonTxt : {
+    fontFamily : 'Poppins-Regular',
+    color : colors.white,
+    fontSize : 18,
+    alignSelf : 'center',
+  },
+  iconDoor : {
+    height : 18,
+    width : 18,
+    resizeMode : 'contain',
+    marginLeft: 24,
+  }
 });

@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import {DisplayText} from '../../components';
 import styles from './styles';
+import { getProfile} from '../../utils';
 
 export default class Register extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ export default class Register extends Component {
   componentDidMount() {
   }
 
-  
   render () {
     return(
       <View style={styles.container}>  

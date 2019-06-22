@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Poppins-Bold',
     color: colors.white,
   },
 

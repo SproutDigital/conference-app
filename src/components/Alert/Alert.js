@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 5,
     height: '25%',
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     
    },
     
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     color: colors.gold,
     textAlign:'center',
     fontSize: 18,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Poppins-Regular',
     marginTop: -5
    }
 })
