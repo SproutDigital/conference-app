@@ -1,8 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView,} from 'react-native';
-import {DisplayText, InputField } from '../../components';
-import colors from '../../assets/colors'
+import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import colors from '../../assets/colors';
+import { ProgressDialog } from 'react-native-simple-dialogs';
+import Toast from 'react-native-easy-toast';
 import styles from './styles';
 
 
@@ -19,6 +22,7 @@ export default class Register extends Component {
       showAlert : false,
       message : '',
       refreshing: false,
+      showLoading: false,
 
     }
   }
@@ -149,13 +153,6 @@ export default class Register extends Component {
               </View>
             </View>         
             <View style = {styles.btnView}>
-
-              {/* <SubmitButton
-                title={'LOGIN'}
-                
-                // disabled={!this.toggleButtonState()}
-                onPress={this.handleSignIn}
-              /> */}
               <TouchableOpacity 
                 onPress={this.handleSignIn}
                 style = {styles.buttonWithImage}>
@@ -179,17 +176,17 @@ export default class Register extends Component {
                 textStyle={{color:'white'}}
               /> 
 
-              <ProgressDialog
+              {/* <ProgressDialog
                 visible={showLoading}
                 title="Processing"
                 message="Please wait..."
-              />
-              <SingleButtonAlert
+              /> */}
+              {/* <SingleButtonAlert
                 title = {title} 
                 message = {message}
                 handleCloseNotification = {this.handleCloseNotification}
                 visible = {showAlert}
-              />
+              /> */}
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
