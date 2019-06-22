@@ -1,2 +1,2 @@
 import ForgetPassword from './ForgetPassword';
-export {ForgetPassword}
+export  default ForgetPassword
