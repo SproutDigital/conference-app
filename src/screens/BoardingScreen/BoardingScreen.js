@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, StyleSheet, TouchableOpacity, Text , Image} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import {DisplayText, SubmitButton} from '../../components';
 import styles  from './styles';
 import { getProfile} from '../../utils';
@@ -9,22 +9,22 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 const slides = [
   {
     key: 'somethun',
-    title: 'Title 1',
-    text: 'Check the conference calendar',
+    title: 'Check the Conference Calendar',
+    text: 'Pickout talks You like to attend and set Reminder',
     image: require('../../assets/images/icon.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 'somethun-dos',
-    title: 'Title 2',
-    text: 'Network!',
+    title: 'Network!',
+    text: 'Learn about the Organizers, speakers and other delegates and connect with them via the app',
     image: require('../../assets/images/icon.png'),
     backgroundColor: '#febe29',
   },
   {
     key: 'somethun1',
-    title: 'Rocket guy',
-    text: 'Quick Help',
+    title: 'Need Help',
+    text: 'Cant Find a meeting room, not sure of the weather..',
     image: require('../../assets/images/icon.png'),
     backgroundColor: '#22bcb5',
   }
@@ -48,9 +48,18 @@ export default class BoardingScreen extends Component {
   _renderItem = (item) => {
     return (
       <View style={styles.slide}>
-        <Text style={styles.title}>{item.title}</Text>
+        
         <Image source={item.image} />
-        <Text style={styles.text}>{item.text}</Text>
+
+        <DisplayText 
+          styles={styles.sliderTitle}
+          text={item.title}
+        />
+
+        <DisplayText 
+          styles={styles.sliderText}
+          text={item.text}
+          />
       </View>
     );
   }
@@ -96,10 +105,18 @@ export default class BoardingScreen extends Component {
         </View>
       );
     }
-    else {   
+    else {
+      
       return(
-        <View style={styles.container}>            
-         <AppIntroSlider renderItem={this._renderItem} slides={slides} onDone={this._onDone}/>
+        <View style={styles.container}>         
+          
+         <AppIntroSlider 
+            renderItem={this._renderItem} 
+            slides={slides} 
+            onDone={this._onDone}
+            onSkip={() => console.log("skipped")}
+
+          />
         </View>
       )
     }  

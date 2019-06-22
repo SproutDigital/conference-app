@@ -1,11 +1,12 @@
 import colors from '../colors';
-
 export default defaultTheme = {
-    headerFontSize: '',
-    headerFontColor: '',
-    bodyFontSize: '',
-    bodyFontColor: '',
-    SplashFontSize: '',
-    SplashFontColor: '',
-    backgroundColor: '',
+    XlargeFont: 35,
+    LargeFont:  25,
+    MediumFont: 20,
+    SmallFont:  16,
+    primaryTextColor: colors.darkText,
+    secondaryTextColor: colors.gray,
+    primaryFont: 'Poppins-Bold',
+    secondaryFont: 'Poppins-Regular',
+    
 }
