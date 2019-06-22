@@ -1,0 +1,48 @@
+import { StyleSheet, Dimensions } from 'react-native';
+const window = Dimensions.get('window');
+export const IMAGE_HEIGHT = window.width / 3;
+export const IMAGE_HEIGHT_SMALL = window.width /6;
+import defaultTheme from '../../assets/theme';
+
+
+export default styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center',
+     alignContent:'center'
+  },
+
+  slide: {
+    flex: 1,
+    paddingBottom: 10, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+   sliderText: {
+    fontSize: defaultTheme.SmallFont,
+    color: defaultTheme.secondaryTextColor,
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    marginBottom: 16,
+    fontFamily: defaultTheme.secondaryFont,
+     paddingRight: 10,
+     paddingLeft: 10,
+
+  },
+
+
+  sliderTitle: {
+    fontSize: defaultTheme.MediumFont,
+    color: defaultTheme.primaryTextColor,
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    marginBottom: 16,
+    fontFamily: defaultTheme.primaryFont
+
+  },
+
+  
+
+});
