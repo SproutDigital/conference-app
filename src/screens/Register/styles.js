@@ -20,10 +20,50 @@ export default styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between'
   },
-  exitTxt: {
-    fontSize: 40,
-    color: colors.text_color,
-    fontFamily: 'Poppins-Regular',
-    marginLeft: 16
+  formView : {
+    flex : 1,
+    padding : 20,
+    backgroundColor : colors.yellow
   },
+  textInputView : {
+    width : '100%',
+    height : 45,
+    backgroundColor : colors.white,
+    borderRadius : 4,
+    flexDirection : 'row',
+    alignItems : 'center',
+    marginTop : 8,
+    paddingLeft : 8
+
+  },
+  textinputCont :{},
+  iconForm: {
+    height : 20,
+    width : 20,
+    resizeMode : 'contain',
+    marginRight: 8,
+  },
+  buttonWithImage : {
+    borderRadius : 30,
+    width : '60%',
+    height : 45,
+    backgroundColor : colors.yellow,
+    justifyContent: 'center',
+    alignItems : 'center',
+    flexDirection : 'row',
+    marginTop : 25,
+    paddingRight : 8,
+  },
+  buttonTxt : {
+    fontFamily : 'Poppins-Regular',
+    color : colors.white,
+    fontSize : 18,
+    alignSelf : 'center',
+  },
+  iconDoor : {
+    height : 18,
+    width : 18,
+    resizeMode : 'contain',
+    marginLeft: 24,
+  }
 });

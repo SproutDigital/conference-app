@@ -136,7 +136,6 @@ export default styles = StyleSheet.create({
     height : 18,
     width : 18,
     resizeMode : 'contain',
-    marginLeft: 24
-    ,
+    marginLeft: 24,
   }
 });
