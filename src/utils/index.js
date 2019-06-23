@@ -1,8 +1,8 @@
-const Baseurl = 'https://sprout-conference-app.herokuapp.com/';
+const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
 const LoginEndpoint = `${Baseurl}loginUser`,
-    RegisterEndpoint = `${Baseurl}create`;
+    RegisterEndpoint = `${Baseurl}registerUser`;
 
 export {
     LoginEndpoint,

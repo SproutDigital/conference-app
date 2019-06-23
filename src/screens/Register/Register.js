@@ -159,8 +159,8 @@ export default class Register extends Component {
     });
 
     let data = JSON.stringify({
-      "age" : password, 
-      "salary" : email.toLowerCase(), 
+      "password" : password, 
+      "email" : email.toLowerCase(), 
       "name" : name, 
 
     });
