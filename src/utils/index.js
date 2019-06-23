@@ -1,18 +1,12 @@
-const Baseurl = 'https://plateauyc.herokuapp.com/pyc/';
+const Baseurl = 'http://dummy.restapiexample.com/api/v1/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
 const LoginEndpoint = `${Baseurl}loginUser`,
-    RegisterEndpoint = `${Baseurl}RegisterUser`,
-    ProfileEndpoint = `${Baseurl}profile`,
-    UpdateProfileEndoint = `${Baseurl}profile`,
-    ImageUploadEndoint = `${Baseurl}upload`;
+    RegisterEndpoint = `${Baseurl}create`;
 
 export {
     LoginEndpoint,
     RegisterEndpoint,
-    ProfileEndpoint,
-    UpdateProfileEndoint,
-    ImageUploadEndoint,
 }
 
 
