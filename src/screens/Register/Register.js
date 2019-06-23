@@ -31,6 +31,10 @@ export default class Register extends Component {
     }
   }
 
+  handleLoginRoute = () => {
+    this.props.navigation.navigate('Login')
+  }
+
   handleEmailChange = (email) => {
     if(email.length > 0) {
       this.setState({
@@ -170,6 +174,18 @@ export default class Register extends Component {
                   source={require('../../assets/images/add_peopl.png')}
                   style={StyleSheet.flatten(styles.iconDoor)}/> 
               </TouchableOpacity>
+              <View style = {StyleSheet.flatten(styles.signupLinkView)}>
+                <DisplayText
+                  text={'New User? '}
+                  styles = {styles.signupText}
+                  onPress = {this.handleLoginRoute}
+                />
+                <DisplayText
+                  text={'Create Account'}
+                  styles = {styles.createAccount}
+                  onPress = {this.handleLoginRoute}
+                />
+              </View>
               <Toast
                 ref="toast"
                 style={{backgroundColor: 'green'}}

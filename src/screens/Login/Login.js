@@ -130,12 +130,12 @@ export default class Login extends Component {
     return this.props.navigation.navigate('Register');
   }
   
-
   render () {
     const { title, message, showAlert, showLoading } = this.state
 
     return(
     <View style={styles.container}> 
+
       <Text style={styles.logoTxt} >
         ignite
       </Text>

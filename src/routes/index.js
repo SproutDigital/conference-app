@@ -10,18 +10,17 @@ import Profile from '../screens/Profile';
 
 
 const AuthStack = createStackNavigator({ 
-  Register: {
-    screen: Register,
-     navigationOptions : {
-       header: null
-     }
-  },
-  
   BoardingScreen: {
     screen: BoardingScreen,
     navigationOptions: {
       header: null
     }
+  },
+  Register: {
+    screen: Register,
+     navigationOptions : {
+       header: null
+     }
   },
 
   Login: {
