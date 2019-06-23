@@ -25,7 +25,7 @@ export default class ForgetPassword extends Component {
     this.props.navigation.navigate('Login')
   };
   handleResetPassword = () => {
-    this.props.navigation.navigation('LinkExpire');
+    this.props.navigation.navigate('LinkExpire');
   };
 
   handleEmailChange = (email) => {

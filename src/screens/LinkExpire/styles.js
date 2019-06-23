@@ -1,8 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
-import colors from '../../assets/colors';
 import theme from '../../assets/theme';
-import { Platform } from '@unimodules/core';
 
 export default styles = StyleSheet.create({
   container: {
@@ -73,7 +71,6 @@ export default styles = StyleSheet.create({
     color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
-    // marginBottom: 16,
     paddingTop : 40,
     fontFamily: defaultTheme.primaryFont
   },
@@ -90,6 +87,5 @@ export default styles = StyleSheet.create({
     width : 18,
     height : 18,
     tintColor : theme.primaryTextColor,
-    
   }
 });
