@@ -1,12 +1,30 @@
 import {StyleSheet} from 'react-native';
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
+import { Platform } from '@unimodules/core';
 
 export default styles = StyleSheet.create({
   container: {
     flex:1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  navBar: {
+    flexDirection : 'row',
+    marginTop : (Platform.OS === "ios") ? 20 : 20,
+    height : 60,
+    backgroundColor: 'transparent',
+    width: '100%',
+    paddingLeft: 16,
+    paddingRight: 16,
+    alignItems: 'center',
+  }, 
+  backView : {
+    height : 30,
+    width : 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius : 30
   },
   wrapper: {
     flex: 1,
@@ -85,6 +103,13 @@ export default styles = StyleSheet.create({
     fontFamily: defaultTheme.secondaryFont,
     paddingRight: 10,
     paddingLeft: 10,
+  },
+  backIcon : {
+    width : 18,
+    height : 18,
+    tintColor : theme.primaryTextColor,
+    
   }
+
 
 });
