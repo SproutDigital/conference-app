@@ -8,6 +8,9 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
 import theme from '../../assets/theme';
+// import { Svg } from 'expo';
+// const { Image, Rect } = Svg;
+
 
 
 export default class Register extends Component {
@@ -92,11 +95,12 @@ export default class Register extends Component {
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
-      {/* <ScrollView style={{flex:1}}> */}
-          <KeyboardAvoidingView
-            style={styles.wrapper}
-            behavior="padding"
-            >
+      <KeyboardAvoidingView
+          style={styles.wrapper}
+          behavior = 'padding'> 
+           {/* <ScrollView 
+            style={{flex:1,}}
+            showsVerticalScrollIndicator={false}> */}
             <View>
               <View style = {styles.textInputView}> 
                 <Image
@@ -189,8 +193,13 @@ export default class Register extends Component {
                 visible = {showAlert}
               /> */}
             </View>
+            {/* </ScrollView> */}
           </KeyboardAvoidingView>
-        {/* </ScrollView> */}
+          <View style = {styles.footerView} >
+            <Image
+            source={require('../../assets/images/woman.png')}
+            style={StyleSheet.flatten(styles.footerIcon)}/>   
+          </View>
     </SafeAreaView>
     
    )

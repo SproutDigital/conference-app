@@ -88,4 +88,11 @@ export default styles = StyleSheet.create({
     marginTop : 25,
     paddingRight : 8,
   },
+  footerView : {
+    width : '100%',
+    position : 'absolute',
+    top : 470,
+    right :30
+  },
+  footerIcon : {},
 });
