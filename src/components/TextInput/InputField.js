@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import colors from '../../assets/colors';
-
+import theme from '../../assets/theme';
 import {
   View,
   Text,
@@ -132,7 +132,7 @@ export default class InputField extends Component {
               style={styles.showButton}
               onPress={this.toggleShowPassword}
             >
-            {/* {
+            {
               secureInput ? 
               <Image
                 onPress={this.toggleShowPassword}               
@@ -143,11 +143,11 @@ export default class InputField extends Component {
                 onPress={this.toggleShowPassword}
                 source={require('../../assets/images/hide.png')}
                 style={StyleSheet.flatten(styles.logoIcon)}/> 
-            } */}
+            }
             
-              <Text style={styles.showButtonText}>
+              {/* <Text style={styles.showButtonText}>
                 {secureInput ? 'Show' : 'Hide'}
-              </Text>
+              </Text> */}
             </TouchableOpacity>
           )
           : null } 
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top : 6,
-    paddingTop : 10,
+    paddingTop : 4,
     justifyContent: 'center',
     alignItems: 'center',
     width : 40,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   logoIcon : {
     height : 20,
     width : 20,
-    tintColor : colors.green_background,
+    tintColor : theme.secondaryTextColor,
     // marginTop: 16,
   },
 

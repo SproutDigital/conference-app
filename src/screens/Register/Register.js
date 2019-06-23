@@ -32,6 +32,10 @@ export default class Register extends Component {
     }
   }
 
+  handleLoginRoute = () => {
+    this.props.navigation.navigate('Login')
+  }
+
   handleNameChange = (name) => {
 
     if(name.length > 0) {
@@ -273,6 +277,18 @@ export default class Register extends Component {
                   source={require('../../assets/images/add_peopl.png')}
                   style={StyleSheet.flatten(styles.iconDoor)}/> 
               </TouchableOpacity>
+              <View style = {StyleSheet.flatten(styles.signupLinkView)}>
+                <DisplayText
+                  text={'Already have an Account? '}
+                  styles = {styles.signupText}
+                  onPress = {this.handleLoginRoute}
+                />
+                <DisplayText
+                  text={'Log In'}
+                  styles = {styles.createAccount}
+                  onPress = {this.handleLoginRoute}
+                />
+              </View>
               <Toast
                 ref="toast"
                 style={{backgroundColor: 'green'}}

@@ -12,11 +12,7 @@ export default styles = StyleSheet.create({
     paddingBottom: 10, 
 
   },
-  navbarStyle: {
-    backgroundColor: colors.green,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.green
-  },
+
   headerItem: {
     flexDirection: 'row',
     paddingLeft: 16,
@@ -29,7 +25,7 @@ export default styles = StyleSheet.create({
   formView : {
     flex : 1,
     padding : 20,
-    backgroundColor : colors.yellow
+    backgroundColor : theme.buttonSecondry
   },
 
   textinputCont :{},
@@ -91,8 +87,26 @@ export default styles = StyleSheet.create({
   footerView : {
     width : '100%',
     position : 'absolute',
-    top : 470,
+    bottom : -30,
     right :30
   },
   footerIcon : {},
+  signupLinkView : {
+    flexDirection : 'row',
+    marginTop : 8,
+  },
+  createAccount : {
+    fontSize: theme.SmallFont,
+    color: theme.primaryTextColor,
+    // marginTop: 15,
+    fontFamily: theme.secondaryFont,
+    alignSelf: 'center',
+  },
+  signupText : {
+    fontSize: theme.SmallFont,
+    color: theme.primaryTextColor,
+    // marginTop: 15,
+    fontFamily: theme.secondaryFont,
+    alignSelf: 'center',
+  },
 });
