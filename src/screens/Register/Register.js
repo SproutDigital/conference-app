@@ -7,7 +7,7 @@ import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
-import {isEmailValid, postRoute, RegisterEndpoint} from '../../utils';
+import {isEmailValid, postRoute, RegisterEndpoint, isEmpty} from '../../utils';
 // import { Svg } from 'expo';
 // const { Image, Rect } = Svg;
 
@@ -118,10 +118,28 @@ export default class Register extends Component {
   handleRegistration =()=>{
     const {email, name, password, password2} = this.state;
 
-    if(!isEmailValid(email)) {
+    if(isEmpty(name)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Name'
+      })
+    }
+    else if(!isEmailValid(email)) {
       return this.setState({
         showAlert:true,
         message: 'Invalid Email Address'
+      })
+    }
+    else if(isEmpty(password)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Password'
+      })
+    }
+    else if(isEmpty(password2)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Confirmation Password'
       })
     }
     else if(password !== password2) {

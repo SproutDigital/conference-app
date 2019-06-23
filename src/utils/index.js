@@ -15,6 +15,10 @@ export const isEmailValid = (email) => {
     return re.test(email);
 }
 
+export const  isEmpty =(str)  => {
+    return (!str || 0 === str.trim().length);
+}
+
 
 export const postRoute = (endpoint, body) => {
 
