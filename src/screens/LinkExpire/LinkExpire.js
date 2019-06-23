@@ -3,11 +3,9 @@ import React, {Component} from './node_modules/react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, AsyncStorage, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
-import { Ionicons } from './node_modules/@expo/vector-icons';
-import AppIntroSlider from './node_modules/react-native-app-intro-slider';
 
 
-export default class OnBoarding extends Component {
+export default class LinkExpire extends Component {
   constructor(props) {
     super(props);
     this.state ={

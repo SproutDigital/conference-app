@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 export const IMAGE_HEIGHT = window.width / 3;
 export const IMAGE_HEIGHT_SMALL = window.width /6;
@@ -10,8 +10,10 @@ export default styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'center',
     alignItems: 'center',
-     alignContent:'center',
-     backgroundColor: 'blue'
+    alignContent:'center',
+    // paddingTop: (Platform.OS) === 'ios' ? 20 : 0,
+    // padding : 20
+
   },
 
   slide: {
@@ -21,28 +23,48 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-   sliderText: {
+  sliderText: {
     fontSize: defaultTheme.SmallFont,
-    color: defaultTheme.secondaryTextColor,
+    color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
-    marginBottom: 16,
     fontFamily: defaultTheme.secondaryFont,
-     paddingRight: 10,
-     paddingLeft: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
 
   },
-
-
   sliderTitle: {
     fontSize: defaultTheme.MediumFont,
     color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
-    marginBottom: 16,
+    // marginBottom: 16,
+    paddingTop : 40,
     fontFamily: defaultTheme.primaryFont
-
   },
+  image: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain'
+  }
+  // MainContainer: {
+  //   flex: 1,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   padding: 20
+  // },
+  // title: {
+  //   fontSize: defaultTheme.MediumFont,
+  //   color: defaultTheme.secondaryTextColor,
+  //   fontWeight: 'bold',
+  //   textAlign: 'center',
+  //   marginTop: 20,
+  // },
+  // text: {
+  //   color: defaultTheme.primaryTextColor,
+  //   fontSize: defaultTheme.primaryFont,
+  // },
+ 
 
   
 

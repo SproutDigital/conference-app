@@ -7,6 +7,7 @@ import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
+import theme from '../../assets/theme';
 
 
 export default class Register extends Component {
@@ -91,18 +92,18 @@ export default class Register extends Component {
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
-      <ScrollView style={{flex:1}}>
+      {/* <ScrollView style={{flex:1}}> */}
           <KeyboardAvoidingView
             style={styles.wrapper}
             behavior="padding"
             >
-            <View style = {styles.textinputCont}>
+            <View>
               <View style = {styles.textInputView}> 
                 <Image
                   source={require('../../assets/images/name.png')}
                   style={StyleSheet.flatten(styles.iconForm)}/> 
                     <InputField
-                      placeholder={'Name'}
+                      placeholder={'Full Name'}
                       placeholderTextColor = {colors.blackShade}
                       textColor={colors.blackShade}
                       inputType={'email'}
@@ -189,7 +190,7 @@ export default class Register extends Component {
               /> */}
             </View>
           </KeyboardAvoidingView>
-        </ScrollView>
+        {/* </ScrollView> */}
     </SafeAreaView>
     
    )

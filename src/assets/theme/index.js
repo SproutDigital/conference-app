@@ -6,6 +6,7 @@ export default defaultTheme = {
     SmallFont:  16,
     primaryTextColor: colors.darkText,
     secondaryTextColor: colors.gray,
+    buttonPrimary : colors.buttonBlue,
     primaryFont: 'Poppins-Bold',
     secondaryFont: 'Poppins-Regular',
     
