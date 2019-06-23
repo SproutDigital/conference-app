@@ -11,14 +11,14 @@ const slides = [
     key: 'somethun',
     title: 'Check the Conference \nCalendar',
     text: 'Pickout talks You like to attend and \nset Reminder',
-    image: require('../../assets/images/mobile.png'),
+    image: require('../../assets/images/people.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 'somethun-dos',
     title: 'Network!',
     text: 'Learn about the Organizers, speakers \nand other delegates and connect with \nthem easily via the app',
-    image: require('../../assets/images/manwalk.png'),
+    image: require('../../assets/images/man.png'),
     backgroundColor: '#febe29',
   },
   {
@@ -48,8 +48,9 @@ export default class BoardingScreen extends Component {
   _renderItem = (item) => {
     return (
       <View style={styles.slide}>
-        
-        <Image source={item.image} />
+        <View style = {{}}>
+          <Image source={item.image} />
+        </View>
 
         <DisplayText 
           styles={styles.sliderTitle}
