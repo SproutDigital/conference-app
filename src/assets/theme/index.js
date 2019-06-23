@@ -9,6 +9,8 @@ export default defaultTheme = {
     secondaryTextColor: colors.gray,
     buttonPrimary : colors.buttonBlue,
     buttonSecondry : colors.yellow,
+    bgColorPrimary : colors.white,
+    colorAccent : colors.white,
     primaryFont: 'Poppins-Bold',
     secondaryFont: 'Poppins-Regular',
     

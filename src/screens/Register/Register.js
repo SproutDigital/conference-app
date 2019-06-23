@@ -8,9 +8,7 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
 import {isEmailValid, postRoute, RegisterEndpoint, isEmpty} from '../../utils';
-// import { Svg } from 'expo';
-// const { Image, Rect } = Svg;
-
+import WomanSvg from './WomanSvg';
 
 
 export default class Register extends Component {
@@ -315,9 +313,7 @@ export default class Register extends Component {
             {/* </ScrollView> */}
           </KeyboardAvoidingView>
           <View style = {styles.footerView} >
-            <Image
-            source={require('../../assets/images/woman.png')}
-            style={StyleSheet.flatten(styles.footerIcon)}/>   
+            <WomanSvg/>
           </View>
       </SafeAreaView>
     

@@ -129,6 +129,9 @@ export default class Login extends Component {
   handleRegistration = () => {
     return this.props.navigation.navigate('Register');
   }
+  handleForgetPassword = () => {
+    return this.props.navigation.navigate('ForgetPassword');
+  }
   
   render () {
     const { title, message, showAlert, showLoading } = this.state
@@ -233,7 +236,7 @@ export default class Login extends Component {
           <DisplayText
             text={'Forgot Password?'}
             styles = {styles.forgotPwd}
-            onPress = {this.handleRegistration}
+            onPress = {this.handleForgetPassword}
           />
           
         </View>
