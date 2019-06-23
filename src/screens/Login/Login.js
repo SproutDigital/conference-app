@@ -9,6 +9,7 @@ import { saveProfile} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Curve from './Curve';
 
 export default class Login extends Component {
   constructor(props) {
@@ -138,7 +139,9 @@ export default class Login extends Component {
 
     return(
     <View style={styles.container}> 
-
+      <View style = {styles.curve}>
+        <Curve/>
+      </View>
       <Text style={styles.logoTxt} >
         ignite
       </Text>
