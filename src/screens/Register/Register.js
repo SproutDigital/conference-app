@@ -1,13 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
-import theme from '../../assets/theme';
+import {isEmailValid, postRoute, RegisterEndpoint, isEmpty} from '../../utils';
 // import { Svg } from 'expo';
 // const { Image, Rect } = Svg;
 
@@ -18,6 +18,7 @@ export default class Register extends Component {
     super(props);
     this.state ={
       password : '',
+      password2 : '',
       email : '',
       name: '',
       isEmailValid : false,
@@ -31,10 +32,31 @@ export default class Register extends Component {
     }
   }
 
+<<<<<<< HEAD
   handleLoginRoute = () => {
     this.props.navigation.navigate('Login')
   }
 
+  handleEmailChange = (email) => {
+    if(email.length > 0) {
+=======
+  handleNameChange = (name) => {
+
+    if(name.length > 0) {
+>>>>>>> bd8b4ecdb622666ca5f1ab9d38cf9b6ed94786f9
+      this.setState({
+        isNameValid: true,
+        name : name
+      });
+    }
+    else {
+      if (name.length < 1) {
+        this.setState({
+          isNameValid : false
+        });
+      }
+    }
+  }
   handleEmailChange = (email) => {
     if(email.length > 0) {
       this.setState({
@@ -46,21 +68,6 @@ export default class Register extends Component {
       if (email.length < 1) {
         this.setState({
           isEmailValid : false
-        });
-      }
-    }
-  }
-  handleEmailChange = (name) => {
-    if(name.length > 0) {
-      this.setState({
-        isNameValid: true,
-        name : name
-      });
-    }
-    else {
-      if (name.length < 1) {
-        this.setState({
-          isNameValid : false
         });
       }
     }
@@ -82,10 +89,33 @@ export default class Register extends Component {
     }
   }
 
+
+  handlePassword2Change = (password2) => {
+    if (password2.length > 0) {
+      this.setState({
+        isPassword2Valid : true,
+        password2: password2
+      });
+    }
+    else {
+      if ( password2.length < 1 ) {
+        this.setState({
+          isPassword2Valid : false
+        })
+      }
+    }
+  }
+
+  handleCloseNotification = () => {
+    return this.setState({
+       showAlert : false
+     })
+   }
+
   toggleButtonState = () => {
     const { isEmailValid, isPasswordValid, isNameValid} = this.state;
 
-    if ( isEmailValid && isNameValid && isPasswordValid) {
+    if (isEmailValid && isNameValid && isPasswordValid) {
       return true;
     } 
     else {
@@ -94,17 +124,81 @@ export default class Register extends Component {
   }
 
 
+  handleRegistration =()=>{
+    const {email, name, password, password2} = this.state;
+
+    if(isEmpty(name)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Name'
+      })
+    }
+    else if(!isEmailValid(email)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Invalid Email Address'
+      })
+    }
+    else if(isEmpty(password)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Password'
+      })
+    }
+    else if(isEmpty(password2)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Confirmation Password'
+      })
+    }
+    else if(password !== password2) {
+      return this.setState({
+        showAlert: true,
+        message: 'Passwords Donot Match',
+      });
+    }
+
+
+    this.setState({
+      showLoading: true,
+    });
+
+    let data = JSON.stringify({
+      "age" : password, 
+      "salary" : email.toLowerCase(), 
+      "name" : name, 
+
+    });
+
+    postRoute (RegisterEndpoint, data)
+      .then((res) => {
+        if (typeof res.message !== 'undefined' ) {  
+          return  this.setState({ 
+            showLoading : false,
+            title : 'Hello',
+            message : res.message,
+            showAlert : true,
+          }); 
+        }
+        else {
+          this.setState({ 
+            showLoading : false, 
+          }); 
+          this.props.navigation.navigate('Profile');
+        }
+      });
+  }
+
+
   
   render () {
+    const {showLoading, showAlert, message} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
       <KeyboardAvoidingView
           style={styles.wrapper}
           behavior = 'padding'> 
-           {/* <ScrollView 
-            style={{flex:1,}}
-            showsVerticalScrollIndicator={false}> */}
             <View>
               <View style = {styles.textInputView}> 
                 <Image
@@ -114,8 +208,7 @@ export default class Register extends Component {
                       placeholder={'Full Name'}
                       placeholderTextColor = {colors.blackShade}
                       textColor={colors.blackShade}
-                      inputType={'email'}
-                      keyboardType={'default'}
+                      inputType={'text'}
                       onChangeText = {this.handleNameChange}
                       autoCapitalize = "none"
                       height = {40}
@@ -133,7 +226,6 @@ export default class Register extends Component {
                       placeholderTextColor = {colors.blackShade}
                       textColor={colors.blackShade}
                       inputType={'email'}
-                      keyboardType={'email'}
                       onChangeText = {this.handleEmailChange}
                       autoCapitalize = "none"
                       height = {40}
@@ -150,9 +242,25 @@ export default class Register extends Component {
                       placeholder={'Password'}
                       placeholderTextColor = {colors.blackShade}
                       textColor={colors.blackShade}
-                      inputType={'name'}
-                      keyboardType={'default'}
+                      inputType={'password'}
                       onChangeText = {this.handlePasswordChange}
+                      autoCapitalize = "none"
+                      height = {40}
+                      width = {'90%'}
+                      borderWidth = {1}
+                      borderColor = {colors.white}
+                  /> 
+              </View>
+              <View style = {styles.textInputView}> 
+                <Image
+                  source={require('../../assets/images/padlock.png')}
+                  style={StyleSheet.flatten(styles.iconForm)}/> 
+                    <InputField
+                      placeholder={'Confirm Password'}
+                      placeholderTextColor = {colors.blackShade}
+                      textColor={colors.blackShade}
+                      inputType={'password'}
+                      onChangeText = {this.handlePassword2Change}
                       autoCapitalize = "none"
                       height = {40}
                       width = {'90%'}
@@ -163,12 +271,12 @@ export default class Register extends Component {
             </View>         
             <View style = {styles.btnView}>
               <TouchableOpacity 
-                onPress={this.handleSignIn}
+                onPress={this.handleRegistration}
                 style = {styles.buttonWithImage}>
                 <DisplayText
                   styles = {StyleSheet.flatten(styles.buttonTxt)}
                   text = {'Sign Up'}
-                  onPress={this.handleSignIn}
+                  onPress={this.handleRegistration}
                 />
                 <Image
                   source={require('../../assets/images/add_peopl.png')}
@@ -197,17 +305,17 @@ export default class Register extends Component {
                 textStyle={{color:'white'}}
               /> 
 
-              {/* <ProgressDialog
+              <ProgressDialog
                 visible={showLoading}
                 title="Processing"
                 message="Please wait..."
-              /> */}
-              {/* <SingleButtonAlert
-                title = {title} 
+              />
+              <SingleButtonAlert
+                title = {'Hello'} 
                 message = {message}
                 handleCloseNotification = {this.handleCloseNotification}
                 visible = {showAlert}
-              /> */}
+              />
             </View>
             {/* </ScrollView> */}
           </KeyboardAvoidingView>
@@ -216,7 +324,7 @@ export default class Register extends Component {
             source={require('../../assets/images/woman.png')}
             style={StyleSheet.flatten(styles.footerIcon)}/>   
           </View>
-    </SafeAreaView>
+      </SafeAreaView>
     
    )
   }

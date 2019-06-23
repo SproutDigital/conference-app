@@ -1,24 +1,22 @@
-const Baseurl = 'https://plateauyc.herokuapp.com/pyc/';
+const Baseurl = 'http://dummy.restapiexample.com/api/v1/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
 const LoginEndpoint = `${Baseurl}loginUser`,
-    RegisterEndpoint = `${Baseurl}RegisterUser`,
-    ProfileEndpoint = `${Baseurl}profile`,
-    UpdateProfileEndoint = `${Baseurl}profile`,
-    ImageUploadEndoint = `${Baseurl}upload`;
+    RegisterEndpoint = `${Baseurl}create`;
 
 export {
     LoginEndpoint,
     RegisterEndpoint,
-    ProfileEndpoint,
-    UpdateProfileEndoint,
-    ImageUploadEndoint,
 }
 
 
 export const isEmailValid = (email) => {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+}
+
+export const  isEmpty =(str)  => {
+    return (!str || 0 === str.trim().length);
 }
 
 

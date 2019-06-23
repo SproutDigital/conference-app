@@ -88,6 +88,8 @@ export default class InputField extends Component {
       keyboardType = 'numeric';
     } else if(inputType === 'name') {
       keyboardType = 'default';
+    } else if(inputType === 'email') {
+      keyboardType = 'email-address';
     }
   
 
