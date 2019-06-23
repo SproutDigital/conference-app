@@ -181,142 +181,136 @@ export default class Register extends Component {
         }
       });
   }
-
-
   
   render () {
     const {showLoading, showAlert, message} = this.state;
-   return(
-    <SafeAreaView style={styles.container}> 
-      <StatusBar barStyle="default" /> 
-      <KeyboardAvoidingView
-          style={styles.wrapper}
-          behavior = 'padding'> 
-            <View>
-              <View style = {styles.textInputView}> 
-                <Image
-                  source={require('../../assets/images/name.png')}
-                  style={StyleSheet.flatten(styles.iconForm)}/> 
-                    <InputField
-                      placeholder={'Full Name'}
-                      placeholderTextColor = {colors.blackShade}
-                      textColor={colors.blackShade}
-                      inputType={'text'}
-                      onChangeText = {this.handleNameChange}
-                      autoCapitalize = "none"
-                      height = {40}
-                      width = {'90%'}
-                      borderWidth = {1}
-                      borderColor = {colors.white}
-                  /> 
-              </View>
-              <View style = {styles.textInputView}> 
-                <Image
-                  source={require('../../assets/images/email.png')}
-                  style={StyleSheet.flatten(styles.iconForm)}/> 
-                    <InputField
-                      placeholder={'Email'}
-                      placeholderTextColor = {colors.blackShade}
-                      textColor={colors.blackShade}
-                      inputType={'email'}
-                      onChangeText = {this.handleEmailChange}
-                      autoCapitalize = "none"
-                      height = {40}
-                      width = {'90%'}
-                      borderWidth = {1}
-                      borderColor = {colors.white}
-                  /> 
-              </View>
-              <View style = {styles.textInputView}> 
-                <Image
-                  source={require('../../assets/images/padlock.png')}
-                  style={StyleSheet.flatten(styles.iconForm)}/> 
-                    <InputField
-                      placeholder={'Password'}
-                      placeholderTextColor = {colors.blackShade}
-                      textColor={colors.blackShade}
-                      inputType={'password'}
-                      onChangeText = {this.handlePasswordChange}
-                      autoCapitalize = "none"
-                      height = {40}
-                      width = {'90%'}
-                      borderWidth = {1}
-                      borderColor = {colors.white}
-                  /> 
-              </View>
-              <View style = {styles.textInputView}> 
-                <Image
-                  source={require('../../assets/images/padlock.png')}
-                  style={StyleSheet.flatten(styles.iconForm)}/> 
-                    <InputField
-                      placeholder={'Confirm Password'}
-                      placeholderTextColor = {colors.blackShade}
-                      textColor={colors.blackShade}
-                      inputType={'password'}
-                      onChangeText = {this.handlePassword2Change}
-                      autoCapitalize = "none"
-                      height = {40}
-                      width = {'90%'}
-                      borderWidth = {1}
-                      borderColor = {colors.white}
-                  /> 
-              </View>
-            </View>         
-            <View style = {styles.btnView}>
-              <TouchableOpacity 
-                onPress={this.handleRegistration}
-                style = {styles.buttonWithImage}>
-                <DisplayText
-                  styles = {StyleSheet.flatten(styles.buttonTxt)}
-                  text = {'Sign Up'}
+    return(
+      <SafeAreaView style={styles.container}> 
+        <StatusBar barStyle="default"/>
+       
+          <KeyboardAvoidingView
+            style={styles.wrapper}
+            behavior = 'padding'> 
+              <View>
+                <View style = {styles.textInputView}> 
+                  <Image
+                    source={require('../../assets/images/name.png')}
+                    style={StyleSheet.flatten(styles.iconForm)}/> 
+                  <InputField
+                    placeholder={'Full Name'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'text'}
+                    onChangeText = {this.handleNameChange}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    borderColor = {colors.white}/> 
+                </View>
+                <View style = {styles.textInputView}> 
+                  <Image
+                    source={require('../../assets/images/email.png')}
+                    style={StyleSheet.flatten(styles.iconForm)}/> 
+                  <InputField
+                    placeholder={'Email'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'email'}
+                    onChangeText = {this.handleEmailChange}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    borderColor = {colors.white}/> 
+                </View>
+                <View style = {styles.textInputView}> 
+                  <Image
+                    source={require('../../assets/images/padlock.png')}
+                    style={StyleSheet.flatten(styles.iconForm)}/> 
+                  <InputField
+                    placeholder={'Password'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'password'}
+                    onChangeText = {this.handlePasswordChange}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    borderColor = {colors.white}/> 
+                </View>
+                <View style = {styles.textInputView}> 
+                  <Image
+                    source={require('../../assets/images/padlock.png')}
+                    style={StyleSheet.flatten(styles.iconForm)}/> 
+                  <InputField
+                    placeholder={'Confirm Password'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'password'}
+                    onChangeText = {this.handlePassword2Change}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    borderColor = {colors.white}/> 
+                </View>
+              </View>         
+              <View style = {styles.btnView}>
+                <TouchableOpacity 
                   onPress={this.handleRegistration}
+                  style = {styles.buttonWithImage}>
+                  <DisplayText
+                    styles = {StyleSheet.flatten(styles.buttonTxt)}
+                    text = {'Sign Up'}
+                    onPress={this.handleRegistration}
+                  />
+                  <Image
+                    source={require('../../assets/images/add_peopl.png')}
+                    style={StyleSheet.flatten(styles.iconDoor)}/> 
+                </TouchableOpacity>
+                <View style = {StyleSheet.flatten(styles.signupLinkView)}>
+                  <DisplayText
+                    text={'Already have an Account? '}
+                    styles = {styles.signupText}
+                    onPress = {this.handleLoginRoute}
+                  />
+                  <DisplayText
+                    text={'Log In'}
+                    styles = {styles.createAccount}
+                    onPress = {this.handleLoginRoute}
+                  />
+                </View>
+                <Toast
+                  ref="toast"
+                  style={{backgroundColor: 'green'}}
+                  position='bottom'
+                  positionValue={200}
+                  fadeInDuration={750}
+                  fadeOutDuration={5000}
+                  opacity={0.8}
+                  textStyle={{color:'white'}}
+                /> 
+
+                <ProgressDialog
+                  visible={showLoading}
+                  title="Processing"
+                  message="Please wait..."
                 />
-                <Image
-                  source={require('../../assets/images/add_peopl.png')}
-                  style={StyleSheet.flatten(styles.iconDoor)}/> 
-              </TouchableOpacity>
-              <View style = {StyleSheet.flatten(styles.signupLinkView)}>
-                <DisplayText
-                  text={'Already have an Account? '}
-                  styles = {styles.signupText}
-                  onPress = {this.handleLoginRoute}
-                />
-                <DisplayText
-                  text={'Log In'}
-                  styles = {styles.createAccount}
-                  onPress = {this.handleLoginRoute}
+                <SingleButtonAlert
+                  title = {'Hello'} 
+                  message = {message}
+                  handleCloseNotification = {this.handleCloseNotification}
+                  visible = {showAlert}
                 />
               </View>
-              <Toast
-                ref="toast"
-                style={{backgroundColor: 'green'}}
-                position='bottom'
-                positionValue={200}
-                fadeInDuration={750}
-                fadeOutDuration={5000}
-                opacity={0.8}
-                textStyle={{color:'white'}}
-              /> 
-
-              <ProgressDialog
-                visible={showLoading}
-                title="Processing"
-                message="Please wait..."
-              />
-              <SingleButtonAlert
-                title = {'Hello'} 
-                message = {message}
-                handleCloseNotification = {this.handleCloseNotification}
-                visible = {showAlert}
-              />
-            </View>
-            {/* </ScrollView> */}
-          </KeyboardAvoidingView>
-          <View style = {styles.footerView} >
-            <WomanSvg/>
-          </View>
+              {/* </ScrollView> */}
+        </KeyboardAvoidingView>
+        <View style = {styles.footerView} >
+          <WomanSvg/>
+        </View>
       </SafeAreaView>
-    
-   )
+    )
   }
 } 

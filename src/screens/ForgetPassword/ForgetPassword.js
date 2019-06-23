@@ -66,6 +66,16 @@ export default class ForgetPassword extends Component {
     return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
+      <View style = {styles.navBar}>
+        <TouchableOpacity   
+          onPress = {this.handleLoginRoute}
+          style = {styles.backView}>
+          <Image
+            onPress = {this.handleLoginRoute}
+            source={require('../../assets/images/back.png')}
+            style={StyleSheet.flatten(styles.backIcon)}/> 
+        </TouchableOpacity>
+      </View>
       <KeyboardAvoidingView
         style={styles.wrapper}
         behavior = 'padding'> 
