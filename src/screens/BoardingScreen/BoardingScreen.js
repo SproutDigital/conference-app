@@ -9,23 +9,23 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 const slides = [
   {
     key: 'somethun',
-    title: 'Check the Conference Calendar',
-    text: 'Pickout talks You like to attend and set Reminder',
-    image: require('../../assets/images/icon.png'),
+    title: 'Check the Conference \nCalendar',
+    text: 'Pickout talks You like to attend and \nset Reminder',
+    image: require('../../assets/images/mobile.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 'somethun-dos',
     title: 'Network!',
-    text: 'Learn about the Organizers, speakers and other delegates and connect with them via the app',
-    image: require('../../assets/images/icon.png'),
+    text: 'Learn about the Organizers, speakers \nand other delegates and connect with \nthem easily via the app',
+    image: require('../../assets/images/manwalk.png'),
     backgroundColor: '#febe29',
   },
   {
     key: 'somethun1',
-    title: 'Need Help',
-    text: 'Cant Find a meeting room, not sure of the weather..',
-    image: require('../../assets/images/icon.png'),
+    title: 'Quick Help',
+    text: 'Cant find a meeting room, not sure \nabout the weather? Like we said, \n"Everything in one place"',
+    image: require('../../assets/images/woman.png'),
     backgroundColor: '#22bcb5',
   }
 ];
@@ -114,8 +114,10 @@ export default class BoardingScreen extends Component {
             renderItem={this._renderItem} 
             slides={slides} 
             onDone={this._onDone}
-            onSkip={() => console.log("skipped")}
-
+            showSkipButton ={true}
+            showNextButton={false}
+            onSkip={() => this.props.navigation.navigate('Register')}
+            onDone={() => this.props.navigation.navigate('Register')}
           />
         </View>
       )

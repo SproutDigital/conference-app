@@ -183,10 +183,6 @@ export default class Login extends Component {
                   /> 
               </View>
             </View>
-
-            
-
-          
             <Toast
               ref="toast"
               style={{backgroundColor: 'green'}}
@@ -197,7 +193,6 @@ export default class Login extends Component {
               opacity={0.8}
               textStyle={{color:'white'}}
             /> 
-
             <ProgressDialog
               visible={showLoading}
               title="Processing"

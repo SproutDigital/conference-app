@@ -11,7 +11,8 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignContent:'center',
-    paddingTop: (Platform.OS) === 'ios' ? 20 : 0,
+    // paddingTop: (Platform.OS) === 'ios' ? 20 : 0,
+    // padding : 20
 
   },
 
@@ -22,50 +23,48 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-   sliderText: {
+  sliderText: {
     fontSize: defaultTheme.SmallFont,
-    color: defaultTheme.secondaryTextColor,
+    color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
-    marginBottom: 16,
     fontFamily: defaultTheme.secondaryFont,
-     paddingRight: 10,
-     paddingLeft: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
 
   },
-
-
   sliderTitle: {
     fontSize: defaultTheme.MediumFont,
     color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
-    marginBottom: 16,
+    // marginBottom: 16,
+    paddingTop : 40,
     fontFamily: defaultTheme.primaryFont
-
-  },
-  MainContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20
-  },
-  title: {
-    fontSize: 26,
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  text: {
-    color: '#fff',
-    fontSize: 20,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
     resizeMode: 'contain'
   }
+  // MainContainer: {
+  //   flex: 1,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   padding: 20
+  // },
+  // title: {
+  //   fontSize: defaultTheme.MediumFont,
+  //   color: defaultTheme.secondaryTextColor,
+  //   fontWeight: 'bold',
+  //   textAlign: 'center',
+  //   marginTop: 20,
+  // },
+  // text: {
+  //   color: defaultTheme.primaryTextColor,
+  //   fontSize: defaultTheme.primaryFont,
+  // },
+ 
 
   
 

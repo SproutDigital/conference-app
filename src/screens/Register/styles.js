@@ -1,10 +1,16 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
-
+import theme from '../../assets/theme';
 export default styles = StyleSheet.create({
   container: {
     flex: 1,
+   // alignItems: 'center'
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 40,
+    paddingBottom: 10, 
+
   },
   navbarStyle: {
     backgroundColor: colors.green,
@@ -25,17 +31,7 @@ export default styles = StyleSheet.create({
     padding : 20,
     backgroundColor : colors.yellow
   },
-  textInputView : {
-    width : '100%',
-    height : 45,
-    backgroundColor : colors.white,
-    borderRadius : 4,
-    flexDirection : 'row',
-    alignItems : 'center',
-    marginTop : 8,
-    paddingLeft : 8
 
-  },
   textinputCont :{},
   iconForm: {
     height : 20,
@@ -43,17 +39,7 @@ export default styles = StyleSheet.create({
     resizeMode : 'contain',
     marginRight: 8,
   },
-  buttonWithImage : {
-    borderRadius : 30,
-    width : '60%',
-    height : 45,
-    backgroundColor : colors.yellow,
-    justifyContent: 'center',
-    alignItems : 'center',
-    flexDirection : 'row',
-    marginTop : 25,
-    paddingRight : 8,
-  },
+
   buttonTxt : {
     fontFamily : 'Poppins-Regular',
     color : colors.white,
@@ -65,5 +51,41 @@ export default styles = StyleSheet.create({
     width : 18,
     resizeMode : 'contain',
     marginLeft: 24,
-  }
+  },
+  textInputView : {
+    width : '100%',
+    height : 45,
+    backgroundColor : colors.white,
+    borderRadius : 4,
+    flexDirection : 'row',
+    alignItems : 'center',
+    marginTop : 8,
+    paddingLeft : 8,
+    borderWidth : 1,
+    borderColor : theme.secondaryTextColor,
+  },
+  wrapper: {
+    flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    // marginTop: 15,
+    paddingTop: 8,
+    justifyContent: 'center',
+    alignItems : 'center',
+  },
+  btnView: {
+    alignItems : 'center',
+    width : '100%',
+  },
+  buttonWithImage : {
+    borderRadius : 30,
+    width : '60%',
+    height : 45,
+    backgroundColor : theme.buttonPrimary,
+    justifyContent: 'center',
+    alignItems : 'center',
+    flexDirection : 'row',
+    marginTop : 25,
+    paddingRight : 8,
+  },
 });

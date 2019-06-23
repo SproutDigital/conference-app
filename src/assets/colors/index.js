@@ -1,7 +1,7 @@
 export default {
   black : '#000000',
   blackShade: '#4C4C4C',
-  darkText: '#46474a',
+  darkText: '#4C4C4C',
   white : '#ffffff',
   whiteShade: '#dcdde1',
   gray: '#dddddd',
@@ -20,4 +20,5 @@ export default {
   bg1 : '#27ae60',
   blueBg : '#6633FF',
   yellow : '#FFBB00',
+  buttonBlue : '#6633FF'
 }

@@ -1,8 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, AsyncStorage, KeyboardAvoidingView,} from 'react-native';
-import {DisplayText, } from '../../components';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import colors from '../../assets/colors';
+import { ProgressDialog } from 'react-native-simple-dialogs';
+import Toast from 'react-native-easy-toast';
 import styles from './styles';
+import theme from '../../assets/theme';
 
 
 export default class Register extends Component {
@@ -14,10 +19,11 @@ export default class Register extends Component {
       name: '',
       isEmailValid : false,
       isPasswordValid : false,
-      isNameValid : fasle,
+      isNameValid : false,
       showAlert : false,
       message : '',
       refreshing: false,
+      showLoading: false,
 
     }
   }
@@ -86,18 +92,18 @@ export default class Register extends Component {
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
-      <ScrollView style={{flex:1}}>
+      {/* <ScrollView style={{flex:1}}> */}
           <KeyboardAvoidingView
             style={styles.wrapper}
             behavior="padding"
             >
-            <View style = {styles.textinputCont}>
+            <View>
               <View style = {styles.textInputView}> 
                 <Image
                   source={require('../../assets/images/name.png')}
                   style={StyleSheet.flatten(styles.iconForm)}/> 
                     <InputField
-                      placeholder={'Name'}
+                      placeholder={'Full Name'}
                       placeholderTextColor = {colors.blackShade}
                       textColor={colors.blackShade}
                       inputType={'email'}
@@ -148,13 +154,6 @@ export default class Register extends Component {
               </View>
             </View>         
             <View style = {styles.btnView}>
-
-              {/* <SubmitButton
-                title={'LOGIN'}
-                
-                // disabled={!this.toggleButtonState()}
-                onPress={this.handleSignIn}
-              /> */}
               <TouchableOpacity 
                 onPress={this.handleSignIn}
                 style = {styles.buttonWithImage}>
@@ -178,20 +177,20 @@ export default class Register extends Component {
                 textStyle={{color:'white'}}
               /> 
 
-              <ProgressDialog
+              {/* <ProgressDialog
                 visible={showLoading}
                 title="Processing"
                 message="Please wait..."
-              />
-              <SingleButtonAlert
+              /> */}
+              {/* <SingleButtonAlert
                 title = {title} 
                 message = {message}
                 handleCloseNotification = {this.handleCloseNotification}
                 visible = {showAlert}
-              />
+              /> */}
             </View>
           </KeyboardAvoidingView>
-        </ScrollView>
+        {/* </ScrollView> */}
     </SafeAreaView>
     
    )
