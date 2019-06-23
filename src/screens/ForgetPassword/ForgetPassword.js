@@ -4,10 +4,7 @@ import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView}
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
-import { ProgressDialog } from 'react-native-simple-dialogs';
-import Toast from 'react-native-easy-toast';
 import styles from './styles';
-// import SvgUri from 'react-native-svg-uri';
 import LockSvg from './LockSvg';
 
 
@@ -26,7 +23,10 @@ export default class ForgetPassword extends Component {
 
   handleLoginRoute = () => {
     this.props.navigation.navigate('Login')
-  }
+  };
+  handleResetPassword = () => {
+    this.props.navigation.navigation('LinkExpire');
+  };
 
   handleEmailChange = (email) => {
     if(email.length > 0) {
@@ -109,41 +109,18 @@ export default class ForgetPassword extends Component {
       
           <View style = {styles.btnView}>
             <TouchableOpacity 
-              onPress={this.handleRegistration}
+              onPress={this.handleResetPassword}
               style = {styles.buttonWithImage}>
               <DisplayText
                 styles = {StyleSheet.flatten(styles.buttonTxt)}
                 text = {'Reset'}
-                onPress={this.handleRegistration}
+                onPress={this.handleResetPassword}
               />
               <Image
                 source={require('../../assets/images/settings.png')}
                 style={StyleSheet.flatten(styles.iconDoor)}/> 
             </TouchableOpacity>
-            <Toast
-              ref="toast"
-              style={{backgroundColor: 'green'}}
-              position='bottom'
-              positionValue={200}
-              fadeInDuration={750}
-              fadeOutDuration={5000}
-              opacity={0.8}
-              textStyle={{color:'white'}}
-            /> 
-
-            {/* <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
-            />
-            <SingleButtonAlert
-              title = {'Hello'} 
-              message = {message}
-              handleCloseNotification = {this.handleCloseNotification}
-              visible = {showAlert}
-            /> */}
           </View>
-          {/* </ScrollView> */}
         </KeyboardAvoidingView>
       </SafeAreaView>
     
