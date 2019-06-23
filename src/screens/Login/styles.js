@@ -137,5 +137,10 @@ export default styles = StyleSheet.create({
     width : 18,
     resizeMode : 'contain',
     marginLeft: 24,
-  }
+  },
+  curve : {
+    position : 'absolute',
+    
+  },
+
 });

@@ -1,3 +1,3 @@
 import LinkExpire from './LinkExpire';
 
-export{LinkExpire};
+export default LinkExpire;
