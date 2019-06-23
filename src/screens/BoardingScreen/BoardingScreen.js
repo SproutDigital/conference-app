@@ -1,10 +1,12 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
-import {DisplayText, SubmitButton} from '../../components';
+import { View, Image } from 'react-native';
+import {DisplayText} from '../../components';
 import styles  from './styles';
 import { getProfile} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import { Ionicons } from '@expo/vector-icons';
+
  
 const slides = [
   {
@@ -64,6 +66,32 @@ export default class BoardingScreen extends Component {
       </View>
     );
   }
+
+
+  _renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="md-arrow-round-forward"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          style={{ backgroundColor: 'transparent' }}
+        />
+      </View>
+    );
+  }
+  _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="md-checkmark"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          style={{ backgroundColor: 'transparent' }}
+        />
+      </View>
+    );
+  }
   _onDone = () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
@@ -116,9 +144,13 @@ export default class BoardingScreen extends Component {
             slides={slides} 
             onDone={this._onDone}
             showSkipButton ={true}
-            showNextButton={false}
+            showNextButton={true}
             onSkip={() => this.props.navigation.navigate('Register')}
             onDone={() => this.props.navigation.navigate('Register')}
+            dotStyle= {styles.sliderDots}
+            activeDotStyle={styles.activeDotStyle}
+            renderDoneButton={this._renderDoneButton}
+            renderNextButton={this._renderNextButton}
           />
         </View>
       )
