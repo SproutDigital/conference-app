@@ -32,18 +32,13 @@ export default class Register extends Component {
     }
   }
 
-<<<<<<< HEAD
   handleLoginRoute = () => {
     this.props.navigation.navigate('Login')
   }
 
-  handleEmailChange = (email) => {
-    if(email.length > 0) {
-=======
   handleNameChange = (name) => {
 
     if(name.length > 0) {
->>>>>>> bd8b4ecdb622666ca5f1ab9d38cf9b6ed94786f9
       this.setState({
         isNameValid: true,
         name : name
@@ -284,12 +279,12 @@ export default class Register extends Component {
               </TouchableOpacity>
               <View style = {StyleSheet.flatten(styles.signupLinkView)}>
                 <DisplayText
-                  text={'New User? '}
+                  text={'Already have an Account? '}
                   styles = {styles.signupText}
                   onPress = {this.handleLoginRoute}
                 />
                 <DisplayText
-                  text={'Create Account'}
+                  text={'Log In'}
                   styles = {styles.createAccount}
                   onPress = {this.handleLoginRoute}
                 />

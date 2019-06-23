@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
 import { ProgressDialog } from 'react-native-simple-dialogs';
+import { saveProfile} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -182,10 +183,6 @@ export default class Login extends Component {
                   /> 
               </View>
             </View>
-
-            
-
-          
             <Toast
               ref="toast"
               style={{backgroundColor: 'green'}}
@@ -196,7 +193,6 @@ export default class Login extends Component {
               opacity={0.8}
               textStyle={{color:'white'}}
             /> 
-
             <ProgressDialog
               visible={showLoading}
               title="Processing"

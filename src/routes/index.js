@@ -2,12 +2,11 @@ import { createSwitchNavigator, createStackNavigator, createAppContainer } from 
 import { StatusBar } from 'react-native';
 //import {BoardingScreen, Login, Register, ForgetPassword, Logout } from '../screens'
 import  BoardingScreen  from '../screens/BoardingScreen';
-import  Login  from '../screens/Login';
 import  Register  from '../screens/Register';
 import ForgetPassword from '../screens/ForgetPassword';
 import Logout from '../screens/Logout';
 import Profile from '../screens/Profile';
-
+import  Login  from '../screens/Login';
 
 const AuthStack = createStackNavigator({ 
   BoardingScreen: {
@@ -27,7 +26,7 @@ const AuthStack = createStackNavigator({
     screen: Login,
     navigationOptions: {
       header: null
-    },
+    }
   },
 
   Register: {
