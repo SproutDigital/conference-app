@@ -7,7 +7,7 @@ import ForgetPassword from '../screens/ForgetPassword';
 import Logout from '../screens/Logout';
 import Profile from '../screens/Profile';
 import  Login  from '../screens/Login';
-
+import LinkExpire from '../screens/LinkExpire';
 const AuthStack = createStackNavigator({ 
   BoardingScreen: {
     screen: BoardingScreen,
@@ -40,6 +40,12 @@ const AuthStack = createStackNavigator({
    screen: ForgetPassword,
     navigationOptions: {
      header: null
+    }
+  },
+  LinkExpire: {
+    screen: LinkExpire,
+    navigationOptions: {
+      header: null,
     }
   },
   Logout: {
