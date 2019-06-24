@@ -1,13 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import { View, SafeAreaView, StatusBar, Image, StyleSheet, Picker, KeyboardAvoidingView} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
-import {isEmailValid, postRoute, RegisterEndpoint, isEmpty} from '../../utils';
+import {isEmailValid, postRoute, RegisterEndpoint, getExpoToken, isEmpty} from '../../utils';
 import WomanSvg from './WomanSvg';
 
 
@@ -16,9 +16,9 @@ export default class Register extends Component {
     super(props);
     this.state ={
       password : '',
-      password2 : '',
       email : '',
       name: '',
+      role: '',
       isEmailValid : false,
       isPasswordValid : false,
       isNameValid : false,
@@ -26,8 +26,13 @@ export default class Register extends Component {
       message : '',
       refreshing: false,
       showLoading: false,
+      role: '',
 
     }
+  }
+
+  async componentWillMount(){
+   
   }
 
   handleLoginRoute = () => {
@@ -83,21 +88,7 @@ export default class Register extends Component {
   }
 
 
-  handlePassword2Change = (password2) => {
-    if (password2.length > 0) {
-      this.setState({
-        isPassword2Valid : true,
-        password2: password2
-      });
-    }
-    else {
-      if ( password2.length < 1 ) {
-        this.setState({
-          isPassword2Valid : false
-        })
-      }
-    }
-  }
+  
 
   handleCloseNotification = () => {
     return this.setState({
@@ -117,8 +108,9 @@ export default class Register extends Component {
   }
 
 
-  handleRegistration =()=>{
-    const {email, name, password, password2} = this.state;
+  handleRegistration = async()=>{
+    const {email, name, password, role} = this.state;
+    let expoToken = await getExpoToken();
 
     if(isEmpty(name)) {
       return this.setState({
@@ -138,34 +130,23 @@ export default class Register extends Component {
         message: 'Enter Valid Password'
       })
     }
-    else if(isEmpty(password2)) {
-      return this.setState({
-        showAlert:true,
-        message: 'Enter Confirmation Password'
-      })
-    }
-    else if(password !== password2) {
-      return this.setState({
-        showAlert: true,
-        message: 'Passwords Donot Match',
-      });
-    }
-
-
+    
     this.setState({
       showLoading: true,
     });
 
-    let data = JSON.stringify({
-      "password" : password, 
-      "email" : email.toLowerCase(), 
-      "name" : name, 
-
+    let data = await JSON.stringify({
+      'password' : password, 
+      'email' : email.toLowerCase(), 
+      'name' : name, 
+      'expo_token' : expoToken,
+      'role' : role
     });
 
-    postRoute (RegisterEndpoint, data)
+     await postRoute (RegisterEndpoint, data)
       .then((res) => {
-        if (typeof res.message !== 'undefined' ) {  
+        console.log({res})
+        if (typeof res.message !== 'undefined' &&  res.message != false ) {  
           return  this.setState({ 
             showLoading : false,
             title : 'Hello',
@@ -177,7 +158,7 @@ export default class Register extends Component {
           this.setState({ 
             showLoading : false, 
           }); 
-          this.props.navigation.navigate('Profile');
+          this.props.navigation.navigate('Login');
         }
       });
   }
@@ -244,17 +225,16 @@ export default class Register extends Component {
                   <Image
                     source={require('../../assets/images/padlock.png')}
                     style={StyleSheet.flatten(styles.iconForm)}/> 
-                  <InputField
-                    placeholder={'Confirm Password'}
-                    placeholderTextColor = {colors.blackShade}
-                    textColor={colors.blackShade}
-                    inputType={'password'}
-                    onChangeText = {this.handlePassword2Change}
-                    autoCapitalize = "none"
-                    height = {40}
-                    width = {'90%'}
-                    borderWidth = {1}
-                    borderColor = {colors.white}/> 
+                  <Picker
+                    selectedValue={this.state.role}
+                    style={styles.textInputView}
+                    onValueChange={role => this.setState({ role })}>
+                    <Picker.Item label="attendee" value="attendee" />
+                    <Picker.Item label="speaker" value="speaker" />
+                    <Picker.Item label="sponsor" value="sponsor" />
+                    <Picker.Item label="user" value="user" />
+
+                  </Picker>
                 </View>
               </View>         
               <View style = {styles.btnView}>

@@ -3,10 +3,11 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { getProfile} from '../../utils';
+import { getToken, saveExpoToken} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
-
+import  * as Permissions from 'expo-permissions';
+import  {Notifications} from 'expo';
  
 const slides = [
   {
@@ -43,8 +44,48 @@ export default class BoardingScreen extends Component {
 
   }
 
-  componentWillMount(){
+   async componentWillMount(){
     this.checkLogin();
+  }
+
+  componentDidMount () {
+    this.registerForPushNotificationsAsync();
+    this.listener = Notifications.addListener(this.handleNotification);
+  }
+
+  handleNotification = ({ origin, data }) => {
+    //this.props.navigation.navigate('Notification')
+    console.log(
+      `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+    );
+  };
+
+
+  registerForPushNotificationsAsync = async()=> {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+  
+    // only ask if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    if (existingStatus !== 'granted') {
+      // Android remote notification permissions are granted during the app
+      // install, so this will only ask on iOS
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+  
+    // Stop here if the user did not grant permissions
+    if (finalStatus !== 'granted') {
+      return saveExpoToken('denied');
+    }
+  
+    // Get the token that uniquely identifies this device
+    let token = await Notifications.getExpoPushTokenAsync();
+  
+    // POST the token to your backend server from where you can retrieve it to send push notifications.
+    return saveExpoToken(token);
   }
 
   _renderItem = (item) => {
@@ -66,7 +107,6 @@ export default class BoardingScreen extends Component {
       </View>
     );
   }
-
 
   _renderNextButton = () => {
     return (
@@ -100,7 +140,7 @@ export default class BoardingScreen extends Component {
 
   checkLogin =  async() => {
 
-    let token = await getProfile();
+    let token = await getToken();
     if(typeof token !== 'undefined' && token !== null ) {
       this.setState({
         restoring : false,
@@ -138,24 +178,28 @@ export default class BoardingScreen extends Component {
       
       return(
         <View style={styles.container}>         
-          
-         <AppIntroSlider 
-            renderItem={this._renderItem} 
-            slides={slides} 
-            onDone={this._onDone}
-            showSkipButton ={true}
-            showNextButton={true}
-            onSkip={() => this.props.navigation.navigate('Register')}
-            onDone={() => this.props.navigation.navigate('Register')}
-            dotStyle= {styles.sliderDots}
-            activeDotStyle={styles.activeDotStyle}
-            renderDoneButton={this._renderDoneButton}
-            renderNextButton={this._renderNextButton}
-          />
+
+          <AppIntroSlider 
+              renderItem={this._renderItem} 
+              slides={slides} 
+              onDone={this._onDone}
+              showSkipButton ={true}
+              showNextButton={true}
+              onSkip={() => this.props.navigation.navigate('Register')}
+              onDone={() => this.props.navigation.navigate('Register')}
+              dotStyle= {styles.sliderDots}
+              activeDotStyle={styles.activeDotStyle}
+              renderDoneButton={this._renderDoneButton}
+              renderNextButton={this._renderNextButton}
+            />
         </View>
       )
     }  
-  }  
+  } 
+   
 } 
+
+
+
 
 
