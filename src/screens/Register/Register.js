@@ -7,9 +7,9 @@ import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
-import {isEmailValid, postRoute, RegisterEndpoint, getExpoToken, isEmpty} from '../../utils';
+import {isEmailValid, postRoute, RegisterEndpoint, getExpoToken,  saveEmail, isEmpty} from '../../utils';
 import WomanSvg from './WomanSvg';
-
+import { NavigationActions, StackActions } from 'react-navigation';
 
 export default class Register extends Component {
   constructor(props) {
@@ -31,8 +31,19 @@ export default class Register extends Component {
     }
   }
 
-  async componentWillMount(){
-   
+
+  resetNavigationStack = (message) => {
+   const navigateAction =  StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'ActivateEmail',
+          params: {'message': message},
+        }),
+      ],
+    });
+    this.props.navigation.dispatch(navigateAction);
+
   }
 
   handleLoginRoute = () => {
@@ -87,9 +98,6 @@ export default class Register extends Component {
     }
   }
 
-
-  
-
   handleCloseNotification = () => {
     return this.setState({
        showAlert : false
@@ -106,7 +114,6 @@ export default class Register extends Component {
       return false;
     }
   }
-
 
   handleRegistration = async()=>{
     const {email, name, password, role} = this.state;
@@ -145,8 +152,7 @@ export default class Register extends Component {
 
      await postRoute (RegisterEndpoint, data)
       .then((res) => {
-        console.log({res})
-        if (typeof res.message !== 'undefined' &&  res.message != false ) {  
+        if (res.status !== 'success') {  
           return  this.setState({ 
             showLoading : false,
             title : 'Hello',
@@ -155,10 +161,11 @@ export default class Register extends Component {
           }); 
         }
         else {
+          saveEmail(email);
           this.setState({ 
             showLoading : false, 
-          }); 
-          this.props.navigation.navigate('Login');
+          });
+          return this.resetNavigationStack(res.message);    
         }
       });
   }
@@ -240,6 +247,7 @@ export default class Register extends Component {
               <View style = {styles.btnView}>
                 <TouchableOpacity 
                   onPress={this.handleRegistration}
+                  disabled={true}
                   style = {styles.buttonWithImage}>
                   <DisplayText
                     styles = {StyleSheet.flatten(styles.buttonTxt)}
@@ -293,4 +301,17 @@ export default class Register extends Component {
       </SafeAreaView>
     )
   }
-} 
+}
+// const mapStateToProps = (state, ownProps) =>{
+//   return  {
+//       registered:true
+//   }
+// }
+// const mapDispatchToProps = (dispatch) =>{
+//   return{
+//     onSignUp:(status) =>{dispatch(setRegistrationStatus(status))}
+//   }
+// }
+
+//export default Register
+

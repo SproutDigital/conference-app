@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { getToken, saveExpoToken} from '../../utils';
+import { getToken, saveExpoToken, getRegistrationStatus} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
 import  {Notifications} from 'expo';
+import {connect} from 'react-redux';
+import { NavigationActions, StackActions } from 'react-navigation';
+
+
  
 const slides = [
   {
@@ -34,12 +38,11 @@ const slides = [
 ];
 
 
-export default class BoardingScreen extends Component {
+ export default class BoardingScreen extends Component {
   constructor(props) {
     super(props);
     this.state ={
       restoring : true,
-      showRealApp: false
     }
 
   }
@@ -47,6 +50,21 @@ export default class BoardingScreen extends Component {
    async componentWillMount(){
     this.checkLogin();
   }
+
+
+  resetNavigationStack = (location) => {
+    const navigateAction =  StackActions.reset({
+       index: 0,
+       actions: [
+         NavigationActions.navigate({
+           routeName: location,
+         }),
+       ],
+     });
+     this.props.navigation.dispatch(navigateAction);
+ 
+   }
+ 
 
   componentDidMount () {
     this.registerForPushNotificationsAsync();
@@ -87,6 +105,8 @@ export default class BoardingScreen extends Component {
     // POST the token to your backend server from where you can retrieve it to send push notifications.
     return saveExpoToken(token);
   }
+
+  
 
   _renderItem = (item) => {
     return (
@@ -132,20 +152,22 @@ export default class BoardingScreen extends Component {
       </View>
     );
   }
-  _onDone = () => {
-    // User finished the introduction. Show real app through
-    // navigation or simply by controlling state
-    this.setState({ showRealApp: true });
-  }
+
 
   checkLogin =  async() => {
-
     let token = await getToken();
-    if(typeof token !== 'undefined' && token !== null ) {
+    let registered = await getRegistrationStatus();
+    if(token ) {
       this.setState({
         restoring : false,
       });
-      return this.props.navigation.navigate('Navigations');
+      return this.resetNavigationStack('Profile');
+    }
+    else if(registered) {
+      this.setState({
+        restoring : false,
+      });
+      return this.resetNavigationStack('ActivateEmail');
     }
     else {
       this.setState({
@@ -198,6 +220,15 @@ export default class BoardingScreen extends Component {
   } 
    
 } 
+
+// const mapStateToProps = (state, ownProps) =>{
+//   return{
+//       registered: state.authReducer.registered
+//   }
+// }
+
+
+//export default connect(mapStateToProps)(BoardingScreen)
 
 
 

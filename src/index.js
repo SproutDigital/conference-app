@@ -5,6 +5,9 @@ import { StyleSheet, View, TextInput} from 'react-native';
 import * as Font  from 'expo-font';
 import Navigator from './routes';
 import colors from './assets/colors';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 
 TextInput.defaultProps.selectionColor = colors.green;
 
@@ -40,10 +43,12 @@ export default class App extends Component {
     return (
       
       <View style={styles.container}>
-        {fontsLoaded?
-          <Navigator/>
-          :
-          null }
+        <Provider store={store}>
+          {fontsLoaded?
+            <Navigator/>
+            :
+            null }
+        </Provider> 
       </View>
     );
   }

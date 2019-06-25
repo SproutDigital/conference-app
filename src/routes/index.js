@@ -8,6 +8,8 @@ import Logout from '../screens/Logout';
 import Profile from '../screens/Profile';
 import  Login  from '../screens/Login';
 import LinkExpire from '../screens/LinkExpire';
+import ActivateEmail from '../screens/ActivateEmail';
+import ResetPassword from '../screens/ResetPassword';
 const AuthStack = createStackNavigator({ 
   BoardingScreen: {
     screen: BoardingScreen,
@@ -48,12 +50,33 @@ const AuthStack = createStackNavigator({
       header: null,
     }
   },
+
+  ActivateEmail: {
+    screen: ActivateEmail,
+    navigationOptions: {
+      header: null,
+    }
+  }, 
+  
   Logout: {
     screen: Logout,
     navigationOptions: {
       header: null,
     }
+  }, 
+
+  Profile: {
+    screen: Profile,
+    navigationOptions: {
+      header: null,
+    }
   },
+  ResetPassword: {
+    screen: ResetPassword,
+    navigationOptions: {
+      header: null,
+    }
+  }
 });
 
 export const MenuStack = createStackNavigator({ 

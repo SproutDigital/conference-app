@@ -1,6 +1,5 @@
 import * as types from './types';
 
-
 export const setExpoToken = (expoToken) => dispatch => {
    dispatch({
     type: types.SET_EXPO_TOKEN,
@@ -22,36 +21,25 @@ export const setSessionToken = (sessionToken) => dispatch => {
   });
 }
 
+export const setRegistrationStatus = (bool) => dispatch => {
+  dispatch({
+    type: types.REGISTRATION_STATUS,
+    bool,
+  });
+}
+
 
 export const logout = () => dispatch => {
-    dispatch({
-      type: types.LOG_OUT,
-    });
-  }
-  export const login = (sessionToken) => dispatch => {
-    dispatch({
-      type: types.LOGIN,
-      sessionToken
-    });
-  }
+  dispatch({
+    type: types.LOG_OUT,
+  });
+}
   
-
-
-export const queryProducts = () => {
-  return async dispatch => {
-    //dispatch(fetchAssistantRequest());
-    try {
-
-          // let response =  await productQuery; 
-          // console.log({'response':response})
-          //  await dispatch(fetchProducts(response));
-        // }
-      
-     // });
-    } catch (error) {
-      console.log({error})
-     // dispatch(fetchAssistantFailure(error));
-    }
-  };
-};
+export const login = (sessionToken) => dispatch => {
+  dispatch({
+    type: types.LOGIN,
+    sessionToken
+  });
+}
+  
 

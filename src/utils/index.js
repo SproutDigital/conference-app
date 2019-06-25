@@ -1,12 +1,18 @@
 const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
-const LoginEndpoint = `${Baseurl}loginUser`,
-    RegisterEndpoint = `${Baseurl}user/register`;
+const LoginEndpoint = `${Baseurl}user/login`,
+    RegisterEndpoint = `${Baseurl}user/register`,
+    VerificationStatusEndpoint = `${Baseurl}user/check_status`,
+    Forgetpassword = `${Baseurl}user/forgotPassword`,
+    ResetPassword = `${Baseurl}user/resetPassword`
 
 export {
     LoginEndpoint,
     RegisterEndpoint,
+    VerificationStatusEndpoint,
+    Forgetpassword,
+    ResetPassword,
 }
 
 
@@ -18,7 +24,6 @@ export const isEmailValid = (email) => {
 export const  isEmpty =(str)  => {
     return (!str || 0 === str.trim().length);
 }
-
 
 export const postRoute = (endpoint, body) => {
 
@@ -135,4 +140,44 @@ export const getExpoToken = async () => {
                 return false;
             }
         });
+}
+
+
+export const saveRegistration = async () => {  
+    return await AsyncStorage.setItem('registered', 'registered');
+}
+
+export const getRegistrationStatus = async () => {
+    return await AsyncStorage.getItem('registered')
+        .then((value) => {
+            if (value) {
+                return value;
+            } else {
+                return false;
+            }
+        });
+}
+
+
+export const saveEmail = async (email) => {  
+    await AsyncStorage.setItem('email', email);
+    return await AsyncStorage.setItem('registered', 'registered');
+}
+
+export const getEmail = async () => {
+    return await AsyncStorage.getItem('email')
+        .then((value) => {
+            if (value) {
+                return value;
+            } else {
+                return false;
+            }
+        });
+}
+
+export const logout = async()=> {
+    let keys = ['email', 'expoToken', 'registered', 'sessionToken'];
+     return AsyncStorage.multiRemove(keys, (err) => {
+    
+    })
 }
