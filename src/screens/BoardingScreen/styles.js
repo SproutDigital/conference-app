@@ -46,26 +46,27 @@ export default styles = StyleSheet.create({
     width: 100,
     height: 100,
     resizeMode: 'contain'
-  }
-  // MainContainer: {
-  //   flex: 1,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   padding: 20
-  // },
-  // title: {
-  //   fontSize: defaultTheme.MediumFont,
-  //   color: defaultTheme.secondaryTextColor,
-  //   fontWeight: 'bold',
-  //   textAlign: 'center',
-  //   marginTop: 20,
-  // },
-  // text: {
-  //   color: defaultTheme.primaryTextColor,
-  //   fontSize: defaultTheme.primaryFont,
-  // },
- 
-
+  },
   
+  sliderDots : {
+    backgroundColor: defaultTheme.primaryTextColor
+  },
+
+  activeDotStyle: {
+    backgroundColor: defaultTheme.buttonPrimary
+  },
+
+  buttonCircle: {
+    width: 40,
+    height: 40,
+    backgroundColor: defaultTheme.buttonPrimary,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: 320,
+    height: 320,
+  } 
 
 });

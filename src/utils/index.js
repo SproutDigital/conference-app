@@ -1,12 +1,18 @@
-const Baseurl = 'http://dummy.restapiexample.com/api/v1/';
+const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
-const LoginEndpoint = `${Baseurl}loginUser`,
-    RegisterEndpoint = `${Baseurl}create`;
+const LoginEndpoint = `${Baseurl}user/login`,
+    RegisterEndpoint = `${Baseurl}user/register`,
+    VerificationStatusEndpoint = `${Baseurl}user/check_status`,
+    Forgetpassword = `${Baseurl}user/forgotPassword`,
+    ResetPassword = `${Baseurl}user/resetPassword`
 
 export {
     LoginEndpoint,
     RegisterEndpoint,
+    VerificationStatusEndpoint,
+    Forgetpassword,
+    ResetPassword,
 }
 
 
@@ -18,7 +24,6 @@ export const isEmailValid = (email) => {
 export const  isEmpty =(str)  => {
     return (!str || 0 === str.trim().length);
 }
-
 
 export const postRoute = (endpoint, body) => {
 
@@ -106,23 +111,15 @@ export const putRoute = (endpoint, body) => {
     });
 }
 
-export const saveProfile = async (token, phone, profile_id, image, data) => {
-    let profile = {
-        'token': token,
-        'phone': phone,
-        'profile_id': profile_id,
-        'image': image,
-        'data': data
-    };
-
-    return await AsyncStorage.setItem('profile', JSON.stringify(profile))
+export const saveToken = async (sessionToken) => {
+    return await AsyncStorage.setItem('sessionToken', sessionToken)
 }
 
-export const getProfile = async () => {
-    return await AsyncStorage.getItem('profile')
+export const getToken = async () => {
+    return await AsyncStorage.getItem('sessionToken')
         .then((value) => {
         if (value) {
-            return JSON.parse(value);
+            return value;
         } else {
             return false;
         }
@@ -130,20 +127,57 @@ export const getProfile = async () => {
 }
 
 
-export const saveExpoToken = async (expoToken) => {
-    let token = {
-        'token': expoToken
-    };
-    return await AsyncStorage.setItem('expoToken', JSON.stringify(token))
+export const saveExpoToken = async (expoToken) => {  
+    return await AsyncStorage.setItem('expoToken', expoToken);
 }
 
 export const getExpoToken = async () => {
     return await AsyncStorage.getItem('expoToken')
         .then((value) => {
             if (value) {
-                return JSON.parse(value);
+                return value;
             } else {
                 return false;
             }
         });
+}
+
+
+export const saveRegistration = async () => {  
+    return await AsyncStorage.setItem('registered', 'registered');
+}
+
+export const getRegistrationStatus = async () => {
+    return await AsyncStorage.getItem('registered')
+        .then((value) => {
+            if (value) {
+                return value;
+            } else {
+                return false;
+            }
+        });
+}
+
+
+export const saveEmail = async (email) => {  
+    await AsyncStorage.setItem('email', email);
+    return await AsyncStorage.setItem('registered', 'registered');
+}
+
+export const getEmail = async () => {
+    return await AsyncStorage.getItem('email')
+        .then((value) => {
+            if (value) {
+                return value;
+            } else {
+                return false;
+            }
+        });
+}
+
+export const logout = async()=> {
+    let keys = ['email', 'expoToken', 'registered', 'sessionToken'];
+     return AsyncStorage.multiRemove(keys, (err) => {
+    
+    })
 }

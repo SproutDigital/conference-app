@@ -6,7 +6,9 @@ import * as Font  from 'expo-font';
 import Navigator from './routes';
 import colors from './assets/colors';
 import { Provider } from 'react-redux';
-// import store from './redux/store';
+import store from './redux/store';
+
+
 TextInput.defaultProps.selectionColor = colors.green;
 
 export default class App extends Component {
@@ -39,14 +41,15 @@ export default class App extends Component {
     const { fontsLoaded } = this.state
 
     return (
-      // <Provider store={store}>
-        <View style={styles.container}>
-        {fontsLoaded?
-          <Navigator/>
-          :
-          null }
-        </View>
-      // </Provider>
+      
+      <View style={styles.container}>
+        <Provider store={store}>
+          {fontsLoaded?
+            <Navigator/>
+            :
+            null }
+        </Provider> 
+      </View>
     );
   }
 }

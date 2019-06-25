@@ -1,10 +1,17 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
-import {DisplayText, SubmitButton} from '../../components';
+import { View, Image } from 'react-native';
+import {DisplayText} from '../../components';
 import styles  from './styles';
-import { getProfile} from '../../utils';
+import { getToken, saveExpoToken, getRegistrationStatus} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import { Ionicons } from '@expo/vector-icons';
+import  * as Permissions from 'expo-permissions';
+import  {Notifications} from 'expo';
+import {connect} from 'react-redux';
+import { NavigationActions, StackActions } from 'react-navigation';
+
+
  
 const slides = [
   {
@@ -31,19 +38,75 @@ const slides = [
 ];
 
 
-export default class BoardingScreen extends Component {
+ export default class BoardingScreen extends Component {
   constructor(props) {
     super(props);
     this.state ={
       restoring : true,
-      showRealApp: false
     }
 
   }
 
-  componentWillMount(){
+   async componentWillMount(){
     this.checkLogin();
   }
+
+
+  resetNavigationStack = (location) => {
+    const navigateAction =  StackActions.reset({
+       index: 0,
+       actions: [
+         NavigationActions.navigate({
+           routeName: location,
+         }),
+       ],
+     });
+     this.props.navigation.dispatch(navigateAction);
+ 
+   }
+ 
+
+  componentDidMount () {
+    this.registerForPushNotificationsAsync();
+    this.listener = Notifications.addListener(this.handleNotification);
+  }
+
+  handleNotification = ({ origin, data }) => {
+    //this.props.navigation.navigate('Notification')
+    console.log(
+      `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+    );
+  };
+
+
+  registerForPushNotificationsAsync = async()=> {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+  
+    // only ask if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    if (existingStatus !== 'granted') {
+      // Android remote notification permissions are granted during the app
+      // install, so this will only ask on iOS
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+  
+    // Stop here if the user did not grant permissions
+    if (finalStatus !== 'granted') {
+      return saveExpoToken('denied');
+    }
+  
+    // Get the token that uniquely identifies this device
+    let token = await Notifications.getExpoPushTokenAsync();
+  
+    // POST the token to your backend server from where you can retrieve it to send push notifications.
+    return saveExpoToken(token);
+  }
+
+  
 
   _renderItem = (item) => {
     return (
@@ -64,20 +127,47 @@ export default class BoardingScreen extends Component {
       </View>
     );
   }
-  _onDone = () => {
-    // User finished the introduction. Show real app through
-    // navigation or simply by controlling state
-    this.setState({ showRealApp: true });
+
+  _renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="md-arrow-round-forward"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          style={{ backgroundColor: 'transparent' }}
+        />
+      </View>
+    );
+  }
+  _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="md-checkmark"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          style={{ backgroundColor: 'transparent' }}
+        />
+      </View>
+    );
   }
 
-  checkLogin =  async() => {
 
-    let token = await getProfile();
-    if(typeof token !== 'undefined' && token !== null ) {
+  checkLogin =  async() => {
+    let token = await getToken();
+    let registered = await getRegistrationStatus();
+    if(token ) {
       this.setState({
         restoring : false,
       });
-      return this.props.navigation.navigate('Navigations');
+      return this.resetNavigationStack('Profile');
+    }
+    else if(registered) {
+      this.setState({
+        restoring : false,
+      });
+      return this.resetNavigationStack('ActivateEmail');
     }
     else {
       this.setState({
@@ -110,20 +200,37 @@ export default class BoardingScreen extends Component {
       
       return(
         <View style={styles.container}>         
-          
-         <AppIntroSlider 
-            renderItem={this._renderItem} 
-            slides={slides} 
-            onDone={this._onDone}
-            showSkipButton ={true}
-            showNextButton={false}
-            onSkip={() => this.props.navigation.navigate('Register')}
-            onDone={() => this.props.navigation.navigate('Register')}
-          />
+
+          <AppIntroSlider 
+              renderItem={this._renderItem} 
+              slides={slides} 
+              onDone={this._onDone}
+              showSkipButton ={true}
+              showNextButton={true}
+              onSkip={() => this.props.navigation.navigate('Register')}
+              onDone={() => this.props.navigation.navigate('Register')}
+              dotStyle= {styles.sliderDots}
+              activeDotStyle={styles.activeDotStyle}
+              renderDoneButton={this._renderDoneButton}
+              renderNextButton={this._renderNextButton}
+            />
         </View>
       )
     }  
-  }  
+  } 
+   
 } 
+
+// const mapStateToProps = (state, ownProps) =>{
+//   return{
+//       registered: state.authReducer.registered
+//   }
+// }
+
+
+//export default connect(mapStateToProps)(BoardingScreen)
+
+
+
 
 

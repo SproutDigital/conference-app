@@ -5,6 +5,8 @@ import BoardingScreen from './BoardingScreen';
 import Logout from './Logout';
 import Profile from './Profile';
 import LinkExpire from './LinkExpire';
+import ActivateEmail from './ActivateEmail';
+import ResetPassword from './ResetPassword'
 
 export default {
   ForgetPassword, 
@@ -14,4 +16,6 @@ export default {
   Logout,
   Profile,
   LinkExpire,
+  ActivateEmail,
+  ResetPassword,
 };

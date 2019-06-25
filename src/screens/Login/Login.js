@@ -5,11 +5,13 @@ import React, {Component} from 'react';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import { saveProfile} from '../../utils';
+import {isEmailValid, postRoute, LoginEndpoint, saveToken, isEmpty} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Curve from './Curve';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -19,7 +21,7 @@ export default class Login extends Component {
       isPasswordValid: false,
       showAlert: false,
       showLoading: false,
-      username : '',
+      email : '',
       title: '',
       message: '',
       
@@ -44,6 +46,20 @@ export default class Login extends Component {
     this.keyboardWillShowSub.remove();
     this.keyboardWillHideSub.remove();
   }
+
+
+  resetNavigationStack = () => {
+    const navigateAction =  StackActions.reset({
+       index: 0,
+       actions: [
+         NavigationActions.navigate({
+           routeName: 'Profile',
+         }),
+       ],
+     });
+     this.props.navigation.dispatch(navigateAction);
+ 
+   }
 
   keyboardWillShow = (event) => {
     Animated.timing(this.imageHeight, {
@@ -80,19 +96,16 @@ export default class Login extends Component {
       showAlert : false
     });
   }
-  handleSignIn = () => {
-    alert('You Clicked me!')
-  } 
-
-  handleEmailChange = (username) => {
-    if(username.length > 0) {
+  
+  handleEmailChange = (email) => {
+    if(email.length > 0) {
       this.setState({
         isUsernameValid: true,
-        username : username
+        email : email
       });
     }
     else {
-      if (username.length < 1) {
+      if (email.length < 1) {
         this.setState({
           isUsernameValid : false
         });
@@ -132,6 +145,53 @@ export default class Login extends Component {
   }
   handleForgetPassword = () => {
     return this.props.navigation.navigate('ForgetPassword');
+  }
+
+
+  handleSignIn = async()=>{
+    const {email, password} = this.state;
+   // let expoToken = await getExpoToken();
+
+    if(!isEmailValid(email)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Invalid Email Address'
+      })
+    }
+    else if(isEmpty(password)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Password'
+      })
+    }
+    
+    this.setState({
+      showLoading: true,
+    });
+
+    let data = await JSON.stringify({
+      'password' : password, 
+      'email' : email.toLowerCase(), 
+    });
+
+     await postRoute (LoginEndpoint, data)
+      .then((res) => {
+        if (res.status == 'failure') {  
+          return  this.setState({ 
+            showLoading : false,
+            title : 'Hello',
+            message : res.message,
+            showAlert : true,
+          }); 
+        }
+        else {
+          saveToken(res.token);
+          this.setState({ 
+            showLoading : false, 
+          });
+          return this.resetNavigationStack();    
+        }
+      });
   }
   
   render () {
@@ -178,7 +238,7 @@ export default class Login extends Component {
                       placeholder={'Password'}
                       placeholderTextColor = {colors.blackShade}
                       textColor={colors.blackShade}
-                      inputType={'name'}
+                      inputType={'password'}
                       keyboardType={'default'}
                       onChangeText = {this.handlePasswordChange}
                       autoCapitalize = "none"
@@ -205,13 +265,6 @@ export default class Login extends Component {
               message="Please wait..."
             />
             <View style = {styles.btnView}>
-
-              {/* <SubmitButton
-                title={'LOGIN'}
-                
-                // disabled={!this.toggleButtonState()}
-                onPress={this.handleSignIn}
-              /> */}
               <TouchableOpacity 
                 onPress={this.handleSignIn}
                 style = {styles.buttonWithImage}>

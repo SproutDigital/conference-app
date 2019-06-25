@@ -8,16 +8,13 @@ import styles from './styles';
 import LockSvg from './LockSvg';
 import Toast from 'react-native-easy-toast';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import {isEmailValid, postRoute, Forgetpassword, isEmpty} from '../../utils';
-
-
+import { postRoute, ResetPassword, isEmpty} from '../../utils';
 
 export default class ForgetPassword extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      email : '',
-      isEmailValid : false,  
+      password : '',
       isPasswordValid : false,
       showAlert : false,
       message : '',
@@ -33,22 +30,22 @@ export default class ForgetPassword extends Component {
     this.props.navigation.navigate('LinkExpire');
   };
 
-  handleEmailChange = (email) => {
-    if(email.length > 0) {
+
+  handlePasswordChange = (password) => {
+    if (password.length > 0) {
       this.setState({
-        isEmailValid: true,
-        email : email
+        isPasswordValid : true,
+        password: password
       });
     }
     else {
-      if (email.length < 1) {
+      if ( password.length < 1 ) {
         this.setState({
-          isEmailValid : false
-        });
+          isPasswordValid : false
+        })
       }
     }
   }
-
 
   handleCloseNotification = () => {
     return this.setState({
@@ -69,12 +66,14 @@ export default class ForgetPassword extends Component {
 
 
   handleResetPassword = async()=>{
-    const {email, } = this.state;
+    const { password} = this.state;
+    let email = this.props.navigation.getParam('email');
+    let token = this.props.navigation.getParam('token');
 
-    if(!isEmailValid(email)) {
+     if(isEmpty(password)) {
       return this.setState({
         showAlert:true,
-        message: 'Invalid Email Address'
+        message: 'Enter Valid Password'
       })
     }
     
@@ -83,10 +82,12 @@ export default class ForgetPassword extends Component {
     });
 
     let data = await JSON.stringify({
-      'email' : email.toLowerCase(), 
+      password, 
+      token,
+      email, 
     });
 
-     await postRoute (Forgetpassword, data)
+     await postRoute (ResetPassword, data)
       .then((res) => {
         console.log({res})
         if (res.status !== 'success') {  
@@ -98,14 +99,10 @@ export default class ForgetPassword extends Component {
           }); 
         }
         else {
-       
           this.setState({ 
             showLoading : false, 
           });
-          return this.props.navigation.navigate('ResetPassword', {
-            'token' : res.token,
-            'email' : email
-          });    
+          //return this.resetNavigationStack(res.message);    
         }
       });
   }
@@ -139,23 +136,24 @@ export default class ForgetPassword extends Component {
               text = {'Enter your Registered Email Address '}
             />
           </View>
+          
           <View style = {styles.textInputView}> 
             <Image
-              source={require('../../assets/images/email.png')}
+              source={require('../../assets/images/padlock.png')}
               style={StyleSheet.flatten(styles.iconForm)}/> 
             <InputField
-              placeholder={'Email'}
+              placeholder={'New Password'}
               placeholderTextColor = {colors.blackShade}
               textColor={colors.blackShade}
-              inputType={'email'}
-              onChangeText = {this.handleEmailChange}
+              inputType={'password'}
+              onChangeText = {this.handlePasswordChange}
               autoCapitalize = "none"
               height = {40}
               width = {'90%'}
               borderWidth = {1}
               borderColor = {colors.white}/> 
           </View>
-
+      
           <View style = {styles.btnView}>
             <TouchableOpacity 
               onPress={this.handleResetPassword}
