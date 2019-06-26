@@ -10,8 +10,6 @@ import Toast from 'react-native-easy-toast';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import {isEmailValid, postRoute, Forgetpassword, isEmpty} from '../../utils';
 
-
-
 export default class ForgetPassword extends Component {
   constructor(props) {
     super(props);

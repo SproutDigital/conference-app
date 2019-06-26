@@ -8,10 +8,8 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import {isEmailValid, postRoute, LoginEndpoint, saveToken, isEmpty} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Curve from './Curve';
 import { NavigationActions, StackActions } from 'react-navigation';
-
 
 export default class Login extends Component {
   constructor(props) {
@@ -265,18 +263,17 @@ export default class Login extends Component {
               message="Please wait..."
             />
             <View style = {styles.btnView}>
-              <TouchableOpacity 
+              
+
+              <SubmitButton
+                title={'Log in'}
+                disabled={!this.toggleButtonState()}
                 onPress={this.handleSignIn}
-                style = {styles.buttonWithImage}>
-                <DisplayText
-                  styles = {StyleSheet.flatten(styles.buttonTxt)}
-                  text = {'Log in'}
-                  onPress={this.handleSignIn}
-                />
-                <Image
-                  source={require('../../assets/images/loginIcon.png')}
-                  style={StyleSheet.flatten(styles.iconDoor)}/> 
-              </TouchableOpacity>
+                imgSrc={require('../../assets/images/add_peopl.png')}
+                btnStyle={styles.buttonWithImage}
+                imgStyle={StyleSheet.flatten(styles.iconDoor)}
+                titleStyle={StyleSheet.flatten(styles.buttonTxt)}
+              />
 
             </View>
               

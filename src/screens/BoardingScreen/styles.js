@@ -5,7 +5,7 @@ export const IMAGE_HEIGHT_SMALL = window.width /6;
 import defaultTheme from '../../assets/theme';
 
 
-export default styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     flex: 1, 
     justifyContent: 'center',
@@ -70,3 +70,5 @@ export default styles = StyleSheet.create({
   } 
 
 });
+
+export default styles;
