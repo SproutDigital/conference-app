@@ -1,13 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, SafeAreaView, StatusBar, Image, StyleSheet, Picker, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
-import {isEmailValid, postRoute, RegisterEndpoint, getExpoToken,  saveEmail, isEmpty} from '../../utils';
+import {isEmailValid, postRoute, RegisterEndpoint, getExpoToken, saveEmail, isEmpty} from '../../utils';
 import WomanSvg from './WomanSvg';
 import { NavigationActions, StackActions } from 'react-navigation';
 
@@ -27,6 +27,7 @@ export default class Register extends Component {
       refreshing: false,
       showLoading: false,
       role: '',
+      isActive: false,
 
     }
   }
@@ -147,11 +148,11 @@ export default class Register extends Component {
       'email' : email.toLowerCase(), 
       'name' : name, 
       'expo_token' : expoToken,
-      'role' : role
     });
 
      await postRoute (RegisterEndpoint, data)
       .then((res) => {
+        console.log({res})
         if (res.status !== 'success') {  
           return  this.setState({ 
             showLoading : false,
@@ -171,7 +172,7 @@ export default class Register extends Component {
   }
   
   render () {
-    const {showLoading, showAlert, message} = this.state;
+    const {showLoading, showAlert, message, isActive} = this.state;
     return(
       <SafeAreaView style={styles.container}> 
         <StatusBar barStyle="default"/>
@@ -211,7 +212,7 @@ export default class Register extends Component {
                     width = {'90%'}
                     borderWidth = {1}
                     borderColor = {colors.white}/> 
-                </View>
+                </View> 
                 <View style = {styles.textInputView}> 
                   <Image
                     source={require('../../assets/images/padlock.png')}
@@ -228,7 +229,7 @@ export default class Register extends Component {
                     borderWidth = {1}
                     borderColor = {colors.white}/> 
                 </View>
-                <View style = {styles.textInputView}> 
+                {/* <View style = {styles.textInputView}> 
                   <Image
                     source={require('../../assets/images/padlock.png')}
                     style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -242,22 +243,19 @@ export default class Register extends Component {
                     <Picker.Item label="user" value="user" />
 
                   </Picker>
-                </View>
+                </View> */}
               </View>         
               <View style = {styles.btnView}>
-                <TouchableOpacity 
+                <SubmitButton
+                  title={'Sign Up'}
+                  disabled={!this.toggleButtonState()}
                   onPress={this.handleRegistration}
-                  disabled={true}
-                  style = {styles.buttonWithImage}>
-                  <DisplayText
-                    styles = {StyleSheet.flatten(styles.buttonTxt)}
-                    text = {'Sign Up'}
-                    onPress={this.handleRegistration}
-                  />
-                  <Image
-                    source={require('../../assets/images/add_peopl.png')}
-                    style={StyleSheet.flatten(styles.iconDoor)}/> 
-                </TouchableOpacity>
+                  imgSrc={require('../../assets/images/add_peopl.png')}
+                  btnStyle={styles.buttonWithImage}
+                  imgStyle={StyleSheet.flatten(styles.iconDoor)}
+                  titleStyle={StyleSheet.flatten(styles.buttonTxt)}
+                />
+                
                 <View style = {StyleSheet.flatten(styles.signupLinkView)}>
                   <DisplayText
                     text={'Already have an Account? '}

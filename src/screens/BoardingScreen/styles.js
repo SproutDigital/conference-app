@@ -5,7 +5,7 @@ export const IMAGE_HEIGHT_SMALL = window.width /6;
 import defaultTheme from '../../assets/theme';
 
 
-export default styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     flex: 1, 
     justifyContent: 'center',
@@ -31,6 +31,7 @@ export default styles = StyleSheet.create({
     fontFamily: defaultTheme.secondaryFont,
     paddingRight: 10,
     paddingLeft: 10,
+    marginTop: '5%'
 
   },
   sliderTitle: {
@@ -38,7 +39,6 @@ export default styles = StyleSheet.create({
     color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
-    // marginBottom: 16,
     paddingTop : 40,
     fontFamily: defaultTheme.primaryFont
   },
@@ -70,3 +70,5 @@ export default styles = StyleSheet.create({
   } 
 
 });
+
+export default styles;

@@ -1,16 +1,14 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import styles from './styles';
 import LockSvg from './LockSvg';
 import Toast from 'react-native-easy-toast';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import {isEmailValid, postRoute, Forgetpassword, isEmpty} from '../../utils';
-
-
+import {isEmailValid, postRoute, Forgetpassword} from '../../utils';
 
 export default class ForgetPassword extends Component {
   constructor(props) {
@@ -157,18 +155,15 @@ export default class ForgetPassword extends Component {
           </View>
 
           <View style = {styles.btnView}>
-            <TouchableOpacity 
+            <SubmitButton
+              title={'Log in'}
+              disabled={!this.toggleButtonState()}
               onPress={this.handleResetPassword}
-              style = {styles.buttonWithImage}>
-              <DisplayText
-                styles = {StyleSheet.flatten(styles.buttonTxt)}
-                text = {'Reset'}
-                onPress={this.handleResetPassword}
-              />
-              <Image
-                source={require('../../assets/images/settings.png')}
-                style={StyleSheet.flatten(styles.iconDoor)}/> 
-            </TouchableOpacity>
+              imgSrc={require('../../assets/images/settings.png')}
+              btnStyle={styles.buttonWithImage}
+              imgStyle={StyleSheet.flatten(styles.iconDoor)}
+              titleStyle={StyleSheet.flatten(styles.buttonTxt)}
+            />
 
             <Toast
               ref="toast"

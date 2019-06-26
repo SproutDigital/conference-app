@@ -2,7 +2,7 @@ import colors from '../colors';
 export default defaultTheme = {
     XlargeFont: 35,
     LargeFont: 25,
-    MediumFont: 20,
+    MediumFont: 25,
     SmallFont: 16,
     thinyFont: 12,
     primaryTextColor: colors.darkText,

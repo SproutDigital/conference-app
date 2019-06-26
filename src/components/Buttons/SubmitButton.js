@@ -3,26 +3,39 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import colors from '../../assets/colors';
-import {TouchableHighlight, StyleSheet, Text} from 'react-native';
+import {TouchableHighlight, TouchableOpacity, StyleSheet,Image, Text} from 'react-native';
 
 
 export default class SubmitButton extends Component {
 
   render(){
-    const {disabled, onPress, title, btnstyle, titlestyle} = this.props;
+    const {disabled, onPress, title, btnStyle, imgStyle, imgSrc, titleStyle} = this.props;
     const opacityStyle = disabled ? 0.2 : null;
-    const style = btnstyle || styles.button;
-    const titstyle = titlestyle || styles.title;
-    
+    const style = btnStyle || styles.button;
+    const textStyle = titleStyle || styles.title;
     return(
-      <TouchableHighlight 
-        style = {[{opacity: opacityStyle}, style]}
-        disabled = {disabled}
-        onPress = {onPress}>
-        <Text style = {titstyle}>
-          {title}
-        </Text>
-      </TouchableHighlight>
+      // <TouchableHighlight 
+      //   style = {[{opacity: opacityStyle}, style]}
+      //   disabled = {disabled}
+      //   onPress = {onPress}>
+      //   <Text style = {titstyle}>
+      //     {title}
+      //   </Text>
+      // </TouchableHighlight>
+            
+          <TouchableOpacity 
+            onPress={onPress}
+            style = {[{opacity: opacityStyle}, style]}
+            disabled = {disabled}>
+            <Text 
+              style={textStyle}
+              onPress={onPress}>
+              {title}
+            </Text>
+            <Image
+              source={imgSrc}
+              style={imgStyle}/> 
+          </TouchableOpacity>
     );
   }
 }

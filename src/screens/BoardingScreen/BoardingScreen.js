@@ -8,7 +8,6 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
 import  {Notifications} from 'expo';
-import {connect} from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 

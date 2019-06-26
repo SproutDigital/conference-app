@@ -6,6 +6,8 @@ import styles from './styles';
 import ExpireSvg from './ExpireSvg';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { postRoute, logout, getEmail, VerificationStatusEndpoint} from '../../utils';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 export default class ActivateEmail extends Component {
   constructor(props) {
@@ -13,6 +15,7 @@ export default class ActivateEmail extends Component {
     this.state ={
       email :'',
       showLoading: false,
+      resolved: false,
     }
   }
 
@@ -28,14 +31,27 @@ export default class ActivateEmail extends Component {
     //logout();
   }
 
+  resetNavigationStack = () => {
+    const navigateAction =  StackActions.reset({
+       index: 0,
+       actions: [
+         NavigationActions.navigate({
+           routeName: 'Profile',
+         }),
+       ],
+     });
+     this.props.navigation.dispatch(navigateAction);
+ 
+   }
+
   handleBack = () => {
     this.props.navigation.goBack();
   }
 
-
   checkEmailVerification = async() => {
     this.setState({
       showLoading: true,
+      resolved: true,
     });
 
     let data = await JSON.stringify({
@@ -57,12 +73,15 @@ export default class ActivateEmail extends Component {
           if(res.verified) {
             this.setState({ 
               showLoading : false, 
+              resolved: true
             });
-           // return this.resetNavigationStack(res.message); 
+            return this.resetNavigationStack(); 
           }
           else {
-           return this.setState({ 
+            return this.setState({ 
               showLoading : false, 
+              resolved: true
+
             });
           }
              
@@ -71,56 +90,71 @@ export default class ActivateEmail extends Component {
   }
 
   render () {
-    const { showLoading, email } = this.state;
-    
-   return(
-    <SafeAreaView style={styles.container}> 
-      <StatusBar barStyle="default" /> 
-      <View style = {styles.navBar}>
-        <TouchableOpacity   
-          onPress = {this.handleBack}
-          style = {styles.backView}>
+    const { showLoading, email, resolved } = this.state;
+    if(showLoading && resolved) {
+      return (
+        <SafeAreaView style={styles.container}> 
+          <StatusBar barStyle="default" /> 
+       
           <Image
-            onPress = {this.handleBack}
-            source={require('../../assets/images/back.png')}
-            style={StyleSheet.flatten(styles.backIcon)}/> 
-        </TouchableOpacity>
-      </View>
-      <View
-        style={styles.wrapper}
-        behavior = 'padding'> 
-          <ExpireSvg/>
-          <View style = {styles.titleTxtView}>
-            <DisplayText
-              styles = {StyleSheet.flatten(styles.topTxt)}
-              text = {'Success!'}
-            />
-            <DisplayText
-              styles = {StyleSheet.flatten(styles.bottomTxt)}
-              text = {`Activation link has been sent to \n${email}!`}
-            />
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
-            />
-          </View>
-
-          <View style = {styles.btnView}>
-            <TouchableOpacity 
-              onPress={this.handleReset}
-              style = {styles.buttonWithImage}>
-              <DisplayText
-                styles = {StyleSheet.flatten(styles.buttonTxt)}
-                text = {'Activate'}
-              />
-              <Image
-                source={require('../../assets/images/settings.png')}
-                style={StyleSheet.flatten(styles.iconDoor)}/> 
-            </TouchableOpacity>
-          </View>
-        </View>
+            source={require('../../assets/images/splash.png')}
+            style={{ resizeMode:'center' }}
+          />
+    
       </SafeAreaView>
-    )
+      );
+    }
+    else {
+    
+      return( 
+        <SafeAreaView style={styles.container}> 
+        <StatusBar barStyle="default" /> 
+        <View style = {styles.navBar}>
+          <TouchableOpacity   
+            onPress = {this.handleBack}
+            style = {styles.backView}>
+            <Image
+              onPress = {this.handleBack}
+              source={require('../../assets/images/back.png')}
+              style={StyleSheet.flatten(styles.backIcon)}/> 
+          </TouchableOpacity>
+        </View>
+        <View
+          style={styles.wrapper}
+          behavior = 'padding'> 
+            <ExpireSvg/>
+            <View style = {styles.titleTxtView}>
+              <DisplayText
+                styles = {StyleSheet.flatten(styles.topTxt)}
+                text = {'Success!'}
+              />
+              <DisplayText
+                styles = {StyleSheet.flatten(styles.bottomTxt)}
+                text = {`Activation link has been sent to \n${email}!`}
+              />
+              <ProgressDialog
+                visible={showLoading}
+                title="Processing"
+                message="Please wait..."
+              />
+            </View>
+
+            <View style = {styles.btnView}>
+              <TouchableOpacity 
+                onPress={this.handleReset}
+                style = {styles.buttonWithImage}>
+                <DisplayText
+                  styles = {StyleSheet.flatten(styles.buttonTxt)}
+                  text = {'Activate'}
+                />
+                <Image
+                  source={require('../../assets/images/settings.png')}
+                  style={StyleSheet.flatten(styles.iconDoor)}/> 
+              </TouchableOpacity>
+            </View>
+          </View>
+        </SafeAreaView>
+      )
+    }
   }
 } 

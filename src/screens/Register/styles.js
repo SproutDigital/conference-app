@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
-export default styles = StyleSheet.create({
+ let styles = StyleSheet.create({
   container: {
     flex: 1,
    // alignItems: 'center'
@@ -110,3 +110,5 @@ export default styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+export default styles;
