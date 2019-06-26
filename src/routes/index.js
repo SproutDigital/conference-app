@@ -10,6 +10,7 @@ import  Login  from '../screens/Login';
 import LinkExpire from '../screens/LinkExpire';
 import ActivateEmail from '../screens/ActivateEmail';
 import ResetPassword from '../screens/ResetPassword';
+import Verification from '../screens/Verification'
 const AuthStack = createStackNavigator({ 
   BoardingScreen: {
     screen: BoardingScreen,
@@ -75,6 +76,12 @@ const AuthStack = createStackNavigator({
     screen: ResetPassword,
     navigationOptions: {
       header: null,
+    }
+  },
+  Verification : {
+    screen : Verification,
+    navigationOptions : {
+      header : null,
     }
   }
 });

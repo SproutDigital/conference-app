@@ -1,11 +1,10 @@
 'use strict';
 import React, {Component} from 'react';
 import { TouchableOpacity, View, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView } from 'react-native';
-import {DisplayText, SingleButtonAlert, SubmitButton, OtpInputs} from '../../components';
+import {DisplayText, SingleButtonAlert, SubmitButton} from '../../components';
 import styles from './styles';
 import OtpInputs from 'react-native-otp-inputs'
 import colors from '../../assets/colors';
-import { VerificationEndpoint, postRoute } from '../Utils/Utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 
 
@@ -40,8 +39,8 @@ export default class Verification extends Component {
     const {otp } = this.state,
     {navigation} = this.props,
     id = navigation.getParam('id', 'no_id'),
-    phone = 'phone',
-    endPoint = `${VerificationEndpoint}${id}/${phone}`;
+    phone = 'phone';
+    // endPoint = `${VerificationEndpoint}`;
 
     
     let data = JSON.stringify({
@@ -117,35 +116,51 @@ render() {
           })} 
           focusedBorderColor = {colors.green_background}
           numberOfInputs={5} />
+          <View style = {styles.btnView}>
+            <SubmitButton
+              title={'Verify'}
+              onPress={this.handleRegistration}
+              imgSrc={require('../../assets/images/add_peopl.png')}
+              btnStyle={styles.buttonWithImage}
+              imgStyle={StyleSheet.flatten(styles.iconDoor)}
+              titleStyle={StyleSheet.flatten(styles.buttonTxt)}
+            />
+            
+            <View style = {styles.textView}>
+              <DisplayText
+                text={'Didn\'t get text?'}
+                styles = {styles.msgText}
+              />
+              <DisplayText
+                text={'RESENT'}
+                styles = {styles.resend}
+                onPress = {this.handleResend}            
+              />
+            </View>
+            {/* <Toast
+              ref="toast"
+              style={{backgroundColor: 'green'}}
+              position='bottom'
+              positionValue={200}
+              fadeInDuration={750}
+              fadeOutDuration={5000}
+              opacity={0.8}
+              textStyle={{color:'white'}}
+            /> 
+            <ProgressDialog
+              visible={showLoading}
+              title="Processing"
+              message="Please wait..."
+            />
+            <SingleButtonAlert
+              title = {'Hello'} 
+              message = {message}
+              handleCloseNotification = {this.handleCloseNotification}
+              visible = {showAlert}
+            /> */}
+          </View>
         </KeyboardAvoidingView>
-        <View style = {styles.textView}>
-          <DisplayText
-            text={'Didn\'t get text?'}
-            styles = {styles.msgText}
-          />
-          <DisplayText
-            text={'RESENT'}
-            styles = {styles.resend}
-            onPress = {this.handleResend}            
-          />
-          <SubmitButton
-            title={'Send'}
-            onPress = {this.handleSend}
-            buttonBorder = {styles.buttonBorder}
-            titleStyle={styles.btnText}
-          />
-          <ProgressDialog
-            visible={showLoading}
-            title="Processing"
-            message="Please wait..."
-          />
-          <SingleButtonAlert
-            title = {title} 
-            message = {message}
-            handleCloseNotification = {this.handleCloseNotification}
-            visible = {showAlert}
-          />
-        </View>
+
       </SafeAreaView>
     );
   }

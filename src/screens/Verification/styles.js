@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import { Constants } from 'expo';
 import colors from '../../assets/colors';
-
+import theme from '../../assets/theme'
 export default styles = StyleSheet.create({
 
   container: {
@@ -32,30 +32,30 @@ export default styles = StyleSheet.create({
     padding : 20,
   },
   Verification : {
-    fontSize: 16,
+    fontSize: theme.SmallFont,
     color: colors.darkSilver,
     marginTop: 15,
-    fontFamily: 'Roboto-Black',
+    fontFamily: theme.headerFont,
     alignSelf: 'center',
   },
   msgText: {
-    fontSize: 16,
+    fontSize: theme.SmallFont,
     color: colors.darkSilver,
     marginTop: 8,
-    fontFamily: 'Roboto-Light',
+    fontFamily: theme.subHeaderFont,
     alignSelf: 'center',
   },
   msgText2: {
-    fontSize: 16,
+    fontSize: theme.SmallFont,
     color: colors.darkSilver,
-    fontFamily: 'Roboto-Light',
+    fontFamily: theme.subHeaderFont,
     alignSelf: 'center',
   },
   resend : {
-    fontSize: 16,
+    fontSize: theme.SmallFont,
     marginTop : 8,
     color: colors.green_background,
-    fontFamily: 'Roboto-Black',
+    fontFamily: theme.headerFont,
     alignSelf: 'center',
   },
   buttonBorder: {
@@ -67,9 +67,9 @@ export default styles = StyleSheet.create({
     borderRadius : 25,
   },
   btnText : {
-    fontSize: 18,
+    fontSize: theme.MediumFont,
     color: colors.white,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: theme.headerFont,
     alignSelf: 'center',    
   },
 
@@ -80,6 +80,33 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     padding : 20,
   },
-
+  btnView: {
+    alignItems : 'center',
+    width : '100%',
+    marginTop : 30,
+  },
+  buttonWithImage : {
+    borderRadius : 30,
+    width : '60%',
+    height : 45,
+    backgroundColor : theme.buttonPrimary,
+    justifyContent: 'center',
+    alignItems : 'center',
+    flexDirection : 'row',
+    marginTop : 25,
+    paddingRight : 8,
+  },
+  iconDoor : {
+    height : 18,
+    width : 18,
+    resizeMode : 'contain',
+    marginLeft: 24,
+  },
+  buttonTxt : {
+    fontFamily : theme.headerFont,
+    color : theme.colorAccent,
+    fontSize: theme.SmallFont,
+    alignSelf : 'center',
+  },
 
 });
