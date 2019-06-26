@@ -68,7 +68,8 @@
       "androidCollapsedTitle":"New Messages"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sprout.conferenceapp"
     }
   }
 }

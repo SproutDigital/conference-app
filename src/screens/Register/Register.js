@@ -38,7 +38,7 @@ export default class Register extends Component {
       index: 0,
       actions: [
         NavigationActions.navigate({
-          routeName: 'ActivateEmail',
+          routeName: 'Verification',
           params: {'message': message},
         }),
       ],
@@ -48,8 +48,8 @@ export default class Register extends Component {
   }
 
   handleLoginRoute = () => {
-    // this.props.navigation.navigate('Login');
-    this.props.navigation.navigate('Verification');
+     this.props.navigation.navigate('Login');
+   // this.props.navigation.navigate('Verification');
 
   }
 
