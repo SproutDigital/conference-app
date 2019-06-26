@@ -23,6 +23,7 @@ export default class App extends Component {
 
     (async() => {
       await Font.loadAsync({
+        'Orkney-Light' : require('../src/assets/fonts/Orkney-Light.otf'),
         'Poppins-Bold' : require('../src/assets/fonts/Poppins-Bold.ttf'),
         'Poppins-ExtraBold' : require('../src/assets/fonts/Poppins-ExtraBold.ttf'),  
         'Poppins-ExtraLight' : require('../src/assets/fonts/Poppins-ExtraLight.ttf'),
@@ -30,6 +31,7 @@ export default class App extends Component {
         'Poppins-Medium' : require('../src/assets/fonts/Poppins-Medium.ttf'),
         'Poppins-Regular' : require('../src/assets/fonts/Poppins-Regular.ttf'),    
         'Poppins-Thin' : require('../src/assets/fonts/Poppins-Thin.ttf'),  
+
       });
       
       this.setState({ fontsLoaded: true });

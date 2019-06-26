@@ -13,5 +13,13 @@ export default defaultTheme = {
     colorAccent : colors.white,
     primaryFont: 'Poppins-Bold',
     secondaryFont: 'Poppins-Regular',
+    headerFont : 'Poppins-Medium',
+    subHeaderFont : 'Orkney-Light'
+
     
 }
+
+
+
+// POPPINS: for Headers
+// ORKNEY: for subs

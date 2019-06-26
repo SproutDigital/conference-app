@@ -140,7 +140,6 @@ export default styles = StyleSheet.create({
   },
   curve : {
     position : 'absolute',
-    
   },
 
 });

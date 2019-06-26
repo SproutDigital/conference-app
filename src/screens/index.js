@@ -6,7 +6,8 @@ import Logout from './Logout';
 import Profile from './Profile';
 import LinkExpire from './LinkExpire';
 import ActivateEmail from './ActivateEmail';
-import ResetPassword from './ResetPassword'
+import ResetPassword from './ResetPassword';
+import Verification from './Verification';
 
 export default {
   ForgetPassword, 
@@ -18,4 +19,5 @@ export default {
   LinkExpire,
   ActivateEmail,
   ResetPassword,
+  Verification,
 };
