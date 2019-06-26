@@ -31,6 +31,7 @@ let styles = StyleSheet.create({
     fontFamily: defaultTheme.secondaryFont,
     paddingRight: 10,
     paddingLeft: 10,
+    marginTop: '5%'
 
   },
   sliderTitle: {
@@ -38,7 +39,6 @@ let styles = StyleSheet.create({
     color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
-    // marginBottom: 16,
     paddingTop : 40,
     fontFamily: defaultTheme.primaryFont
   },

@@ -13,7 +13,6 @@ export default class SubmitButton extends Component {
     const opacityStyle = disabled ? 0.2 : null;
     const style = btnStyle || styles.button;
     const textStyle = titleStyle || styles.title;
-     console.log({imgSrc})
     return(
       // <TouchableHighlight 
       //   style = {[{opacity: opacityStyle}, style]}
