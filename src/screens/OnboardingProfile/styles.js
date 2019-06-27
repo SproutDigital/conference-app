@@ -25,8 +25,8 @@ export default styles = StyleSheet.create({
     elevation: 3,  
   },
   headerIcon: {
-    height: 20,
-    width: 20,
+    height: 18,
+    width: 18,
     tintColor : theme.primaryColor,
   },
 
@@ -37,23 +37,121 @@ export default styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft : 16,
+    marginLeft : 8,
   },
   balanceTxtView: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    width: '50%'
+    width: '100%'
   },
   nameView: {
     flexDirection: 'row',
-    width: '50%',
+    width: '80%',
+    justifyContent: 'center',
+    marginRight : 16
   },
   txtHeader: {
     fontSize: 18,
-    color: theme.primaryColor,
-    marginLeft: 16,
-    alignSelf: 'center',
-    
+    color: theme.primaryTextColor,
+    width : '100%'
+  },
+  //body view
+  viewBody : {
+    flex : 1,
+    padding: 20,
+    alignItems: 'center',
+  },
+  imageView : {
+    width : 100,
+    height : 100,
+    marginTop : 20,
+    borderRadius : 100,
+    elevation : 2,
+    backgroundColor : theme.colorAccent
+  },
+  cameraTouch : {
+    width : 40,
+    height : 40,
+    borderRadius : 50,
+    backgroundColor : theme.primaryColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity : 0.5,
+    position : 'absolute',
+    left : 70,
+    top : 45
+  },
+  cameraIcon : {
+    width : 20,
+    height : 20,
+    resizeMode : 'contain'
+  },
+  imageStyle : {
+    width : '100%',
+    height : '100%',
+    resizeMode : 'contain'
+  },
+  profileNameTxt : {
+    fontFamily : theme.semiBoldFont,
+    fontSize : theme.MediumFont
+  },
+  userCathegoryView : {
+    flexDirection : 'row',
+    justifyContent: 'center',
+    alignItems : 'center',
+    width : '100%',
+  },
+  downArrow : {
+    width : 14,
+    height : 14,
+    resizeMode : 'contain',
+    marginLeft : 8,
+    marginBottom : 2
+  },
+  userCathegoryTxt : {
+    fontFamily : theme.LightPoppins,
+    fontSize : theme.thinyFont,
+    color : theme.secondaryTextColor
   },
 
+  // Modal Style 
+  modalview : {
+    backgroundColor : colors.red,
+    justifyContent: 'center',
+    alignItems : 'center'
+  },
+  modalContainer: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    paddingTop: 80,
+  },
+  modalStyle: {
+    backgroundColor: colors.whiteShade, 
+    borderColor: colors.gray,
+    height: '40%', 
+    width: '90%',
+    padding: 16,  
+    borderRadius: 4
+  },
+  modalTxt:{
+    fontSize: 18,
+    color: colors.text_color,
+    marginTop: 6,
+    marginBottom: 6,
+    fontFamily: theme.secondaryFont,
+  },
+
+  // Textinput styling
+  titleView : {
+    backgroundColor : colors.skyBlue,
+    height : 50,
+    width : '90%',
+    flexDirection : 'column',
+    borderBottomWidth : 0.5,
+    borderBottomColor: theme.secondaryTextColor,
+    paddingTop : 4,
+    paddingBottom : 4,
+    marginTop : 8,
+  },  
 });

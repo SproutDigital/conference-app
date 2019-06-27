@@ -31,6 +31,7 @@ export default class App extends Component {
         'Poppins-Medium' : require('../src/assets/fonts/Poppins-Medium.ttf'),
         'Poppins-Regular' : require('../src/assets/fonts/Poppins-Regular.ttf'),    
         'Poppins-Thin' : require('../src/assets/fonts/Poppins-Thin.ttf'),  
+        'Poppins-SemiBold' : require('../src/assets/fonts/Poppins-SemiBold.ttf'),
 
       });
       

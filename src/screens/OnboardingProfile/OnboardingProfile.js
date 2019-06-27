@@ -1,8 +1,10 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, AsyncStorage, StyleSheet,} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
+import colors from '../../assets/colors'
+import theme from '../../assets/theme';
 
 export default class OnboardingProfile extends Component {
   constructor(props) {
@@ -11,39 +13,162 @@ export default class OnboardingProfile extends Component {
       token : '',
       showAlert : false,
       message : '',
+      category : 'Speaker',
+      isValidCategory : false,
+      catVisible : false,
+      modalCategoryVisible : false,
+
+      title : 'Mr.',
+      isValidTitle : false,
+      titleVisible : false,
+      modalTitleVisible : false,
     }
   }
 
+
+  //set Category picker
+  setCategoryPicker = (catValue) => {
+    this.setState({
+      category: catValue,
+      isValidCategory: true
+    });
+    this.closeCategoryModal();
+  }
+
+  handleCategory = () => {
+    this.toggleCategoryModal(true);
+  };
+
+  toggleCategoryModal = (catVisible) => {
+    this.setState({ modalCategoryVisible : catVisible });
+  };
+
+  closeCategoryModal = () => {
+    this.toggleCategoryModal(!this.state.modalCategoryVisible);
+  };
+
+    //set Title picker
+  setTitlePicker = (titleValue) => {
+    this.setState({
+      title: titleValue,
+      isValidTitle: true
+    });
+    this.closeTitleModal();
+  }
+
+  handleTitle = () => {
+    this.toggleTitleModal(true);
+  };
+
+  toggleTitleModal = (titleVisible) => {
+    this.setState({ modalTitleVisible : titleVisible });
+  };
+
+  closeTitleModal = () => {
+    this.toggleTitleModal(!this.state.modalTitleVisible);
+  };
+
+
   render () {
+    const pickerCategory = [
+      {title: 'Speaker', value: 'Speaker'},
+      {title: 'Organiser', value: 'Organiser'},
+      {title: 'Attende', value: 'Attende'},
+
+    ];
+    const pickerTitle = [
+      {title: 'Mr.', value: 'Mr'},
+      {title: 'Mrs.', value: 'Mrs'},
+      {title: 'Miss.', value: 'Miss'},
+      {title: 'Dr.', value: 'Dr'},
+      {title: 'Prof.', value: 'Prof'},
+
+    ];
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
         barStyle="light-content"
-        backgroundColor={colors.green_background}/>
+        backgroundColor={theme.colorAccent}/>
       <View style = {styles.navBar}>
         <TouchableOpacity
-          onPress={this.toggleDrawer} 
           style = {styles.headerImage}>
           <Image
-            onPress={this.toggleDrawer} 
             source = {require('../../assets/images/back.png')}
             style = {StyleSheet.flatten(styles.headerIcon)}
           />
         </TouchableOpacity>
         <View style = {styles.nameView}>
-        
+          <DisplayText
+            text={'ONBOARDING PROFILE'}
+            styles = {StyleSheet.flatten(styles.txtHeader)}
+          />
+        </View>
+      </View>
+      <View style = {styles.viewBody}>
+
+        <View style = {styles.imageView}>
+          <Image
+            source = {require('../../assets/images/sample_pics.png')}
+            style = {StyleSheet.flatten(styles.imageStyle)}
+          />
+          <TouchableOpacity style = { styles.cameraTouch}>
+            <Image
+              source = {require('../../assets/images/camera.png')}
+              style = {StyleSheet.flatten(styles.cameraIcon)}
+            />
+        </TouchableOpacity>
+        </View>
         <DisplayText
-          text={'Investments'}
-          styles = {StyleSheet.flatten(styles.txtHeader)}
+          styles={StyleSheet.flatten(styles.profileNameTxt)}
+          text = {'Mr Ciroma Hassan'}
         />
-      </View>
-      </View>
-      <View>
-        <DisplayText
-          styles={StyleSheet.flatten(styles.exitTxt)}
-          text = {'ONBOARDING PROFILE'}
-          onPress = {this.handleLogout}
-        />  
+          <TouchableOpacity 
+            onPress = {this.handleCategory}
+            style = { styles.userCathegoryView}>
+            <DisplayText
+              onPress = {this.handleCategory}
+              styles={StyleSheet.flatten(styles.userCathegoryTxt)}
+              text = {this.state.category}
+            />
+            <Image
+              source = {require('../../assets/images/down_arrow.png')}
+              style = {StyleSheet.flatten(styles.downArrow)}
+            />
+          </TouchableOpacity> 
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible = {this.state.modalCategoryVisible}
+            onRequestClose={() => {console.log('Request was closed')}}>
+            <View style={styles.modalContainer}> 
+              <View style={styles.modalStyle}>
+                <ScrollView 
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{ padding: 16}}>
+                  <View style={{flex: 1, justifyContent: 'center'}}>
+                    <DisplayText
+                      style={styles.textHeaderStyle}
+                      text ={' Category '} 
+                      />
+                    {pickerCategory.map((value, index) => {
+                      return <TouchableHighlight key={index} onPress={() => this.setCategoryPicker(value.value)}>
+                        <Text style={styles.modalTxt}>{value.title}</Text>
+                      </TouchableHighlight>;
+                    })
+                    }                    
+                  </View>
+                </ScrollView>
+              </View>
+            </View>
+          </Modal>
+          {/* text input view */}
+        
+          <View style = {styles.titleView}>
+
+          </View>
+
+          
       </View>
     </SafeAreaView>
     )

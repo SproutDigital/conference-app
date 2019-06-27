@@ -3,9 +3,9 @@ export default defaultTheme = {
     // Font Sizes
     XlargeFont: 35,
     LargeFont: 25,
-    MediumFont: 25,
+    MediumFont: 18,
     SmallFont: 16,
-    thinyFont: 12,
+    thinyFont: 14,
     //Colors
     primaryTextColor: colors.darkText,
     secondaryTextColor: colors.gray,
@@ -19,6 +19,8 @@ export default defaultTheme = {
     // Font Type
     primaryFont: 'Poppins-Bold',
     secondaryFont: 'Poppins-Regular',
+    semiBoldFont : 'Poppins-SemiBold',
+    LightPoppins : 'Poppins-Light',
     headerFont : 'Poppins-Medium',
     subHeaderFont : 'Orkney-Light'
 

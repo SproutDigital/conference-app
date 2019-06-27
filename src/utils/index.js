@@ -4,8 +4,10 @@ import { Alert } from 'react-native';
 const LoginEndpoint = `${Baseurl}user/login`,
     RegisterEndpoint = `${Baseurl}user/register`,
     VerificationStatusEndpoint = `${Baseurl}user/check_status`,
+    VerifyUserEndpoint = `${Baseurl}user/confirmation/`,
     Forgetpassword = `${Baseurl}user/forgotPassword`,
-    ResetPassword = `${Baseurl}user/resetPassword`
+    ResetPassword = `${Baseurl}user/resetPassword`,
+    RequestNewTokenEndpoint = `${Baseurl}user/resendEmailCode`
 
 export {
     LoginEndpoint,
@@ -13,8 +15,9 @@ export {
     VerificationStatusEndpoint,
     Forgetpassword,
     ResetPassword,
+    VerifyUserEndpoint,
+    RequestNewTokenEndpoint
 }
-
 
 export const isEmailValid = (email) => {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

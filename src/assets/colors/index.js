@@ -1,10 +1,10 @@
 export default {
   black : '#000000',
   blackShade: '#4C4C4C',
-  darkText: '#4C4C4C',
+  darkText: '#4C4A4A',
   white : '#ffffff',
   whiteShade: '#dcdde1',
-  gray: '#dddddd',
+  gray: '#636363',
   lightGold: '#e6be0b',
   green: '#508762',
   softBlue: '#3498db',

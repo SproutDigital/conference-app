@@ -15,12 +15,7 @@ import DashBoard from '../screens/DashBoard';
 import OnboardingProfile from '../screens/OnboardingProfile';
 
 const AuthStack = createStackNavigator({ 
-  OnboardingProfile : {
-    screen : OnboardingProfile,
-    navigationOptions : {
-      header : null,
-    }
-  },
+
   BoardingScreen: {
     screen: BoardingScreen,
     navigationOptions: {
@@ -106,6 +101,12 @@ export const MenuStack = createStackNavigator({
     screen: Profile,
     navigationOptions: {
       header: null,
+    }
+  },
+  OnboardingProfile : {
+    screen : OnboardingProfile,
+    navigationOptions : {
+      header : null,
     }
   },
   

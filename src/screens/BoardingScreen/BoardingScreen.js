@@ -105,8 +105,6 @@ const slides = [
     return saveExpoToken(token);
   }
 
-  
-
   _renderItem = (item) => {
     return (
       <View style={styles.slide}>
@@ -166,7 +164,7 @@ const slides = [
       this.setState({
         restoring : false,
       });
-      return this.resetNavigationStack('ActivateEmail');
+      return this.resetNavigationStack('Verification');
     }
     else {
       this.setState({
@@ -175,7 +173,6 @@ const slides = [
     }
 
   }
-
 
   handleLogin = () => {
     return this.props.navigation.navigate('Login');

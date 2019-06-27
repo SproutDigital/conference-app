@@ -1,9 +1,9 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, AsyncStorage, StyleSheet,} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
-
+import colors from '../../assets/colors';
 
 export default class DashBoard extends Component {
   constructor(props) {
