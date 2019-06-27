@@ -275,7 +275,7 @@ export default class OnboardingProfile extends Component {
                 height = {30}
                 width = {'100%'}
                 borderBottomWidth = {0}
-                borderColor = {theme.secondaryTextColor}
+                borderColor = {colors.white}
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
@@ -304,7 +304,7 @@ export default class OnboardingProfile extends Component {
                 height = {30}
                 width = {'100%'}
                 borderBottomWidth = {0}
-                borderColor = {theme.secondaryTextColor}
+                borderColor = {colors.white}
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
