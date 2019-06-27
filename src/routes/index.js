@@ -11,8 +11,11 @@ import LinkExpire from '../screens/LinkExpire';
 import ActivateEmail from '../screens/ActivateEmail';
 import ResetPassword from '../screens/ResetPassword';
 import Verification from '../screens/Verification';
+import DashBoard from '../screens/DashBoard';
+import OnboardingProfile from '../screens/OnboardingProfile';
 
 const AuthStack = createStackNavigator({ 
+
   BoardingScreen: {
     screen: BoardingScreen,
     navigationOptions: {
@@ -88,13 +91,25 @@ const AuthStack = createStackNavigator({
 });
 
 export const MenuStack = createStackNavigator({ 
-
+  DashBoard : {
+    screen : DashBoard,
+    navigationOptions : {
+      header : null,
+    }
+  },
   Profile: {
     screen: Profile,
     navigationOptions: {
       header: null,
     }
-  }
+  },
+  OnboardingProfile : {
+    screen : OnboardingProfile,
+    navigationOptions : {
+      header : null,
+    }
+  },
+  
   
 },
   {

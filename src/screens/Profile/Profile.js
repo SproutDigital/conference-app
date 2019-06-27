@@ -9,24 +9,12 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      overflowModalVisible: false,
-      data : '',
-      phone : 0,
-      token : '',
-      profile_id : '',
-      showAlert : false,
-      message : '',
-      refreshing: false,
-      gender: '',
 
     }
   }
 
-  handleLogout = () => {
-    AsyncStorage.clear();
-    setTimeout(() => {
-      this.props.navigation.navigate('Login');
-      }, 2000);
+  handleOnboard = () => {
+    return this.props.navigation.navigate('OnboardingProfile');
   }
   
   render () {
@@ -36,8 +24,8 @@ export default class Profile extends Component {
       <View>
         <DisplayText
           styles={StyleSheet.flatten(styles.exitTxt)}
-          text = {'Logout'}
-          onPress = {this.handleLogout}
+          text = {'ONBOARD'}
+          onPress = {this.handleOnboard}
         />  
       </View>
     </SafeAreaView>

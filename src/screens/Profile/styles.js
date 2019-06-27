@@ -24,6 +24,8 @@ export default styles = StyleSheet.create({
     fontSize: 40,
     color: colors.text_color,
     fontFamily: 'Poppins-Regular',
-    marginLeft: 16
+    marginLeft: 16,
+    marginTop : 50
+
   },
 });
