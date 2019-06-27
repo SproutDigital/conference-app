@@ -146,7 +146,7 @@ export default styles = StyleSheet.create({
   // Textinput styling
   titleView : {
     height : 50,
-    width : '90%',
+    width : '100%',
     flexDirection : 'column',
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
@@ -182,8 +182,8 @@ export default styles = StyleSheet.create({
     
   },
   nameInputView : {
-    height : 60,
-    width : '90%',
+    // height : 60,
+    width : '100%',
     flexDirection : 'column',
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
