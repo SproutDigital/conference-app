@@ -106,7 +106,8 @@ export default styles = StyleSheet.create({
     height : 14,
     resizeMode : 'contain',
     marginLeft : 8,
-    marginBottom : 2
+    marginBottom : 2,
+    tintColor : theme.primaryColor
   },
   userCathegoryTxt : {
     fontFamily : theme.LightPoppins,
@@ -144,14 +145,67 @@ export default styles = StyleSheet.create({
 
   // Textinput styling
   titleView : {
-    backgroundColor : colors.skyBlue,
     height : 50,
     width : '90%',
     flexDirection : 'column',
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
-    paddingTop : 4,
+    // paddingTop : 4,
     paddingBottom : 4,
     marginTop : 8,
   },  
+  titleText : {
+    fontSize :theme.MediumFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont
+  },
+  selectView : {
+    flexDirection : 'row',
+    justifyContent : 'space-between'
+  },
+  penIcon : {
+    width : 18,
+    height : 18,
+    resizeMode : 'contain',
+    marginLeft : 8,
+    marginBottom : 2,
+    tintColor : theme.primaryColor
+  },
+  inputTxt : {
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.thinyFont,
+    color : theme.secondaryTextColor
+  },
+  userTitleView : {
+    flexDirection : 'row',
+    alignItems : 'center',
+    
+  },
+  nameInputView : {
+    height : 60,
+    width : '90%',
+    flexDirection : 'column',
+    borderBottomWidth : 0.5,
+    borderBottomColor: theme.secondaryTextColor,
+    // paddingTop : 4,
+    paddingBottom : 4,
+    marginTop : 8,
+  },
+  buttonView :{
+    flexDirection : 'row',
+    marginTop : 16,
+  },
+  txtNext : {
+    fontSize: 18,
+    color: theme.primaryTextColor,
+
+  },
+  nextIcon : {
+    width : 14,
+    height : 14,
+    resizeMode : 'contain',
+    marginLeft : 8,
+    marginTop : 4,
+    tintColor : theme.primaryColor
+  }
 });

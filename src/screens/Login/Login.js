@@ -214,19 +214,19 @@ export default class Login extends Component {
                 <Image
                   source={require('../../assets/images/email.png')}
                   style={StyleSheet.flatten(styles.iconForm)}/> 
-                    <InputField
-                      placeholder={'Email'}
-                      placeholderTextColor = {colors.blackShade}
-                      textColor={colors.blackShade}
-                      inputType={'email'}
-                      keyboardType={'email'}
-                      onChangeText = {this.handleEmailChange}
-                      autoCapitalize = "none"
-                      height = {40}
-                      width = {'90%'}
-                      borderWidth = {1}
-                      borderColor = {colors.white}
-                  /> 
+                  <InputField
+                    placeholder={'Email'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'email'}
+                    keyboardType={'email'}
+                    onChangeText = {this.handleEmailChange}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    borderColor = {colors.white}
+                    /> 
               </View>
               <View style = {styles.textInputView}> 
                 <Image

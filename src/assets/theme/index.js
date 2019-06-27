@@ -22,7 +22,8 @@ export default defaultTheme = {
     semiBoldFont : 'Poppins-SemiBold',
     LightPoppins : 'Poppins-Light',
     headerFont : 'Poppins-Medium',
-    subHeaderFont : 'Orkney-Light'
+    subHeaderFont : 'Orkney-Light',
+    inputHintFont : 'Orkney-Medium.otf',
 
     
 }

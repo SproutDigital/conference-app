@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
-import {DisplayText, } from '../../components';
+import {DisplayText, InputField } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
@@ -22,9 +22,16 @@ export default class OnboardingProfile extends Component {
       isValidTitle : false,
       titleVisible : false,
       modalTitleVisible : false,
+
+      isNameValid: false,
+      name : '',
+      jobTitle : '',
+      isJobTitleValid : false,
     }
   }
-
+  handleEdit = () => {
+    alert('edit me please eddie')
+  }
 
   //set Category picker
   setCategoryPicker = (catValue) => {
@@ -67,6 +74,36 @@ export default class OnboardingProfile extends Component {
   closeTitleModal = () => {
     this.toggleTitleModal(!this.state.modalTitleVisible);
   };
+  handleNameChange = (name) => {
+    if(name.length > 0) {
+      this.setState({
+        isNameValid: true,
+        name : name
+      });
+    }
+    else {
+      if (name.length < 1) {
+        this.setState({
+          isNameValid : false
+        });
+      }
+    }
+  }
+  handleJobTitleChange = (jobTitle) => {
+    if(jobTitle.length > 0) {
+      this.setState({
+        isJobTitleValid: true,
+        jobTitle : jobTitle
+      });
+    }
+    else {
+      if (jobTitle.length < 1) {
+        this.setState({
+          isJobTitleValid : false
+        });
+      }
+    }
+  }
 
 
   render () {
@@ -104,6 +141,7 @@ export default class OnboardingProfile extends Component {
           />
         </View>
       </View>
+      {/* End of Toolbar */}
       <View style = {styles.viewBody}>
 
         <View style = {styles.imageView}>
@@ -111,7 +149,8 @@ export default class OnboardingProfile extends Component {
             source = {require('../../assets/images/sample_pics.png')}
             style = {StyleSheet.flatten(styles.imageStyle)}
           />
-          <TouchableOpacity style = { styles.cameraTouch}>
+          <TouchableOpacity 
+            style = { styles.cameraTouch}>
             <Image
               source = {require('../../assets/images/camera.png')}
               style = {StyleSheet.flatten(styles.cameraIcon)}
@@ -165,9 +204,132 @@ export default class OnboardingProfile extends Component {
           {/* text input view */}
         
           <View style = {styles.titleView}>
+            <DisplayText
+              styles={StyleSheet.flatten(styles.titleText)}
+              text = {'Title'}
+            />
+            <View style = {styles.selectView}>
+              <TouchableOpacity 
+                onPress = {this.handleCategory}
+                style = { styles.userTitleView}>
+                <DisplayText
+                  onPress = {this.handleTitle}
+                  styles={StyleSheet.flatten(styles.inputTxt)}
+                  text = {this.state.title}
+                />
+                <Image
+                  source = {require('../../assets/images/down_arrow.png')}
+                  style = {StyleSheet.flatten(styles.downArrow)}
+                />
+              </TouchableOpacity> 
+              <TouchableOpacity onPress = {this.handleEdit}>
+                <Image
+                  onPress = {this.handleEdit}
+                  source = {require('../../assets/images/edit.png')}
+                  style = {StyleSheet.flatten(styles.penIcon)}
+                />
+              </TouchableOpacity>
+            </View>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible = {this.state.modalTitleVisible}
+              onRequestClose={() => {console.log('Request was closed')}}>
+              <View style={styles.modalContainer}> 
+                <View style={styles.modalStyle}>
+                  <ScrollView 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ padding: 16}}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                      <DisplayText
+                        style={styles.textHeaderStyle}
+                        text ={'Title'} 
+                        />
+                      {pickerTitle.map((value, index) => {
+                        return <TouchableHighlight key={index} onPress={() => this.setTitlePicker(value.value)}>
+                          <Text style={styles.modalTxt}>{value.title}</Text>
+                        </TouchableHighlight>;
+                      })
+                      }                    
+                    </View>
+                  </ScrollView>
+                </View>
+              </View>
+            </Modal>
+          </View>
+          {/* Name TextInput */}
+          <View style = {styles.nameInputView}>
+            <DisplayText
+              styles={StyleSheet.flatten(styles.titleText)}
+              text = {'Name'}
+            />
+            <View style = {{flexDirection : 'row', width : '90%'}}>
+              <InputField
+                // placeholder={'Email'}
+                placeholderTextColor = {colors.blackShade}
+                textColor={colors.blackShade}
+                inputType={'email'}
+                keyboardType={'email'}
+                onChangeText = {this.handleNameChange}
+                autoCapitalize = "word"
+                height = {30}
+                width = {'80%'}
+                borderBottomWidth = {0}
+                borderColor = {theme.secondaryTextColor}
+                /> 
+                <TouchableOpacity onPress = {this.handleEdit}>
+                <Image
+                  onPress = {this.handleEdit}
+                  source = {require('../../assets/images/edit.png')}
+                  style = {StyleSheet.flatten(styles.penIcon)}
+                />
+              </TouchableOpacity>
+            </View>
 
           </View>
+          <View style = {styles.nameInputView}>
+            <DisplayText
+              styles={StyleSheet.flatten(styles.titleText)}
+              text = {'Job Title'}
+            />
+            <View style = {{flexDirection : 'row', width : '90%'}}>
+              <InputField
+                // placeholder={'Email'}
+                placeholderTextColor = {colors.blackShade}
+                textColor={colors.blackShade}
+                inputType={'email'}
+                keyboardType={'email'}
+                onChangeText = {this.handleJobTitleChange}
+                autoCapitalize = "word"
+                height = {30}
+                width = {'80%'}
+                borderBottomWidth = {0}
+                borderColor = {theme.secondaryTextColor}
+                /> 
+                <TouchableOpacity onPress = {this.handleEdit}>
+                <Image
+                  onPress = {this.handleEdit}
+                  source = {require('../../assets/images/edit.png')}
+                  style = {StyleSheet.flatten(styles.penIcon)}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
 
+          <TouchableOpacity 
+            onPress = {this.handleEdit}
+            style = {styles.buttonView}>
+            <DisplayText
+              onPress = {this.handleEdit}
+              text={'NEXT'}
+              styles = {StyleSheet.flatten(styles.txtNext)}
+            />
+            <Image
+              onPress = {this.handleEdit}
+              source = {require('../../assets/images/send_arrow.png')}
+              style = {StyleSheet.flatten(styles.nextIcon)}
+            />
+          </TouchableOpacity>
           
       </View>
     </SafeAreaView>
