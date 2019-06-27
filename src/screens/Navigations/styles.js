@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import { Constants } from 'expo';
 import colors from '../../assets/colors';
-import them from '../../assets/theme';
+import theme from '../../assets/theme';
 
 export default styles = StyleSheet.create({
   container: {
@@ -41,7 +41,7 @@ export default styles = StyleSheet.create({
   },
   profileTxt: {
     fontSize: 18,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: theme.subHeaderFont,
     color: colors.white,
   },
   backIcon: {
@@ -82,7 +82,7 @@ export default styles = StyleSheet.create({
   },
   LogoutTxt : {
     fontSize : 14,
-    fontFamily : 'Roboto-Regular',
+    fontFamily : theme.subHeaderFont,
     color : colors.white,  
     paddingLeft : 8
   },
@@ -97,7 +97,7 @@ export default styles = StyleSheet.create({
     // paddingTop : 16,
   },
   txtuser: {
-    fontFamily : 'Roboto-Regular', 
+    fontFamily : theme.subHeaderFont, 
     marginLeft : 15,
     
   },

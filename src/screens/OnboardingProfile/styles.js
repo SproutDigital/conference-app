@@ -55,10 +55,5 @@ export default styles = StyleSheet.create({
     alignSelf: 'center',
     
   },
-  exitTxt: {
-    fontSize: 40,
-    color: colors.text_color,
-    fontFamily: 'Poppins-Regular',
-    marginLeft: 16
-  },
+
 });

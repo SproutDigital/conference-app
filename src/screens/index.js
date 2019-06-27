@@ -9,6 +9,8 @@ import ActivateEmail from './ActivateEmail';
 import ResetPassword from './ResetPassword';
 import Verification from './Verification';
 import DashBoard from './DashBoard';
+import OnboardingProfile from './OnboardingProfile';
+
 export default {
   ForgetPassword, 
   Login, 
@@ -21,4 +23,5 @@ export default {
   ResetPassword,
   Verification,
   DashBoard,
+  OnboardingProfile,
 };

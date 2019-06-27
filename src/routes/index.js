@@ -12,8 +12,15 @@ import ActivateEmail from '../screens/ActivateEmail';
 import ResetPassword from '../screens/ResetPassword';
 import Verification from '../screens/Verification';
 import DashBoard from '../screens/DashBoard';
+import OnboardingProfile from '../screens/OnboardingProfile';
 
 const AuthStack = createStackNavigator({ 
+  OnboardingProfile : {
+    screen : OnboardingProfile,
+    navigationOptions : {
+      header : null,
+    }
+  },
   BoardingScreen: {
     screen: BoardingScreen,
     navigationOptions: {
@@ -100,7 +107,8 @@ export const MenuStack = createStackNavigator({
     navigationOptions: {
       header: null,
     }
-  }
+  },
+  
   
 },
   {

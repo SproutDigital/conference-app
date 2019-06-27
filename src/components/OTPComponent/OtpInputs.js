@@ -4,7 +4,7 @@ import { Content, Item, Input } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 import colors from '../../assets/colors';
 import { View, KeyboardAvoidingView } from 'react-native';
-
+import theme from '../../assets/theme'
 export default class OtpInputs extends Component {
 
   constructor(props) {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     color : colors.text,
     fontSize: 18,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: theme.subHeaderFont,
     
   }
 });

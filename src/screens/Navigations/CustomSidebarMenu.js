@@ -4,6 +4,7 @@ import { View, StyleSheet, SafeAreaView, Image, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import colors from '../../assets/colors';
 import styles from './styles';
+import theme from '../../assets/theme';
 export default class CustomSidebarMenu extends Component {
   constructor() {
     super();
@@ -75,7 +76,7 @@ export default class CustomSidebarMenu extends Component {
               <Text
                 style={{
                   fontSize: 15,
-                  fontFamily : 'Roboto-Regular',
+                  fontFamily : theme.subHeaderFont,
                   color: global.currentScreenIndex === key ? '#ABABAB' : colors.darkSilver,
                 }}
                 key = {key}
