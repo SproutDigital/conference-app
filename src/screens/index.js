@@ -8,7 +8,7 @@ import LinkExpire from './LinkExpire';
 import ActivateEmail from './ActivateEmail';
 import ResetPassword from './ResetPassword';
 import Verification from './Verification';
-
+import DashBoard from './DashBoard';
 export default {
   ForgetPassword, 
   Login, 
@@ -20,4 +20,5 @@ export default {
   ActivateEmail,
   ResetPassword,
   Verification,
+  DashBoard,
 };

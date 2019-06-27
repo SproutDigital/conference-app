@@ -264,7 +264,6 @@ export default class Login extends Component {
             />
             <View style = {styles.btnView}>
               
-
               <SubmitButton
                 title={'Log in'}
                 disabled={!this.toggleButtonState()}

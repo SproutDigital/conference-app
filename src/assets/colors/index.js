@@ -20,5 +20,8 @@ export default {
   bg1 : '#27ae60',
   blueBg : '#6633FF',
   yellow : '#FFBB00',
-  buttonBlue : '#6633FF'
+  buttonBlue : '#23B2D6',
+  skyBlue : '#23B2D6',
+  backGround : '#F1FAFC',
+  
 }
