@@ -271,9 +271,9 @@ export default class OnboardingProfile extends Component {
                 inputType={'email'}
                 keyboardType={'email'}
                 onChangeText = {this.handleNameChange}
-                autoCapitalize = "word"
+                autoCapitalize = "none"
                 height = {30}
-                width = {'80%'}
+                width = {'100%'}
                 borderBottomWidth = {0}
                 borderColor = {theme.secondaryTextColor}
                 /> 
@@ -300,9 +300,9 @@ export default class OnboardingProfile extends Component {
                 inputType={'email'}
                 keyboardType={'email'}
                 onChangeText = {this.handleJobTitleChange}
-                autoCapitalize = "word"
+                autoCapitalize = "none"
                 height = {30}
-                width = {'80%'}
+                width = {'100%'}
                 borderBottomWidth = {0}
                 borderColor = {theme.secondaryTextColor}
                 /> 
