@@ -16,14 +16,14 @@ const slides = [
   {
     key: 'somethun',
     title: 'Check the Conference \nCalendar',
-    text: 'Pickout talks You like to attend and \nset Reminder',
+    text: 'Pickout talks You \'d love to attend and \nset reminder',
     image: require('../../assets/images/people.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 'somethun-dos',
     title: 'Network!',
-    text: 'Learn about the Organizers, speakers \nand other delegates and connect with \nthem easily via the app',
+    text: 'Learn more about the organizers, speakers \nand other delegates and connect with \nthem easily via the app',
     image: require('../../assets/images/man.png'),
     backgroundColor: '#febe29',
   },

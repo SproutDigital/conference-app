@@ -109,4 +109,10 @@ export default styles = StyleSheet.create({
     alignSelf : 'center',
   },
 
+  tokenText: {
+    fontFamily : theme.headerFont,
+    color : theme.msgText,
+    fontSize: theme.SmallFont,
+  }
+
 });

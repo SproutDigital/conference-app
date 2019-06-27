@@ -17,7 +17,7 @@ export default class OtpInputs extends Component {
     otpTextInput = [];
 
     componentDidMount() {
-        this.otpTextInput[0]._root.focus();
+      this.otpTextInput[0]._root.focus();
     }
 
     renderInputs() {
@@ -27,7 +27,7 @@ export default class OtpInputs extends Component {
           <Item >
             <Input
               style={styles.inputRadius}
-              keyboardType="numeric"
+              keyboardType="default"
               onChangeText={v => this.focusNext(j, v)}
               onKeyPress={e => this.focusPrevious(e.nativeEvent.key, j)}
               ref={ref => this.otpTextInput[j] = ref}

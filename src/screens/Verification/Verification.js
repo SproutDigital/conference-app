@@ -12,7 +12,6 @@ import { NavigationActions, StackActions } from 'react-navigation';
 export default class Verification extends Component {
   constructor(props) {
     super(props);
-
     this.state ={
       token : '',
       showAlert: false,
@@ -32,7 +31,7 @@ export default class Verification extends Component {
     if(params == undefined) {
       this.checkEmailVerification();
     }
-    //logout();
+   // logout();
   }
 
   resetNavigationStack = (location) => {
@@ -173,6 +172,11 @@ export default class Verification extends Component {
       });
   }
 
+
+  handleOTPChange = (token) => {
+    this.setState({ token})
+  }
+
  
 render() {
   const {showAlert, showLoading, message, email} = this.state;
@@ -191,7 +195,7 @@ render() {
           styles = {styles.Verification}
         />
         <DisplayText
-          text={'Enter 6 digit code sent to'}
+          text={'Enter 4 characters sent to'}
           styles = {styles.msgText}
         />
         <DisplayText
@@ -200,16 +204,17 @@ render() {
         />
       </View>
 
-        {/* <OtpInputs /> */}
 
-        <KeyboardAvoidingView style={styles.optView}>
-          <OtpInputs handleChange={token => 
-          this.setState({
-            token
-          })} 
-          focusedBorderColor = {colors.green_background}
-          numberOfInputs={6} 
-          keyboardType = {'default'}/>
+         <View style={styles.optView}>
+          <OtpInputs 
+            handleChange={this.handleOTPChange}
+            focusedBorderColor = {colors.green_background}
+            numberOfInputs={4} 
+            inputStyles={styles.tokenText}
+            keyboardType = {'phone-pad'}
+        
+          />
+
           <View style = {styles.btnView}>
             <SubmitButton
               title={'Verify'}
@@ -254,7 +259,7 @@ render() {
               visible = {showAlert}
             /> 
           </View>
-        </KeyboardAvoidingView>
+        </View>
 
       </SafeAreaView>
     );
