@@ -25,7 +25,6 @@ export default defaultTheme = {
     subHeaderFont : 'Orkney-Light',
     inputHintFont : 'Orkney-Medium.otf',
 
-    
 }
 
 

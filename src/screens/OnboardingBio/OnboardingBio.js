@@ -32,10 +32,10 @@ export default class OnboardingBio extends Component {
     console.log({click : editing});
   }
   handleAddMore = () => {
-    console.log({click : addmore});
-
+    alert('Alert add more');
   }
-    //set gender picker
+  
+  //set gender picker
   setGenderPicker = (newValue) => {
     this.setState({
       gender: newValue,
@@ -321,11 +321,18 @@ export default class OnboardingBio extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <DisplayText
-              onPress = {this.handleAddMore}
-              text={'+Add more'}
-              styles = {StyleSheet.flatten(styles.addMore)}
-            />
+            <View style = {styles.selectedInterest}>
+              <TouchableOpacity 
+                onPress = {this.handleAddMore}
+                style = {styles.addmoreBtn}>
+                <DisplayText
+                  onPress = {this.handleAddMore}
+                  text={'+Add more'}
+                  styles = {StyleSheet.flatten(styles.addMore)}
+                />
+              </TouchableOpacity>
+            </View>
+            
           </View>
           <View style = {styles.btnViewNext}> 
             <TouchableOpacity 

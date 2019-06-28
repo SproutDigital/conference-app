@@ -45,25 +45,22 @@ export default class LastPage extends Component {
           text = {'We Promise'}
         />
       </View>
-      
-        
-        <View style = {styles.btnViewNext}> 
-            <TouchableOpacity 
-              onPress = {this.handleSwipe}
-              style = {styles.buttonView}>
-              <DisplayText
-                onPress = {this.handleSwipe}
-                text={'SWIPE'}
-                styles = {StyleSheet.flatten(styles.txtNext)}
-              />
-              <Image
-                onPress = {this.handleSwipe}
-                source = {require('../../assets/images/foward_arrow.png')}
-                style = {StyleSheet.flatten(styles.nextIcon)}
-              />
-            </TouchableOpacity>
-          </View>
-          
+      <View style = {styles.btnViewNext}> 
+        <TouchableOpacity 
+          onPress = {this.handleSwipe}
+          style = {styles.buttonView}>
+          <DisplayText
+            onPress = {this.handleSwipe}
+            text={'SWIPE'}
+            styles = {StyleSheet.flatten(styles.txtNext)}
+          />
+          <Image
+            onPress = {this.handleSwipe}
+            source = {require('../../assets/images/foward_arrow.png')}
+            style = {StyleSheet.flatten(styles.nextIcon)}
+          />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
     
    )

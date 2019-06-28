@@ -220,13 +220,23 @@ export default styles = StyleSheet.create({
     flexDirection : 'row',
     justifyContent : 'space-between',
   },
-  addMore : {
+  selectedInterest : {
+    width : '100%',
+    flexWrap : 'wrap',
+    flexDirection : 'row',
+  },
+  //
+  addmoreBtn : {
     backgroundColor : theme.primaryColor,
-    width : '30%',
-    textAlign : 'center',
-    color : theme.colorAccent,
     height : 25,
     borderRadius : 15,
+    width : '30%'
+
+  },
+  addMore : {
+    width : '100%',
+    textAlign : 'center',
+    color : theme.colorAccent,
     alignItems : 'center',
     paddingTop : 2,
     fontFamily : theme.subHeaderFont,
