@@ -1,10 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, FlatList, Modal, TextInput,TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
-import {DisplayText, } from '../../components';
+import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
+
 
 const defaultFlag = data.filter(
   obj => obj.name === 'Nigeria'
@@ -27,6 +28,9 @@ export default class OnboardingSocial extends Component {
       flag :defaultFlag,
     })
 
+  }
+  handleEdit = () => {
+    alert('Can you edit me');
   }
 
   handlePhoneChange = (text) => {
@@ -227,6 +231,86 @@ export default class OnboardingSocial extends Component {
             
           </View>
         </Modal>
+
+        {/* website link */}
+        <View style = {styles.nameInputView}>
+          <DisplayText
+            styles={StyleSheet.flatten(styles.titleText)}
+            text = {'Website URL'}
+          />
+          <View style = {{flexDirection : 'row', width : '75%'}}>
+            <View style = {styles.circleView}></View>
+            <InputField
+              placeholder={'www.ciromahassan.com'}
+              placeholderTextColor = {theme.secondaryTextColor}
+              textColor={theme.primaryTextColor}
+              inputType={'name'}
+              keyboardType={'default'}
+              onChangeText = {this.handleCompanyChange}
+              autoCapitalize = "words"
+              height = {30}
+              width = {'100%'}
+              borderBottomWidth = {0}
+              borderColor = {theme.colorAccent}
+              /> 
+              <TouchableOpacity 
+                style = {{paddingLeft : 8, paddingTop : 8}}
+                onPress = {this.handleEdit}>
+              <Image
+                onPress = {this.handleEdit}
+                source = {require('../../assets/images/edit.png')}
+                style = {StyleSheet.flatten(styles.penIcon)}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style = {styles.socialMediaView}>
+          <View style = {styles.headerTxt}>
+            <DisplayText
+              styles={StyleSheet.flatten(styles.titleText)}
+              text = {'Social Media'}
+            />
+            <DisplayText
+              styles={StyleSheet.flatten(styles.publicText)}
+              text = {'Public'}
+            />
+          </View>
+            <View style = {styles.bodyView}>
+              <View style={styles.socialView}>
+                <View style = {styles.textInputView}>
+                <View style = {{flexDirection : 'row', width : '75%'}}>
+                  <Image
+                    source = {require('../../assets/images/facebook.png')}
+                    style = {StyleSheet.flatten(styles.socialIcon)}
+                  />               
+                  <InputField
+                    placeholder={'www.ciromahassan.com'}
+                    placeholderTextColor = {theme.secondaryTextColor}
+                    textColor={theme.primaryTextColor}
+                    inputType={'name'}
+                    keyboardType={'default'}
+                    onChangeText = {this.handleCompanyChange}
+                    autoCapitalize = "words"
+                    height = {30}
+                    width = {'100%'}
+                    borderBottomWidth = {0}
+                    borderColor = {theme.colorAccent}
+                    /> 
+                <TouchableOpacity 
+                  style = {{paddingLeft : 8, paddingTop : 8}}
+                  onPress = {this.handleEdit}>
+                <Image
+                  onPress = {this.handleEdit}
+                  source = {require('../../assets/images/edit.png')}
+                  style = {StyleSheet.flatten(styles.penIcon)}
+                />
+              </TouchableOpacity>
+            </View>
+              </View>
+              <View style = {styles.toggleButtonView}></View>
+            </View>
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
     

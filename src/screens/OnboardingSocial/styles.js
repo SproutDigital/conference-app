@@ -52,7 +52,7 @@ export default styles = StyleSheet.create({
     marginRight : 16
   },
   txtHeader: {
-    fontSize: 18,
+    fontSize: theme.MediumFont,
     color: theme.primaryTextColor,
     width : '100%'
   },
@@ -159,4 +159,79 @@ export default styles = StyleSheet.create({
     tintColor : theme.primaryColor
   },
   // End
+  // Website design
+  circleView : {
+    width : 14,
+    height : 14,
+    borderRadius : 15,
+    backgroundColor : theme.primaryColor,
+    marginRight : 8,
+    marginTop : 10
+    
+  },
+  nameInputView : {
+    // height : 60,
+    width : '75%',
+    flexDirection : 'column',
+    borderBottomWidth : 0.5,
+    borderBottomColor: theme.secondaryTextColor,
+    // paddingTop : 4,
+    paddingBottom : 4,
+    marginTop : 4,
+  },
+  titleText : {
+    fontSize :theme.MediumFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont
+  },
+
+  // Social media toggle button
+  socialMediaView : {
+    flexDirection : 'column',
+    marginTop : 30
+  },
+  headerTxt : {
+    flexDirection : 'row',
+    justifyContent : 'space-between',
+    paddingRight: 20,
+  },
+  bodyView : {
+    flexDirection : 'column',
+    padding : 30,
+    paddingTop : 8,
+    paddingLeft : 16
+  },
+  publicText : {
+    fontSize :theme.thinyFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont,
+    marginTop : 8
+  },
+  socialView : {
+    flexDirection : 'row', 
+    justifyContent : 'space-between'
+  },
+  textInputView : {
+    width : '75%',
+    flexDirection : 'column',
+    borderBottomWidth : 0.5,
+    borderBottomColor: theme.secondaryTextColor,
+    // paddingTop : 4,
+    paddingBottom : 4,
+    marginTop : 4,
+  },
+  socialIcon : {
+    width : 16,
+    height : 16,
+    resizeMode : 'contain',
+    marginRight : 8,
+    tintColor : theme.primaryColor,
+    marginTop : 8
+  },
+  toggleButtonView : {
+
+  },
+  
+
+
 });
