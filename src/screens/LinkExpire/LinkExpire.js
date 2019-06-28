@@ -40,6 +40,7 @@ export default class LinkExpire extends Component {
        actions: [
          NavigationActions.navigate({
            routeName: 'Verification',
+           params:  'LinkExpire'
          }),
        ],
      });
@@ -88,14 +89,14 @@ export default class LinkExpire extends Component {
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
       <View style = {styles.navBar}>
-        <TouchableOpacity   
+        {/* <TouchableOpacity   
           onPress = {this.handleBack}
           style = {styles.backView}>
           <Image
             onPress = {this.handleBack}
             source={require('../../assets/images/back.png')}
             style={StyleSheet.flatten(styles.backIcon)}/> 
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View
         style={styles.wrapper}
