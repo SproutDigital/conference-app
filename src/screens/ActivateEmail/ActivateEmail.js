@@ -5,7 +5,7 @@ import {DisplayText, } from '../../components';
 import styles from './styles';
 import ExpireSvg from './ExpireSvg';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import { postRoute, logout, getEmail, VerificationStatusEndpoint} from '../../utils';
+import { sendRoute, logout, getEmail, VerificationStatusEndpoint} from '../../utils';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 
@@ -58,7 +58,7 @@ export default class ActivateEmail extends Component {
       'email' : this.state.email.toLowerCase(), 
     });
 
-     await postRoute (VerificationStatusEndpoint, data)
+     await sendRoute (VerificationStatusEndpoint, data, 'POST')
       .then((res) => {
         console.log({res})
         if (res.status !== 'success') {  

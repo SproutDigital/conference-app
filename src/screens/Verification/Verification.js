@@ -5,9 +5,10 @@ import {DisplayText, SingleButtonAlert, SubmitButton} from '../../components';
 import styles from './styles';
 import OtpInputs from 'react-native-otp-inputs';
 import colors from '../../assets/colors';
-import { postRoute, getRoute, getEmail, VerifyUserEndpoint, RequestNewTokenEndpoint, logout, VerificationStatusEndpoint} from '../../utils';
+import { sendRoute, getRoute, getEmail, VerifyUserEndpoint, RequestNewTokenEndpoint, logout, VerificationStatusEndpoint} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { NavigationActions, StackActions } from 'react-navigation';
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 export default class Verification extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class Verification extends Component {
     if(params == undefined) {
       this.checkEmailVerification();
     }
-   // logout();
+    // logout();
   }
 
   resetNavigationStack = (location) => {
@@ -48,7 +49,8 @@ export default class Verification extends Component {
    }
 
   handleBack = () => {
-    this.props.navigation.goBack();
+    logout();
+    return this.props.navigation.navigate('BoardingScreen')
   }
 
   handleCloseVerification = () => {
@@ -71,7 +73,7 @@ export default class Verification extends Component {
       'email' : this.state.email.toLowerCase(), 
     });
 
-     await postRoute (VerificationStatusEndpoint, data)
+     await sendRoute (VerificationStatusEndpoint, data, 'POST')
       .then((res) => {
         console.log({res})
         if (res.status !== 'success') {  
@@ -87,12 +89,11 @@ export default class Verification extends Component {
             this.setState({ 
               showLoading : false, 
             });
-            return this.resetNavigationStack('Profile'); 
+            return this.resetNavigationStack('OnboardingProfile'); 
           }
           else {
             return this.setState({ 
               showLoading : false, 
-
             });
           }   
         }
@@ -151,7 +152,7 @@ export default class Verification extends Component {
       'email' : this.state.email.toLowerCase(), 
     });
 
-     await postRoute (RequestNewTokenEndpoint, data)
+     await sendRoute (RequestNewTokenEndpoint, data, 'POST')
       .then((res) => {
         if (res.status !== 'success') { 
           return  this.setState({ 
@@ -237,7 +238,7 @@ render() {
                 onPress = {this.handleNewTokenRequest}            
               />
             </View> 
-            {/* <Toast
+             {/* <Toast
               ref="toast"
               style={{backgroundColor: 'green'}}
               position='bottom'
@@ -246,7 +247,7 @@ render() {
               fadeOutDuration={5000}
               opacity={0.8}
               textStyle={{color:'white'}}
-            /> */ }
+            />  */}
             <ProgressDialog
               visible={showLoading}
               title="Processing"

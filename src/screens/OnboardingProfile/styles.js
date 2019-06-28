@@ -95,12 +95,12 @@ export default styles = StyleSheet.create({
     fontFamily : theme.semiBoldFont,
     fontSize : theme.MediumFont
   },
-  userCathegoryView : {
-    flexDirection : 'row',
-    justifyContent: 'center',
-    alignItems : 'center',
-    width : '100%',
-  },
+  // userCathegoryView : {
+  //   flexDirection : 'row',
+  //   //justifyContent: 'center',
+  //  // alignItems : 'center',
+  //   //width : '50%',
+  // },
   downArrow : {
     width : 14,
     height : 14,
@@ -151,8 +151,8 @@ export default styles = StyleSheet.create({
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
     // paddingTop : 4,
-    paddingBottom : 4,
-    marginTop : 8,
+    //paddingBottom : 4,
+   // marginTop : 8,
   },  
   titleText : {
     fontSize :theme.MediumFont,
@@ -161,7 +161,8 @@ export default styles = StyleSheet.create({
   },
   selectView : {
     flexDirection : 'row',
-    justifyContent : 'space-between'
+    justifyContent : 'space-between',
+    paddingBottom:45,
   },
   penIcon : {
     width : 18,
@@ -207,5 +208,18 @@ export default styles = StyleSheet.create({
     marginLeft : 8,
     marginTop : 4,
     tintColor : theme.primaryColor
-  }
+  },
+
+  textInputView : {
+    width : '100%',
+    height : 45,
+    backgroundColor : colors.white,
+    borderRadius : 4,
+    flexDirection : 'row',
+    alignItems : 'center',
+    marginTop : 8,
+    paddingLeft : 8,
+    borderWidth : 1,
+    borderColor : theme.secondaryTextColor,
+  },
 });

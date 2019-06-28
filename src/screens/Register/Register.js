@@ -7,7 +7,7 @@ import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
-import {isEmailValid, postRoute, RegisterEndpoint, getExpoToken, saveEmail, isEmpty} from '../../utils';
+import {isEmailValid, sendRoute, RegisterEndpoint, getExpoToken, saveEmail, isEmpty} from '../../utils';
 import WomanSvg from './WomanSvg';
 import { NavigationActions, StackActions } from 'react-navigation';
 
@@ -28,18 +28,20 @@ export default class Register extends Component {
       showLoading: false,
       role: '',
       isActive: false,
-
+      isFocused: true
     }
   }
 
 
-  resetNavigationStack = (message) => {
+  
+
+  resetNavigationStack = () => {
    const navigateAction =  StackActions.reset({
       index: 0,
       actions: [
         NavigationActions.navigate({
-          routeName: 'Verification',
-          params: {'message': message},
+          routeName: 'Login',
+          //params: {'message': message},
         }),
       ],
     });
@@ -52,6 +54,10 @@ export default class Register extends Component {
    // this.props.navigation.navigate('Verification');
 
   }
+
+  handleFocus = () => this.setState({isFocused: true})
+
+  handleBlur = () => this.setState({isFocused: false})
 
   handleNameChange = (name) => {
 
@@ -119,7 +125,7 @@ export default class Register extends Component {
   }
 
   handleRegistration = async()=>{
-    const {email, name, password, role} = this.state;
+    const {email, name, password} = this.state;
     let expoToken = await getExpoToken();
 
     if(isEmpty(name)) {
@@ -152,7 +158,7 @@ export default class Register extends Component {
       'expo_token' : expoToken,
     });
 
-     await postRoute (RegisterEndpoint, data)
+     await sendRoute (RegisterEndpoint, data, 'POST')
       .then((res) => {
         console.log({res})
         if (res.status !== 'success') {  
@@ -168,7 +174,7 @@ export default class Register extends Component {
           this.setState({ 
             showLoading : false, 
           });
-          return this.resetNavigationStack(res.message);    
+          return this.resetNavigationStack();    
         }
       });
   }
@@ -197,7 +203,10 @@ export default class Register extends Component {
                     height = {40}
                     width = {'90%'}
                     borderWidth = {1}
-                    borderColor = {colors.white}/> 
+                    borderColor = {colors.white}
+                    onFocus={this.handleFocus}
+                     onBlur={this.handleBlur}
+                    /> 
                 </View>
                 <View style = {styles.textInputView}> 
                   <Image
@@ -213,7 +222,10 @@ export default class Register extends Component {
                     height = {40}
                     width = {'90%'}
                     borderWidth = {1}
-                    borderColor = {colors.white}/> 
+                    borderColor = {colors.white}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                    /> 
                 </View> 
                 <View style = {styles.textInputView}> 
                   <Image
@@ -229,7 +241,10 @@ export default class Register extends Component {
                     height = {40}
                     width = {'90%'}
                     borderWidth = {1}
-                    borderColor = {colors.white}/> 
+                    borderColor = {colors.white}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                    /> 
                 </View>
                 {/* <View style = {styles.textInputView}> 
                   <Image

@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import {isEmailValid, postRoute, LoginEndpoint, saveToken, isEmpty} from '../../utils';
+import {isEmailValid, sendRoute, LoginEndpoint, saveToken, saveEmail, isEmpty} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import Curve from './Curve';
@@ -46,12 +46,13 @@ export default class Login extends Component {
   }
 
 
-  resetNavigationStack = () => {
+  resetNavigationStack = (location) => {
     const navigateAction =  StackActions.reset({
        index: 0,
        actions: [
          NavigationActions.navigate({
-           routeName: 'Profile',
+           routeName: location,
+           params: 'login',
          }),
        ],
      });
@@ -172,24 +173,38 @@ export default class Login extends Component {
       'email' : email.toLowerCase(), 
     });
 
-     await postRoute (LoginEndpoint, data)
+     await sendRoute (LoginEndpoint, data, 'POST')
       .then((res) => {
-        if (res.status == 'failure') {  
-          return  this.setState({ 
-            showLoading : false,
-            title : 'Hello',
-            message : res.message,
-            showAlert : true,
-          }); 
-        }
-        else {
-          saveToken(res.token);
+        this.setState({ 
+          showLoading : false, 
+        });
+
+        if(typeof res.status == 'undefined') {
           this.setState({ 
             showLoading : false, 
           });
-          return this.resetNavigationStack();    
+          if(!res.payload.verified) {
+            saveEmail(res.payload.email);
+            return this.resetNavigationStack('Verification');         
+          }
+          else if(res.payload.verified) {
+            saveToken(res.token, res.payload.id);
+            return this.resetNavigationStack('OnboardingProfile');    
+          }
+        } 
+        else {
+          this.setState({ 
+            showLoading : false, 
+            message: res.message,
+            showAlert: true,
+            title: 'Hello'
+          });
         }
       });
+    }
+
+  checkVerificationStatus =()=>{
+
   }
   
   render () {

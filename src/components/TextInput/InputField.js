@@ -64,6 +64,8 @@ export default class InputField extends Component {
       defaultValue,
       editable,
       selectTextOnFocus,
+      onFocus,
+      onBlur,
     } = this.props;
 
     const { secureInput, inputValue } = this.state;
@@ -125,6 +127,9 @@ export default class InputField extends Component {
           maxLength={maxLength}
           height={height}    
           width={width}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          borderBottomColor={borderBottomColor}
         />
         {inputType === 'password'
           ? (
@@ -144,10 +149,6 @@ export default class InputField extends Component {
                 source={require('../../assets/images/hide.png')}
                 style={StyleSheet.flatten(styles.logoIcon)}/> 
             }
-            
-              {/* <Text style={styles.showButtonText}>
-                {secureInput ? 'Show' : 'Hide'}
-              </Text> */}
             </TouchableOpacity>
           )
           : null } 
@@ -201,12 +202,9 @@ const styles = StyleSheet.create({
     paddingTop : 1,
     fontFamily : 'Poppins-Regular',
     fontSize : 16,
-    // backgroundColor: colors.white
-    // height :40,
+ 
   },
-  form: {
-    // backgroundColor: colors.white,
-  },
+  
   showButton: {
     position: 'absolute',
     right: 0,

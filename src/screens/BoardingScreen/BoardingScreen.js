@@ -3,15 +3,13 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { getToken, saveExpoToken, getRegistrationStatus} from '../../utils';
+import { getToken, saveExpoToken, getRegistrationStatus, logout} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
 import  {Notifications} from 'expo';
 import { NavigationActions, StackActions } from 'react-navigation';
 
-
- 
 const slides = [
   {
     key: 'somethun',
@@ -68,6 +66,7 @@ const slides = [
   componentDidMount () {
     this.registerForPushNotificationsAsync();
     this.listener = Notifications.addListener(this.handleNotification);
+    //logout();
   }
 
   handleNotification = ({ origin, data }) => {
@@ -158,7 +157,7 @@ const slides = [
       this.setState({
         restoring : false,
       });
-      return this.resetNavigationStack('Profile');
+      return this.resetNavigationStack('OnboardingProfile');
     }
     else if(registered) {
       this.setState({
