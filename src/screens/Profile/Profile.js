@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, AsyncStorage, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
+import theme from '../../assets/theme';
 
 
 export default class Profile extends Component {

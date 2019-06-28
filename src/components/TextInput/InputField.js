@@ -199,8 +199,8 @@ const styles = StyleSheet.create({
   inputField : {
     borderBottomWidth : 1,
     paddingTop : 1,
-    fontFamily : 'Poppins-Regular',
-    fontSize : 16,
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.SmallFont,
     // backgroundColor: colors.white
     // height :40,
   },

@@ -13,6 +13,8 @@ import ResetPassword from '../screens/ResetPassword';
 import Verification from '../screens/Verification';
 import DashBoard from '../screens/DashBoard';
 import OnboardingProfile from '../screens/OnboardingProfile';
+import OnboardingBio from '../screens/OnboardingBio';
+import LastPage from '../screens/LastPage';
 
 const AuthStack = createStackNavigator({ 
 
@@ -97,8 +99,8 @@ export const MenuStack = createStackNavigator({
       header : null,
     }
   },
-  Profile: {
-    screen: Profile,
+  OnboardingBio: {
+    screen: OnboardingBio,
     navigationOptions: {
       header: null,
     }
@@ -109,7 +111,12 @@ export const MenuStack = createStackNavigator({
       header : null,
     }
   },
-  
+  LastPage : {
+    screen : LastPage,
+    navigationOptions : {
+      header : null,
+    }
+  }
   
 },
   {

@@ -55,66 +55,21 @@ export default styles = StyleSheet.create({
     color: theme.primaryTextColor,
     width : '100%'
   },
-  //body view
-  viewBody : {
-    flex : 1,
-    padding: 20,
-    alignItems: 'center',
-  },
-  imageView : {
-    width : 100,
-    height : 100,
-    marginTop : 20,
-    borderRadius : 100,
-    elevation : 2,
-    backgroundColor : theme.colorAccent
-  },
-  cameraTouch : {
-    width : 40,
-    height : 40,
-    borderRadius : 50,
-    backgroundColor : theme.primaryColor,
-    justifyContent: 'center',
-    alignItems: 'center',
-    opacity : 0.5,
-    position : 'absolute',
-    left : 70,
-    top : 45
-  },
-  cameraIcon : {
-    width : 20,
-    height : 20,
-    resizeMode : 'contain'
-  },
-  imageStyle : {
-    width : '100%',
-    height : '100%',
-    resizeMode : 'contain'
-  },
-  profileNameTxt : {
-    fontFamily : theme.semiBoldFont,
-    fontSize : theme.MediumFont
-  },
-  userCathegoryView : {
-    flexDirection : 'row',
-    justifyContent: 'center',
-    alignItems : 'center',
-    width : '100%',
-  },
-  downArrow : {
-    width : 14,
-    height : 14,
-    resizeMode : 'contain',
-    marginLeft : 8,
-    marginBottom : 2,
-    tintColor : theme.primaryColor
-  },
-  userCathegoryTxt : {
-    fontFamily : theme.LightPoppins,
-    fontSize : theme.thinyFont,
-    color : theme.primaryTextColor
-  },
+  exitTxt: {
+    fontSize: 40,
+    color: colors.text_color,
+    fontFamily: 'Poppins-Regular',
+    marginLeft: 16,
+    marginTop : 50
 
+  },
+  wrapper: {
+    flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 10,
+    width : '100%',
+  },
   // Modal Style 
   modalview : {
     backgroundColor : colors.red,
@@ -137,13 +92,35 @@ export default styles = StyleSheet.create({
   },
   modalTxt:{
     fontSize: 18,
-    color: colors.text_color,
+    color: theme.secondaryTextColor,
     marginTop: 6,
     marginBottom: 6,
     fontFamily: theme.secondaryFont,
   },
-
-  // Textinput styling
+  selectView : {
+    flexDirection : 'row',
+    justifyContent : 'space-between'
+  },
+  userGenderView : {
+    flexDirection : 'row',
+    alignItems : 'center',
+    width : '100%',
+    justifyContent : 'space-between'
+    
+  },
+  inputTxt : {
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.thinyFont,
+    color : theme.primaryTextColor
+  },
+  downArrow : {
+    width : 14,
+    height : 14,
+    resizeMode : 'contain',
+    marginLeft : 8,
+    marginBottom : 2,
+    tintColor : theme.primaryColor
+  },
   titleView : {
     height : 50,
     width : '100%',
@@ -151,40 +128,66 @@ export default styles = StyleSheet.create({
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
     // paddingTop : 4,
-    paddingBottom : 4,
+    // paddingBottom : 4,
     marginTop : 16,
-  },  
+  }, 
   titleText : {
     fontSize :theme.MediumFont,
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont
   },
-  textHeaderStyle : {
+  //Nationality 
+  CountryView : {
+    width : '100%',
+    flexDirection: 'column',
+    borderBottomWidth : 0.5,
+    borderBottomColor: theme.secondaryTextColor,    
+    marginTop : 8
+  },
+  formHeaderTxt: {
     fontSize :theme.MediumFont,
-    color : theme.primaryTextColor,
+    color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont
   },
-  selectView : {
+  textBoder: {
+    // height: 40,
+    width:'100%',
+    paddingTop : 4,
+    paddingBottom : 4,
+    justifyContent : 'center',
+  },
+  viewTxtNationality : {
+    width : '100%',
     flexDirection : 'row',
-    justifyContent : 'space-between'
+    justifyContent : 'space-between',
+
   },
-  penIcon : {
-    width : 16,
-    height : 16,
-    resizeMode : 'contain',
-    marginLeft : 8,
-    marginBottom : 2,
-    tintColor : theme.primaryColor
+  countryStyle: {
+    flex: 1,
+    backgroundColor: theme.backgroundColor,
+    borderTopColor: theme.colorAccent,
+    borderTopWidth: 1,
+    padding: 12,
   },
-  inputTxt : {
-    fontFamily : theme.subHeaderFont,
-    fontSize : theme.thinyFont,
-    color : theme.primaryTextColor
+  closeButtonStyle: {
+    flex: 1,
+    // padding: 12,
+    alignItems: 'center', 
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
   },
-  userTitleView : {
-    flexDirection : 'row',
-    alignItems : 'center',
-    
+  closeButton : {
+    width : '60%',
+    height : 40,
+    borderRadius : 60,
+    backgroundColor : theme.primaryColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textBtn: {
+    fontSize: 16,
+    color: theme.colorAccent,
+    fontFamily: theme.secondaryFont,
   },
   nameInputView : {
     // height : 60,
@@ -196,12 +199,48 @@ export default styles = StyleSheet.create({
     paddingBottom : 4,
     marginTop : 2,
   },
+  penIcon : {
+    width : 16,
+    height : 16,
+    resizeMode : 'contain',
+    marginLeft : 8,
+    marginBottom : 2,
+    tintColor : theme.primaryColor
+  },
+  textInputStyles : {
+    height : 65,
+    width : '100%'
+  },
+  interestView : {
+    width : '100%',
+    height : 70,
+    marginTop : 8,
+  },
+  interestHeader : {
+    flexDirection : 'row',
+    justifyContent : 'space-between',
+  },
+  addMore : {
+    backgroundColor : theme.primaryColor,
+    width : '30%',
+    textAlign : 'center',
+    color : theme.colorAccent,
+    height : 25,
+    borderRadius : 15,
+    alignItems : 'center',
+    paddingTop : 2,
+    fontFamily : theme.subHeaderFont,
+  },
   buttonView :{
     flexDirection : 'row',
+    width : '30%',
+    height : 40,
     marginTop : 16,
+    justifyContent: 'center',
+    alignItems : 'center',
   },
   txtNext : {
-    fontSize: 18,
+    fontSize: theme.MediumFont,
     color: theme.primaryTextColor,
 
   },
@@ -212,5 +251,12 @@ export default styles = StyleSheet.create({
     marginLeft : 8,
     marginTop : 4,
     tintColor : theme.primaryColor
-  }
+  },
+  btnViewNext : {
+    width : '100%',
+    alignItems : "center",
+    justifyContent: 'center',
+    marginTop : 16
+  },
+  
 });

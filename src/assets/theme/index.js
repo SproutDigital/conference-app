@@ -2,7 +2,7 @@ import colors from '../colors';
 export default defaultTheme = {
     // Font Sizes
     XlargeFont: 35,
-    LargeFont: 25,
+    LargeFont: 24,
     MediumFont: 18,
     SmallFont: 16,
     thinyFont: 14,

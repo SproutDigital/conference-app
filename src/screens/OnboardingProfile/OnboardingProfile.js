@@ -33,6 +33,10 @@ export default class OnboardingProfile extends Component {
     alert('edit me please eddie')
   }
 
+  handleNext = () => {
+    this.props.navigation.navigate('OnboardingBio')
+  }
+
   //set Category picker
   setCategoryPicker = (catValue) => {
     this.setState({
@@ -267,11 +271,11 @@ export default class OnboardingProfile extends Component {
               <InputField
                 // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
-                textColor={colors.blackShade}
-                inputType={'email'}
-                keyboardType={'email'}
+                textColor={theme.primaryTextColor}
+                inputType={'name'}
+                keyboardType={'default'}
                 onChangeText = {this.handleNameChange}
-                autoCapitalize = "none"
+                autoCapitalize = "words"
                 height = {30}
                 width = {'100%'}
                 borderBottomWidth = {0}
@@ -296,11 +300,11 @@ export default class OnboardingProfile extends Component {
               <InputField
                 // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
-                textColor={colors.blackShade}
-                inputType={'email'}
-                keyboardType={'email'}
+                textColor={theme.primaryTextColor}
+                inputType={'name'}
+                keyboardType={'default'}
                 onChangeText = {this.handleJobTitleChange}
-                autoCapitalize = "none"
+                autoCapitalize = "words"
                 height = {30}
                 width = {'100%'}
                 borderBottomWidth = {0}
@@ -317,15 +321,15 @@ export default class OnboardingProfile extends Component {
           </View>
 
           <TouchableOpacity 
-            onPress = {this.handleEdit}
+            onPress = {this.handleNext}
             style = {styles.buttonView}>
             <DisplayText
-              onPress = {this.handleEdit}
+              onPress = {this.handleNext}
               text={'NEXT'}
               styles = {StyleSheet.flatten(styles.txtNext)}
             />
             <Image
-              onPress = {this.handleEdit}
+              onPress = {this.handleNext}
               source = {require('../../assets/images/send_arrow.png')}
               style = {StyleSheet.flatten(styles.nextIcon)}
             />

@@ -10,6 +10,8 @@ import ResetPassword from './ResetPassword';
 import Verification from './Verification';
 import DashBoard from './DashBoard';
 import OnboardingProfile from './OnboardingProfile';
+import OnboardingBio from './OnboardingBio';
+import LastPage from './LastPage';
 
 export default {
   ForgetPassword, 
@@ -24,4 +26,6 @@ export default {
   Verification,
   DashBoard,
   OnboardingProfile,
+  OnboardingBio,
+  LastPage,
 };
