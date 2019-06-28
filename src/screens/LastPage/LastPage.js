@@ -12,8 +12,8 @@ export default class LastPage extends Component {
     this.state ={
     }
   }
-  handleOnboard = () => {
-    // return this.props.navigation.navigate('OnboardingProfile');
+  handleSwipe = () => {
+    return this.props.navigation.navigate('OnboardingSocial');
   }
   
   render () {
@@ -49,15 +49,15 @@ export default class LastPage extends Component {
         
         <View style = {styles.btnViewNext}> 
             <TouchableOpacity 
-              onPress = {this.handleNext}
+              onPress = {this.handleSwipe}
               style = {styles.buttonView}>
               <DisplayText
-                onPress = {this.handleNext}
+                onPress = {this.handleSwipe}
                 text={'SWIPE'}
                 styles = {StyleSheet.flatten(styles.txtNext)}
               />
               <Image
-                onPress = {this.handleNext}
+                onPress = {this.handleSwipe}
                 source = {require('../../assets/images/foward_arrow.png')}
                 style = {StyleSheet.flatten(styles.nextIcon)}
               />

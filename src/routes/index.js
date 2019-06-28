@@ -15,6 +15,7 @@ import DashBoard from '../screens/DashBoard';
 import OnboardingProfile from '../screens/OnboardingProfile';
 import OnboardingBio from '../screens/OnboardingBio';
 import LastPage from '../screens/LastPage';
+import OnboardingSocial from '../screens/OnboardingSocial';
 
 const AuthStack = createStackNavigator({ 
 
@@ -116,8 +117,13 @@ export const MenuStack = createStackNavigator({
     navigationOptions : {
       header : null,
     }
+  },
+  OnboardingSocial : {
+    screen : OnboardingSocial,
+    navigationOptions : {
+      header : null,
+    }
   }
-  
 },
   {
     mode: 'modal',

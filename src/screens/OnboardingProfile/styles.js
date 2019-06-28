@@ -201,7 +201,7 @@ export default styles = StyleSheet.create({
     marginTop : 16,
   },
   txtNext : {
-    fontSize: 18,
+    fontSize: theme.SmallFont,
     color: theme.primaryTextColor,
 
   },

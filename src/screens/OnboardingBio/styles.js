@@ -240,7 +240,7 @@ export default styles = StyleSheet.create({
     alignItems : 'center',
   },
   txtNext : {
-    fontSize: theme.MediumFont,
+    fontSize: theme.SmallFont,
     color: theme.primaryTextColor,
 
   },

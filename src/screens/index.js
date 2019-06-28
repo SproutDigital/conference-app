@@ -12,6 +12,7 @@ import DashBoard from './DashBoard';
 import OnboardingProfile from './OnboardingProfile';
 import OnboardingBio from './OnboardingBio';
 import LastPage from './LastPage';
+import OnboardingSocial from './OnboardingSocial';
 
 export default {
   ForgetPassword, 
@@ -28,4 +29,5 @@ export default {
   OnboardingProfile,
   OnboardingBio,
   LastPage,
+  OnboardingSocial,
 };
