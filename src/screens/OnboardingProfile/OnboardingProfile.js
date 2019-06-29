@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
+import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
 import {DisplayText, InputField } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
@@ -146,7 +146,11 @@ export default class OnboardingProfile extends Component {
         </View>
       </View>
       {/* End of Toolbar */}
-      <View style = {styles.viewBody}>
+      <KeyboardAvoidingView
+          style={styles.wrapper}
+          behavior = 'padding'> 
+        <ScrollView style={{flex:1,}} showsVerticalScrollIndicator={false}>
+          <View style = {styles.viewBody}>
 
         <View style = {styles.imageView}>
           <Image
@@ -276,10 +280,10 @@ export default class OnboardingProfile extends Component {
                 keyboardType={'default'}
                 onChangeText = {this.handleNameChange}
                 autoCapitalize = "words"
-                height = {30}
+                height = {25}
                 width = {'100%'}
                 borderBottomWidth = {0}
-                borderColor = {colors.white}
+                borderColor = {theme.colorAccent}
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
@@ -305,10 +309,10 @@ export default class OnboardingProfile extends Component {
                 keyboardType={'default'}
                 onChangeText = {this.handleJobTitleChange}
                 autoCapitalize = "words"
-                height = {30}
+                height = {25}
                 width = {'100%'}
                 borderBottomWidth = {0}
-                borderColor = {colors.white}
+                borderColor = {theme.colorAccent}
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
@@ -334,9 +338,10 @@ export default class OnboardingProfile extends Component {
               style = {StyleSheet.flatten(styles.nextIcon)}
             />
           </TouchableOpacity>
-          
-      </View>
-    </SafeAreaView>
+        </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     )
   }
 } 

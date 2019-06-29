@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, FlatList, Modal, TextInput,TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
+import { View, ScrollView, FlatList, Switch, Modal, TextInput,TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
 import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
@@ -19,6 +19,10 @@ export default class OnboardingSocial extends Component {
       phoneNumber : '',
       modalVisible : false,
       nationalityModalVisible : false,
+      switchValueFb : true,
+      switchValueTwit : true,
+      switchValueLn : false,
+      switchValueIn : false,
     }
   }
   componentWillMount () {
@@ -104,6 +108,36 @@ export default class OnboardingSocial extends Component {
   handleOnboard = () => {
     // return this.props.navigation.navigate('OnboardingProfile');
   }
+  // Switch Functions Facebook
+  _handleToggleFbSwitch = () =>{
+    this.setState(state => ({
+      switchValueFb: !state.switchValueFb,
+      })
+    );
+  }
+  //Twigger toggle function
+  _handleToggleTwitSwitch = () =>{
+    this.setState(state => ({
+      switchValueTwit: !state.switchValueTwit,
+      })
+    );
+  }
+  // Linkedin Toggle function
+  _handleToggleLnSwitch = () =>{
+    this.setState(state => ({
+      switchValueLn: state.switchValueLn,
+      })
+    );
+  }
+  // Instagram function
+  _handleToggleInSwitch = () =>{
+    this.setState(state => ({
+      switchValueIn: state.switchValueIn,
+      })
+    );
+  }
+
+
   
   render () {
     const { title, message, showAlert, showLoading, flag } = this.state
@@ -306,8 +340,15 @@ export default class OnboardingSocial extends Component {
                 />
               </TouchableOpacity>
             </View>
+            </View>
+              <View style = {styles.toggleButtonView}>
+                <Switch
+                  onValueChange={this._handleToggleFbSwitch}
+                  value={this.state.switchValueFb}
+                  trackColor = {theme.secondaryTextColor}
+                  thumbColor = {theme.colorAccent}
+                  />
               </View>
-              <View style = {styles.toggleButtonView}></View>
             </View>
           </View>
         </View>

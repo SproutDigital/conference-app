@@ -142,6 +142,13 @@ export default styles = StyleSheet.create({
     marginBottom: 6,
     fontFamily: theme.secondaryFont,
   },
+  wrapper: {
+    flex: 1,
+    paddingLeft: 4,
+    paddingRight: 4,
+    marginTop: 10,
+    width : '100%',
+  },
 
   // Textinput styling
   titleView : {
@@ -151,13 +158,13 @@ export default styles = StyleSheet.create({
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
     // paddingTop : 4,
-    paddingBottom : 4,
+    // paddingBottom : 4,
     marginTop : 16,
   },  
   titleText : {
-    fontSize :theme.MediumFont,
+    fontSize :theme.SmallFont,
     color : theme.secondaryTextColor,
-    fontFamily : theme.inputHintFont
+    fontFamily : theme.inputHintFont,
   },
   textHeaderStyle : {
     fontSize :theme.MediumFont,
@@ -172,7 +179,7 @@ export default styles = StyleSheet.create({
     width : 16,
     height : 16,
     resizeMode : 'contain',
-    marginLeft : 8,
+    marginLeft : 16,
     marginBottom : 2,
     tintColor : theme.primaryColor
   },
@@ -193,12 +200,12 @@ export default styles = StyleSheet.create({
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
     // paddingTop : 4,
-    paddingBottom : 4,
-    marginTop : 2,
+    // paddingBottom : 4,
+    marginTop : 4,
   },
   buttonView :{
     flexDirection : 'row',
-    marginTop : 16,
+    marginTop : 60,
   },
   txtNext : {
     fontSize: theme.SmallFont,

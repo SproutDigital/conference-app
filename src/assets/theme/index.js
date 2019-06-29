@@ -3,7 +3,7 @@ export default defaultTheme = {
     // Font Sizes
     XlargeFont: 35,
     LargeFont: 24,
-    MediumFont: 18,
+    MediumFont: 20,
     SmallFont: 16,
     thinyFont: 12,
     //Colors

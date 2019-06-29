@@ -199,7 +199,7 @@ export default styles = StyleSheet.create({
     flexDirection : 'column',
     padding : 30,
     paddingTop : 8,
-    paddingLeft : 16
+    paddingLeft : 8
   },
   publicText : {
     fontSize :theme.thinyFont,
@@ -229,7 +229,7 @@ export default styles = StyleSheet.create({
     marginTop : 8
   },
   toggleButtonView : {
-
+    marginTop : 10,
   },
   
 
