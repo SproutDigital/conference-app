@@ -16,7 +16,7 @@ export default class Profile extends Component {
   componentDidMount(){
     setTimeout(() => {
       this.props.navigation.navigate('DashBoard');
-    }, 20000);
+    }, 2000);
     // logout();
   }
   render () {
