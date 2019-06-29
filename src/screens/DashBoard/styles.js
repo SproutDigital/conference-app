@@ -25,11 +25,14 @@ export default styles = StyleSheet.create({
     elevation: 3,  
   },
   headerIcon: {
-    height: 20,
-    width: 20,
+    height: 18,
+    width: 18,
     tintColor : theme.primaryColor,
   },
-
+  headerLogoIcon: {
+    height: 35,
+    width: 80,
+  },
   headerImage: {
     borderRadius: 30,
     height: 40,
@@ -46,7 +49,9 @@ export default styles = StyleSheet.create({
   },
   nameView: {
     flexDirection: 'row',
-    width: '50%',
+    width: '70%',
+    justifyContent: 'center',
+    alignItems : 'center'
   },
   txtHeader: {
     fontSize: 18,

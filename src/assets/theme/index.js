@@ -2,10 +2,10 @@ import colors from '../colors';
 export default defaultTheme = {
     // Font Sizes
     XlargeFont: 35,
-    LargeFont: 25,
-    MediumFont: 18,
+    LargeFont: 24,
+    MediumFont: 20,
     SmallFont: 16,
-    thinyFont: 14,
+    thinyFont: 12,
     //Colors
     primaryTextColor: colors.darkText,
     secondaryTextColor: colors.gray,
@@ -25,7 +25,6 @@ export default defaultTheme = {
     subHeaderFont : 'Orkney-Light',
     inputHintFont : 'Orkney-Medium.otf',
 
-    
 }
 
 

@@ -1,8 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import { View, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, Picker} from 'react-native';
 import { getToken, getUserId, ProfileUpdateEndpoint, isEmpty, putRoute, logout} from '../../utils';
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+=======
+import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
+import {DisplayText, InputField } from '../../components';
+>>>>>>> 33bf8f20e055a1a3e007e5063369db027e16e204
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
@@ -36,12 +41,24 @@ export default class OnboardingProfile extends Component {
     }
   }
 
+<<<<<<< HEAD
    async componentDidMount(){
     //logout();
      let _id = await getUserId(),
       token = await getToken();
     return await this.setState({
       token, _id
+=======
+  handleNext = () => {
+    this.props.navigation.navigate('OnboardingBio')
+  }
+
+  //set Category picker
+  setCategoryPicker = (catValue) => {
+    this.setState({
+      category: catValue,
+      isValidCategory: true
+>>>>>>> 33bf8f20e055a1a3e007e5063369db027e16e204
     });
 
     
@@ -167,7 +184,11 @@ export default class OnboardingProfile extends Component {
         </View>
       </View>
       {/* End of Toolbar */}
-      <View style = {styles.viewBody}>
+      <KeyboardAvoidingView
+          style={styles.wrapper}
+          behavior = 'padding'> 
+        <ScrollView style={{flex:1,}} showsVerticalScrollIndicator={false}>
+          <View style = {styles.viewBody}>
 
         <View style = {styles.imageView}>
           <Image
@@ -237,6 +258,7 @@ export default class OnboardingProfile extends Component {
             <View style = {{flexDirection : 'row', width : '90%'}}>
               <InputField
                 placeholderTextColor = {colors.blackShade}
+<<<<<<< HEAD
                 textColor={colors.blackShade}
                 inputType={'text'}
                 keyboardType={'default'}
@@ -245,6 +267,17 @@ export default class OnboardingProfile extends Component {
                 width = {'100%'}
                 borderBottomWidth = {0}
                 borderBottomColor={'transparent'}
+=======
+                textColor={theme.primaryTextColor}
+                inputType={'name'}
+                keyboardType={'default'}
+                onChangeText = {this.handleNameChange}
+                autoCapitalize = "words"
+                height = {25}
+                width = {'100%'}
+                borderBottomWidth = {0}
+                borderColor = {theme.colorAccent}
+>>>>>>> 33bf8f20e055a1a3e007e5063369db027e16e204
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
@@ -265,16 +298,20 @@ export default class OnboardingProfile extends Component {
               <InputField
                 // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
-                textColor={colors.blackShade}
-                inputType={'email'}
-                keyboardType={'email'}
+                textColor={theme.primaryTextColor}
+                inputType={'name'}
+                keyboardType={'default'}
                 onChangeText = {this.handleJobTitleChange}
-                autoCapitalize = "none"
-                height = {30}
+                autoCapitalize = "words"
+                height = {25}
                 width = {'100%'}
                 borderBottomWidth = {0}
+<<<<<<< HEAD
                 borderBottomColor={'transparent'}
                 borderColor = {theme.secondaryTextColor}
+=======
+                borderColor = {theme.colorAccent}
+>>>>>>> 33bf8f20e055a1a3e007e5063369db027e16e204
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
@@ -287,19 +324,31 @@ export default class OnboardingProfile extends Component {
           </View>
 
           <TouchableOpacity 
+<<<<<<< HEAD
             onPress = {this.submitForm}
             style = {styles.buttonView}>
             <DisplayText
               onPress = {this.submitForm}
+=======
+            onPress = {this.handleNext}
+            style = {styles.buttonView}>
+            <DisplayText
+              onPress = {this.handleNext}
+>>>>>>> 33bf8f20e055a1a3e007e5063369db027e16e204
               text={'NEXT'}
               styles = {StyleSheet.flatten(styles.txtNext)}
             />
             <Image
+<<<<<<< HEAD
               onPress = {this.submitForm}
+=======
+              onPress = {this.handleNext}
+>>>>>>> 33bf8f20e055a1a3e007e5063369db027e16e204
               source = {require('../../assets/images/send_arrow.png')}
               style = {StyleSheet.flatten(styles.nextIcon)}
             />
           </TouchableOpacity>
+<<<<<<< HEAD
 
           <ProgressDialog
             visible={showLoading}
@@ -316,6 +365,12 @@ export default class OnboardingProfile extends Component {
           
       </View>
     </SafeAreaView>
+=======
+        </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+>>>>>>> 33bf8f20e055a1a3e007e5063369db027e16e204
     )
   }
 } 
