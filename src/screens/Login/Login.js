@@ -10,6 +10,8 @@ import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import Curve from './Curve';
 import { NavigationActions, StackActions } from 'react-navigation';
+import theme from '../../assets/theme';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class Login extends Component {
   constructor(props) {
@@ -197,19 +199,24 @@ export default class Login extends Component {
 
     return(
     <View style={styles.container}> 
-      <View style = {styles.curve}>
+      {/* <View style = {styles.curve}>
         <Curve/>
-      </View>
-      <Text style={styles.logoTxt} >
+      </View> */}
+      {/* <Text style={styles.logoTxt} >
         ignite
-      </Text>
-        
+      </Text> */}
+      
+        <View style = {styles.imageView}>
+          <Image
+            source={require('../../assets/images/logo.png')}
+            style={StyleSheet.flatten(styles.logoIcon)}/> 
+        </View>
         <ScrollView style={{flex:1}}>
           <KeyboardAvoidingView
             style={styles.wrapper}
             behavior="padding"
             >
-            <View style = {styles.textinputCont}>
+            <View >
               <View style = {styles.textInputView}> 
                 <Image
                   source={require('../../assets/images/email.png')}
@@ -225,7 +232,7 @@ export default class Login extends Component {
                     height = {40}
                     width = {'90%'}
                     borderWidth = {1}
-                    borderColor = {colors.white}
+                    borderColor = {theme.colorAccent}
                     /> 
               </View>
               <View style = {styles.textInputView}> 
@@ -233,18 +240,16 @@ export default class Login extends Component {
                   source={require('../../assets/images/padlock.png')}
                   style={StyleSheet.flatten(styles.iconForm)}/> 
                     <InputField
-                      placeholder={'Password'}
-                      placeholderTextColor = {colors.blackShade}
-                      textColor={colors.blackShade}
-                      inputType={'password'}
-                      keyboardType={'default'}
-                      onChangeText = {this.handlePasswordChange}
-                      autoCapitalize = "none"
-                      height = {40}
-                      width = {'90%'}
-                      borderWidth = {1}
-                      borderColor = {colors.white}
-                  /> 
+                    placeholder={'Password'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'password'}
+                    onChangeText = {this.handlePasswordChange}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    borderColor = {colors.white}/> 
               </View>
             </View>
             <Toast
@@ -273,7 +278,30 @@ export default class Login extends Component {
                 imgStyle={StyleSheet.flatten(styles.iconDoor)}
                 titleStyle={StyleSheet.flatten(styles.buttonTxt)}
               />
-
+              <View style = { styles.signWithView}>
+                <DisplayText
+                  text={'Or Sign up with?'}
+                  styles = {styles.signupWith}
+                  onPress = {this.handleForgetPassword}
+                />
+                <View style = {styles.socialIconView}>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/linkedin.png')}
+                      style={StyleSheet.flatten(styles.socialIcons)}/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/twitter.png')}
+                      style={StyleSheet.flatten(styles.socialIcons)}/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/facebook.png')}
+                      style={StyleSheet.flatten(styles.socialIcons)}/> 
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
               
             <SingleButtonAlert
@@ -284,6 +312,7 @@ export default class Login extends Component {
             />
           </KeyboardAvoidingView>
         </ScrollView>
+        
         <View style = {StyleSheet.flatten(styles.signupLinkView)}>
           <DisplayText
             text={'Forgot Password?'}

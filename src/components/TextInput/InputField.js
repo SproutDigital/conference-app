@@ -132,7 +132,7 @@ export default class InputField extends Component {
               style={styles.showButton}
               onPress={this.toggleShowPassword}
             >
-            {
+            {/* {
               secureInput ? 
               <Image
                 onPress={this.toggleShowPassword}               
@@ -143,7 +143,7 @@ export default class InputField extends Component {
                 onPress={this.toggleShowPassword}
                 source={require('../../assets/images/hide.png')}
                 style={StyleSheet.flatten(styles.logoIcon)}/> 
-            }
+            } */}
             
               {/* <Text style={styles.showButtonText}>
                 {secureInput ? 'Show' : 'Hide'}

@@ -10,7 +10,7 @@ export default class SubmitButton extends Component {
 
   render(){
     const {disabled, onPress, title, btnStyle, imgStyle, imgSrc, titleStyle} = this.props;
-    const opacityStyle = disabled ? 0.2 : null;
+    const opacityStyle = disabled ? 0.5 : null;
     const style = btnStyle || styles.button;
     const textStyle = titleStyle || styles.title;
     return(
