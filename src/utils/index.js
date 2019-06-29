@@ -8,7 +8,7 @@ const LoginEndpoint = `${Baseurl}user/login`,
     Forgetpassword = `${Baseurl}user/forgotPassword`,
     ResetPassword = `${Baseurl}user/resetPassword`,
     RequestNewTokenEndpoint = `${Baseurl}user/resendEmailCode`,
-    ProfileUpdateEndpoint = `${Baseurl}user/profile/`
+    ProfileUpdateEndpoint = `${Baseurl}profile/`
 
 export {
     LoginEndpoint,
@@ -95,12 +95,12 @@ export const getRoute = (endpoint, token) => {
 
 }
 
-export const putRoute = (endpoint, body) => {
-
+export const putRoute = (endpoint, body, token) => {
     return fetch(endpoint, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'access_token': `${'JWT'}${token}`,
         },
         body: body
     })

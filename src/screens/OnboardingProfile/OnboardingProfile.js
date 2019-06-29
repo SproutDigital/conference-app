@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, Picker} from 'react-native';
-import { getToken, getUserId, ProfileUpdateEndpoint, isEmpty, sendRoute, logout} from '../../utils';
+import { getToken, getUserId, ProfileUpdateEndpoint, isEmpty, putRoute, logout} from '../../utils';
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
@@ -31,17 +31,17 @@ export default class OnboardingProfile extends Component {
       job_title : '',
       isJobTitleValid : false,
       role:'',
-      id:'',
+      _id:'',
       title: '',
     }
   }
 
    async componentDidMount(){
     //logout();
-     let id = await getUserId(),
+     let _id = await getUserId(),
       token = await getToken();
     return await this.setState({
-      token, id
+      token, _id
     });
 
     
@@ -51,7 +51,7 @@ export default class OnboardingProfile extends Component {
   }
 
   submitForm =async()=> {
-    const {name, job_title, role, title, id} = this.state;
+    const {name, job_title, role, title, _id, token} = this.state;
    // let expoToken = await getExpoToken();
        console.log('helllooo...')
     if(isEmpty(name)) {
@@ -73,14 +73,14 @@ export default class OnboardingProfile extends Component {
     });
 
     let data = await JSON.stringify({
-      'query':{id},
+      'query':{_id},
       'update' : {title, name, job_title, role}   
     });
-
+    console.log({token})
     console.log({data})
     console.log({ProfileUpdateEndpoint})
 
-    await sendRoute (ProfileUpdateEndpoint, data, 'PUT')
+    await putRoute (ProfileUpdateEndpoint, data, token)
       .then((res) => {
         console.log({res})
         this.setState({ 
