@@ -16,7 +16,7 @@ export default class Profile extends Component {
     }
   }
   componentWillMount(){
-    logout();
+    // logout();
   }
 
   handleOnboard = () => {

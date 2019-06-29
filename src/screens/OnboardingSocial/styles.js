@@ -57,6 +57,13 @@ export default styles = StyleSheet.create({
     width : '100%'
   },
   //End of nav
+  wrapper: {
+    flex: 1,
+    paddingLeft : 20,
+    paddingRight : 20,
+    // marginTop: 10,
+    width : '100%',
+  },
   exitTxt: {
     fontSize: 40,
     color: colors.text_color,
@@ -188,7 +195,7 @@ export default styles = StyleSheet.create({
   // Social media toggle button
   socialMediaView : {
     flexDirection : 'column',
-    marginTop : 30
+    marginTop : 16,
   },
   headerTxt : {
     flexDirection : 'row',
@@ -197,8 +204,8 @@ export default styles = StyleSheet.create({
   },
   bodyView : {
     flexDirection : 'column',
-    padding : 30,
-    paddingTop : 8,
+    padding : 20,
+    paddingTop : 4,
     paddingLeft : 8
   },
   publicText : {
@@ -231,7 +238,34 @@ export default styles = StyleSheet.create({
   toggleButtonView : {
     marginTop : 10,
   },
-  
+  // Button styles
+  btnView: {
+    alignItems : 'center',
+    width : '100%',
+  },
+  buttonWithImage : {
+    borderRadius : 30,
+    width : '60%',
+    height : 45,
+    backgroundColor : theme.buttonPrimary,
+    justifyContent: 'center',
+    alignItems : 'center',
+    flexDirection : 'row',
+    marginTop : 2,
+    paddingRight : 8,
+  },
+  buttonTxt : {
+    fontFamily : 'Poppins-Regular',
+    color : colors.white,
+    fontSize : 18,
+    alignSelf : 'center',
+  },
+  iconDoor : {
+    height : 18,
+    width : 18,
+    resizeMode : 'contain',
+    marginLeft: 24,
+  },
 
 
 });

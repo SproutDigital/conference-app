@@ -1,10 +1,12 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, FlatList, Switch, Modal, TextInput,TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
-import {DisplayText, InputField} from '../../components';
+import { View, ScrollView, FlatList, Switch, Modal, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
+import { ProgressDialog } from 'react-native-simple-dialogs';
+import Toast from 'react-native-easy-toast';
 
 
 const defaultFlag = data.filter(
@@ -23,6 +25,10 @@ export default class OnboardingSocial extends Component {
       switchValueTwit : true,
       switchValueLn : false,
       switchValueIn : false,
+      title : '',
+      message : '',
+      showAlert : false,
+      showLoading : false,
     }
   }
   componentWillMount () {
@@ -52,14 +58,12 @@ export default class OnboardingSocial extends Component {
       }
     }
   }
-
   // phone number onchage text
   onChangeText(key, value) {
     this.setState({
       [key]: value
     })
   }
-
   async selectCountry(country) {
     // Get data from Countries.js  
     const countryData = await data
@@ -125,19 +129,17 @@ export default class OnboardingSocial extends Component {
   // Linkedin Toggle function
   _handleToggleLnSwitch = () =>{
     this.setState(state => ({
-      switchValueLn: state.switchValueLn,
+      switchValueLn: !state.switchValueLn,
       })
     );
   }
   // Instagram function
   _handleToggleInSwitch = () =>{
     this.setState(state => ({
-      switchValueIn: state.switchValueIn,
+      switchValueIn: !state.switchValueIn,
       })
     );
   }
-
-
   
   render () {
     const { title, message, showAlert, showLoading, flag } = this.state
@@ -164,9 +166,12 @@ export default class OnboardingSocial extends Component {
         </View>
       </View>
 
-      <ScrollView 
-        style={{flex:1, padding : 20}}
-        showsVerticalScrollIndicator={false}>
+      <KeyboardAvoidingView
+        style={styles.wrapper}
+        behavior = 'padding'> 
+          <ScrollView 
+          style={{flex:1,}}
+          showsVerticalScrollIndicator={false}>
           
         {/* Phone input with country code */}
         <View style = {styles.formView}>
@@ -184,12 +189,6 @@ export default class OnboardingSocial extends Component {
                 onPress={() => this.showModal()}>
                 {flag}
               </Text>
-              {/* <Icon
-                active
-                name='md-arrow-dropdown'
-                style={[styles.iconStyle, { marginLeft: 5 }]}
-                onPress={() => this.showModal()}
-              /> */}
               <Image
                 onPress={() => this.showModal()}
                 source = {require('../../assets/images/down_arrow.png')}
@@ -219,13 +218,13 @@ export default class OnboardingSocial extends Component {
               }
             />
             <TouchableOpacity 
-                  style = {{paddingLeft : 8}}
-                  onPress = {this.handleEdit}>
-                <Image
-                  onPress = {this.handleEdit}
-                  source = {require('../../assets/images/edit.png')}
-                  style = {StyleSheet.flatten(styles.penIcon)}
-                />
+              style = {{paddingLeft : 8}}
+              onPress = {this.handleEdit}>
+              <Image
+                onPress = {this.handleEdit}
+                source = {require('../../assets/images/edit.png')}
+                style = {StyleSheet.flatten(styles.penIcon)}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -262,10 +261,8 @@ export default class OnboardingSocial extends Component {
               </Text>
             </TouchableOpacity>
             </View>
-            
           </View>
         </Modal>
-
         {/* website link */}
         <View style = {styles.nameInputView}>
           <DisplayText
@@ -309,50 +306,215 @@ export default class OnboardingSocial extends Component {
               text = {'Public'}
             />
           </View>
+          {/*  facebook */}
             <View style = {styles.bodyView}>
               <View style={styles.socialView}>
                 <View style = {styles.textInputView}>
-                <View style = {{flexDirection : 'row', width : '75%'}}>
-                  <Image
-                    source = {require('../../assets/images/facebook.png')}
-                    style = {StyleSheet.flatten(styles.socialIcon)}
-                  />               
-                  <InputField
-                    placeholder={'www.ciromahassan.com'}
-                    placeholderTextColor = {theme.secondaryTextColor}
-                    textColor={theme.primaryTextColor}
-                    inputType={'name'}
-                    keyboardType={'default'}
-                    onChangeText = {this.handleCompanyChange}
-                    autoCapitalize = "words"
-                    height = {30}
-                    width = {'100%'}
-                    borderBottomWidth = {0}
-                    borderColor = {theme.colorAccent}
-                    /> 
-                <TouchableOpacity 
-                  style = {{paddingLeft : 8, paddingTop : 8}}
-                  onPress = {this.handleEdit}>
-                <Image
-                  onPress = {this.handleEdit}
-                  source = {require('../../assets/images/edit.png')}
-                  style = {StyleSheet.flatten(styles.penIcon)}
-                />
-              </TouchableOpacity>
+                  <View style = {{flexDirection : 'row', width : '75%'}}>
+                    <Image
+                      source = {require('../../assets/images/facebook.png')}
+                      style = {StyleSheet.flatten(styles.socialIcon)}
+                    />               
+                    <InputField
+                      placeholder={'ciromahas'}
+                      placeholderTextColor = {theme.secondaryTextColor}
+                      textColor={theme.primaryTextColor}
+                      inputType={'name'}
+                      keyboardType={'default'}
+                      onChangeText = {this.handleFacebookChange}
+                      autoCapitalize = "words"
+                      height = {30}
+                      width = {'100%'}
+                      borderBottomWidth = {0}
+                      borderColor = {theme.colorAccent}
+                      /> 
+                    <TouchableOpacity 
+                      style = {{paddingLeft : 8, paddingTop : 8}}
+                      onPress = {this.handleEdit}>
+                      <Image
+                        onPress = {this.handleEdit}
+                        source = {require('../../assets/images/edit.png')}
+                        style = {StyleSheet.flatten(styles.penIcon)}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style = {styles.toggleButtonView}>
+                  <Switch
+                    onValueChange={this._handleToggleFbSwitch}
+                    value={this.state.switchValueFb}
+                    trackColor = {theme.secondaryTextColor}
+                    thumbColor = {theme.colorAccent}
+                    />
+                </View>
+              </View>
             </View>
+            {/* Twitter input */}
+            <View style = {styles.bodyView}>
+              <View style={styles.socialView}>
+                <View style = {styles.textInputView}>
+                  <View style = {{flexDirection : 'row', width : '75%'}}>
+                    <Image
+                      source = {require('../../assets/images/twitter.png')}
+                      style = {StyleSheet.flatten(styles.socialIcon)}
+                    />               
+                    <InputField
+                      placeholder={'ciromahassan'}
+                      placeholderTextColor = {theme.secondaryTextColor}
+                      textColor={theme.primaryTextColor}
+                      inputType={'name'}
+                      keyboardType={'default'}
+                      onChangeText = {this.handleTwitterChange}
+                      autoCapitalize = "words"
+                      height = {30}
+                      width = {'100%'}
+                      borderBottomWidth = {0}
+                      borderColor = {theme.colorAccent}
+                      /> 
+                    <TouchableOpacity 
+                      style = {{paddingLeft : 8, paddingTop : 8}}
+                      onPress = {this.handleEdit}>
+                      <Image
+                        onPress = {this.handleEdit}
+                        source = {require('../../assets/images/edit.png')}
+                        style = {StyleSheet.flatten(styles.penIcon)}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style = {styles.toggleButtonView}>
+                  <Switch
+                    onValueChange={this._handleToggleTwitSwitch}
+                    value={this.state.switchValueTwit}
+                    trackColor = {theme.secondaryTextColor}
+                    thumbColor = {theme.colorAccent}
+                    />
+                </View>
+              </View>
             </View>
-              <View style = {styles.toggleButtonView}>
-                <Switch
-                  onValueChange={this._handleToggleFbSwitch}
-                  value={this.state.switchValueFb}
-                  trackColor = {theme.secondaryTextColor}
-                  thumbColor = {theme.colorAccent}
-                  />
+            {/* linked in */}
+            <View style = {styles.bodyView}>
+              <View style={styles.socialView}>
+                <View style = {styles.textInputView}>
+                  <View style = {{flexDirection : 'row', width : '75%'}}>
+                    <Image
+                      source = {require('../../assets/images/linkedin.png')}
+                      style = {StyleSheet.flatten(styles.socialIcon)}
+                    />               
+                    <InputField
+                      placeholder={'Hassan_Ciroma'}
+                      placeholderTextColor = {theme.secondaryTextColor}
+                      textColor={theme.primaryTextColor}
+                      inputType={'name'}
+                      keyboardType={'default'}
+                      onChangeText = {this.handleLinkedInChange}
+                      autoCapitalize = "words"
+                      height = {30}
+                      width = {'100%'}
+                      borderBottomWidth = {0}
+                      borderColor = {theme.colorAccent}
+                      /> 
+                    <TouchableOpacity 
+                      style = {{paddingLeft : 8, paddingTop : 8}}
+                      onPress = {this.handleEdit}>
+                      <Image
+                        onPress = {this.handleEdit}
+                        source = {require('../../assets/images/edit.png')}
+                        style = {StyleSheet.flatten(styles.penIcon)}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style = {styles.toggleButtonView}>
+                  <Switch
+                    onValueChange={this._handleToggleLnSwitch}
+                    value={this.state.switchValueLn}
+                    trackColor = {theme.secondaryTextColor}
+                    thumbColor = {theme.colorAccent}
+                    />
+                </View>
+              </View>
+            </View>
+            {/* Instagram */}
+            <View style = {styles.bodyView}>
+              <View style={styles.socialView}>
+                <View style = {styles.textInputView}>
+                  <View style = {{flexDirection : 'row', width : '75%'}}>
+                    <Image
+                      source = {require('../../assets/images/instagram.png')}
+                      style = {StyleSheet.flatten(styles.socialIcon)}
+                    />               
+                    <InputField
+                      placeholder={'CiromaHassan'}
+                      placeholderTextColor = {theme.secondaryTextColor}
+                      textColor={theme.primaryTextColor}
+                      inputType={'name'}
+                      keyboardType={'default'}
+                      onChangeText = {this.handleCompanyChange}
+                      autoCapitalize = "words"
+                      height = {30}
+                      width = {'100%'}
+                      borderBottomWidth = {0}
+                      borderColor = {theme.colorAccent}
+                      /> 
+                    <TouchableOpacity 
+                      style = {{paddingLeft : 8, paddingTop : 8}}
+                      onPress = {this.handleEdit}>
+                      <Image
+                        onPress = {this.handleEdit}
+                        source = {require('../../assets/images/edit.png')}
+                        style = {StyleSheet.flatten(styles.penIcon)}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style = {styles.toggleButtonView}>
+                  <Switch
+                    onValueChange={this._handleToggleInSwitch}
+                    value={this.state.switchValueIn}
+                    trackColor = {theme.secondaryTextColor}
+                    thumbColor = {theme.colorAccent}
+                    />
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+          <View style = {styles.btnView}>
+            <SubmitButton
+              title={'Sign Up'}
+              // disabled={!this.toggleButtonState()}
+              onPress={this.handleRegistration}
+              imgSrc={require('../../assets/images/resume.png')}
+              btnStyle={styles.buttonWithImage}
+              imgStyle={StyleSheet.flatten(styles.iconDoor)}
+              titleStyle={StyleSheet.flatten(styles.buttonTxt)}
+            />
+ 
+            <Toast
+              ref="toast"
+              style={{backgroundColor: 'green'}}
+              position='bottom'
+              positionValue={200}
+              fadeInDuration={750}
+              fadeOutDuration={5000}
+              opacity={0.8}
+              textStyle={{color:'white'}}
+            /> 
+
+            <ProgressDialog
+              visible={showLoading}
+              title="Processing"
+              message="Please wait..."
+            />
+            <SingleButtonAlert
+              title = {'Hello'} 
+              message = {message}
+              handleCloseNotification = {this.handleCloseNotification}
+              visible = {showAlert}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
     
    )
