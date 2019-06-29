@@ -21,8 +21,8 @@ export default class CustomSidebarMenu extends Component {
       // },
       { 
         navOptionThumb: 'build',
-        navOptionName: 'Referral',
-        screenToNavigate: 'Referral',
+        navOptionName: 'Logout',
+        screenToNavigate: 'Logout',
       },
       // {
       //   navOptionThumb: 'build',
@@ -42,7 +42,7 @@ export default class CustomSidebarMenu extends Component {
         {/*Top Large Image */}
         <View style = {styles.drawerImageView}>
           <Image
-            source = {require('../../assets/images/logo_login.png')}
+            source = {require('../../assets/images/sample_pics.png')}
             style={styles.sideMenuProfileIcon}
           />
           <View style = {styles.userDetailView}>
@@ -71,6 +71,10 @@ export default class CustomSidebarMenu extends Component {
               }}>
                 
               <View style={{ marginRight: 10, marginLeft: 20 }}>
+                {/* <Image
+                  source = {require('../../assets/images')}
+                  style={styles.sideMenuProfileIcon}
+                /> */}
                 <Icon name={item.navOptionThumb} size={25} color="#0F959A" />
               </View>
               <Text

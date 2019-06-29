@@ -8,10 +8,11 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import {isEmailValid, postRoute, LoginEndpoint, saveToken, isEmpty} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
-import Curve from './Curve';
+import Curve from '../BoardingScreen/Curve';
 import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import CheckBox from 'react-native-check-box'
 
 export default class Login extends Component {
   constructor(props) {
@@ -47,6 +48,11 @@ export default class Login extends Component {
     this.keyboardWillHideSub.remove();
   }
 
+  handleCheckBox = () => {
+    this.setState({
+        isChecked:!this.state.isChecked
+    })
+  }
 
   resetNavigationStack = () => {
     const navigateAction =  StackActions.reset({
@@ -251,6 +257,20 @@ export default class Login extends Component {
                     borderWidth = {1}
                     borderColor = {colors.white}/> 
               </View>
+            </View>
+
+            <View style = {StyleSheet.flatten(styles.checkBoxView)}>
+              <CheckBox
+                style={styles.checkBox}
+                onClick={this.handleCheckBox}
+                isChecked={this.state.isChecked}
+                // rightText={"I agree to the"}
+              />
+              <DisplayText
+                text={'By continuing, you agree to our terms, \nconditions and privacy policy.'}
+                styles = {styles.termCondition}
+                onPress = {this.handleLogin}
+              />
             </View>
             <Toast
               ref="toast"
