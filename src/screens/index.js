@@ -13,6 +13,7 @@ import OnboardingProfile from './OnboardingProfile';
 import OnboardingBio from './OnboardingBio';
 import LastPage from './LastPage';
 import OnboardingSocial from './OnboardingSocial';
+import AllDone from './AllDone';
 
 export default {
   ForgetPassword, 
@@ -30,4 +31,5 @@ export default {
   OnboardingBio,
   LastPage,
   OnboardingSocial,
+  AllDone,
 };

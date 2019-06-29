@@ -42,6 +42,9 @@ export default class OnboardingSocial extends Component {
   handleEdit = () => {
     alert('Can you edit me');
   }
+  handleOnboardSocial = () => {
+    return this.props.navigation.navigate('AllDone')
+  }
 
   handlePhoneChange = (text) => {
     if(text.length > 0) {
@@ -483,7 +486,7 @@ export default class OnboardingSocial extends Component {
             <SubmitButton
               title={'Sign Up'}
               // disabled={!this.toggleButtonState()}
-              onPress={this.handleRegistration}
+              onPress={this.handleOnboardSocial}
               imgSrc={require('../../assets/images/resume.png')}
               btnStyle={styles.buttonWithImage}
               imgStyle={StyleSheet.flatten(styles.iconDoor)}

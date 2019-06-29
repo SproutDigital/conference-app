@@ -16,6 +16,7 @@ import OnboardingProfile from '../screens/OnboardingProfile';
 import OnboardingBio from '../screens/OnboardingBio';
 import LastPage from '../screens/LastPage';
 import OnboardingSocial from '../screens/OnboardingSocial';
+import AllDone from '../screens/AllDone/AllDone';
 
 const AuthStack = createStackNavigator({ 
 
@@ -120,6 +121,12 @@ export const MenuStack = createStackNavigator({
   },
   OnboardingSocial : {
     screen : OnboardingSocial,
+    navigationOptions : {
+      header : null,
+    }
+  },
+  AllDone : {
+    screen : AllDone,
     navigationOptions : {
       header : null,
     }
