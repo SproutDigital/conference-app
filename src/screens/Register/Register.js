@@ -193,7 +193,7 @@ export default class Register extends Component {
                     textColor={colors.blackShade}
                     inputType={'text'}
                     onChangeText = {this.handleNameChange}
-                    autoCapitalize = "none"
+                    autoCapitalize = "words"
                     height = {40}
                     width = {'90%'}
                     borderWidth = {1}

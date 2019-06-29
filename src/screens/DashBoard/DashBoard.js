@@ -14,6 +14,10 @@ export default class DashBoard extends Component {
       message : '',
     }
   }
+  toggleDrawer = () => {
+    //Props to open/close the drawer
+    this.props.navigation.toggleDrawer();
+  };
 
   render () {
    return(
@@ -32,12 +36,10 @@ export default class DashBoard extends Component {
           />
         </TouchableOpacity>
         <View style = {styles.nameView}>
-        
-        <Image
-          onPress={this.toggleDrawer} 
-          source = {require('../../assets/images/inapp_logo.png')}
-          style = {StyleSheet.flatten(styles.headerIcon)}
-        />
+          <Image
+            source = {require('../../assets/images/inapp_logo.png')}
+            style = {StyleSheet.flatten(styles.headerLogoIcon)}
+          />
       </View>
       </View>
       <View>

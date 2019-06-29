@@ -4,6 +4,7 @@ const window = Dimensions.get('window');
 export const IMAGE_HEIGHT = window.width / 3;
 export const IMAGE_HEIGHT_SMALL = window.width /6;
 import colors from '../../assets/colors';
+import theme from '../../assets/theme';
 
 export default styles = StyleSheet.create({
   container: {
@@ -13,7 +14,6 @@ export default styles = StyleSheet.create({
     paddingRight: 10,
     paddingTop: 40,
     paddingBottom: 10, 
-    backgroundColor: colors.blueBg,
 
   },
   wrapper: {
@@ -52,8 +52,9 @@ export default styles = StyleSheet.create({
   },
   
   signupLinkView: {
-    justifyContent: 'center',
-    flexDirection: 'row',
+    justifyContent : 'center',
+    flexDirection : 'row',
+    marginBottom : 8,
   },
   signupText: {
     fontSize: 16,
@@ -87,8 +88,32 @@ export default styles = StyleSheet.create({
 		height: null,
 	},
   forgotPwd : {
-    color : colors.white,
+    color : theme.primaryTextColor,
     marginBottom : 8,
+    fontFamily : theme.subHeaderFont
+  },
+  signupWith : {
+    color : theme.primaryTextColor,
+    marginBottom : 8,
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.thinyFont
+  },
+  signWithView : {
+    width : '100%',
+    justifyContent: 'center',
+    alignItems : 'center',
+    flexDirection : "column",
+    marginTop : 16
+  },  
+  socialIconView : {
+    flexDirection : "row",
+    paddingTop: 8
+  },
+  socialIcons : {
+    height : 24,
+    width : 24,
+    tintColor : theme.primaryTextColor,
+    marginLeft : 2
   },
   logoTxt : {
     fontFamily : 'Poppins-ExtraBold',
@@ -97,6 +122,7 @@ export default styles = StyleSheet.create({
     alignSelf : 'center',
     marginTop : '25%'
   },
+
   textInputView : {
     width : '100%',
     height : 45,
@@ -105,8 +131,9 @@ export default styles = StyleSheet.create({
     flexDirection : 'row',
     alignItems : 'center',
     marginTop : 8,
-    paddingLeft : 8
-
+    paddingLeft : 8,
+    borderWidth : 1,
+    borderColor : theme.secondaryTextColor,
   },
   textinputCont :{},
   iconForm: {
@@ -138,8 +165,16 @@ export default styles = StyleSheet.create({
     resizeMode : 'contain',
     marginLeft: 24,
   },
-  curve : {
-    position : 'absolute',
+  logoIcon : {
+    width : '60%',
+    height : '50%',
+    resizeMode : 'contain'
   },
-
+  imageView : {
+    width : '90%',
+    height : '30%',
+    alignItems : 'center',
+    justifyContent: 'center',
+    marginTop : 30
+  }
 });

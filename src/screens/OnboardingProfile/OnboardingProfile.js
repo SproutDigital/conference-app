@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
+import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
 import {DisplayText, InputField } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
@@ -31,6 +31,10 @@ export default class OnboardingProfile extends Component {
   }
   handleEdit = () => {
     alert('edit me please eddie')
+  }
+
+  handleNext = () => {
+    this.props.navigation.navigate('OnboardingBio')
   }
 
   //set Category picker
@@ -142,7 +146,11 @@ export default class OnboardingProfile extends Component {
         </View>
       </View>
       {/* End of Toolbar */}
-      <View style = {styles.viewBody}>
+      <KeyboardAvoidingView
+          style={styles.wrapper}
+          behavior = 'padding'> 
+        <ScrollView style={{flex:1,}} showsVerticalScrollIndicator={false}>
+          <View style = {styles.viewBody}>
 
         <View style = {styles.imageView}>
           <Image
@@ -267,15 +275,15 @@ export default class OnboardingProfile extends Component {
               <InputField
                 // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
-                textColor={colors.blackShade}
-                inputType={'email'}
-                keyboardType={'email'}
+                textColor={theme.primaryTextColor}
+                inputType={'name'}
+                keyboardType={'default'}
                 onChangeText = {this.handleNameChange}
-                autoCapitalize = "none"
-                height = {30}
+                autoCapitalize = "words"
+                height = {25}
                 width = {'100%'}
                 borderBottomWidth = {0}
-                borderColor = {colors.white}
+                borderColor = {theme.colorAccent}
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
@@ -296,15 +304,15 @@ export default class OnboardingProfile extends Component {
               <InputField
                 // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
-                textColor={colors.blackShade}
-                inputType={'email'}
-                keyboardType={'email'}
+                textColor={theme.primaryTextColor}
+                inputType={'name'}
+                keyboardType={'default'}
                 onChangeText = {this.handleJobTitleChange}
-                autoCapitalize = "none"
-                height = {30}
+                autoCapitalize = "words"
+                height = {25}
                 width = {'100%'}
                 borderBottomWidth = {0}
-                borderColor = {colors.white}
+                borderColor = {theme.colorAccent}
                 /> 
                 <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
@@ -317,22 +325,23 @@ export default class OnboardingProfile extends Component {
           </View>
 
           <TouchableOpacity 
-            onPress = {this.handleEdit}
+            onPress = {this.handleNext}
             style = {styles.buttonView}>
             <DisplayText
-              onPress = {this.handleEdit}
+              onPress = {this.handleNext}
               text={'NEXT'}
               styles = {StyleSheet.flatten(styles.txtNext)}
             />
             <Image
-              onPress = {this.handleEdit}
+              onPress = {this.handleNext}
               source = {require('../../assets/images/send_arrow.png')}
               style = {StyleSheet.flatten(styles.nextIcon)}
             />
           </TouchableOpacity>
-          
-      </View>
-    </SafeAreaView>
+        </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     )
   }
 } 
