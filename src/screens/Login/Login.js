@@ -273,7 +273,7 @@ export default class Login extends Component {
                 title={'Log in'}
                 disabled={!this.toggleButtonState()}
                 onPress={this.handleSignIn}
-                imgSrc={require('../../assets/images/add_peopl.png')}
+                imgSrc={require('../../assets/images/loginIcon.png')}
                 btnStyle={styles.buttonWithImage}
                 imgStyle={StyleSheet.flatten(styles.iconDoor)}
                 titleStyle={StyleSheet.flatten(styles.buttonTxt)}
