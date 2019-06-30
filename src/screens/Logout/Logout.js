@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {SafeAreaView, AsyncStorage} from 'react-native';
-
+import {logout} from '../../utils/index'
 
 
 export default class Logout extends Component {
@@ -10,10 +10,9 @@ export default class Logout extends Component {
   
   }
 
-  componentDidMount() {
-    this.props.navigation.navigate('Login');
-     AsyncStorage.clear();  
-  }
+  componentWillMount() {
+    logout()
+   }
   render() {
 
     return (

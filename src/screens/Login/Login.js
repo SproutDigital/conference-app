@@ -11,6 +11,7 @@ import colors from '../../assets/colors';
 import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import CheckBox from 'react-native-check-box'
 import * as Facebook from 'expo-facebook';
 
 
@@ -47,6 +48,11 @@ export default class Login extends Component {
     this.keyboardWillHideSub.remove();
   }
 
+  handleCheckBox = () => {
+    this.setState({
+        isChecked:!this.state.isChecked
+    })
+  }
 
   resetNavigationStack = (location) => {
     const navigateAction =  StackActions.reset({
@@ -227,7 +233,9 @@ export default class Login extends Component {
             source={require('../../assets/images/logo.png')}
             style={StyleSheet.flatten(styles.logoIcon)}/> 
         </View>
-        <ScrollView style={{flex:1}}>
+        <ScrollView 
+            style={{flex:1,}}
+            showsVerticalScrollIndicator={false}>          
           <KeyboardAvoidingView
             style={styles.wrapper}
             behavior="padding"
@@ -267,6 +275,20 @@ export default class Login extends Component {
                     borderWidth = {1}
                     borderColor = {colors.white}/> 
               </View>
+            </View>
+
+            <View style = {StyleSheet.flatten(styles.checkBoxView)}>
+              <CheckBox
+                style={styles.checkBox}
+                onClick={this.handleCheckBox}
+                isChecked={this.state.isChecked}
+                // rightText={"I agree to the"}
+              />
+              <DisplayText
+                text={'By continuing, you agree to our terms, \nconditions and privacy policy.'}
+                styles = {styles.termCondition}
+                onPress = {this.handleLogin}
+              />
             </View>
             <Toast
               ref="toast"

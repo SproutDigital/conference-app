@@ -176,5 +176,24 @@ export default styles = StyleSheet.create({
     alignItems : 'center',
     justifyContent: 'center',
     marginTop : 30
-  }
+  },
+  checkBoxView : {
+    flexDirection : 'row',
+    justifyContent : 'space-around',
+    // alignItems : 'center',
+    paddingTop : 8,
+  },
+  checkBox : {
+    flex: 1, 
+    padding: 10
+  },
+  termCondition : {
+    fontSize: theme.thinyFont,
+    color: theme.darkGray,
+    marginTop: 11,
+    fontFamily: theme.subHeaderFont,
+    alignSelf: 'center',
+    position : 'absolute',
+    right : 45,
+  },
 });

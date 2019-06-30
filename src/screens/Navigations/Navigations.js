@@ -14,7 +14,7 @@ import DashBoard from '../DashBoard/DashBoard';
 // import ManageAccount from '../ManageAccount/ManageAccount';
 // import Investment from '../Investment/Investment';
 // import Referral from '../Referral/Referral';
-// import Logout from '../Logout/Logout';
+import Logout from '../Logout/Logout';
 
 import CustomSidebarMenu from './CustomSidebarMenu';
 
@@ -80,15 +80,15 @@ const DashBoard_StackNavigator = createStackNavigator({
 //     }
 //   },
 // });
-// const Logout_StackNavigator = createStackNavigator({
-//   //All the screen from the Referral will be indexed here
-//   Forth: {
-//     screen: Logout,
-//     navigationOptions: {
-//       header : null,
-//     }
-//   },
-// });
+const Logout_StackNavigator = createStackNavigator({
+  //All the screen from the Referral will be indexed here
+  Forth: {
+    screen: Logout,
+    navigationOptions: {
+      header : null,
+    }
+  },
+});
 
 const DrawerNavigator = createDrawerNavigator({
   DashBoard: {
