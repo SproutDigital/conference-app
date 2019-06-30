@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
+import Constants from 'expo-constants'
 
 export default styles = StyleSheet.create({
   container: {
@@ -10,19 +11,21 @@ export default styles = StyleSheet.create({
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
-    height : 60,
-    backgroundColor: theme.toolBarColor,
-    width: '100%',
-    alignItems: 'center',
-    paddingBottom: 4,
-    shadowColor: theme.secondaryTextColor,
-    shadowOffset: { 
-      width: 0, 
-      height: 4 
+    height : 80,
+    backgroundColor : theme.toolBarColor,
+    width : '100%',
+    alignItems : 'center',
+    paddingBottom : 4,
+    shadowColor : theme.secondaryTextColor,
+    shadowOffset : { 
+      width : 0, 
+      height : 4 
     },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
-    elevation: 3,  
+    shadowOpacity : 0.5,
+    shadowRadius : 2,
+    elevation : 3,  
+    paddingTop : Constants.statusBarHeight
+    
   },
   headerIcon: {
     height: 18,
@@ -95,12 +98,26 @@ export default styles = StyleSheet.create({
     fontFamily : theme.semiBoldFont,
     fontSize : theme.MediumFont
   },
-  // userCathegoryView : {
-  //   flexDirection : 'row',
-  //   //justifyContent: 'center',
-  //  // alignItems : 'center',
-  //   //width : '50%',
-  // },
+  userCathegoryView : {
+    // flexDirection : 'row',
+    flex : 1,
+    color : theme.primaryTextColor,
+    fontFamily : theme.subHeaderFont,
+    backgroundColor : theme.colorAccent,
+    
+    marginBottom : 8
+  },
+  pickerView : {
+    height: 30, 
+    width:'90%', 
+    justifyContent: 'center',
+  },
+  
+  pickerImage : {
+    width : 10,
+    height : 10,
+    tintColor : 'red'
+  },
   downArrow : {
     width : 14,
     height : 14,
@@ -165,6 +182,12 @@ export default styles = StyleSheet.create({
     fontSize :theme.SmallFont,
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont,
+    
+  },
+  pickerLabel : {
+    fontSize :theme.SmallFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont,
   },
   textHeaderStyle : {
     fontSize :theme.MediumFont,
@@ -172,8 +195,8 @@ export default styles = StyleSheet.create({
     fontFamily : theme.inputHintFont
   },
   selectView : {
-   // flexDirection : 'row',
-   // justifyContent : 'space-between',
+   flexDirection : 'row',
+   justifyContent : 'space-between',
   },
   penIcon : {
     width : 16,
@@ -233,4 +256,5 @@ export default styles = StyleSheet.create({
     borderWidth : 1,
     borderColor : theme.secondaryTextColor,
   },
+  
 });

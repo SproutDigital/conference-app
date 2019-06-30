@@ -337,14 +337,17 @@ export default class OnboardingProfile extends Component {
         
           <View style = {styles.titleView}>
             <DisplayText
-              styles={StyleSheet.flatten(styles.titleText)}
+              styles={StyleSheet.flatten(styles.pickerLabel)}
               text = {'Title'}
             />
             <View style = {styles.selectView}>
-              <View style={{borderBottomWidth:0, borderColor: 'rgb(204, 204, 204)', width:'90%'}}>
+              {/* <View style={{borderBottomWidth:0, borderColor: 'rgb(204, 204, 204)', width:'90%'}}> */}
+             
+              <View style={styles.pickerView}>
 
                 <Picker
                   selectedValue={this.state.title}
+                  
                   style={styles.userCathegoryView}
                   onValueChange={title => this.setState({ title })}>
                   <Picker.Item  label="Mr." value="Mr." />
@@ -359,8 +362,7 @@ export default class OnboardingProfile extends Component {
                 <Image
                   onPress = {this.handleEdit}
                   source = {require('../../assets/images/edit.png')}
-                  style = {StyleSheet.flatten(styles.penIcon)}
-                />
+                  style = {StyleSheet.flatten(styles.penIcon)}/>
               </TouchableOpacity>
             </View>
             
