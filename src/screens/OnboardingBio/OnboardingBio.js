@@ -1,92 +1,69 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, FlatList, TextInput,KeyboardAvoidingView, Modal, Text, TouchableWithoutFeedback,TouchableHighlight, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField} from '../../components';
+import { View, ScrollView, FlatList, TextInput,KeyboardAvoidingView,Picker, Modal,
+   Text, TouchableWithoutFeedback, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import {DisplayText, InputField, SingleButtonAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import colors from '../../assets/colors';
+import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile} from '../../utils';
+import { ProgressDialog } from 'react-native-simple-dialogs';
 
 
 export default class OnboardingBio extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      gender: 'Gender',
-      isValidGender: false,
-      modalGenderVisible: false,
-
+      gender: '',
       nationalityModalVisible : false,
       nationality : 'Nationality',
-      isCompanyValid : false,
       company : '',
-      shortBio : '',
-      isShortBioValid : false
+      biodata : '',
+      interests: '',
+      companyStatus: false,
+      biodataStatus: false,
+      interestStatus: false,  
+      showAlert: false,
+      showLoading:false,  
+      message: '',
+      title: '',
+      token:'',
+      _id:'',
+
     }
   }
 
-  handleNext = () => {
-    return this.props.navigation.navigate('LastPage');
+   async componentDidMount(){
+    let profile = await getProfile();  
+    return await this.setState({
+      '_id' : profile.id,
+      'token' : profile.sessionToken,
+    })
   }
-  handleEdit = () => {
-    console.log({click : editing});
+
+  handleCompanyStatus = () => {
+    return this.setState(prevState => ({
+      companyStatus: !prevState.companyStatus,
+    }));
   }
+
+  handleBiodataStatus = () => {
+    return this.setState(prevState => ({
+      biodataStatus: !prevState.biodataStatus,
+    }));
+  }
+
+  handleInterestStatus = () => {
+    return this.setState(prevState => ({
+      interestStatus: !prevState.interestStatus,
+    }));
+  }
+  
   handleAddMore = () => {
     alert('Alert add more');
   }
-  
-  //set gender picker
-  setGenderPicker = (newValue) => {
-    this.setState({
-      gender: newValue,
-      isValidGender: true
-    });
-    this.closeGenderModal();
-  }
 
-  handleGender = () => {
-    this.toggleGenderModal(true);
-  };
-
-  toggleGenderModal = (visible) => {
-    this.setState({ modalGenderVisible : visible });
-  };
-
-  closeGenderModal = () => {
-    this.toggleGenderModal(!this.state.modalGenderVisible);
-  };
-
-  handleCompanyChange = (company) => {
-    if(company.length > 0) {
-      this.setState({
-        isCompanyValid: true,
-        company : company
-      });
-    }
-    else {
-      if (company.length < 1) {
-        this.setState({
-          isCompanyValid : false
-        });
-      }
-    }
-  }
-  handleShortBio = (shortBio) => {
-    if(shortBio.length > 0) {
-      this.setState({
-        isShortBioValid: true,
-        shortBio : shortBio
-      });
-    }
-    else {
-      if (shortBio.length < 1) {
-        this.setState({
-          isShortBioValid : false
-        });
-      }
-    }
-  }
-  
   // country modal
   selectNationality = async(country) => {
     // Get data from Countries.js  
@@ -118,13 +95,90 @@ export default class OnboardingBio extends Component {
     // Refocus on the Input field after selecting the country code
     // this.refs.PhoneInput._root.focus()
   }
+
+
+  handleCompanyChange = (company) => {
+    
+    this.setState({
+      company
+    });
+    
+  }
+  handleShortBio = (biodata) => {
+    
+    this.setState({
+      biodata
+    });
+   
+  }
+
+  handleCloseNotification = () => {
+    return this.setState({
+      showAlert : false
+    });
+  }
+
+
+  handleNextButton =async()=> {
+
+    const {gender, nationality, biodata, company, interest, _id, token} = this.state;
+    if(isEmpty(company)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Work Name'
+      })
+    }
+    else if(isEmpty(biodata)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Bio data Information'
+      })
+    }
+
+    // else if(isEmpty(interest)) {
+    //   return this.setState({
+    //     showAlert:true,
+    //     message: 'Select Interest'
+    //   })
+    // }
+
+    this.setState({
+      showLoading: true,
+    });
+
+    let body = await JSON.stringify({
+      'query':{_id},
+      'update' : {gender, nationality, biodata, company, interest}   
+    });
+
+    await putRoute (ProfileUpdateEndpoint, body, token)
+      .then((res) => {
+        console.log({res})
+        this.setState({ 
+          showLoading : false, 
+        });
+
+        if(res.status == 'success') {
+          this.setState({ 
+            showLoading : false, 
+          });
+          return this.props.navigation.navigate('LastPage')        
+        } 
+        else {
+          return this.setState({ 
+           showLoading : false, 
+           message: res.message,
+           showAlert: true,
+           title: 'Hello'
+         });
+       }
+      });
+  }
   
   render () {
     const countryData = data
-    const pickerGender = [
-      {title: 'Female', value: 'Female'},
-      {title: 'Male', value: 'Male'},
-    ];
+    const {biodataStatus, companyStatus, title, message, showAlert, showLoading } = this.state;
+
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -132,7 +186,9 @@ export default class OnboardingBio extends Component {
         backgroundColor={theme.colorAccent}/>
       <View style = {styles.navBar}>
         <TouchableOpacity
-          style = {styles.headerImage}>
+          style = {styles.headerImage}
+          onPress={()=>this.props.navigation.navigate('OnboardingProfile')}
+          >
           <Image
             source = {require('../../assets/images/back.png')}
             style = {StyleSheet.flatten(styles.headerIcon)}
@@ -157,47 +213,22 @@ export default class OnboardingBio extends Component {
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Gender'}
               />
-              {/* <View style = {styles.selectView}> */}
-              <TouchableOpacity 
-                onPress = {this.handleGender}
-                style = { styles.userGenderView}>
-                <DisplayText
-                  onPress = {this.handleGender}
-                  styles={StyleSheet.flatten(styles.inputTxt)}
-                  text = {this.state.gender}
-                />
+              <View style = {styles.selectView}> 
+                <View style={{ width:'90%'}}>
+                  <Picker
+                    selectedValue={this.state.gender}
+                    onValueChange={gender => this.setState({ gender })}>
+                    <Picker.Item  label="male" value="male" />
+                    <Picker.Item label="female" value="female" />
+                  </Picker>
+                </View>
+                  
                 <Image
                   source = {require('../../assets/images/down_arrow.png')}
                   style = {StyleSheet.flatten(styles.downArrow)}
                 />
-              </TouchableOpacity> 
-            {/* </View> */}
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible = {this.state.modalGenderVisible}
-              onRequestClose={() => {console.log('Request was closed')}}>
-              <View style={styles.modalContainer}> 
-                <View style={styles.modalStyle}>
-                  <ScrollView 
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ padding: 16}}>
-                    <View style={{flex: 1, justifyContent: 'center'}}>
-                      <DisplayText
-                        style={styles.textHeaderStyle}
-                        text ={' Gender '} 
-                        />
-                      {pickerGender.map((value, index) => {
-                        return <TouchableHighlight key={index} onPress={() => this.setGenderPicker(value.value)}>
-                          <Text style={styles.modalTxt}>{value.title}</Text>
-                        </TouchableHighlight>;
-                      })
-                    }                    
-                  </View>
-                </ScrollView>
-              </View>
             </View>
-          </Modal>
+    
         </View>
         <View style = {styles.CountryView}>
           <DisplayText
@@ -260,7 +291,6 @@ export default class OnboardingBio extends Component {
               />
             <View style = {{flexDirection : 'row', width : '90%'}}>
               <InputField
-                // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
                 textColor={theme.primaryTextColor}
                 inputType={'name'}
@@ -271,12 +301,14 @@ export default class OnboardingBio extends Component {
                 width = {'100%'}
                 borderBottomWidth = {0}
                 borderColor = {colors.white}
+                editable = {companyStatus}
+
                 /> 
                 <TouchableOpacity 
                   style = {{paddingLeft : 8}}
-                  onPress = {this.handleEdit}>
+                  onPress = {this.handleCompanyStatus}>
                 <Image
-                  onPress = {this.handleEdit}
+                  onPress = {this.handleCompanyStatus}
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}
                 />
@@ -295,12 +327,13 @@ export default class OnboardingBio extends Component {
                 multiline={true}
                 onChangeText = {this.handleShortBio}
                 style={styles.textInputStyles} 
+                editable={biodataStatus}
                 />
               <TouchableOpacity 
                 style = {{paddingLeft : 8}}
-                onPress = {this.handleEdit}>
+                onPress = {this.handleBiodataStatus}>
                 <Image
-                  onPress = {this.handleEdit}
+                  onPress = {this.handleBiodataStatus}
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}
                 />
@@ -313,9 +346,9 @@ export default class OnboardingBio extends Component {
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Interest'}
               />
-              <TouchableOpacity onPress = {this.handleEdit}>
+              <TouchableOpacity onPress = {this.handleInterestStatus}>
                 <Image
-                  onPress = {this.handleEdit}
+                  onPress = {this.handleInterestStatus}
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}
                 />
@@ -336,23 +369,33 @@ export default class OnboardingBio extends Component {
           </View>
           <View style = {styles.btnViewNext}> 
             <TouchableOpacity 
-              onPress = {this.handleNext}
+              onPress = {this.handleNextButton}
               style = {styles.buttonView}>
               <DisplayText
-                onPress = {this.handleNext}
+                onPress = {this.handleNextButton}
                 text={'NEXT'}
                 styles = {StyleSheet.flatten(styles.txtNext)}
               />
               <Image
-                onPress = {this.handleNext}
+                onPress = {this.handleNextButton}
                 source = {require('../../assets/images/send_arrow.png')}
                 style = {StyleSheet.flatten(styles.nextIcon)}
               />
             </TouchableOpacity>
           </View>
-          
+            <ProgressDialog
+              visible={showLoading}
+              title="Processing"
+              message="Please wait..."
+            />  
         </ScrollView>
       </KeyboardAvoidingView>
+       <SingleButtonAlert
+          title = {title} 
+          message = {message}
+          handleCloseNotification = {this.handleCloseNotification}
+          visible = {showAlert}
+        />
     </SafeAreaView>
     )
   }

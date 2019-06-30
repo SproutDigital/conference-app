@@ -172,9 +172,8 @@ export default styles = StyleSheet.create({
     fontFamily : theme.inputHintFont
   },
   selectView : {
-    flexDirection : 'row',
-    justifyContent : 'space-between',
-    paddingBottom:45,
+   // flexDirection : 'row',
+   // justifyContent : 'space-between',
   },
   penIcon : {
     width : 16,

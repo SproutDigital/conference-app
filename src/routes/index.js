@@ -95,6 +95,7 @@ const AuthStack = createStackNavigator({
   }
 });
 
+<<<<<<< HEAD
 
 export const OnBoardingStack = createStackNavigator({ 
   
@@ -104,12 +105,30 @@ export const OnBoardingStack = createStackNavigator({
       header: null,
     }
   },
+=======
+export const MenuStack = createStackNavigator({ 
+  DashBoard : {
+    screen : DashBoard,
+    navigationOptions : {
+      header : null,
+    }
+  },
+
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
   OnboardingProfile : {
     screen : OnboardingProfile,
     navigationOptions : {
       header : null,
     }
   },
+  
+  OnboardingBio: {
+    screen: OnboardingBio,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  
   LastPage : {
     screen : LastPage,
     navigationOptions : {

@@ -1,11 +1,21 @@
 'use strict';
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
 import {DisplayText, InputField } from '../../components';
+=======
+import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Picker, Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
+import {logout, isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+
+
 
 export default class OnboardingProfile extends Component {
   constructor(props) {
@@ -14,12 +24,10 @@ export default class OnboardingProfile extends Component {
       token : '',
       showAlert : false,
       message : '',
-      category : 'Speaker',
       isValidCategory : false,
       catVisible : false,
       modalCategoryVisible : false,
       token: '',
-      title : 'Mr.',
       isValidTitle : false,
       titleVisible : false,
       modalTitleVisible : false,
@@ -32,30 +40,164 @@ export default class OnboardingProfile extends Component {
       role:'',
       _id:'',
       title: '',
+      token: '',
+      name: '',
+      namestatus: false,
+      jobstatus: false,
+      jobtitle: '',
+      photo:'',
     }
   }
 
+<<<<<<< HEAD
   handleNext = () => {
     this.props.navigation.navigate('OnboardingBio')
+=======
+  async componentDidMount(){
+    //logout();
+    let profile = await getProfile();  
+    return await this.setState({
+      '_id' : profile.id,
+      'token' : profile.sessionToken,
+      'name': profile.name,
+    })
   }
 
-  //set Category picker
-  setCategoryPicker = (catValue) => {
+  handleCloseNotification = () => {
+    return this.setState({
+      showAlert : false
+    });
+  }
+
+  _pickImage = async () => {
+    const {
+      status: cameraRollPerm
+    } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+    // only if user allows permission to camera roll
+    if (cameraRollPerm === 'granted') {
+      let pickerResult = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        mediaTypes: 'Images',
+        quality:0.1,
+        base64:true,
+      });
+      this._handleImagePicked(pickerResult);
+    }
+  }
+
+  _handleImagePicked = async pickerResult => {
+    let uploadResponse, uploadResult;
+
+    try {
+      this.setState({
+       showLoading: true
+      });
+
+      if (!pickerResult.cancelled) {
+        uploadResponse = await this.uploadImageAsync(pickerResult); 
+      }
+    } catch (e) {
+      this.setState({
+        showAlert: true,
+        message: 'Oops Something Went Wrong',
+        title: 'Hello'
+        });
+    } finally {
+      // this.setState({
+      //   showAlert: true,
+      //   message: 'Oops Something Went Wrong',
+      // title: 'Hello0'
+      // });
+    }
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
+  }
+
+  uploadImageAsync = async(pickerResult) =>{
     this.setState({
+<<<<<<< HEAD
       category: catValue,
       isValidCategory: true
+=======
+      showLoading: true,
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
     });
 
+    let uriParts = pickerResult.uri.split('.');
+      let fileType = uriParts[uriParts.length - 1];
+    let data = await JSON.stringify({
+      'photo' : pickerResult.base64 ,
+      'name' : Math.floor(Date.now() / 1000).toString(),
+      'type' : `${pickerResult.type}/${fileType}`
+    });
     
-  }
-  handleEdit = async() => {
-    alert('edit me please eddie')
+     await sendRoute (ImageUploadEndpoint, data, 'POST')
+      .then((res) => {
+        this.setState({ 
+          showLoading : false, 
+        });
+
+        if(typeof res.Location !== 'undefined') {
+          this.handleUpdateImageUri(res.Location); 
+        } 
+        else {
+          this.setState({ 
+            showLoading : false, 
+            message: res.message,
+            showAlert: true,
+            title: 'Hello'
+          });
+        }
+      });
+    }
+  handleNametataus = ()=> {
+    return this.setState({
+      namestatus:true,
+      jobstatus:false
+    })
   }
 
-  submitForm =async()=> {
-    const {name, job_title, role, title, _id, token} = this.state;
-   // let expoToken = await getExpoToken();
-       console.log('helllooo...')
+  handleJobStataus = ()=> {
+    return this.setState({
+      jobstatus:true,
+      namestatus:false,
+    })
+  }
+
+
+  handleUpdateImageUri =async(photo)=>{
+     const {_id, token} = this.state
+    let data = await JSON.stringify({
+      'query':{_id},
+      'update' : {photo}   
+    });
+
+    await putRoute (ProfileUpdateEndpoint, data, token)
+      .then((res) => {
+        this.setState({ 
+          showLoading : false, 
+        });
+
+        if(res.status == 'success') {
+          this.setState({ 
+            showLoading : false, 
+            photo:res.data.photo,
+          });
+        } 
+        else {
+          this.setState({ 
+           showLoading : false, 
+           message: res.message,
+           showAlert: true,
+           title: 'Hello'
+         });
+       }
+      });
+  }
+
+  handleSubmitForm =async()=> {
+    const {name, job_title, title, _id, token} = this.state;
     if(isEmpty(name)) {
       return this.setState({
         showAlert:true,
@@ -68,7 +210,6 @@ export default class OnboardingProfile extends Component {
         message: 'Enter Valid Job Title'
       })
     }
-    console.log('helllooo22...')
 
     this.setState({
       showLoading: true,
@@ -76,40 +217,29 @@ export default class OnboardingProfile extends Component {
 
     let data = await JSON.stringify({
       'query':{_id},
-      'update' : {title, name, job_title, role}   
+      'update' : {title, name, job_title}   
     });
-    console.log({token})
-    console.log({data})
-    console.log({ProfileUpdateEndpoint})
 
     await putRoute (ProfileUpdateEndpoint, data, token)
       .then((res) => {
-        console.log({res})
         this.setState({ 
           showLoading : false, 
         });
 
-        // if(typeof res.status == 'undefined') {
-        //   this.setState({ 
-        //     showLoading : false, 
-        //   });
-        //   if(!res.payload.verified) {
-        //     saveEmail(res.payload.email);
-        //     return this.resetNavigationStack('Verification');         
-        //   }
-        //   else if(res.payload.verified) {
-        //     saveToken(res.token);
-        //     return this.resetNavigationStack('Profile');    
-        //   }
-        // } 
-        // else {
-          //this.setState({ 
-           // showLoading : false, 
-          //  message: res.message,
-           // showAlert: true,
-           // title: 'Hello'
-         // });
-       // }
+        if(res.status == 'success') {
+          this.setState({ 
+            showLoading : false, 
+          });
+          this.props.navigation.navigate('OnboardingBio')
+        } 
+        else {
+          this.setState({ 
+           showLoading : false, 
+           message: res.message,
+           showAlert: true,
+           title: 'Hello'
+         });
+       }
       });
   }
 
@@ -147,7 +277,9 @@ export default class OnboardingProfile extends Component {
 
 
   render () {
-    const {showLoading, title, message, showAlert} = this.state;
+    const {showLoading, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
+    console.log({photo})
+
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -176,13 +308,27 @@ export default class OnboardingProfile extends Component {
           <View style = {styles.viewBody}>
 
         <View style = {styles.imageView}>
-          <Image
-            source = {require('../../assets/images/sample_pics.png')}
-            style = {StyleSheet.flatten(styles.imageStyle)}
-          />
-          <TouchableOpacity 
-            style = { styles.cameraTouch}>
+
+        { 
+            photo && photo.length > 0 ?
+            <Image 
+              source={{ uri: photo }} 
+              style={styles.imageStyle} 
+              /> 
+              : 
             <Image
+              resizeMode = 'center'
+              style = {styles.imageStyle}
+              source = {require('../../assets/images/sample_pics.png')}
+              />
+          }
+          
+          <TouchableOpacity 
+            style = { styles.cameraTouch}
+            onPress={this._pickImage}
+          >
+            <Image
+              onPress={this._pickImage}
               source = {require('../../assets/images/camera.png')}
               style = {StyleSheet.flatten(styles.cameraIcon)}
             />
@@ -190,9 +336,9 @@ export default class OnboardingProfile extends Component {
         </View>
         <DisplayText
           styles={StyleSheet.flatten(styles.profileNameTxt)}
-          text = {'Mr Ciroma Hassan'}
+          text = {name}
         />
-        <View style={{borderBottomWidth:1, borderColor: 'rgb(204, 204, 204)', width:'50%'}}>
+        {/* <View style={{borderBottomWidth:1, borderColor: 'rgb(204, 204, 204)', width:'50%'}}>
           <Picker
             selectedValue={this.state.role}
            // style={styles.userCathegoryView}
@@ -202,7 +348,7 @@ export default class OnboardingProfile extends Component {
             <Picker.Item label="sponsor" value="sponsor" />
             <Picker.Item label="user" value="user" />
           </Picker>
-         </View> 
+         </View>  */}
         
           <View style = {styles.titleView}>
             <DisplayText
@@ -250,12 +396,17 @@ export default class OnboardingProfile extends Component {
                 autoCapitalize = "words"
                 height = {25}
                 width = {'100%'}
-                borderBottomWidth = {0}
+                //borderBottomWidth = {0}
                 borderColor = {theme.colorAccent}
+<<<<<<< HEAD
+=======
+                defaultValue = {name}
+                editable = {namestatus}
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
                 /> 
-                <TouchableOpacity onPress = {this.handleEdit}>
+                <TouchableOpacity onPress = {this.handleNametataus}>
                 <Image
-                  onPress = {this.handleEdit}
+                  onPress = {this.handleNamestatus}
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}
                 />
@@ -273,18 +424,25 @@ export default class OnboardingProfile extends Component {
                 // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
                 textColor={theme.primaryTextColor}
-                inputType={'name'}
+                inputType={'default'}
                 keyboardType={'default'}
                 onChangeText = {this.handleJobTitleChange}
                 autoCapitalize = "words"
                 height = {25}
                 width = {'100%'}
+<<<<<<< HEAD
                 borderBottomWidth = {0}
                 borderColor = {theme.colorAccent}
+=======
+                //borderBottomWidth = {0}
+                borderColor = {theme.colorAccent}
+                defaultValue = {jobtitle}
+                editable={jobstatus}
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
                 /> 
-                <TouchableOpacity onPress = {this.handleEdit}>
+                <TouchableOpacity onPress = {this.handleJobStataus}>
                 <Image
-                  onPress = {this.handleEdit}
+                  onPress = {this.handleJobStataus}
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}
                 />
@@ -293,22 +451,48 @@ export default class OnboardingProfile extends Component {
           </View>
 
           <TouchableOpacity 
+<<<<<<< HEAD
             onPress = {this.handleNext}
             style = {styles.buttonView}>
             <DisplayText
               onPress = {this.handleNext}
+=======
+            onPress = {this.handleSubmitForm}
+            style = {styles.buttonView}>
+            <DisplayText
+              onPress = {this.handleSubmitForm}
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
               text={'NEXT'}
               styles = {StyleSheet.flatten(styles.txtNext)}
             />
             <Image
+<<<<<<< HEAD
               onPress = {this.handleNext}
+=======
+              onPress = {this.handleSubmitForm}
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
               source = {require('../../assets/images/send_arrow.png')}
               style = {StyleSheet.flatten(styles.nextIcon)}
             />
           </TouchableOpacity>
+<<<<<<< HEAD
+=======
+
+          <ProgressDialog
+              visible={showLoading}
+              title="Processing"
+              message="Please wait..."
+            />
+>>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
         </View>
         </ScrollView>
         </KeyboardAvoidingView>
+        <SingleButtonAlert
+          title = {title} 
+          message = {message}
+          handleCloseNotification = {this.handleCloseNotification}
+          visible = {showAlert}
+        />
       </SafeAreaView>
     )
   }

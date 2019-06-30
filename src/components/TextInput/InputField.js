@@ -130,6 +130,7 @@ export default class InputField extends Component {
           onBlur={onBlur}
           onFocus={onFocus}
           borderBottomColor={borderBottomColor}
+          editable={editable}
         />
         {inputType === 'password'
           ? (
