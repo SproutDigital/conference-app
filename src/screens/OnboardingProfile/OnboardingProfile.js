@@ -1,12 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
-<<<<<<< HEAD
-import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar, Text,Image, Modal, TouchableOpacity, TouchableHighlight,StyleSheet,} from 'react-native';
-import {DisplayText, InputField } from '../../components';
-=======
 import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Picker, Image, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
@@ -49,10 +44,6 @@ export default class OnboardingProfile extends Component {
     }
   }
 
-<<<<<<< HEAD
-  handleNext = () => {
-    this.props.navigation.navigate('OnboardingBio')
-=======
   async componentDidMount(){
     //logout();
     let profile = await getProfile();  
@@ -111,17 +102,11 @@ export default class OnboardingProfile extends Component {
       // title: 'Hello0'
       // });
     }
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
   }
 
   uploadImageAsync = async(pickerResult) =>{
     this.setState({
-<<<<<<< HEAD
-      category: catValue,
-      isValidCategory: true
-=======
       showLoading: true,
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
     });
 
     let uriParts = pickerResult.uri.split('.');
@@ -398,11 +383,8 @@ export default class OnboardingProfile extends Component {
                 width = {'100%'}
                 //borderBottomWidth = {0}
                 borderColor = {theme.colorAccent}
-<<<<<<< HEAD
-=======
                 defaultValue = {name}
                 editable = {namestatus}
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
                 /> 
                 <TouchableOpacity onPress = {this.handleNametataus}>
                 <Image
@@ -430,15 +412,10 @@ export default class OnboardingProfile extends Component {
                 autoCapitalize = "words"
                 height = {25}
                 width = {'100%'}
-<<<<<<< HEAD
-                borderBottomWidth = {0}
-                borderColor = {theme.colorAccent}
-=======
                 //borderBottomWidth = {0}
                 borderColor = {theme.colorAccent}
                 defaultValue = {jobtitle}
                 editable={jobstatus}
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
                 /> 
                 <TouchableOpacity onPress = {this.handleJobStataus}>
                 <Image
@@ -451,39 +428,25 @@ export default class OnboardingProfile extends Component {
           </View>
 
           <TouchableOpacity 
-<<<<<<< HEAD
-            onPress = {this.handleNext}
-            style = {styles.buttonView}>
-            <DisplayText
-              onPress = {this.handleNext}
-=======
             onPress = {this.handleSubmitForm}
             style = {styles.buttonView}>
             <DisplayText
               onPress = {this.handleSubmitForm}
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
               text={'NEXT'}
               styles = {StyleSheet.flatten(styles.txtNext)}
             />
             <Image
-<<<<<<< HEAD
-              onPress = {this.handleNext}
-=======
               onPress = {this.handleSubmitForm}
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
               source = {require('../../assets/images/send_arrow.png')}
               style = {StyleSheet.flatten(styles.nextIcon)}
             />
           </TouchableOpacity>
-<<<<<<< HEAD
-=======
 
           <ProgressDialog
               visible={showLoading}
               title="Processing"
               message="Please wait..."
             />
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
         </View>
         </ScrollView>
         </KeyboardAvoidingView>

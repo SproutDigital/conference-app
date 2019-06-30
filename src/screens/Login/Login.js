@@ -8,19 +8,12 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import {isEmailValid, sendRoute, LoginEndpoint, saveProfile, saveEmail, isEmpty} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
-<<<<<<< HEAD
-import Curve from '../BoardingScreen/Curve';
 import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from 'react-native-check-box'
-=======
-import { NavigationActions, StackActions } from 'react-navigation';
-import theme from '../../assets/theme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Facebook from 'expo-facebook';
 
->>>>>>> 5f1a827db039c94b08efdea15c63c7694301a850
 
 export default class Login extends Component {
   constructor(props) {
