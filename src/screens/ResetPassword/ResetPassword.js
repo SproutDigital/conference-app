@@ -8,7 +8,7 @@ import styles from './styles';
 import LockSvg from './LockSvg';
 import Toast from 'react-native-easy-toast';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import { postRoute, ResetPassword, isEmpty} from '../../utils';
+import { sendRoute, ResetPassword, isEmpty} from '../../utils';
 
 export default class ForgetPassword extends Component {
   constructor(props) {
@@ -87,7 +87,7 @@ export default class ForgetPassword extends Component {
       email, 
     });
 
-     await postRoute (ResetPassword, data)
+     await sendRoute (ResetPassword, data, 'POST')
       .then((res) => {
         console.log({res})
         if (res.status !== 'success') {  

@@ -75,8 +75,8 @@ const AuthStack = createStackNavigator({
     }
   }, 
 
-  Profile: {
-    screen: Profile,
+  OnboardingProfile: {
+    screen: OnboardingProfile,
     navigationOptions: {
       header: null,
     }

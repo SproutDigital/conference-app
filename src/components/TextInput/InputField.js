@@ -64,6 +64,8 @@ export default class InputField extends Component {
       defaultValue,
       editable,
       selectTextOnFocus,
+      onFocus,
+      onBlur,
     } = this.props;
 
     const { secureInput, inputValue } = this.state;
@@ -125,6 +127,9 @@ export default class InputField extends Component {
           maxLength={maxLength}
           height={height}    
           width={width}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          borderBottomColor={borderBottomColor}
         />
         {inputType === 'password'
           ? (
@@ -207,6 +212,7 @@ const styles = StyleSheet.create({
   form: {
     // backgroundColor: colors.white,
   },
+  
   showButton: {
     position: 'absolute',
     right: 0,

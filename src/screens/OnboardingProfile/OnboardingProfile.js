@@ -5,6 +5,7 @@ import {DisplayText, InputField } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
+import { ProgressDialog } from 'react-native-simple-dialogs';
 
 export default class OnboardingProfile extends Component {
   constructor(props) {
@@ -17,20 +18,21 @@ export default class OnboardingProfile extends Component {
       isValidCategory : false,
       catVisible : false,
       modalCategoryVisible : false,
-
+      token: '',
       title : 'Mr.',
       isValidTitle : false,
       titleVisible : false,
       modalTitleVisible : false,
+      showLoading: false,
 
       isNameValid: false,
       name : '',
-      jobTitle : '',
+      job_title : '',
       isJobTitleValid : false,
+      role:'',
+      _id:'',
+      title: '',
     }
-  }
-  handleEdit = () => {
-    alert('edit me please eddie')
   }
 
   handleNext = () => {
@@ -43,46 +45,80 @@ export default class OnboardingProfile extends Component {
       category: catValue,
       isValidCategory: true
     });
-    this.closeCategoryModal();
+
+    
+  }
+  handleEdit = async() => {
+    alert('edit me please eddie')
   }
 
-  handleCategory = () => {
-    this.toggleCategoryModal(true);
-  };
+  submitForm =async()=> {
+    const {name, job_title, role, title, _id, token} = this.state;
+   // let expoToken = await getExpoToken();
+       console.log('helllooo...')
+    if(isEmpty(name)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Name'
+      })
+    }
+    else if(isEmpty(job_title)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Job Title'
+      })
+    }
+    console.log('helllooo22...')
 
-  toggleCategoryModal = (catVisible) => {
-    this.setState({ modalCategoryVisible : catVisible });
-  };
-
-  closeCategoryModal = () => {
-    this.toggleCategoryModal(!this.state.modalCategoryVisible);
-  };
-
-    //set Title picker
-  setTitlePicker = (titleValue) => {
     this.setState({
-      title: titleValue,
-      isValidTitle: true
+      showLoading: true,
     });
-    this.closeTitleModal();
+
+    let data = await JSON.stringify({
+      'query':{_id},
+      'update' : {title, name, job_title, role}   
+    });
+    console.log({token})
+    console.log({data})
+    console.log({ProfileUpdateEndpoint})
+
+    await putRoute (ProfileUpdateEndpoint, data, token)
+      .then((res) => {
+        console.log({res})
+        this.setState({ 
+          showLoading : false, 
+        });
+
+        // if(typeof res.status == 'undefined') {
+        //   this.setState({ 
+        //     showLoading : false, 
+        //   });
+        //   if(!res.payload.verified) {
+        //     saveEmail(res.payload.email);
+        //     return this.resetNavigationStack('Verification');         
+        //   }
+        //   else if(res.payload.verified) {
+        //     saveToken(res.token);
+        //     return this.resetNavigationStack('Profile');    
+        //   }
+        // } 
+        // else {
+          //this.setState({ 
+           // showLoading : false, 
+          //  message: res.message,
+           // showAlert: true,
+           // title: 'Hello'
+         // });
+       // }
+      });
   }
 
-  handleTitle = () => {
-    this.toggleTitleModal(true);
-  };
-
-  toggleTitleModal = (titleVisible) => {
-    this.setState({ modalTitleVisible : titleVisible });
-  };
-
-  closeTitleModal = () => {
-    this.toggleTitleModal(!this.state.modalTitleVisible);
-  };
+  
   handleNameChange = (name) => {
     if(name.length > 0) {
       this.setState({
         isNameValid: true,
-        name : name
+        name
       });
     }
     else {
@@ -93,15 +129,15 @@ export default class OnboardingProfile extends Component {
       }
     }
   }
-  handleJobTitleChange = (jobTitle) => {
-    if(jobTitle.length > 0) {
+  handleJobTitleChange = (job_title) => {
+    if(job_title.length > 0) {
       this.setState({
         isJobTitleValid: true,
-        jobTitle : jobTitle
+        job_title
       });
     }
     else {
-      if (jobTitle.length < 1) {
+      if (job_title.length < 1) {
         this.setState({
           isJobTitleValid : false
         });
@@ -111,20 +147,7 @@ export default class OnboardingProfile extends Component {
 
 
   render () {
-    const pickerCategory = [
-      {title: 'Speaker', value: 'Speaker'},
-      {title: 'Organiser', value: 'Organiser'},
-      {title: 'Attende', value: 'Attende'},
-
-    ];
-    const pickerTitle = [
-      {title: 'Mr.', value: 'Mr'},
-      {title: 'Mrs.', value: 'Mrs'},
-      {title: 'Miss.', value: 'Miss'},
-      {title: 'Dr.', value: 'Dr'},
-      {title: 'Prof.', value: 'Prof'},
-
-    ];
+    const {showLoading, title, message, showAlert} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -169,47 +192,17 @@ export default class OnboardingProfile extends Component {
           styles={StyleSheet.flatten(styles.profileNameTxt)}
           text = {'Mr Ciroma Hassan'}
         />
-          <TouchableOpacity 
-            onPress = {this.handleCategory}
-            style = { styles.userCathegoryView}>
-            <DisplayText
-              onPress = {this.handleCategory}
-              styles={StyleSheet.flatten(styles.userCathegoryTxt)}
-              text = {this.state.category}
-            />
-            <Image
-              source = {require('../../assets/images/down_arrow.png')}
-              style = {StyleSheet.flatten(styles.downArrow)}
-            />
-          </TouchableOpacity> 
-
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible = {this.state.modalCategoryVisible}
-            onRequestClose={() => {console.log('Request was closed')}}>
-            <View style={styles.modalContainer}> 
-              <View style={styles.modalStyle}>
-                <ScrollView 
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ padding: 16}}>
-                  <View style={{flex: 1, justifyContent: 'center'}}>
-                    <DisplayText
-                      style={styles.textHeaderStyle}
-                      text ={' Category '} 
-                      />
-                    {pickerCategory.map((value, index) => {
-                      return <TouchableHighlight key={index} onPress={() => this.setCategoryPicker(value.value)}>
-                        <Text style={styles.modalTxt}>{value.title}</Text>
-                      </TouchableHighlight>;
-                    })
-                    }                    
-                  </View>
-                </ScrollView>
-              </View>
-            </View>
-          </Modal>
-          {/* text input view */}
+        <View style={{borderBottomWidth:1, borderColor: 'rgb(204, 204, 204)', width:'50%'}}>
+          <Picker
+            selectedValue={this.state.role}
+           // style={styles.userCathegoryView}
+            onValueChange={role => this.setState({ role })}>
+            <Picker.Item  label="attendee" value="attendee" />
+            <Picker.Item label="speaker" value="speaker" />
+            <Picker.Item label="sponsor" value="sponsor" />
+            <Picker.Item label="user" value="user" />
+          </Picker>
+         </View> 
         
           <View style = {styles.titleView}>
             <DisplayText
@@ -217,19 +210,20 @@ export default class OnboardingProfile extends Component {
               text = {'Title'}
             />
             <View style = {styles.selectView}>
-              <TouchableOpacity 
-                onPress = {this.handleCategory}
-                style = { styles.userTitleView}>
-                <DisplayText
-                  onPress = {this.handleTitle}
-                  styles={StyleSheet.flatten(styles.inputTxt)}
-                  text = {this.state.title}
-                />
-                <Image
-                  source = {require('../../assets/images/down_arrow.png')}
-                  style = {StyleSheet.flatten(styles.downArrow)}
-                />
-              </TouchableOpacity> 
+              <View style={{borderBottomWidth:0, borderColor: 'rgb(204, 204, 204)', width:'90%'}}>
+
+                <Picker
+                  selectedValue={this.state.title}
+                  style={styles.userCathegoryView}
+                  onValueChange={title => this.setState({ title })}>
+                  <Picker.Item  label="Mr." value="Mr." />
+                  <Picker.Item label="Mrs" value="Mrs" />
+                  <Picker.Item label="Dr." value="Dr." />
+                  <Picker.Item label="Chief" value="Chief" />
+                </Picker>
+
+              </View>
+              
               <TouchableOpacity onPress = {this.handleEdit}>
                 <Image
                   onPress = {this.handleEdit}
@@ -238,32 +232,7 @@ export default class OnboardingProfile extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible = {this.state.modalTitleVisible}
-              onRequestClose={() => {console.log('Request was closed')}}>
-              <View style={styles.modalContainer}> 
-                <View style={styles.modalStyle}>
-                  <ScrollView 
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ padding: 16}}>
-                    <View style={{flex: 1, justifyContent: 'center'}}>
-                      <DisplayText
-                        style={styles.textHeaderStyle}
-                        text ={'Title'} 
-                        />
-                      {pickerTitle.map((value, index) => {
-                        return <TouchableHighlight key={index} onPress={() => this.setTitlePicker(value.value)}>
-                          <Text style={styles.modalTxt}>{value.title}</Text>
-                        </TouchableHighlight>;
-                      })
-                      }                    
-                    </View>
-                  </ScrollView>
-                </View>
-              </View>
-            </Modal>
+            
           </View>
           {/* Name TextInput */}
           <View style = {styles.nameInputView}>
@@ -273,7 +242,6 @@ export default class OnboardingProfile extends Component {
             />
             <View style = {{flexDirection : 'row', width : '90%'}}>
               <InputField
-                // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
                 textColor={theme.primaryTextColor}
                 inputType={'name'}

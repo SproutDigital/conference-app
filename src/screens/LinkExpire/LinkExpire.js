@@ -4,9 +4,10 @@ import { View, TouchableOpacity, SafeAreaView, StatusBar, Image, StyleSheet,} fr
 import {DisplayText, SubmitButton , SingleButtonAlert} from '../../components';
 import styles from './styles';
 import ExpireSvg from './ExpireSvg';
-import { postRoute, RequestNewTokenEndpoint, getEmail} from '../../utils';
+import { sendRoute, RequestNewTokenEndpoint, getEmail} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { NavigationActions, StackActions } from 'react-navigation';
+
 
 export default class LinkExpire extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export default class LinkExpire extends Component {
       'email' : this.state.email.toLowerCase(), 
     });
 
-     await postRoute (RequestNewTokenEndpoint, data)
+     await sendRoute (RequestNewTokenEndpoint, data, 'Post')
       .then((res) => {
         if (res.status == 'success') { 
           if(res.message.includes('verification mail has been sent'))   {
