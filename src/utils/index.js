@@ -8,7 +8,8 @@ const LoginEndpoint = `${Baseurl}user/login`,
     Forgetpassword = `${Baseurl}user/forgotPassword`,
     ResetPassword = `${Baseurl}user/resetPassword`,
     RequestNewTokenEndpoint = `${Baseurl}user/resendEmailCode`,
-    ProfileUpdateEndpoint = `${Baseurl}profile/`
+    ProfileUpdateEndpoint = `${Baseurl}profile/`,
+    ImageUploadEndpoint = `${Baseurl}upload/`
 
 export {
     LoginEndpoint,
@@ -18,7 +19,8 @@ export {
     ResetPassword,
     VerifyUserEndpoint,
     RequestNewTokenEndpoint,
-    ProfileUpdateEndpoint
+    ProfileUpdateEndpoint,
+    ImageUploadEndpoint
 }
 
 export const isEmailValid = (email) => {
@@ -96,11 +98,14 @@ export const getRoute = (endpoint, token) => {
 }
 
 export const putRoute = (endpoint, body, token) => {
+    console.log({endpoint})
+    console.log({body})
+    console.log({'': `JWT ${token}`})
     return fetch(endpoint, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'access_token': `${'JWT'}${token}`,
+            'access_token': `JWT ${token}`,
         },
         body: body
     })
@@ -116,31 +121,23 @@ export const putRoute = (endpoint, body, token) => {
     });
 }
 
-export const saveToken = async (sessionToken, id) => {
-     await AsyncStorage.setItem('userId', id);
-    return await AsyncStorage.setItem('sessionToken', sessionToken);
+export const saveProfile = async(id, name, sessionToken) => {
+    let profile = {
+        id, name, sessionToken
+    };
+
+    return await AsyncStorage.setItem('profile', JSON.stringify(profile))
 }
 
-export const getToken = async () => {
-    return await AsyncStorage.getItem('sessionToken')
+export const getProfile = async() => {
+    return await AsyncStorage.getItem('profile')
         .then((value) => {
-        if (value) {
-            return value;
-        } else {
-            return false;
-        }
-    });
-}
-
-export const getUserId = async () => {
-    return await AsyncStorage.getItem('userId')
-        .then((value) => {
-        if (value) {
-            return value;
-        } else {
-            return false;
-        }
-    });
+            if (value) {
+                return JSON.parse(value);
+            } else {
+                return false;
+            }
+        });
 }
 
 
@@ -193,7 +190,7 @@ export const getEmail = async () => {
 }
 
 export const logout = async()=> {
-    let keys = ['email', 'expoToken', 'registered', 'sessionToken', 'userId'];
+    let keys = ['email', 'expoToken', 'registered', 'profile'];
      return AsyncStorage.multiRemove(keys, (err) => {
     
     })

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { getToken, saveExpoToken, getRegistrationStatus, logout} from '../../utils';
+import { saveExpoToken, getRegistrationStatus, logout, getProfile} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
@@ -151,9 +151,10 @@ const slides = [
 
 
   checkLogin =  async() => {
-    let token = await getToken();
+    let profile = await getProfile();
+    console.log({profile})
     let registered = await getRegistrationStatus();
-    if(token ) {
+    if(profile.sessionToken ) {
       this.setState({
         restoring : false,
       });

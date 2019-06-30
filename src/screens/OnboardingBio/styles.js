@@ -98,8 +98,10 @@ export default styles = StyleSheet.create({
     fontFamily: theme.secondaryFont,
   },
   selectView : {
+  
     flexDirection : 'row',
-    justifyContent : 'space-between'
+    justifyContent : 'space-between',
+
   },
   userGenderView : {
     flexDirection : 'row',

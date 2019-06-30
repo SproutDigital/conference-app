@@ -101,18 +101,21 @@ export const MenuStack = createStackNavigator({
       header : null,
     }
   },
-  OnboardingBio: {
-    screen: OnboardingBio,
-    navigationOptions: {
-      header: null,
-    }
-  },
+
   OnboardingProfile : {
     screen : OnboardingProfile,
     navigationOptions : {
       header : null,
     }
   },
+  
+  OnboardingBio: {
+    screen: OnboardingBio,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  
   LastPage : {
     screen : LastPage,
     navigationOptions : {
