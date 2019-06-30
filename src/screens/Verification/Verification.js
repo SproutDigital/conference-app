@@ -32,7 +32,7 @@ export default class Verification extends Component {
     if(params == undefined) {
       this.checkEmailVerification();
     }
-    // logout();
+  //  logout();
   }
 
   resetNavigationStack = (location) => {

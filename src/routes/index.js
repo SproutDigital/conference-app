@@ -1,12 +1,12 @@
 import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import { StatusBar } from 'react-native';
 //import {BoardingScreen, Login, Register, ForgetPassword, Logout } from '../screens'
-import  BoardingScreen  from '../screens/BoardingScreen';
-import  Register  from '../screens/Register';
+import BoardingScreen  from '../screens/BoardingScreen';
+import Register  from '../screens/Register';
 import ForgetPassword from '../screens/ForgetPassword';
 import Logout from '../screens/Logout';
 import Profile from '../screens/Profile';
-import  Login  from '../screens/Login';
+import Login  from '../screens/Login';
 import LinkExpire from '../screens/LinkExpire';
 import ActivateEmail from '../screens/ActivateEmail';
 import ResetPassword from '../screens/ResetPassword';
@@ -17,6 +17,7 @@ import OnboardingBio from '../screens/OnboardingBio';
 import LastPage from '../screens/LastPage';
 import OnboardingSocial from '../screens/OnboardingSocial';
 import AllDone from '../screens/AllDone/AllDone';
+import Navigations from '../screens/Navigations/Navigations';
 
 const AuthStack = createStackNavigator({ 
 
@@ -94,7 +95,7 @@ const AuthStack = createStackNavigator({
   }
 });
 
-export const MenuStack = createStackNavigator({ 
+export const OnBoardingStack = createStackNavigator({ 
   DashBoard : {
     screen : DashBoard,
     navigationOptions : {
@@ -139,12 +140,32 @@ export const MenuStack = createStackNavigator({
     mode: 'modal',
     cardStyle: {paddingTop: StatusBar.currentHeight}, //Setting the tb to go under the sb
     headerMode: 'none'
+  });
+  export const MenuStack = createStackNavigator({
+  
+    Navigations : {
+      screen : Navigations,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    DashBoard : {
+      screen : DashBoard,
+      navigationOptions : {
+        header : null,
+      }
+    },
   },
-);
+  {
+    mode: 'modal',
+    cardStyle: {paddingTop: StatusBar.currentHeight}, //Setting the tb to go under the sb
+    headerMode: 'none'
+  });
 
 const AppSwitchNavigator = createSwitchNavigator({
   AuthLoading:BoardingScreen,
   Auth:AuthStack,
+  OnBoard : OnBoardingStack,
   Menu: MenuStack,
 },
   {
