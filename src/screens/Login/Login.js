@@ -206,8 +206,26 @@ export default class Login extends Component {
       });
     }
 
-  checkVerificationStatus =()=>{
 
+
+   handleFaceBookLogin =async()=> {
+    try {
+      const {
+        type, token, expires, permissions, declinedPermissions} = await Facebook.logInWithReadPermissionsAsync('377061942992401', {
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+
+        Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+        console.log({'response...': response.json()})
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
   }
   
   render () {
@@ -301,13 +319,19 @@ export default class Login extends Component {
                   onPress = {this.handleForgetPassword}
                 />
                 <View style = {styles.socialIconView}>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={this.handleFaceBookLogin}
+                  >
                     <Image
+                      onPress={this.handleFaceBookLogin}
                       source={require('../../assets/images/linkedin.png')}
                       style={StyleSheet.flatten(styles.socialIcons)}/> 
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={this.handleFaceBookLogin}
+                  >
                     <Image
+                      onPress={this.handleFaceBookLogin}
                       source={require('../../assets/images/twitter.png')}
                       style={StyleSheet.flatten(styles.socialIcons)}/> 
                   </TouchableOpacity>

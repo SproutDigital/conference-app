@@ -152,7 +152,6 @@ const slides = [
 
   checkLogin =  async() => {
     let profile = await getProfile();
-    console.log({profile})
     let registered = await getRegistrationStatus();
     if(profile.sessionToken ) {
       this.setState({
