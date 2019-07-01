@@ -117,7 +117,7 @@ export default styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 100,
     height: 70,
-    marginTop: 16,
+    marginTop: 8,
     borderRadius: 180,
   },
   draweIcon : {

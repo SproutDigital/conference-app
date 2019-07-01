@@ -131,7 +131,8 @@ const DrawerNavigator = createDrawerNavigator({
     screen : Logout_StackNavigator,
     navigationOptions: {
       drawerLabel: "Logout",
-    }
+    },
+    tab : {}
   },
 },
 {
@@ -209,8 +210,9 @@ const BottomTab = createBottomTabNavigator({
       borderTopWidth: 0,
       shadowOffset: {width: 5, height: 3},
       shadowColor: 'gray',
-      shadowOpacity: 0.5,
+      shadowOpacity: 0.2,
       elevation: 4,
+      height : 60
     }
   }
 });
