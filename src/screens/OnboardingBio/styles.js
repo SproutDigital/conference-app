@@ -14,7 +14,6 @@ export default styles = StyleSheet.create({
     backgroundColor: theme.toolBarColor,
     width: '100%',
     alignItems: 'center',
-    paddingBottom: 4,
     shadowColor: theme.secondaryTextColor,
     shadowOffset: { 
       width: 0, 
@@ -98,10 +97,8 @@ export default styles = StyleSheet.create({
     fontFamily: theme.secondaryFont,
   },
   selectView : {
-  
     flexDirection : 'row',
     justifyContent : 'space-between',
-
   },
   userGenderView : {
     flexDirection : 'row',
@@ -112,7 +109,7 @@ export default styles = StyleSheet.create({
   },
   inputTxt : {
     fontFamily : theme.subHeaderFont,
-    fontSize : theme.thinyFont,
+    fontSize : theme.SmallFont,
     color : theme.primaryTextColor
   },
   downArrow : {
@@ -124,7 +121,7 @@ export default styles = StyleSheet.create({
     tintColor : theme.primaryColor
   },
   titleView : {
-    height : 50,
+    height : 55,
     width : '100%',
     flexDirection : 'column',
     borderBottomWidth : 0.5,
@@ -132,7 +129,7 @@ export default styles = StyleSheet.create({
     // paddingTop : 4,
     // paddingBottom : 4,
     marginTop : 16,
-  }, 
+  },  
   titleText : {
     fontSize :theme.MediumFont,
     color : theme.secondaryTextColor,
@@ -232,7 +229,8 @@ export default styles = StyleSheet.create({
     backgroundColor : theme.primaryColor,
     height : 25,
     borderRadius : 15,
-    width : '30%'
+    width : '30%',
+    marginTop : 8
 
   },
   addMore : {
@@ -269,6 +267,19 @@ export default styles = StyleSheet.create({
     alignItems : "center",
     justifyContent: 'center',
     marginTop : 16
+  },
+  pickerView : {
+    height: 35, 
+    width:'90%', 
+    justifyContent: 'center',
+    
+  },
+  userCathegoryView : {
+    flex : 1,
+    color : theme.primaryTextColor,
+    fontFamily : theme.subHeaderFont,
+    marginBottom : 8,
+    fontSize : theme.SmallFont
   },
   
 });

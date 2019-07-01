@@ -14,6 +14,12 @@ import OnboardingBio from './OnboardingBio';
 import LastPage from './LastPage';
 import OnboardingSocial from './OnboardingSocial';
 import AllDone from './AllDone';
+import Settings from './Settings';
+import Notification from './Notification';
+import Programs from './Programs';
+import People from './People';
+import Help from './Help';
+
 
 export default {
   ForgetPassword, 
@@ -32,4 +38,9 @@ export default {
   LastPage,
   OnboardingSocial,
   AllDone,
+  Settings,
+  Notification,
+  Programs,
+  People,
+  Help,
 };

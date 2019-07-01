@@ -24,9 +24,9 @@ export default styles = StyleSheet.create({
     shadowOpacity : 0.5,
     shadowRadius : 2,
     elevation : 3,  
-    paddingTop : Constants.statusBarHeight
-    
+    paddingTop : Constants.statusBarHeight    
   },
+  
   headerIcon: {
     height: 18,
     width: 18,
@@ -99,12 +99,10 @@ export default styles = StyleSheet.create({
     fontSize : theme.MediumFont
   },
   userCathegoryView : {
-    // flexDirection : 'row',
     flex : 1,
     color : theme.primaryTextColor,
     fontFamily : theme.subHeaderFont,
     backgroundColor : theme.colorAccent,
-    
     marginBottom : 8
   },
   pickerView : {

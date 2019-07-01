@@ -87,14 +87,18 @@ export default styles = StyleSheet.create({
     paddingLeft : 8
   },
   drawerImageView : {
-    flexDirection : 'row',
-    backgroundColor : colors.field_color,
+    flexDirection : 'column',
+    backgroundColor : theme.backgroundColor,
     alignItems : 'center',
-    height : '20%'
+    height : '25%',
+    paddingTop : 8
+    
   },
   userDetailView : {
     flexDirection : 'column',
     // paddingTop : 16,
+    justifyContent : 'center',
+    alignItems : 'center',
   },
   txtuser: {
     fontFamily : theme.subHeaderFont, 
@@ -110,10 +114,16 @@ export default styles = StyleSheet.create({
     
   },
   sideMenuProfileIcon: {
-    resizeMode: 'center',
+    resizeMode: 'contain',
     width: 100,
     height: 70,
-    // marginTop: 20,
+    marginTop: 8,
     borderRadius: 180,
+  },
+  draweIcon : {
+    width : 25,
+    height : 25,
+    resizeMode : 'contain',
+    tintColor : theme.primaryColor,
   },
 });

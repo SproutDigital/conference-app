@@ -18,6 +18,11 @@ import LastPage from '../screens/LastPage';
 import OnboardingSocial from '../screens/OnboardingSocial';
 import AllDone from '../screens/AllDone/AllDone';
 import Navigations from '../screens/Navigations/Navigations';
+import Settings from '../screens/Settings/Settings';
+import Notification from '../screens/Notification/Notification';
+import Programs from '../screens/Programs/Programs';
+import People from '../screens/People/People';
+import Help from '../screens/Help/Help';
 
 const AuthStack = createStackNavigator({ 
 
@@ -151,6 +156,36 @@ export const OnBoardingStack = createStackNavigator({
     },
     DashBoard : {
       screen : DashBoard,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    Settings : {
+      screen : Settings,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    Notification : {
+      screen : Notification,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    Programs : {
+      screen : Programs,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    People : {
+      screen : People,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    Help : {
+      screen : Help,
       navigationOptions : {
         header : null,
       }
