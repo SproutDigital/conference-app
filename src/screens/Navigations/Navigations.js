@@ -6,14 +6,23 @@ import colors from '../../assets/colors';
 import theme from '../../assets/theme';
 import {DisplayText} from '../../components';
 
-import { createDrawerNavigator, createAppContainer, createStackNavigator,} from 'react-navigation';
+import { 
+  createDrawerNavigator, 
+  createAppContainer, 
+  createStackNavigator,
+  createBottomTabNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
 
 //Import screen
 // import InvestmentDetails from '../InvestmentDetails/InvestmentDetails';
 import DashBoard from '../DashBoard/DashBoard';
-// import ManageAccount from '../ManageAccount/ManageAccount';
-// import Investment from '../Investment/Investment';
-// import Referral from '../Referral/Referral';
+import Settings from '../Settings/Settings';
+import Programs from '../Programs/Programs';
+import People from '../People/People';
+import Help from '../Help/Help';
+import Notification from '../Notification/Notification';
+import Profile from '../Profile/Profile';
 import Logout from '../Logout/Logout';
 
 import CustomSidebarMenu from './CustomSidebarMenu';
@@ -45,7 +54,7 @@ class Navigations extends Component {
 
 const DashBoard_StackNavigator = createStackNavigator({
   //All the screen from the DashBoard will be indexed here
-  First: {
+  DashBoard: {
     screen: DashBoard,
     navigationOptions: {
       header : null
@@ -53,33 +62,34 @@ const DashBoard_StackNavigator = createStackNavigator({
   },
 });
 
-// const Manage_Account_StackNavigator = createStackNavigator({
-//   //All the screen from the Profile will be indexed here
-//   Second: {
-//     screen: ManageAccount,
-//     navigationOptions: {
-//       header : null,
-//     }
-//   },
-// });
-// const Investment_StackNavigator = createStackNavigator({
-//   //All the screen from the Investment will be indexed here
-//   Third: {
-//     screen: Investment,
-//     navigationOptions: {
-//       header : null
-//     }
-//   },
-// });
-// const Referral_StackNavigator = createStackNavigator({
-//   //All the screen from the Referral will be indexed here
-//   Forth: {
-//     screen: Referral,
-//     navigationOptions: {
-//       header : null,
-//     }
-//   },
-// });
+const Profile_StackNavigator = createStackNavigator({
+  //All the screen from the Profile will be indexed here
+  Profile: {
+    screen: Profile,
+    navigationOptions: {
+      header : null,
+    }
+  },
+});
+const Notification_StackNavigator = createStackNavigator({
+  //All the screen from the Investment will be indexed here
+  Notification: {
+    screen: Notification,
+    navigationOptions: {
+      header : null
+    }
+  },
+});
+
+const Settings_StackNavigator = createStackNavigator({
+  //All the screen from the Referral will be indexed here
+  Settings: {
+    screen: Settings,
+    navigationOptions: {
+      header : null,
+    }
+  },
+});
 const Logout_StackNavigator = createStackNavigator({
   //All the screen from the Referral will be indexed here
   Forth: {
@@ -94,33 +104,35 @@ const DrawerNavigator = createDrawerNavigator({
   DashBoard: {
     screen : DashBoard_StackNavigator,
     navigationOptions: {
-      drawerLabel: "DashBoard"
+      // drawerLabel: "DashBoard"
+      header : null
     }
   },
 
-  // ManageAccount : {
-  //   screen : Manage_Account_StackNavigator,
-  //   navigationOptions: {
-  //     header: null
-  //   }
-  // },
-  // Investment : {
-  //   screen : Investment_StackNavigator,
-  //   navigationOptions: {
-  //     drawerLabel: "Investment"
-  //   }
-  // },
-  // Referral : {
-  //   screen : Referral_StackNavigator,
-  //   navigationOptions: {
-  //     drawerLabel: "Referral",
-  //   }
-  // },
+  Profile : {
+    screen : Profile_StackNavigator,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Notification : {
+    screen : Notification_StackNavigator,
+    navigationOptions: {
+      header : null,
+    }
+  },
+  Settings : {
+    screen : Settings_StackNavigator,
+    navigationOptions: {
+      header : null
+    }
+  },
   Logout : {
     screen : Logout_StackNavigator,
     navigationOptions: {
       drawerLabel: "Logout",
-    }
+    },
+    tab : {}
   },
 },
 {
@@ -130,8 +142,86 @@ const DrawerNavigator = createDrawerNavigator({
     activeTintColor : theme.backgroundColor
   }
 });
+const AppDrawer = createAppContainer(DrawerNavigator);
 
-export default createAppContainer(DrawerNavigator);
+const BottomTab = createBottomTabNavigator({
+  DashBoard: {
+    screen: AppDrawer,
+    navigationOptions: {
+      // tabBarLabel: 'Bara.ng',
+      tabBarIcon: ({tintColor}) => (
+      <Image 
+        source={require('../../assets/images/home.png')} 
+        style={{height: 20, width: 20, tintColor: tintColor, resizeMode: 'contain' }} />      
+      )
+    }
+  },
+  Programs: {
+    screen: Programs,
+    navigationOptions: {
+      // tabBarLabel: 'Bara.ng',
+      tabBarIcon: ({tintColor}) => (
+      <Image 
+        source={require('../../assets/images/program.png')} 
+        style={{height: 20, width: 20, tintColor: tintColor, resizeMode: 'contain' }} />      
+      )
+    }
+  },
+  People: {
+    screen: People,
+    navigationOptions: {
+      // tabBarLabel: 'Bara.ng',
+      tabBarIcon: ({tintColor}) => (
+      <Image 
+        source={require('../../assets/images/group.png')} 
+        style={{height: 20, width: 20, tintColor: tintColor, resizeMode: 'contain' }} />      
+      )
+    }
+  },
+  Help: {
+    screen: Help,
+    navigationOptions: {
+      // tabBarLabel: 'Bara.ng',
+      tabBarIcon: ({tintColor}) => (
+      <Image 
+        source={require('../../assets/images/book.png')} 
+        style={{height: 20, width: 20, tintColor: tintColor,resizeMode: 'contain' }} />      
+      )
+    }
+  },
+  Notification: {
+    screen: Notification,
+    navigationOptions: {
+      // tabBarLabel: 'Bara.ng',
+      tabBarIcon: ({tintColor}) => (
+      <Image 
+        source={require('../../assets/images/notification.png')} 
+        style={{height: 20, width: 20, tintColor: tintColor, resizeMode: 'contain' }} />      
+      )
+    }
+  },
+},
+{
+  tabBarOptions: {
+    activeTintColor: theme.primaryColor,
+    inactiveTintColor: theme.secondaryTextColor,
+    style: {
+      backgroundColor: colors.white,
+      borderTopWidth: 0,
+      shadowOffset: {width: 5, height: 3},
+      shadowColor: 'gray',
+      shadowOpacity: 0.2,
+      elevation: 4,
+      height : 60
+    }
+  }
+});
+
+
+
+const App = createAppContainer(BottomTab);
+
+export default App;
 
 
   //All the screen from the DashBoard will be indexed here

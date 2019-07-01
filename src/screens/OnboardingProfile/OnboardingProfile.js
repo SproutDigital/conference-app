@@ -104,6 +104,10 @@ export default class OnboardingProfile extends Component {
     }
   }
 
+  handleEdit = () => {
+    // this.props.navigation.navigate('DashBoard')
+  }
+
   uploadImageAsync = async(pickerResult) =>{
     this.setState({
       showLoading: true,
@@ -342,12 +346,10 @@ export default class OnboardingProfile extends Component {
             />
             <View style = {styles.selectView}>
               {/* <View style={{borderBottomWidth:0, borderColor: 'rgb(204, 204, 204)', width:'90%'}}> */}
-             
               <View style={styles.pickerView}>
 
                 <Picker
                   selectedValue={this.state.title}
-                  
                   style={styles.userCathegoryView}
                   onValueChange={title => this.setState({ title })}>
                   <Picker.Item  label="Mr." value="Mr." />
@@ -359,6 +361,7 @@ export default class OnboardingProfile extends Component {
               </View>
               
               <TouchableOpacity onPress = {this.handleEdit}>
+                
                 <Image
                   onPress = {this.handleEdit}
                   source = {require('../../assets/images/edit.png')}

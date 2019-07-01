@@ -8,7 +8,7 @@ import { DrawerActions } from "react-navigation";
 
 
 
-export default class DashBoard extends Component {
+export default class Help extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -51,7 +51,7 @@ export default class DashBoard extends Component {
       <View>
         <DisplayText
           styles={StyleSheet.flatten(styles.exitTxt)}
-          text = {'Dashboard'}
+          text = {'Help'}
           onPress = {this.handleLogout}
         />  
       </View>

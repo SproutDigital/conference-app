@@ -214,8 +214,9 @@ export default class OnboardingBio extends Component {
                 text = {'Gender'}
               />
               <View style = {styles.selectView}> 
-                <View style={{ width:'90%'}}>
+                <View style={styles.pickerView}>
                   <Picker
+                    style={styles.userCathegoryView}
                     selectedValue={this.state.gender}
                     onValueChange={gender => this.setState({ gender })}>
                     <Picker.Item  label="male" value="male" />
@@ -346,7 +347,7 @@ export default class OnboardingBio extends Component {
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Interest'}
               />
-              <TouchableOpacity onPress = {this.handleInterestStatus}>
+              <TouchableOpacity style = {{marginTop : 4}} onPress = {this.handleInterestStatus}>
                 <Image
                   onPress = {this.handleInterestStatus}
                   source = {require('../../assets/images/edit.png')}
