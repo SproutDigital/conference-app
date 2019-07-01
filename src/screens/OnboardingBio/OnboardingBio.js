@@ -196,7 +196,7 @@ export default class OnboardingBio extends Component {
         </TouchableOpacity>
         <View style = {styles.nameView}>
           <DisplayText
-            text={'ONBOARDING BIO'}
+            text={'BIO'}
             styles = {StyleSheet.flatten(styles.txtHeader)}
           />
         </View>

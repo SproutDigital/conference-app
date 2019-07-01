@@ -49,9 +49,9 @@ export default styles = StyleSheet.create({
   },
   nameView: {
     flexDirection: 'row',
-    width: '80%',
+    width: '70%',
     justifyContent: 'center',
-    marginRight : 16
+    marginRight : 16,
   },
   txtHeader: {
     fontSize: 18,

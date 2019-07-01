@@ -48,12 +48,138 @@ export default class DashBoard extends Component {
           />
       </View>
       </View>
-      <View>
-        <DisplayText
-          styles={StyleSheet.flatten(styles.exitTxt)}
-          text = {'Dashboard'}
-          onPress = {this.handleLogout}
-        />  
+      <View style = {styles.sliderView}>
+        
+      </View>
+      <View style={styles.tileView}>
+        <ScrollView 
+          style={{flex:1}}
+          showsVerticalScrollIndicator={false}>     
+
+          <View style={styles.boxViews}>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/about.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'About'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/program.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Programs'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/group.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'People'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/sponsors.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Sponsors'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/resources.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Resources'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/news_feed.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'News Feed'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/contact.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Contact'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/floor_plan.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Floor Plan'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/message.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Message/Chat'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/photo.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Photo'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/guide.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Guide'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxes}>
+              <Image
+                source = {require('../../assets/images/feedback.png')}
+                style = {StyleSheet.flatten(styles.boxIcon)}
+              />
+              <DisplayText
+                text={'Feedback/\nSurvey'}
+                styles = {styles.boxText}
+              />
+            </TouchableOpacity>
+          </View>
+                
+        </ScrollView>
       </View>
     </SafeAreaView>
     
