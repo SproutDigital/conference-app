@@ -105,7 +105,7 @@ export default class OnboardingProfile extends Component {
   }
 
   handleEdit = () => {
-    this.props.navigation.navigate('DashBoard')
+    // this.props.navigation.navigate('DashBoard')
   }
 
   uploadImageAsync = async(pickerResult) =>{

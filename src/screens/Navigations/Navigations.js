@@ -195,7 +195,7 @@ const BottomTab = createBottomTabNavigator({
       // tabBarLabel: 'Bara.ng',
       tabBarIcon: ({tintColor}) => (
       <Image 
-        source={require('../../assets/images/group.png')} 
+        source={require('../../assets/images/notification.png')} 
         style={{height: 20, width: 20, tintColor: tintColor, resizeMode: 'contain' }} />      
       )
     }
