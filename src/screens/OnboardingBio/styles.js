@@ -45,7 +45,7 @@ export default styles = StyleSheet.create({
   },
   nameView: {
     flexDirection: 'row',
-    width: '80%',
+    width: '75%',
     justifyContent: 'center',
     marginRight : 16
   },

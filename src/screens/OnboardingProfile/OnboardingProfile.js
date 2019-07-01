@@ -105,7 +105,7 @@ export default class OnboardingProfile extends Component {
   }
 
   handleEdit = () => {
-    // this.props.navigation.navigate('DashBoard')
+    this.props.navigation.navigate('OnboardingSocial')
   }
 
   uploadImageAsync = async(pickerResult) =>{
@@ -284,7 +284,7 @@ export default class OnboardingProfile extends Component {
         </TouchableOpacity>
         <View style = {styles.nameView}>
           <DisplayText
-            text={'ONBOARDING PROFILE'}
+            text={'PROFILE'}
             styles = {StyleSheet.flatten(styles.txtHeader)}
           />
         </View>

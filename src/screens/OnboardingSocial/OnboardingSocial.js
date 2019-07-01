@@ -307,7 +307,7 @@ export default class OnboardingSocial extends Component {
         </TouchableOpacity>
         <View style = {styles.nameView}>
           <DisplayText
-            text={'ONBOARDING SOCIAL'}
+            text={'SOCIAL'}
             styles = {StyleSheet.flatten(styles.txtHeader)}
           />
         </View>

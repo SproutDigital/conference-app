@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Platform, StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
@@ -30,7 +30,6 @@ export default styles = StyleSheet.create({
     width: 18,
     tintColor : theme.primaryColor,
   },
-
   headerImage: {
     borderRadius: 30,
     height: 40,
@@ -47,7 +46,7 @@ export default styles = StyleSheet.create({
   },
   nameView: {
     flexDirection: 'row',
-    width: '80%',
+    width: '75%',
     justifyContent: 'center',
     marginRight : 16
   },
@@ -182,9 +181,9 @@ export default styles = StyleSheet.create({
     flexDirection : 'column',
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
-    // paddingTop : 4,
     paddingBottom : 4,
-    marginTop : 4,
+    marginTop : (Platform.OS === "ios") ? 8 : 4,
+
   },
   titleText : {
     fontSize :theme.MediumFont,
