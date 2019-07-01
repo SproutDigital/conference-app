@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { saveExpoToken, logout, getLoggedInStatus, getVerification, getProfile} from '../../utils';
+import { saveExpoToken, logout, getOnBoardingStatus, getVerification, getProfile} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
@@ -152,28 +152,29 @@ const slides = [
 
   checkLogin =  async() => {
     let profile = await getProfile();
-    let isNotVerified = await getVerification();
-    let isLoggedIn = await getLoggedInStatus();
-    console.log({isLoggedIn})
+    let isVerified = await getVerification();
+    let completed = await getOnBoardingStatus();
 
-    if(profile.sessionToken ) {
+    if(profile.sessionToken) {
       this.setState({
         restoring : false,
       });
-      return this.resetNavigationStack('OnboardingProfile');
-    }
-    else if(true == isNotVerified &&  true == isLoggedIn) {
-      this.setState({
-        restoring : false,
-      });
-      return this.resetNavigationStack('Verification');
+
+      if(isVerified == true && completed) {
+        return this.resetNavigationStack('DashBoard');
+      }
+      else if(isVerified == false){
+        return this.resetNavigationStack('Verification');
+      }
+      else {
+        return this.resetNavigationStack('OnboardingProfile');
+      }
     }
     else {
       this.setState({
         restoring : false,
       });
     }
-
   }
 
   handleLogin = () => {

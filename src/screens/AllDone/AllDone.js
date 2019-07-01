@@ -48,7 +48,7 @@ export default class Profile extends Component {
       <View style = {styles.textView}>
         <DisplayText
           styles={StyleSheet.flatten(styles.firstTxt)}
-          text = {' Greate '}
+          text = {' Great '}
         />  
          <DisplayText
           styles={StyleSheet.flatten(styles.secondText)}

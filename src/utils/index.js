@@ -98,9 +98,6 @@ export const getRoute = (endpoint, token) => {
 }
 
 export const putRoute = (endpoint, body, token) => {
-    console.log({endpoint})
-    console.log({body})
-    console.log({'': `JWT ${token}`})
     return fetch(endpoint, {
         method: 'PUT',
         headers: {
@@ -121,14 +118,14 @@ export const putRoute = (endpoint, body, token) => {
     });
 }
 
-export const saveProfile = async(id, name, sessionToken) => {
+export const saveProfile = async(id, name, sessionToken, status) => {
     let profile = {
         id, name, sessionToken
     };
 
+    await AsyncStorage.setItem('isAccountVerified', JSON.stringify(status))
     return await AsyncStorage.setItem('profile', JSON.stringify(profile))
 }
-
 
 export const getProfile = async() => {
     return await AsyncStorage.getItem('profile')
@@ -157,32 +154,12 @@ export const getExpoToken = async () => {
         });
 }
 
-export const saveEmail = async (email, location) => {  
-    await AsyncStorage.setItem('email', email);
-    if(location) {
-        await AsyncStorage.setItem('notVerified', JSON.stringify(true))
-        await AsyncStorage.setItem('isLoggedIn', JSON.stringify(true))
-    }
-}
 
-
-
-export const getEmail = async () => {
-    return await AsyncStorage.getItem('email')
-        .then((value) => {
-            if (value) {
-                return value;
-            } else {
-                return false;
-            }
-        });
-    }
 
 export const getVerification = async () => {
-    return await AsyncStorage.getItem('notVerified')
+    return await AsyncStorage.getItem('isAccountVerified')
         .then((value) => {
-            if (value) {
-               
+            if (value) {    
                 return JSON.parse(value);
             } else {
                 return false;
@@ -190,24 +167,28 @@ export const getVerification = async () => {
         });
 }
 
-export const getLoggedInStatus = async () => {
-    return await AsyncStorage.getItem('isLoggedIn')
-        .then((value) => {
-            if (value) {
-               
-                return JSON.parse(value);
-            } else {
-                return false;
-            }
-        });
-}
 
 export const updateVerification = async() => {
-    return await AsyncStorage.setItem('notVerified', JSON.stringify(false));
+    return await AsyncStorage.setItem('isAccountVerified', JSON.stringify(true));
+}
+
+export const updateOnBoarding = async() => {
+    return await AsyncStorage.setItem('completed', JSON.stringify(true));
+}
+
+export const getOnBoardingStatus = async () => {
+    return await AsyncStorage.getItem('completed')
+        .then((value) => {
+            if (value) {
+                return JSON.parse(value);
+            } else {
+                return false;
+            }
+        });
 }
 
 export const logout = async()=> {
-    let keys = ['email', 'expoToken', 'registered', 'profile', 'notVerified', 'isLoggedIn'];
+    let keys = ['email', 'expoToken', 'registered', 'profile', 'isAccountVerified', 'completed' ];
      return AsyncStorage.multiRemove(keys, (err) => {
     
     })

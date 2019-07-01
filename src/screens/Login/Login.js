@@ -193,11 +193,11 @@ export default class Login extends Component {
           });
          
           if(!res.payload.verified) {
-            saveEmail(res.payload.email, 'login');
+            saveProfile(res.payload.id, res.payload.name, res.token, false);
             return this.resetNavigationStack('Verification');         
           }
           else if(res.payload.verified) {
-            saveProfile(res.payload.id, res.payload.name, res.token);
+            saveProfile(res.payload.id, res.payload.name, res.token, true);
             return this.resetNavigationStack('DashBoard');    
           }
         } 

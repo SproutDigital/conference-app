@@ -7,7 +7,7 @@ import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile} from '../../utils';
+import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile, updateOnBoarding} from '../../utils';
 import Toast from 'react-native-easy-toast';
 
 const defaultFlag = data.filter(
@@ -272,6 +272,7 @@ export default class OnboardingSocial extends Component {
           this.setState({ 
             showLoading : false, 
           });
+          updateOnBoarding();
           return this.props.navigation.navigate('AllDone')        
         } 
         else {

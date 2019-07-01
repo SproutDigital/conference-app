@@ -168,7 +168,7 @@ export default class Register extends Component {
           }); 
         }
         else {
-          saveEmail(email);
+          //saveEmail(email);
           this.setState({ 
             showLoading : false, 
           });
