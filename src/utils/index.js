@@ -188,7 +188,7 @@ export const getOnBoardingStatus = async () => {
 }
 
 export const logout = async()=> {
-    let keys = ['email', 'expoToken', 'registered', 'profile', 'isAccountVerified', 'completed' ];
+    let keys = ['email', 'expoToken', 'registered', 'profile', 'isAccountVerified', ];
      return AsyncStorage.multiRemove(keys, (err) => {
     
     })

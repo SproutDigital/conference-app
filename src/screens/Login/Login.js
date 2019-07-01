@@ -23,6 +23,7 @@ export default class Login extends Component {
       isPasswordValid: false,
       showAlert: false,
       showLoading: false,
+      isChecked: false,
       email : '',
       title: '',
       message: '',
@@ -49,9 +50,10 @@ export default class Login extends Component {
   }
 
   handleCheckBox = () => {
-    this.setState({
-        isChecked:!this.state.isChecked
+    this.setState(prevState=>({
+        isChecked:!prevState.isChecked,
     })
+    )
   }
 
   resetNavigationStack = (location) => {
@@ -155,19 +157,26 @@ export default class Login extends Component {
 
 
   handleSignIn = async()=>{
-    const {email, password} = this.state;
+    const {email, password, isChecked} = this.state;
    // let expoToken = await getExpoToken();
+
 
     if(!isEmailValid(email)) {
       return this.setState({
         showAlert:true,
         message: 'Invalid Email Address'
-      })
+      });
     }
     else if(isEmpty(password)) {
       return this.setState({
         showAlert:true,
         message: 'Enter Valid Password'
+      });
+    }
+    else if(!isChecked) {
+      return this.setState({
+        showAlert:true,
+        message: 'Please the Box to Continue'
       })
     }
     
@@ -235,7 +244,7 @@ export default class Login extends Component {
   }
   
   render () {
-    const { title, message, showAlert, showLoading } = this.state
+    const { title, message, showAlert, showLoading, isChecked } = this.state
 
     return(
     <View style={styles.container}> 
@@ -299,7 +308,7 @@ export default class Login extends Component {
               <CheckBox
                 style={styles.checkBox}
                 onClick={this.handleCheckBox}
-                isChecked={this.state.isChecked}
+                isChecked={isChecked}
                 // rightText={"I agree to the"}
               />
               <DisplayText
