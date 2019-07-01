@@ -3,8 +3,9 @@ import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, AsyncStorage, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
-import theme from '../../assets/theme';
 import HoldHands from './HoldHands';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 export default class Profile extends Component {
   constructor(props) {
@@ -15,10 +16,25 @@ export default class Profile extends Component {
   }
   componentDidMount(){
     setTimeout(() => {
-      this.props.navigation.navigate('DashBoard');
+      this.resetNavigationStack();
     }, 2000);
     // logout();
   }
+
+  resetNavigationStack = () => {
+    const navigateAction =  StackActions.reset({
+       index: 0,
+       actions: [
+         NavigationActions.navigate({
+           routeName: 'DashBoard',
+         }),
+       ],
+     });
+     this.props.navigation.dispatch(navigateAction);
+ 
+   }
+
+
   render () {
    return(
     <SafeAreaView style={styles.container}> 

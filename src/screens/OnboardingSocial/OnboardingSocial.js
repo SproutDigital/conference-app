@@ -1,13 +1,14 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, FlatList, Switch, Modal, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
+import { View, ScrollView, FlatList, Switch, Modal, TextInput, KeyboardAvoidingView, 
+  TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import { ProgressDialog } from 'react-native-simple-dialogs';
+import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile} from '../../utils';
 import Toast from 'react-native-easy-toast';
-
 
 const defaultFlag = data.filter(
   obj => obj.name === 'Nigeria'
@@ -22,10 +23,10 @@ export default class OnboardingSocial extends Component {
       modalVisible : false,
       nationalityModalVisible : false,
 
-      facebookSwitch : false,
-      twitterSwitch : false,
-      linkedInSwitch : false,
-      instagramSwitch : false,
+      facebook_visible : false,
+      twitter_visible : false,
+      linkedin_visible : false,
+      instagram_visible : false,
 
       title : '',
       message : '',
@@ -42,8 +43,11 @@ export default class OnboardingSocial extends Component {
       website:'',
       facebook:'',
       twitter:'',
-      linkedIn:'',
+      linkedin:'',
       instagram:'',
+
+      _id: '',
+      token: '',
 
 
     }
@@ -56,9 +60,16 @@ export default class OnboardingSocial extends Component {
     })
 
   }
-  handleEdit = () => {
-    alert('Can you edit me');
+
+
+  async componentDidMount(){
+    let profile = await getProfile();  
+    return await this.setState({
+      '_id' : profile.id,
+      'token' : profile.sessionToken,
+    })
   }
+ 
   handleOnboardSocial = () => {
     return this.props.navigation.navigate('AllDone')
   }
@@ -78,6 +89,12 @@ export default class OnboardingSocial extends Component {
       }
     }
   }
+
+  handleCloseNotification = () => {
+    return this.setState({
+      showAlert : false
+    });
+  }
   // phone number onchage text
   onChangeText(key, value) {
     this.setState({
@@ -96,18 +113,10 @@ export default class OnboardingSocial extends Component {
       const countryFlag = await countryData.filter(
         obj => obj.name === country
       )[0].flag
-      //get country code name
-
-      // const countryCodeName = await countryData.filter(
-      //   obj => obj.name === country
-      // )[0].code
-
-      // Update the state then hide the Modal
 
       this.setState({ 
         phone: countryCode, 
         flag: countryFlag, 
-        // nameCode : countryCodeName,
       })
       await this.hideModal()
     }
@@ -135,89 +144,32 @@ export default class OnboardingSocial extends Component {
   // Switch Functions Facebook
   _handleToggleFbSwitch = () =>{
       this.setState(prevState => ({
-       facebookSwitch: !prevState.facebookSwitch,
+       facebook_visible: !prevState.facebook_visible,
       })
     );
   }
   //Twigger toggle function
   _handleToggleTwitSwitch = () =>{
     this.setState(prevState => ({
-      twitterSwitch: !prevState.twitterSwitch,
+      twitter_visible: !prevState.twitter_visible,
      })
     );
   }
   // Linkedin Toggle function
   _handleToggleLinkedInSwitch = () =>{
     this.setState(prevState => ({
-      linkedInSwitch: !prevState.linkedInSwitch,
+      linkedin_visible: !prevState.linkedin_visible,
      })
     );
   }
   // Instagram function
   _handleToggleInstaSwitch = () =>{
     this.setState(prevState => ({
-      instagramSwitch: !prevState.instagramSwitch,
+      instagram_visible: !prevState.instagram_visible,
      })
     );
   }
 
-
-  handleSubmitButton =async()=> {
-
-    const {gender, nationality, biodata, company, interest, _id, token} = this.state;
-    console.log({'stetsss': this.state})
-    if(isEmpty(company)) {
-      return this.setState({
-        showAlert:true,
-        message: 'Enter Valid Work Name'
-      })
-    }
-    else if(isEmpty(biodata)) {
-      return this.setState({
-        showAlert:true,
-        message: 'Enter Bio data Information'
-      })
-    }
-
-    // else if(isEmpty(interest)) {
-    //   return this.setState({
-    //     showAlert:true,
-    //     message: 'Select Interest'
-    //   })
-    // }
-
-    this.setState({
-      showLoading: true,
-    });
-
-    let body = await JSON.stringify({
-      'query':{_id},
-      'update' : {gender, nationality, biodata, company, interest}   
-    });
-
-    await putRoute (ProfileUpdateEndpoint, body, token)
-      .then((res) => {
-        console.log({res})
-        this.setState({ 
-          showLoading : false, 
-        });
-
-        if(res.status == 'success') {
-          this.setState({ 
-            showLoading : false, 
-          });
-          return this.props.navigation.navigate('LastPage')        
-        } 
-        else {
-          return this.setState({ 
-           showLoading : false, 
-           message: res.message,
-           showAlert: true,
-           title: 'Hello'
-         });
-       }
-      });
-  }
   
   handlePhoneStatus = () => {
     return this.setState(prevState => ({
@@ -267,7 +219,7 @@ export default class OnboardingSocial extends Component {
 
   handlelinkedInStatus = () => {
     return this.setState(prevState => ({
-      websiteStatus: !prevState.linkedInStatus,
+      linkedInStatus: !prevState.linkedInStatus,
       phoneStatus:false,
       websiteStatus:false,
       facebookStatus:false,
@@ -287,28 +239,17 @@ export default class OnboardingSocial extends Component {
     }));
   }
 
-  handleNextButton =async()=> {
+  handleSubmitButton =async()=> {
 
-    const {gender, nationality, biodata, company_name, interest, _id, token} = this.state;
-    if(isEmpty(company_name)) {
+    const {phone, website, facebook, twitter, linkedIn, instagram,  facebook_visible,
+      twitter_visible, linkedin_visible, instagram_visible,  _id, token} = this.state;
+
+    if(isEmpty(phone)) {
       return this.setState({
         showAlert:true,
-        message: 'Enter Valid Work Name'
+        message: 'Enter Valid Phone Number'
       })
     }
-    else if(isEmpty(biodata)) {
-      return this.setState({
-        showAlert:true,
-        message: 'Enter Bio data Information'
-      })
-    }
-
-    // else if(isEmpty(interest)) {
-    //   return this.setState({
-    //     showAlert:true,
-    //     message: 'Select Interest'
-    //   })
-    // }
 
     this.setState({
       showLoading: true,
@@ -316,7 +257,8 @@ export default class OnboardingSocial extends Component {
 
     let body = await JSON.stringify({
       'query':{_id},
-      'update' : {gender, nationality, biodata, company_name, interest}   
+      'update' : {phone, website, facebook, twitter, linkedIn, instagram,  
+        facebook_visible, twitter_visible, linkedin_visible, instagram_visible}   
     });
 
     await putRoute (ProfileUpdateEndpoint, body, token)
@@ -330,7 +272,7 @@ export default class OnboardingSocial extends Component {
           this.setState({ 
             showLoading : false, 
           });
-          return this.props.navigation.navigate('LastPage')        
+          return this.props.navigation.navigate('AllDone')        
         } 
         else {
           return this.setState({ 
@@ -346,7 +288,7 @@ export default class OnboardingSocial extends Component {
   render () {
     const { message, showAlert, showLoading, flag, phoneStatus, websiteStatus, 
       facebookStatus, twitterStatus,linkedInStatus, instagramStatus, 
-      facebookSwitch, twitterSwitch,linkedInSwitch, instagramSwitch  } = this.state
+      facebook_visible, twitter_visible,linkedin_visible, instagram_visible  } = this.state
     const countryData = data;
 
    return(
@@ -553,7 +495,7 @@ export default class OnboardingSocial extends Component {
                 <View style = {styles.toggleButtonView}>
                   <Switch
                     onValueChange={this._handleToggleFbSwitch}
-                    value={facebookSwitch}
+                    value={facebook_visible}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />
@@ -574,7 +516,7 @@ export default class OnboardingSocial extends Component {
                       placeholderTextColor = {theme.secondaryTextColor}
                       textColor={theme.primaryTextColor}
                       inputType={'name'}
-                      keyboardType={'default'}
+                      keyboardType={'twitter'}
                       onChangeText = {(twitter)=>{this.setState({twitter})}}
                       autoCapitalize = "words"
                       height = {30}
@@ -597,7 +539,7 @@ export default class OnboardingSocial extends Component {
                 <View style = {styles.toggleButtonView}>
                   <Switch
                     onValueChange={this._handleToggleTwitSwitch}
-                    value={twitterSwitch}
+                    value={twitter_visible}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />
@@ -619,7 +561,7 @@ export default class OnboardingSocial extends Component {
                       textColor={theme.primaryTextColor}
                       inputType={'name'}
                       keyboardType={'default'}
-                      onChangeText = {(linkedIn)=>{this.setState({linkedIn})}}
+                      onChangeText = {(linkedin)=>{this.setState({linkedin})}}
                       autoCapitalize = "words"
                       height = {30}
                       width = {'100%'}
@@ -641,7 +583,7 @@ export default class OnboardingSocial extends Component {
                 <View style = {styles.toggleButtonView}>
                   <Switch
                     onValueChange={this._handleToggleLinkedInSwitch}
-                    value={linkedInSwitch}
+                    value={linkedin_visible}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />
@@ -684,8 +626,8 @@ export default class OnboardingSocial extends Component {
                 </View>
                 <View style = {styles.toggleButtonView}>
                   <Switch
-                    onValueChange={this._handleToggleInSwitch}
-                    value={instagramSwitch}
+                    onValueChange={this._handleToggleInstaSwitch}
+                    value={instagram_visible}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />
@@ -697,7 +639,7 @@ export default class OnboardingSocial extends Component {
             <SubmitButton
               title={'Sign Up'}
               disabled={false}
-              onPress={this.handleOnboardSocial}
+              onPress={this.handleSubmitButton}
               imgSrc={require('../../assets/images/resume.png')}
               btnStyle={styles.buttonWithImage}
               imgStyle={StyleSheet.flatten(styles.iconDoor)}

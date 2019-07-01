@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
@@ -160,7 +159,6 @@ export default class Register extends Component {
 
      await sendRoute (RegisterEndpoint, data, 'POST')
       .then((res) => {
-        console.log({res})
         if (res.status !== 'success') {  
           return  this.setState({ 
             showLoading : false,

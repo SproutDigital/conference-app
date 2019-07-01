@@ -129,6 +129,7 @@ export const saveProfile = async(id, name, sessionToken) => {
     return await AsyncStorage.setItem('profile', JSON.stringify(profile))
 }
 
+
 export const getProfile = async() => {
     return await AsyncStorage.getItem('profile')
         .then((value) => {
@@ -156,27 +157,15 @@ export const getExpoToken = async () => {
         });
 }
 
-
-export const saveRegistration = async () => {  
-    return await AsyncStorage.setItem('registered', 'registered');
-}
-
-export const getRegistrationStatus = async () => {
-    return await AsyncStorage.getItem('registered')
-        .then((value) => {
-            if (value) {
-                return value;
-            } else {
-                return false;
-            }
-        });
-}
-
-
-export const saveEmail = async (email) => {  
+export const saveEmail = async (email, location) => {  
     await AsyncStorage.setItem('email', email);
-    return await AsyncStorage.setItem('registered', 'registered');
+    if(location) {
+        await AsyncStorage.setItem('notVerified', JSON.stringify(true))
+        await AsyncStorage.setItem('isLoggedIn', JSON.stringify(true))
+    }
 }
+
+
 
 export const getEmail = async () => {
     return await AsyncStorage.getItem('email')
@@ -187,10 +176,38 @@ export const getEmail = async () => {
                 return false;
             }
         });
+    }
+
+export const getVerification = async () => {
+    return await AsyncStorage.getItem('notVerified')
+        .then((value) => {
+            if (value) {
+               
+                return JSON.parse(value);
+            } else {
+                return false;
+            }
+        });
+}
+
+export const getLoggedInStatus = async () => {
+    return await AsyncStorage.getItem('isLoggedIn')
+        .then((value) => {
+            if (value) {
+               
+                return JSON.parse(value);
+            } else {
+                return false;
+            }
+        });
+}
+
+export const updateVerification = async() => {
+    return await AsyncStorage.setItem('notVerified', JSON.stringify(false));
 }
 
 export const logout = async()=> {
-    let keys = ['email', 'expoToken', 'registered', 'profile'];
+    let keys = ['email', 'expoToken', 'registered', 'profile', 'notVerified', 'isLoggedIn'];
      return AsyncStorage.multiRemove(keys, (err) => {
     
     })

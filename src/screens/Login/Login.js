@@ -65,7 +65,6 @@ export default class Login extends Component {
        ],
      });
      this.props.navigation.dispatch(navigateAction);
- 
    }
 
   keyboardWillShow = (event) => {
@@ -192,13 +191,14 @@ export default class Login extends Component {
           this.setState({ 
             showLoading : false, 
           });
+         
           if(!res.payload.verified) {
-            saveEmail(res.payload.email);
+            saveEmail(res.payload.email, 'login');
             return this.resetNavigationStack('Verification');         
           }
           else if(res.payload.verified) {
             saveProfile(res.payload.id, res.payload.name, res.token);
-            return this.resetNavigationStack('OnboardingProfile');    
+            return this.resetNavigationStack('DashBoard');    
           }
         } 
         else {

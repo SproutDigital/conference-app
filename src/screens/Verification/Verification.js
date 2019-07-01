@@ -5,10 +5,9 @@ import {DisplayText, SingleButtonAlert, SubmitButton} from '../../components';
 import styles from './styles';
 import OtpInputs from 'react-native-otp-inputs';
 import colors from '../../assets/colors';
-import { sendRoute, getRoute, getEmail, VerifyUserEndpoint, RequestNewTokenEndpoint, logout, VerificationStatusEndpoint} from '../../utils';
+import { sendRoute, getRoute, getEmail, VerifyUserEndpoint, RequestNewTokenEndpoint, VerificationStatusEndpoint} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { NavigationActions, StackActions } from 'react-navigation';
-import Toast, {DURATION} from 'react-native-easy-toast'
 
 export default class Verification extends Component {
   constructor(props) {
@@ -49,7 +48,7 @@ export default class Verification extends Component {
    }
 
   handleBack = () => {
-    logout();
+    //logout();
     return this.props.navigation.navigate('BoardingScreen')
   }
 
@@ -126,7 +125,7 @@ export default class Verification extends Component {
           this.setState({ 
             showLoading : false, 
           }); 
-          return this.resetNavigationStack('Profile'); 
+          return this.resetNavigationStack('OnboardingProfile'); 
         }  
       })
       .catch((res) => {

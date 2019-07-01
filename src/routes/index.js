@@ -97,7 +97,14 @@ const AuthStack = createStackNavigator({
     navigationOptions : {
       header : null,
     }
-  }
+  },
+
+  DashBoard : {
+    screen : DashBoard,
+    navigationOptions : {
+      header : null,
+    }
+  },
 });
 
 export const OnBoardingStack = createStackNavigator({ 
@@ -207,7 +214,6 @@ const AppSwitchNavigator = createSwitchNavigator({
     initialRouteName: 'AuthLoading',
   }
 );
-
 
 export default createAppContainer(AppSwitchNavigator);
 

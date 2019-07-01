@@ -3,12 +3,14 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { saveExpoToken, getRegistrationStatus, logout, getProfile} from '../../utils';
+import { saveExpoToken, logout, getLoggedInStatus, getVerification, getProfile} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
 import  {Notifications} from 'expo';
 import { NavigationActions, StackActions } from 'react-navigation';
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Remote debugger']);
 
 const slides = [
   {
@@ -45,6 +47,7 @@ const slides = [
   }
 
    async componentWillMount(){
+   //logout();
     this.checkLogin();
   }
 
@@ -66,7 +69,6 @@ const slides = [
   componentDidMount () {
     this.registerForPushNotificationsAsync();
     this.listener = Notifications.addListener(this.handleNotification);
-    //logout();
   }
 
   handleNotification = ({ origin, data }) => {
@@ -75,7 +77,6 @@ const slides = [
       `Push notification ${origin} with data: ${JSON.stringify(data)}`,
     );
   };
-
 
   registerForPushNotificationsAsync = async()=> {
     const { status: existingStatus } = await Permissions.getAsync(
@@ -99,7 +100,6 @@ const slides = [
   
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
-  
     // POST the token to your backend server from where you can retrieve it to send push notifications.
     return saveExpoToken(token);
   }
@@ -152,14 +152,17 @@ const slides = [
 
   checkLogin =  async() => {
     let profile = await getProfile();
-    let registered = await getRegistrationStatus();
+    let isNotVerified = await getVerification();
+    let isLoggedIn = await getLoggedInStatus();
+    console.log({isLoggedIn})
+
     if(profile.sessionToken ) {
       this.setState({
         restoring : false,
       });
       return this.resetNavigationStack('OnboardingProfile');
     }
-    else if(registered) {
+    else if(true == isNotVerified &&  true == isLoggedIn) {
       this.setState({
         restoring : false,
       });

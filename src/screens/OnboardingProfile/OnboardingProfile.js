@@ -27,14 +27,14 @@ export default class OnboardingProfile extends Component {
       titleVisible : false,
       modalTitleVisible : false,
       showLoading: false,
-
+       title:'',
       isNameValid: false,
       name : '',
       job_title : '',
       isJobTitleValid : false,
       role:'',
       _id:'',
-      title: '',
+      name_title: 'Mr',
       token: '',
       name: '',
       namestatus: false,
@@ -188,7 +188,7 @@ export default class OnboardingProfile extends Component {
   }
 
   handleSubmitForm =async()=> {
-    const {name, job_title, title, _id, token} = this.state;
+    const {name, job_title, name_title, _id, token} = this.state;
     if(isEmpty(name)) {
       return this.setState({
         showAlert:true,
@@ -208,7 +208,7 @@ export default class OnboardingProfile extends Component {
 
     let data = await JSON.stringify({
       'query':{_id},
-      'update' : {title, name, job_title}   
+      'update' : {title: name_title, name, job_title}   
     });
 
     await putRoute (ProfileUpdateEndpoint, data, token)
@@ -268,7 +268,7 @@ export default class OnboardingProfile extends Component {
 
 
   render () {
-    const {showLoading, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
+    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -345,13 +345,11 @@ export default class OnboardingProfile extends Component {
               text = {'Title'}
             />
             <View style = {styles.selectView}>
-              {/* <View style={{borderBottomWidth:0, borderColor: 'rgb(204, 204, 204)', width:'90%'}}> */}
               <View style={styles.pickerView}>
-
                 <Picker
-                  selectedValue={this.state.title}
+                  selectedValue={name_title}
                   style={styles.userCathegoryView}
-                  onValueChange={title => this.setState({ title })}>
+                  onValueChange={name_title => this.setState({ name_title })}>
                   <Picker.Item  label="Mr." value="Mr." />
                   <Picker.Item label="Mrs" value="Mrs" />
                   <Picker.Item label="Dr." value="Dr." />

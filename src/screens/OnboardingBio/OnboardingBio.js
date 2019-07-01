@@ -15,7 +15,7 @@ export default class OnboardingBio extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      gender: '',
+      gender: 'male',
       nationalityModalVisible : false,
       nationality : 'Nationality',
       company_name : '',
@@ -119,6 +119,7 @@ export default class OnboardingBio extends Component {
   handleNextButton =async()=> {
 
     const {gender, nationality, short_bio, company_name, interest, _id, token} = this.state;
+    let shortbio = short_bio.trim();
     if(isEmpty(company_name)) {
       return this.setState({
         showAlert:true,
@@ -131,21 +132,13 @@ export default class OnboardingBio extends Component {
         message: 'Enter Bio data Information'
       })
     }
-
-    // else if(isEmpty(interest)) {
-    //   return this.setState({
-    //     showAlert:true,
-    //     message: 'Select Interest'
-    //   })
-    // }
-
     this.setState({
       showLoading: true,
     });
-
+    
     let body = await JSON.stringify({
       'query':{_id},
-      'update' : {gender, nationality, short_bio, company_name, interest}   
+      'update' : {gender, nationality, short_bio:shortbio, company_name, interest}   
     });
 
     await putRoute (ProfileUpdateEndpoint, body, token)
@@ -174,7 +167,7 @@ export default class OnboardingBio extends Component {
   
   render () {
     const countryData = data
-    const {biodataStatus, companyStatus, title, message, showAlert, showLoading } = this.state;
+    const {biodataStatus, gender, companyStatus, title, message, showAlert, showLoading } = this.state;
 
    return(
     <SafeAreaView style={styles.container}> 
@@ -214,7 +207,7 @@ export default class OnboardingBio extends Component {
                 <View style={styles.pickerView}>
                   <Picker
                     style={styles.userCathegoryView}
-                    selectedValue={this.state.gender}
+                    selectedValue={gender}
                     onValueChange={gender => this.setState({ gender })}>
                     <Picker.Item  label="male" value="male" />
                     <Picker.Item label="female" value="female" />
