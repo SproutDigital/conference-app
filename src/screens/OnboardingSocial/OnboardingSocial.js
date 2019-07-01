@@ -18,13 +18,15 @@ export default class OnboardingSocial extends Component {
     super(props);
     this.state ={
       flag : defaultFlag,
-      phoneNumber : '',
+      phone : '',
       modalVisible : false,
       nationalityModalVisible : false,
-      switchValueFb : true,
-      switchValueTwit : true,
-      switchValueLn : false,
-      switchValueIn : false,
+
+      facebookSwitch : false,
+      twitterSwitch : false,
+      linkedInSwitch : false,
+      instagramSwitch : false,
+
       title : '',
       message : '',
       showAlert : false,
@@ -65,7 +67,7 @@ export default class OnboardingSocial extends Component {
     if(text.length > 0) {
       this.setState({
         isValidPhoneNumber: true,
-        phoneNumber : text
+        phone : text
       });
     }
     else {
@@ -103,7 +105,7 @@ export default class OnboardingSocial extends Component {
       // Update the state then hide the Modal
 
       this.setState({ 
-        phoneNumber: countryCode, 
+        phone: countryCode, 
         flag: countryFlag, 
         // nameCode : countryCodeName,
       })
@@ -132,30 +134,30 @@ export default class OnboardingSocial extends Component {
   }
   // Switch Functions Facebook
   _handleToggleFbSwitch = () =>{
-    this.setState(state => ({
-      switchValueFb: !state.switchValueFb,
+      this.setState(prevState => ({
+       facebookSwitch: !prevState.facebookSwitch,
       })
     );
   }
   //Twigger toggle function
   _handleToggleTwitSwitch = () =>{
-    this.setState(state => ({
-      switchValueTwit: !state.switchValueTwit,
-      })
+    this.setState(prevState => ({
+      twitterSwitch: !prevState.twitterSwitch,
+     })
     );
   }
   // Linkedin Toggle function
-  _handleToggleLnSwitch = () =>{
-    this.setState(state => ({
-      switchValueLn: !state.switchValueLn,
-      })
+  _handleToggleLinkedInSwitch = () =>{
+    this.setState(prevState => ({
+      linkedInSwitch: !prevState.linkedInSwitch,
+     })
     );
   }
   // Instagram function
-  _handleToggleInSwitch = () =>{
-    this.setState(state => ({
-      switchValueIn: !state.switchValueIn,
-      })
+  _handleToggleInstaSwitch = () =>{
+    this.setState(prevState => ({
+      instagramSwitch: !prevState.instagramSwitch,
+     })
     );
   }
 
@@ -284,9 +286,67 @@ export default class OnboardingSocial extends Component {
       linkedInStatus:false,
     }));
   }
+
+  handleNextButton =async()=> {
+
+    const {gender, nationality, biodata, company_name, interest, _id, token} = this.state;
+    if(isEmpty(company_name)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Work Name'
+      })
+    }
+    else if(isEmpty(biodata)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Bio data Information'
+      })
+    }
+
+    // else if(isEmpty(interest)) {
+    //   return this.setState({
+    //     showAlert:true,
+    //     message: 'Select Interest'
+    //   })
+    // }
+
+    this.setState({
+      showLoading: true,
+    });
+
+    let body = await JSON.stringify({
+      'query':{_id},
+      'update' : {gender, nationality, biodata, company_name, interest}   
+    });
+
+    await putRoute (ProfileUpdateEndpoint, body, token)
+      .then((res) => {
+        console.log({res})
+        this.setState({ 
+          showLoading : false, 
+        });
+
+        if(res.status == 'success') {
+          this.setState({ 
+            showLoading : false, 
+          });
+          return this.props.navigation.navigate('LastPage')        
+        } 
+        else {
+          return this.setState({ 
+           showLoading : false, 
+           message: res.message,
+           showAlert: true,
+           title: 'Hello'
+         });
+       }
+      });
+  }
   
   render () {
-    const { message, showAlert, showLoading, flag, phoneStatus, websiteStatus, facebookStatus, twitterStatus,linkedInStatus, instagramStatus } = this.state
+    const { message, showAlert, showLoading, flag, phoneStatus, websiteStatus, 
+      facebookStatus, twitterStatus,linkedInStatus, instagramStatus, 
+      facebookSwitch, twitterSwitch,linkedInSwitch, instagramSwitch  } = this.state
     const countryData = data;
 
    return(
@@ -353,15 +413,15 @@ export default class OnboardingSocial extends Component {
               autoCorrect={false}
               secureTextEntry={false}
               ref='PhoneInput'
-              value={this.state.phoneNumber}
+              value={this.state.phone}
               editable={phoneStatus}
               onChangeText={(val) => {
-                if (this.state.phoneNumber === ''){
+                if (this.state.phone === ''){
                   // render NIG phone code by default when Modal is not open
-                  this.onChangeText('phoneNumber', '+234' + val)
+                  this.onChangeText('phone', '+234' + val)
                 } else {
                   // render country code based on users choice with Modal
-                  this.onChangeText('phoneNumber', val)
+                  this.onChangeText('phone', val)
                 }}
               }
             />
@@ -493,7 +553,7 @@ export default class OnboardingSocial extends Component {
                 <View style = {styles.toggleButtonView}>
                   <Switch
                     onValueChange={this._handleToggleFbSwitch}
-                    value={this.state.switchValueFb}
+                    value={facebookSwitch}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />
@@ -537,7 +597,7 @@ export default class OnboardingSocial extends Component {
                 <View style = {styles.toggleButtonView}>
                   <Switch
                     onValueChange={this._handleToggleTwitSwitch}
-                    value={this.state.switchValueTwit}
+                    value={twitterSwitch}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />
@@ -580,8 +640,8 @@ export default class OnboardingSocial extends Component {
                 </View>
                 <View style = {styles.toggleButtonView}>
                   <Switch
-                    onValueChange={this._handleToggleLnSwitch}
-                    value={this.state.switchValueLn}
+                    onValueChange={this._handleToggleLinkedInSwitch}
+                    value={linkedInSwitch}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />
@@ -625,7 +685,7 @@ export default class OnboardingSocial extends Component {
                 <View style = {styles.toggleButtonView}>
                   <Switch
                     onValueChange={this._handleToggleInSwitch}
-                    value={this.state.switchValueIn}
+                    value={instagramSwitch}
                     trackColor = {theme.secondaryTextColor}
                     thumbColor = {theme.colorAccent}
                     />

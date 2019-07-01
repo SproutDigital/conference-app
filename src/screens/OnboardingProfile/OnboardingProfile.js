@@ -137,17 +137,19 @@ export default class OnboardingProfile extends Component {
       });
     }
   handleNametataus = ()=> {
-    return this.setState({
-      namestatus:true,
-      jobstatus:false
-    })
+    return this.setState(prevState=>({
+        namestatus:!prevState.namestatus,
+        jobstatus:false
+      })
+    )
   }
 
   handleJobStataus = ()=> {
-    return this.setState({
-      jobstatus:true,
-      namestatus:false,
+    return this.setState(prevState=>({
+      jobstatus:!prevState.jobstatus,
+      namestatus:false
     })
+  )
   }
 
 
@@ -263,8 +265,6 @@ export default class OnboardingProfile extends Component {
 
   render () {
     const {showLoading, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
-    console.log({photo})
-
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar

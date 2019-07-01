@@ -19,7 +19,7 @@ export default class OnboardingBio extends Component {
       nationalityModalVisible : false,
       nationality : 'Nationality',
       company_name : '',
-      biodata : '',
+      short_bio : '',
       interests: '',
       companyStatus: false,
       biodataStatus: false,
@@ -98,16 +98,13 @@ export default class OnboardingBio extends Component {
 
 
   handleCompanyChange = (company_name) => {
-    
     this.setState({
       company_name
-    });
-    
+    }); 
   }
-  handleShortBio = (biodata) => {
-    
+  handleShortBio = (short_bio) => {
     this.setState({
-      biodata
+      short_bio
     });
    
   }
@@ -121,14 +118,14 @@ export default class OnboardingBio extends Component {
 
   handleNextButton =async()=> {
 
-    const {gender, nationality, biodata, company_name, interest, _id, token} = this.state;
+    const {gender, nationality, short_bio, company_name, interest, _id, token} = this.state;
     if(isEmpty(company_name)) {
       return this.setState({
         showAlert:true,
         message: 'Enter Valid Work Name'
       })
     }
-    else if(isEmpty(biodata)) {
+    else if(isEmpty(short_bio)) {
       return this.setState({
         showAlert:true,
         message: 'Enter Bio data Information'
@@ -148,7 +145,7 @@ export default class OnboardingBio extends Component {
 
     let body = await JSON.stringify({
       'query':{_id},
-      'update' : {gender, nationality, biodata, company_name, interest}   
+      'update' : {gender, nationality, short_bio, company_name, interest}   
     });
 
     await putRoute (ProfileUpdateEndpoint, body, token)
