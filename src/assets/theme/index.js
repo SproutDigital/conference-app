@@ -16,6 +16,7 @@ export default defaultTheme = {
     primaryColor : colors.skyBlue,
     toolBarColor : colors.white,
     backgroundColor: colors.backGround,
+    tintColor : colors.buttonBlue,
     // Font Type
     primaryFont: 'Poppins-Bold',
     secondaryFont: 'Poppins-Regular',

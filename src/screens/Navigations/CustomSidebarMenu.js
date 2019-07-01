@@ -5,35 +5,43 @@ import { Icon } from 'react-native-elements';
 import colors from '../../assets/colors';
 import styles from './styles';
 import theme from '../../assets/theme';
+
+const dashboard = require('../../assets/images/home.png'),
+ profile = require('../../assets/images/profile.png'),
+ notification = require('../../assets/images/notification.png'),
+ settings = require('../../assets/images/setting.png'),
+ logout = require('../../assets/images/logout.png');
+
 export default class CustomSidebarMenu extends Component {
   constructor() {
     super();
     this.items = [
       {
-        navOptionThumb: 'camera',
+        navOptionThumb: dashboard,
         navOptionName: 'DashBoard',
         screenToNavigate: 'DashBoard',
       },
-      // {
-      //   navOptionThumb: 'build',
-      //   navOptionName: 'Investment',
-      //   screenToNavigate: 'Investment',
-      // },
+      {
+        navOptionThumb: profile,
+        navOptionName: 'Profile',
+        screenToNavigate: 'Profile',
+      },
+      {
+        navOptionThumb: notification,
+        navOptionName: 'Notification',
+        screenToNavigate: 'Notification',
+      },
+      {
+        navOptionThumb: settings,
+        navOptionName: 'Settings',
+        screenToNavigate: 'Settings',
+      },
       { 
-        navOptionThumb: 'build',
+        navOptionThumb: logout,
         navOptionName: 'Logout',
         screenToNavigate: 'Logout',
       },
-      // {
-      //   navOptionThumb: 'build',
-      //   navOptionName: 'Account/Settings',
-      //   screenToNavigate: 'ManageAccount',
-      // },
-      // {
-      //   navOptionThumb: 'build',
-      //   navOptionName: 'Logout',
-      //   screenToNavigate: 'Logout',
-      // },
+      
     ];
   }
   render() {
@@ -47,10 +55,10 @@ export default class CustomSidebarMenu extends Component {
           />
           <View style = {styles.userDetailView}>
             <Text style = {styles.txtuser}>
-              Hi, John
+              Mr Ciroma Hassan
             </Text>
             <Text style = {styles.txtuser}>
-              doe@gmail.com
+              Speaker
             </Text>
           </View>
         </View>
@@ -71,11 +79,12 @@ export default class CustomSidebarMenu extends Component {
               }}>
                 
               <View style={{ marginRight: 10, marginLeft: 20 }}>
-                {/* <Image
-                  source = {require('../../assets/images')}
-                  style={styles.sideMenuProfileIcon}
-                /> */}
-                <Icon name={item.navOptionThumb} size={25} color="#0F959A" />
+                
+                {/* <Icon name={item.navOptionThumb} size={25} color="#0F959A" /> */}
+
+              <Image
+                source = {item.navOptionThumb}
+                style={styles.draweIcon}/>
               </View>
               <Text
                 style={{
