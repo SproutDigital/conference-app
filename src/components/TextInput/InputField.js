@@ -108,7 +108,7 @@ export default class InputField extends Component {
    
         <TextInput
           style={[{ color: inputColor }, style,inputStyle, styles.inputField]}         
-          borderWidth={borderWidth}
+          //borderWidth={borderWidth}
           borderColor={borderColor}
           borderRadius={borderRadius}
           borderTopRightRadius={borderTopRightRadius}
@@ -139,6 +139,7 @@ export default class InputField extends Component {
           onSubmitEditing={onSubmitEditing}
           returnKeyType={returnKeyType}
           blurOnSubmit={blurOnSubmit}
+
         />
         {inputType === 'password'
           ? (

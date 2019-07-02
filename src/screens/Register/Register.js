@@ -29,6 +29,11 @@ export default class Register extends Component {
       isActive: false,
       isFocused: true
     }
+
+    this.fullname = React.createRef();
+    this.email = React.createRef();
+    this.password = React.createRef();
+
   }
 
 
@@ -178,7 +183,7 @@ export default class Register extends Component {
   }
   
   render () {
-    const {showLoading, showAlert, message, isActive} = this.state;
+    const {showLoading, showAlert, message} = this.state;
     return(
       <SafeAreaView style={styles.container}> 
         <StatusBar barStyle="default"/>
@@ -187,7 +192,9 @@ export default class Register extends Component {
             style={styles.wrapper}
             behavior = 'padding'> 
               <View>
-                <View style = {styles.textInputView}> 
+                <View style = {[styles.textInputView,{ borderColor: this.state.isFocused
+                 ? 'black'
+                 : 'red',}]}> 
                   <Image
                     source={require('../../assets/images/name.png')}
                     style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -202,11 +209,16 @@ export default class Register extends Component {
                     width = {'90%'}
                     borderWidth = {1}
                     borderColor = {colors.white}
-                    onFocus={this.handleFocus}
-                     onBlur={this.handleBlur}
+                     returnKeyType = {"next"}
+                     blurOnSubmit={false}
+                     onSubmitEditing={() => { 
+                       this.email && this.email.focus()
+                     }}
                     /> 
                 </View>
-                <View style = {styles.textInputView}> 
+                <View style = {[styles.textInputView,{ borderColor: this.state.isFocused
+                 ? 'black'
+                 : 'red',}]}> 
                   <Image
                     source={require('../../assets/images/email.png')}
                     style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -219,10 +231,15 @@ export default class Register extends Component {
                     autoCapitalize = "none"
                     height = {40}
                     width = {'90%'}
-                    borderWidth = {1}
                     borderColor = {colors.white}
-                    onFocus={this.handleFocus}
+                    refs={(input) => { this.email = input; }}
+                    returnKeyType = {"next"}
+                     blurOnSubmit={false}
+                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
+                     onSubmitEditing={() => { 
+                       this.password && this.password.focus()
+                     }}
                     /> 
                 </View> 
                 <View style = {styles.textInputView}> 
@@ -240,25 +257,15 @@ export default class Register extends Component {
                     width = {'90%'}
                     borderWidth = {1}
                     borderColor = {colors.white}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
+                    refs={(input) => { this.password = input; }}
+                     returnKeyType = {"done"}
+                     blurOnSubmit={false}
+                     onSubmitEditing={() => { 
+                      this.handleRegistration();
+                     }}
                     /> 
                 </View>
-                {/* <View style = {styles.textInputView}> 
-                  <Image
-                    source={require('../../assets/images/padlock.png')}
-                    style={StyleSheet.flatten(styles.iconForm)}/> 
-                  <Picker
-                    selectedValue={this.state.role}
-                    style={styles.textInputView}
-                    onValueChange={role => this.setState({ role })}>
-                    <Picker.Item label="attendee" value="attendee" />
-                    <Picker.Item label="speaker" value="speaker" />
-                    <Picker.Item label="sponsor" value="sponsor" />
-                    <Picker.Item label="user" value="user" />
-
-                  </Picker>
-                </View> */}
+                
               </View>         
               <View style = {styles.btnView}>
                 <SubmitButton

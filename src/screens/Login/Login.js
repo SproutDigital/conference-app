@@ -283,7 +283,13 @@ export default class Login extends Component {
                     height = {40}
                     width = {'90%'}
                     borderWidth = {1}
+                    blurOnSubmit={false}
                     borderColor = {theme.colorAccent}
+                    autoFocus={true}
+                    returnKeyType = {'next'}
+                    onSubmitEditing={() => { 
+                      this.passwordRef && this.passwordRef.focus()
+                    }}
                     /> 
               </View>
               <View style = {styles.textInputView}> 
@@ -300,7 +306,12 @@ export default class Login extends Component {
                     height = {40}
                     width = {'90%'}
                     borderWidth = {1}
-                    borderColor = {colors.white}/> 
+                    borderColor = {colors.white}
+                    refs={(input) => { this.passwordRef = input; }}
+                    onSubmitEditing={() => { 
+                      this.handleSignIn();
+                    }}
+                  /> 
               </View>
             </View>
 
