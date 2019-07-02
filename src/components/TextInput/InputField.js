@@ -54,7 +54,6 @@ export default class InputField extends Component {
       customStyle,
       formStyle,
       inputStyle,
-      autoFocus,
       autoCapitalize,
       placeholder,
       placeholderTextColor,
@@ -66,6 +65,11 @@ export default class InputField extends Component {
       selectTextOnFocus,
       onFocus,
       onBlur,
+      returnKeyType,
+      refs,
+      autoFocus,
+      blurOnSubmit,
+      onSubmitEditing
     } = this.props;
 
     const { secureInput, inputValue } = this.state;
@@ -131,6 +135,10 @@ export default class InputField extends Component {
           onFocus={onFocus}
           borderBottomColor={borderBottomColor}
           editable={editable}
+          ref={refs}
+          onSubmitEditing={onSubmitEditing}
+          returnKeyType={returnKeyType}
+          blurOnSubmit={blurOnSubmit}
         />
         {inputType === 'password'
           ? (

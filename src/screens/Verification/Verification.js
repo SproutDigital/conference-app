@@ -24,6 +24,7 @@ export default class Verification extends Component {
   }
   async componentDidMount() {
   //  logout();
+  
   }
 
   resetNavigationStack = (location) => {

@@ -10,7 +10,6 @@ import colors from '../../assets/colors';
 import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 
-
 export default class OnboardingBio extends Component {
   constructor(props) {
     super(props);
@@ -293,7 +292,7 @@ export default class OnboardingBio extends Component {
                 borderBottomWidth = {0}
                 borderColor = {colors.white}
                 editable = {companyStatus}
-
+                ref={ref => this.companyInput = ref}
                 /> 
                 <TouchableOpacity 
                   style = {{paddingLeft : 8}}

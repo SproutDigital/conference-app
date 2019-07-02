@@ -42,6 +42,9 @@ export default class OnboardingProfile extends Component {
       jobtitle: '',
       photo:'',
     }
+
+    this.fullname = React.createRef();
+    this.job_title = React.createRef();
   }
 
   async componentDidMount(){
@@ -143,7 +146,7 @@ export default class OnboardingProfile extends Component {
   handleNametataus = ()=> {
     return this.setState(prevState=>({
         namestatus:!prevState.namestatus,
-        jobstatus:false
+        jobstatus:false, 
       })
     )
   }
@@ -269,6 +272,7 @@ export default class OnboardingProfile extends Component {
 
   render () {
     const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
+    console.log({namestatus})
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -327,17 +331,6 @@ export default class OnboardingProfile extends Component {
           styles={StyleSheet.flatten(styles.profileNameTxt)}
           text = {name}
         />
-        {/* <View style={{borderBottomWidth:1, borderColor: 'rgb(204, 204, 204)', width:'50%'}}>
-          <Picker
-            selectedValue={this.state.role}
-           // style={styles.userCathegoryView}
-            onValueChange={role => this.setState({ role })}>
-            <Picker.Item  label="attendee" value="attendee" />
-            <Picker.Item label="speaker" value="speaker" />
-            <Picker.Item label="sponsor" value="sponsor" />
-            <Picker.Item label="user" value="user" />
-          </Picker>
-         </View>  */}
         
           <View style = {styles.titleView}>
             <DisplayText
@@ -384,10 +377,16 @@ export default class OnboardingProfile extends Component {
                 autoCapitalize = "words"
                 height = {25}
                 width = {'100%'}
-                //borderBottomWidth = {0}
                 borderColor = {theme.colorAccent}
                 defaultValue = {name}
-                editable = {namestatus}
+                editable = {true}
+                ref={this.fullname}
+                returnKeyType = {"next"}
+                autoFocus={true}
+                blurOnSubmit={false}
+                onSubmitEditing={() => { 
+                  this.job_title && this.job_title.focus()
+                }}
                 /> 
                 <TouchableOpacity onPress = {this.handleNametataus}>
                 <Image
@@ -406,7 +405,6 @@ export default class OnboardingProfile extends Component {
             />
             <View style = {{flexDirection : 'row', width : '90%'}}>
               <InputField
-                // placeholder={'Email'}
                 placeholderTextColor = {colors.blackShade}
                 textColor={theme.primaryTextColor}
                 inputType={'default'}
@@ -415,10 +413,16 @@ export default class OnboardingProfile extends Component {
                 autoCapitalize = "words"
                 height = {25}
                 width = {'100%'}
-                //borderBottomWidth = {0}
+                returnKeyType = {"done"}
                 borderColor = {theme.colorAccent}
                 defaultValue = {jobtitle}
-                editable={jobstatus}
+                editable={true}
+                refs={(input) => { this.job_title = input; }}
+                autoFocus={namestatus}
+                onSubmitEditing={() => { 
+                  this.handleSubmitForm();
+                }}
+                
                 /> 
                 <TouchableOpacity onPress = {this.handleJobStataus}>
                 <Image
