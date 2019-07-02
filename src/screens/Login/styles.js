@@ -12,8 +12,8 @@ export default styles = StyleSheet.create({
    // alignItems: 'center'
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 40,
-    paddingBottom: 10, 
+    // paddingTop: 40,
+    // paddingBottom: 10, 
 
   },
   wrapper: {
@@ -24,37 +24,17 @@ export default styles = StyleSheet.create({
     paddingTop: 8,
     justifyContent: 'center',
   },
-  headerView: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerText: {
-    fontSize: 28,
-    color: colors.gold,
-    marginBottom: 10,
-    marginTop: 16,
-    fontFamily: 'Poppins-Regular',
-    alignItems: 'center',
-    justifyContent : 'center',
-  },
+  
+  
   btnView: {
     alignItems : 'center',
     width : '100%',
   },
-  welcome: {
-    fontSize: 20,
-    color: colors.gold,
-    marginBottom: 10,
-    marginTop:20,
-    fontFamily: 'Poppins-Bold',
-    alignItems: 'center',
-    justifyContent : 'center',
-  },
-  
   signupLinkView: {
     justifyContent : 'center',
     flexDirection : 'row',
-    marginBottom : 8,
+    // marginBottom : 8,
+    marginTop : 16
   },
   signupText: {
     fontSize: 16,

@@ -23,6 +23,10 @@ export default class DashBoard extends Component {
     // this.props.navigation.toggleDrawer();
     this.props.navigation.dispatch(DrawerActions.toggleDrawer())
   };
+
+  handleAboutRoute = () => {
+    return this.props.navigation.navigate('About');
+  }
   
 
   render () {
@@ -57,12 +61,16 @@ export default class DashBoard extends Component {
           showsVerticalScrollIndicator={false}>     
 
           <View style={styles.boxViews}>
-            <TouchableOpacity style={styles.boxes}>
+            <TouchableOpacity 
+              onPress = {this.handleAboutRoute}
+              style={styles.boxes}>
               <Image
+                onPress = {this.handleAboutRoute}
                 source = {require('../../assets/images/about.png')}
                 style = {StyleSheet.flatten(styles.boxIcon)}
               />
               <DisplayText
+                onPress = {this.handleAboutRoute}
                 text={'About'}
                 styles = {styles.boxText}
               />

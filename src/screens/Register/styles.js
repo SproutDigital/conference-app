@@ -119,7 +119,7 @@ import theme from '../../assets/theme';
   },  
   socialIconView : {
     flexDirection : "row",
-    paddingTop: 8
+    paddingTop: 4
   },
   socialIcons : {
     height : 24,
