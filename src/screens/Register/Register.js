@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import { View, SafeAreaView, StatusBar, Image, StyleSheet,TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
 import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
@@ -55,7 +55,7 @@ export default class Register extends Component {
 
   handleLoginRoute = () => {
      this.props.navigation.navigate('Login');
-   // this.props.navigation.navigate('Verification');
+  //  this.props.navigation.navigate('DashBoard');
 
   }
 
@@ -277,7 +277,33 @@ export default class Register extends Component {
                   imgStyle={StyleSheet.flatten(styles.iconDoor)}
                   titleStyle={StyleSheet.flatten(styles.buttonTxt)}
                 />
-                
+                <View style = { styles.signWithView}>
+                  <DisplayText
+                    text={'Or Sign up with?'}
+                    styles = {styles.signupWith}
+                    onPress = {this.handleForgetPassword}/>
+                  <View style = {styles.socialIconView}>
+                    <TouchableOpacity
+                      onPress={this.handleFaceBookLogin}>
+                      <Image
+                        onPress={this.handleFaceBookLogin}
+                        source={require('../../assets/images/linkedin.png')}
+                        style={StyleSheet.flatten(styles.socialIcons)}/> 
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={this.handleFaceBookLogin}>
+                      <Image
+                        onPress={this.handleFaceBookLogin}
+                        source={require('../../assets/images/twitter.png')}
+                        style={StyleSheet.flatten(styles.socialIcons)}/> 
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../../assets/images/facebook.png')}
+                        style={StyleSheet.flatten(styles.socialIcons)}/> 
+                    </TouchableOpacity>
+                  </View>
+                </View>
                 <View style = {StyleSheet.flatten(styles.signupLinkView)}>
                   <DisplayText
                     text={'Already have an Account? '}

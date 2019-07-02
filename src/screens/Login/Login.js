@@ -255,19 +255,20 @@ export default class Login extends Component {
         ignite
       </Text> */}
       
-        <View style = {styles.imageView}>
-          <Image
-            source={require('../../assets/images/logo.png')}
-            style={StyleSheet.flatten(styles.logoIcon)}/> 
-        </View>
-        <ScrollView 
-            style={{flex:1,}}
-            showsVerticalScrollIndicator={false}>          
-          <KeyboardAvoidingView
-            style={styles.wrapper}
-            behavior="padding"
-            >
-            <View >
+     
+      {/* <ScrollView 
+          style={{flex:1,}}
+          showsVerticalScrollIndicator={false}>  */}
+      <KeyboardAvoidingView
+        style={styles.wrapper}
+        behavior="padding">
+                 
+          <View style = {styles.imageView}>
+            <Image
+              source={require('../../assets/images/logo.png')}
+              style={StyleSheet.flatten(styles.logoIcon)}/> 
+          </View>
+            <View>
               <View style = {styles.textInputView}> 
                 <Image
                   source={require('../../assets/images/email.png')}
@@ -328,6 +329,52 @@ export default class Login extends Component {
                 onPress = {this.handleLogin}
               />
             </View>
+            
+            <View style = {styles.btnView}>
+              
+              <SubmitButton
+                title={'Log in'}
+                disabled={!this.toggleButtonState()}
+                onPress={this.handleSignIn}
+                imgSrc={require('../../assets/images/loginIcon.png')}
+                btnStyle={styles.buttonWithImage}
+                imgStyle={StyleSheet.flatten(styles.iconDoor)}
+                titleStyle={StyleSheet.flatten(styles.buttonTxt)}
+              />
+              <View style = {StyleSheet.flatten(styles.signupLinkView)}>
+                <DisplayText
+                  text={'Forgot Password?'}
+                  styles = {styles.forgotPwd}
+                  onPress = {this.handleForgetPassword}/>
+              </View>
+              {/* <View style = { styles.signWithView}>
+                <DisplayText
+                  text={'Or Sign up with?'}
+                  styles = {styles.signupWith}
+                  onPress = {this.handleForgetPassword}/>
+                <View style = {styles.socialIconView}>
+                  <TouchableOpacity
+                    onPress={this.handleFaceBookLogin}>
+                    <Image
+                      onPress={this.handleFaceBookLogin}
+                      source={require('../../assets/images/linkedin.png')}
+                      style={StyleSheet.flatten(styles.socialIcons)}/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={this.handleFaceBookLogin}>
+                    <Image
+                      onPress={this.handleFaceBookLogin}
+                      source={require('../../assets/images/twitter.png')}
+                      style={StyleSheet.flatten(styles.socialIcons)}/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/facebook.png')}
+                      style={StyleSheet.flatten(styles.socialIcons)}/> 
+                  </TouchableOpacity>
+                </View>
+              </View> */}
+            </View>
             <Toast
               ref="toast"
               style={{backgroundColor: 'green'}}
@@ -343,70 +390,16 @@ export default class Login extends Component {
               title="Processing"
               message="Please wait..."
             />
-            <View style = {styles.btnView}>
-              
-              <SubmitButton
-                title={'Log in'}
-                disabled={!this.toggleButtonState()}
-                onPress={this.handleSignIn}
-                imgSrc={require('../../assets/images/loginIcon.png')}
-                btnStyle={styles.buttonWithImage}
-                imgStyle={StyleSheet.flatten(styles.iconDoor)}
-                titleStyle={StyleSheet.flatten(styles.buttonTxt)}
-              />
-              <View style = { styles.signWithView}>
-                <DisplayText
-                  text={'Or Sign up with?'}
-                  styles = {styles.signupWith}
-                  onPress = {this.handleForgetPassword}
-                />
-                <View style = {styles.socialIconView}>
-                  <TouchableOpacity
-                    onPress={this.handleFaceBookLogin}
-                  >
-                    <Image
-                      onPress={this.handleFaceBookLogin}
-                      source={require('../../assets/images/linkedin.png')}
-                      style={StyleSheet.flatten(styles.socialIcons)}/> 
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={this.handleFaceBookLogin}
-                  >
-                    <Image
-                      onPress={this.handleFaceBookLogin}
-                      source={require('../../assets/images/twitter.png')}
-                      style={StyleSheet.flatten(styles.socialIcons)}/> 
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../../assets/images/facebook.png')}
-                      style={StyleSheet.flatten(styles.socialIcons)}/> 
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-              
             <SingleButtonAlert
               title = {title} 
               message = {message}
               handleCloseNotification = {this.handleCloseNotification}
-              visible = {showAlert}
-            />
-          </KeyboardAvoidingView>
-        </ScrollView>
-        
-        <View style = {StyleSheet.flatten(styles.signupLinkView)}>
-          <DisplayText
-            text={'Forgot Password?'}
-            styles = {styles.forgotPwd}
-            onPress = {this.handleForgetPassword}
-          />
-          
-        </View>
-     </View>
-   )
-   
-  }
-  
+              visible = {showAlert}/>
+        </KeyboardAvoidingView>
+        {/* </ScrollView> */}
+
+      </View>
+    )
+  } 
 } 
 

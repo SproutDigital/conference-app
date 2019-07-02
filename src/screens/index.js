@@ -19,7 +19,7 @@ import Notification from './Notification';
 import Programs from './Programs';
 import People from './People';
 import Help from './Help';
-
+import About from './About';
 
 export default {
   ForgetPassword, 
@@ -43,4 +43,5 @@ export default {
   Programs,
   People,
   Help,
+  About,
 };
