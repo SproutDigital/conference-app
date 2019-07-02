@@ -301,8 +301,7 @@ export default class OnboardingProfile extends Component {
           <View style = {styles.viewBody}>
 
         <View style = {styles.imageView}>
-
-        { 
+          { 
             photo && photo.length > 0 ?
             <Image 
               source={{ uri: photo }} 
@@ -351,10 +350,9 @@ export default class OnboardingProfile extends Component {
 
               </View>
               
-              <TouchableOpacity onPress = {this.handleEdit}>
+              <TouchableOpacity>
                 
                 <Image
-                  onPress = {this.handleEdit}
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}/>
               </TouchableOpacity>
