@@ -110,6 +110,30 @@ import theme from '../../assets/theme';
     fontFamily: theme.secondaryFont,
     alignSelf: 'center',
   },
+  signWithView : {
+    width : '100%',
+    justifyContent: 'center',
+    alignItems : 'center',
+    flexDirection : "column",
+    marginTop : 16
+  },  
+  socialIconView : {
+    flexDirection : "row",
+    paddingTop: 8
+  },
+  socialIcons : {
+    height : 24,
+    width : 24,
+    tintColor : theme.primaryTextColor,
+    marginLeft : 2
+  },
+  signupWith : {
+    color : theme.primaryTextColor,
+    marginBottom : 8,
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.thinyFont
+  },
+
 });
 
 export default styles;

@@ -23,7 +23,7 @@ import Notification from '../screens/Notification/Notification';
 import Programs from '../screens/Programs/Programs';
 import People from '../screens/People/People';
 import Help from '../screens/Help/Help';
-
+import About from '../screens/About/About';
 const AuthStack = createStackNavigator({ 
 
   BoardingScreen: {
@@ -193,6 +193,12 @@ export const OnBoardingStack = createStackNavigator({
     },
     Help : {
       screen : Help,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    About : {
+      screen : About,
       navigationOptions : {
         header : null,
       }
