@@ -59,7 +59,6 @@ export default styles = StyleSheet.create({
     marginLeft: 16,
     alignSelf: 'center',
     fontFamily : theme.secondaryFont
-    
   },
   exitTxt: {
     fontSize: 40,

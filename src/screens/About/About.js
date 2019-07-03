@@ -18,13 +18,12 @@ export default class About extends Component {
     }
   }
   
-  toggleDrawer = () => {
-    //Props to open/close the drawer
-    // this.props.navigation.toggleDrawer();
-    this.props.navigation.dispatch(DrawerActions.toggleDrawer())
-  };
+
   handleGoBack = () => {
     return this.props.navigation.popToTop();
+  }
+  handleAboutConference = () => {
+    return this.props.navigation.navigate('AboutConference');
   }
   
 
@@ -46,26 +45,30 @@ export default class About extends Component {
         </TouchableOpacity>
         <View style = {styles.nameView}>
           <DisplayText
-            text = {"ABOUT"}
+            text = {"ABOUT"}            
             styles = {StyleSheet.flatten(styles.txtHeader)}
           />
-      </View>
+        </View>
       </View>
       <View style = {styles.aboutView}>
         <View style = {styles.aboutGridView}>
           {/* first grid */}
           <ImageBackground 
+            onPress = {this.handleAboutConference}
             style={[styles.gridBox]} 
             blurRadius={0.1}
             imageStyle={{resizeMode: 'cover'}}
             source={require('../../assets/images/grid1.png')}>
 
-            <TouchableOpacity style={styles.overlay}>
+            <TouchableOpacity 
+              onPress = {this.handleAboutConference}
+              style={styles.overlay}>
               <DisplayText
                 text = {"CONFERENCE"}
                 styles = {StyleSheet.flatten(styles.gridText)}
               />
               <Image
+                onPress = {this.handleAboutConference}
                 source = {require('../../assets/images/overflow.png')}
                 style = {StyleSheet.flatten(styles.overflowIcon)}
               />

@@ -6,7 +6,6 @@ import styles from './styles';
 import colors from '../../assets/colors';
 import { DrawerActions } from "react-navigation";
 import Carousel from 'react-native-carousel';
-// var Carousel = require('react-native-carousel');
 
 
 export default class DashBoard extends Component {
