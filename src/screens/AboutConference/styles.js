@@ -2,12 +2,11 @@ import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
-import Constants from 'expo-constants';
 
 export default styles = StyleSheet.create({
+
   container: {
     flex: 1,
-    backgroundColor : colors.backGround,
   },
   navBar: {
     flexDirection : 'row',
@@ -57,10 +56,10 @@ export default styles = StyleSheet.create({
   },
   txtHeader: {
     fontSize: 18,
-    color: theme.primaryColor,
+    color: theme.primaryTextColor,
     marginLeft: 16,
     alignSelf: 'center',
-    
+    fontFamily : theme.secondaryFont
   },
   exitTxt: {
     fontSize: 40,
@@ -68,62 +67,40 @@ export default styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     marginLeft: 16
   },
-  sliderView : {
-    backgroundColor : colors.buttonBlue,
-    height: '30%',
-    width : '100%',
-  },
-  tileView : {
-    flex : 1,
-    marginTop :8,
-    paddingLeft : 16,
-    paddingRight : 16,
-  },
-  boxViews : {
-    flex : 1,
-    width : '100%',
-    flexDirection : 'row',
-    flexWrap : 'wrap',
-    marginBottom :8,
-    justifyContent: 'space-evenly',
-
-  },
-  boxes : {
-    width : 100,
-    height : 100,
-    backgroundColor : 'rgba(255,255,255,0.8)',
-    // shadowColor: theme.secondaryTextColor,
-    // shadowOffset: { 
-    //   width: 0, 
-    //   height: 2 
-    // },
-    // shadowOpacity: 0.3,
-    // shadowRadius: 4,
-    // elevation: 2, 
-    borderRadius : 4,
-    justifyContent: 'center',
-    alignItems : 'center',
-    flexDirection : 'column',
-    marginTop : 8
-  },
-  boxIcon : {
-    height : 30,
-    width : 30,
-    resizeMode : 'contain',
-    tintColor : theme.primaryColor,
-  },
-  boxText : {
-    fontFamily : theme.inputHintFont,
-    fontSize : theme.thinyFont,
-    color : theme.secondaryTextColor,
-    marginTop : 8,
-
-  },
   slideCarosel : {
     width:  '100%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-  }
+  },
+  sliderView : {
+    height : 160,
+    width : '100%',
+    backgroundColor : theme.primaryColor
+  },
+  viewBody :{
+    flex : 1,
+    width : '100%',
+    // marginTop :2,
+    // backgroundColor : 'red'
+  },
+  srollContent :{
+    flexDirection : 'column',
+    padding : 16,
+    paddingTop: 8,
+
+  },
+  aboutHeaderTxt : {
+    fontFamily : theme.headerFont,
+    fontSize : theme.MediumFont,
+    color : theme.primaryTextColor,
+  },
+  aboutBodyTxt : {
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.SmallerFont,
+    color : theme.secondaryTextColor,
+    textAlign : 'justify'
+  },
+
 });

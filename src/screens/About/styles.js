@@ -55,15 +55,60 @@ export default styles = StyleSheet.create({
   },
   txtHeader: {
     fontSize: 18,
-    color: theme.primaryColor,
+    color: theme.primaryTextColor,
     marginLeft: 16,
     alignSelf: 'center',
-    
+    fontFamily : theme.secondaryFont
   },
   exitTxt: {
     fontSize: 40,
     color: colors.text_color,
     fontFamily: 'Poppins-Regular',
     marginLeft: 16
+  },
+  aboutView : {
+    flex : 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    padding : 16,
+    // backgroundColor : colors.black
+
+  },
+  aboutGridView : {
+    width : '100%',
+    height : '65%',
+    flexDirection : 'row',
+    flexWrap : 'wrap',
+    marginTop : '15%',
+    justifyContent : 'space-between',
+    // backgroundColor : theme.colorAccent
+  },
+  gridBox :{
+    width : "49%",
+    height : "50%",
+    borderRadius : 2,
+    marginTop : '2%'
+
+  },
+  overlay : {
+    height : '100%',
+    width : '100%',
+    backgroundColor : 'rgba(3,31,38,0.5)',
+    flexDirection : 'row',
+    justifyContent : 'space-between',
+    padding : 8,
+    paddingRight : 4
+
+  },
+  gridText : {
+    fontFamily : theme.headerFont,
+    color : theme.colorAccent,
+    fontSize : theme.SmallerFont,
+  },
+  overflowIcon : {
+    tintColor : theme.colorAccent,
+    height : 18,
+    width : 18,
+    marginTop : 2
   },
 });

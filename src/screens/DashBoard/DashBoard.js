@@ -1,11 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import { DrawerActions } from "react-navigation";
-
+import Carousel from 'react-native-carousel';
 
 
 export default class DashBoard extends Component {
@@ -53,7 +53,24 @@ export default class DashBoard extends Component {
       </View>
       </View>
       <View style = {styles.sliderView}>
-        
+        <Carousel 
+          indicatorAtBottom={true}
+          indicatorColor="#FFFFFF"
+          indicatorSize={20}
+          indicatorSpace={15}
+          indicatorText= '•'
+          delay={8000}
+          width={375}>
+          <View style={styles.slideCarosel}>
+            <Text>Page 1</Text>
+          </View>
+          <View style={styles.slideCarosel}>
+            <Text>Page 2</Text>
+          </View>
+          <View style={styles.slideCarosel}>
+            <Text>Page 3</Text>
+          </View>
+        </Carousel>
       </View>
       <View style={styles.tileView}>
         <ScrollView 

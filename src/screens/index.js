@@ -20,6 +20,7 @@ import Programs from './Programs';
 import People from './People';
 import Help from './Help';
 import About from './About';
+import AboutConference from './AboutConference';
 
 export default {
   ForgetPassword, 
@@ -44,4 +45,5 @@ export default {
   People,
   Help,
   About,
+  AboutConference,
 };

@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import { View, ScrollView, ImageBackground, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
@@ -18,11 +18,13 @@ export default class About extends Component {
     }
   }
   
-  toggleDrawer = () => {
-    //Props to open/close the drawer
-    // this.props.navigation.toggleDrawer();
-    this.props.navigation.dispatch(DrawerActions.toggleDrawer())
-  };
+
+  handleGoBack = () => {
+    return this.props.navigation.popToTop();
+  }
+  handleAboutConference = () => {
+    return this.props.navigation.navigate('AboutConference');
+  }
   
 
   render () {
@@ -33,27 +35,101 @@ export default class About extends Component {
         backgroundColor={colors.green_background}/>
       <View style = {styles.navBar}>
         <TouchableOpacity
-          onPress={this.toggleDrawer} 
+          onPress={this.handleGoBack} 
           style = {styles.headerImage}>
           <Image
-            onPress={this.toggleDrawer} 
-            source = {require('../../assets/images/menu.png')}
+            onPress={this.handleGoBack} 
+            source = {require('../../assets/images/back.png')}
             style = {StyleSheet.flatten(styles.headerIcon)}
           />
         </TouchableOpacity>
         <View style = {styles.nameView}>
-          <Image
-            source = {require('../../assets/images/inapp_logo.png')}
-            style = {StyleSheet.flatten(styles.headerLogoIcon)}
+          <DisplayText
+            text = {"ABOUT"}            
+            styles = {StyleSheet.flatten(styles.txtHeader)}
           />
+        </View>
       </View>
-      </View>
-      <View>
-        <DisplayText
-          styles={StyleSheet.flatten(styles.exitTxt)}
-          text = {'About'}
-          onPress = {this.handleLogout}
-        />  
+      <View style = {styles.aboutView}>
+        <View style = {styles.aboutGridView}>
+          {/* first grid */}
+          <ImageBackground 
+            onPress = {this.handleAboutConference}
+            style={[styles.gridBox]} 
+            blurRadius={0.1}
+            imageStyle={{resizeMode: 'cover'}}
+            source={require('../../assets/images/grid1.png')}>
+
+            <TouchableOpacity 
+              onPress = {this.handleAboutConference}
+              style={styles.overlay}>
+              <DisplayText
+                text = {"CONFERENCE"}
+                styles = {StyleSheet.flatten(styles.gridText)}
+              />
+              <Image
+                onPress = {this.handleAboutConference}
+                source = {require('../../assets/images/overflow.png')}
+                style = {StyleSheet.flatten(styles.overflowIcon)}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
+          {/* second grid */}
+          <ImageBackground 
+            style={[styles.gridBox]} 
+            blurRadius={0.1}
+            imageStyle={{resizeMode: 'cover'}}
+            source={require('../../assets/images/grid2.png')}>
+
+            <TouchableOpacity style={styles.overlay}>
+              <DisplayText
+                text = {"VENUE"}
+                styles = {StyleSheet.flatten(styles.gridText)}
+              />
+              <Image
+                source = {require('../../assets/images/overflow.png')}
+                style = {StyleSheet.flatten(styles.overflowIcon)}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
+          {/* third grid */}
+          <ImageBackground 
+            style={[styles.gridBox]} 
+            blurRadius={0.0}
+            imageStyle={{resizeMode: 'cover'}}
+            source={require('../../assets/images/grid3.png')}>
+
+            <TouchableOpacity style={styles.overlay}>
+              <DisplayText
+                text = {"ORGANISERS"}
+                styles = {StyleSheet.flatten(styles.gridText)}
+              />
+              <Image
+                source = {require('../../assets/images/overflow.png')}
+                style = {StyleSheet.flatten(styles.overflowIcon)}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
+          {/* fourth grid */}
+          <ImageBackground 
+            style={[styles.gridBox]} 
+            blurRadius={0.1}
+            imageStyle={{resizeMode: 'cover'}}
+            source={require('../../assets/images/grid4.png')}>
+
+            <TouchableOpacity style={styles.overlay}>
+              <DisplayText
+                text = {"SPONSORS"}
+                styles = {StyleSheet.flatten(styles.gridText)}
+              />
+              <Image
+                source = {require('../../assets/images/overflow.png')}
+                style = {StyleSheet.flatten(styles.overflowIcon)}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
+          
+        </View>
       </View>
     </SafeAreaView>
     )

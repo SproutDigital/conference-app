@@ -24,6 +24,10 @@ import Programs from '../screens/Programs/Programs';
 import People from '../screens/People/People';
 import Help from '../screens/Help/Help';
 import About from '../screens/About/About';
+import AboutConference from '../screens/AboutConference/AboutConference';
+
+
+
 const AuthStack = createStackNavigator({ 
 
   BoardingScreen: {
@@ -203,6 +207,13 @@ export const OnBoardingStack = createStackNavigator({
         header : null,
       }
     },
+    AboutConference : {
+      screen : AboutConference,
+      navigationOptions : {
+        header : null,
+      }
+    },
+
   },
   {
     mode: 'modal',
