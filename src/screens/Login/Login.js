@@ -27,6 +27,8 @@ export default class Login extends Component {
       email : '',
       title: '',
       message: '',
+      isEmailFocused:false,
+      isPasswordFocused:false,
       
     };
     this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
@@ -269,7 +271,9 @@ export default class Login extends Component {
               style={StyleSheet.flatten(styles.logoIcon)}/> 
           </View>
             <View>
-              <View style = {styles.textInputView}> 
+              <View style = {[styles.textInputView,{ borderColor: this.state.isEmailFocused
+                 ? colors.green
+                 : colors.whiteShade}]}> 
                 <Image
                   source={require('../../assets/images/email.png')}
                   style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -287,13 +291,18 @@ export default class Login extends Component {
                     blurOnSubmit={false}
                     borderColor = {theme.colorAccent}
                     autoFocus={true}
-                    returnKeyType = {'next'}
+                    returnKeyType = {"next"}
+                    blurOnSubmit={false}
+                    onFocus={()=>this.setState({isEmailFocused:true})}
+                    onBlur={()=>this.setState({isEmailFocused:false})}
                     onSubmitEditing={() => { 
                       this.passwordRef && this.passwordRef.focus()
                     }}
                     /> 
               </View>
-              <View style = {styles.textInputView}> 
+              <View style = {[styles.textInputView,{ borderColor: this.state.isPasswordFocused
+                 ? colors.green
+                 : colors.whiteShade}]}> 
                 <Image
                   source={require('../../assets/images/padlock.png')}
                   style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -309,6 +318,10 @@ export default class Login extends Component {
                     borderWidth = {1}
                     borderColor = {colors.white}
                     refs={(input) => { this.passwordRef = input; }}
+                    returnKeyType={'done'}
+                    blurOnSubmit={false}
+                    onFocus={()=>this.setState({isPasswordFocused:true})}
+                   onBlur={()=>this.setState({isPasswordFocused:false})}
                     onSubmitEditing={() => { 
                       this.handleSignIn();
                     }}
