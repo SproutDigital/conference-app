@@ -27,7 +27,9 @@ export default class Register extends Component {
       showLoading: false,
       role: '',
       isActive: false,
-      isFocused: true
+      isEmailFocused: false,
+      isNameFocused:false,
+      isPasswordFocused:false,
     }
 
     this.fullname = React.createRef();
@@ -191,9 +193,9 @@ export default class Register extends Component {
             style={styles.wrapper}
             behavior = 'padding'> 
               <View>
-                <View style = {[styles.textInputView,{ borderColor: this.state.isFocused
-                 ? 'black'
-                 : 'red',}]}> 
+                <View style = {[styles.textInputView,{ borderColor: this.state.isNameFocused
+                 ? colors.green
+                 : colors.whiteShade}]}> 
                   <Image
                     source={require('../../assets/images/name.png')}
                     style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -210,14 +212,16 @@ export default class Register extends Component {
                     borderColor = {colors.white}
                      returnKeyType = {"next"}
                      blurOnSubmit={false}
+                     onFocus={()=>this.setState({isNameFocused:true})}
+                     onBlur={()=>this.setState({isNameFocused:false})}
                      onSubmitEditing={() => { 
                        this.email && this.email.focus()
                      }}
                     /> 
                 </View>
-                <View style = {[styles.textInputView,{ borderColor: this.state.isFocused
-                 ? 'black'
-                 : 'red',}]}> 
+                <View style = {[styles.textInputView,{ borderColor: this.state.isEmailFocused
+                 ? colors.green
+                 : colors.whiteShade}]}> 
                   <Image
                     source={require('../../assets/images/email.png')}
                     style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -234,14 +238,16 @@ export default class Register extends Component {
                     refs={(input) => { this.email = input; }}
                     returnKeyType = {"next"}
                      blurOnSubmit={false}
-                     onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
+                     onFocus={()=>this.setState({isEmailFocused:true})}
+                    onBlur={()=>this.setState({isEmailFocused:false})}
                      onSubmitEditing={() => { 
                        this.password && this.password.focus()
                      }}
                     /> 
                 </View> 
-                <View style = {styles.textInputView}> 
+                <View style = {[styles.textInputView,{ borderColor: this.state.isPasswordFocused
+                 ? colors.green
+                 : colors.whiteShade}]}> 
                   <Image
                     source={require('../../assets/images/padlock.png')}
                     style={StyleSheet.flatten(styles.iconForm)}/> 
@@ -259,6 +265,8 @@ export default class Register extends Component {
                     refs={(input) => { this.password = input; }}
                      returnKeyType = {"done"}
                      blurOnSubmit={false}
+                     onFocus={()=>this.setState({isPasswordFocused:true})}
+                    onBlur={()=>this.setState({isPasswordFocused:false})}
                      onSubmitEditing={() => { 
                       this.handleRegistration();
                      }}
