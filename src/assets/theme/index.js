@@ -5,6 +5,7 @@ export default defaultTheme = {
     LargeFont: 24,
     MediumFont: 20,
     SmallFont: 16,
+    SmallerFont : 14,
     thinyFont: 12,
     //Colors
     primaryTextColor: colors.darkText,

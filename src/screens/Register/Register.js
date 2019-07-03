@@ -54,9 +54,8 @@ export default class Register extends Component {
   }
 
   handleLoginRoute = () => {
-     this.props.navigation.navigate('Login');
-  //  this.props.navigation.navigate('DashBoard');
-
+    //  this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('DashBoard');
   }
 
   handleFocus = () => this.setState({isFocused: true})

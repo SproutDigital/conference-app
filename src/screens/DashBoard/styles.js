@@ -119,4 +119,11 @@ export default styles = StyleSheet.create({
     marginTop : 8,
 
   },
+  slideCarosel : {
+    width:  '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  }
 });
