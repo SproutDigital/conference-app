@@ -25,8 +25,8 @@ import People from '../screens/People/People';
 import Help from '../screens/Help/Help';
 import About from '../screens/About/About';
 import AboutConference from '../screens/AboutConference/AboutConference';
-
-
+import Venue from '../screens/Venue/Venue';
+import Organisers from '../screens/Organisers/Organisers'
 
 const AuthStack = createStackNavigator({ 
 
@@ -213,7 +213,18 @@ export const OnBoardingStack = createStackNavigator({
         header : null,
       }
     },
-
+    Venue : {
+      screen : Venue,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    Organisers : {
+      screen : Organisers,
+      navigationOptions : {
+        header : null,
+      }
+    },
   },
   {
     mode: 'modal',

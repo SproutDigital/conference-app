@@ -21,6 +21,8 @@ import People from './People';
 import Help from './Help';
 import About from './About';
 import AboutConference from './AboutConference';
+import Venue from './Venue';
+import Organisers from './Organisers'
 
 export default {
   ForgetPassword, 
@@ -46,4 +48,6 @@ export default {
   Help,
   About,
   AboutConference,
+  Venue,
+  Organisers,
 };
