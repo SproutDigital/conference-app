@@ -1,12 +1,12 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, } from '../../components';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {DisplayText, InputField, SubmitButton, SingleButtonAlert } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import { DrawerActions } from "react-navigation";
 import Carousel from 'react-native-carousel';
-
+import theme from '../../assets/theme';
 
 
 export default class Organisers extends Component {
@@ -16,14 +16,52 @@ export default class Organisers extends Component {
       token : '',
       showAlert : false,
       message : '',
+      contactAddress : '',
+      phoneNumber : '',
+      isContactAddressValid : false,
+      isPhoneNumberValid : false
     }
+    this.contact_address = React.createRef();
+    this.phone_number = React.createRef();
+
   }
   
   handleGoBack = () => {
     return this.props.navigation.navigate('About');
   }
+  contactAddressChange = (contactAddress) => {
+    if(contactAddress.length > 0) {
+      this.setState({
+        isContactAddressValid: true,
+        contactAddress
+      });
+    }
+    else {
+      if (contactAddress.length < 1) {
+        this.setState({
+          isCsontactAddressValid : false
+        });
+      }
+    }
+  }
+  handlePhoneNumberChange = (phoneNumber) => {
+    if(phoneNumber.length > 0) {
+      this.setState({
+        isPhoneNumberValid: true,
+        phoneNumber
+      });
+    }
+    else {
+      if (phoneNumber.length < 1) {
+        this.setState({
+          isPhoneNumberValid : false
+        });
+      }
+    }
+  }
 
   render () {
+    const {contactAddress} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -48,6 +86,9 @@ export default class Organisers extends Component {
       </View>
         
       <View style={styles.viewBody}>
+      <KeyboardAvoidingView
+            style={styles.wrapper}
+            behavior = 'padding'> 
         <ScrollView 
             style={{flex:1}}
             showsVerticalScrollIndicator={false}>
@@ -81,7 +122,80 @@ export default class Organisers extends Component {
                 styles = {StyleSheet.flatten(styles.aboutBodyTxt)}
               />
           </View>
+            <View style = {styles.formContainer}>         
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Contact Address'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {'Block 6, Djibouti Crescent, Wuse II, Abuja.'}
+                />
+
+              </View>
+              {/* Phone number */}
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Phone Number'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {'+2348051909878'}
+                />
+              </View>
+              {/* Email Address Texf */}
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Email Address'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {'organizer@charteredgroup.co.uk'}
+                />
+              </View>
+              {/* Website text */}
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Website'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {'www.standardcharteredgroup.co.uk'}
+                />
+              </View>
+              {/* Social Media */}
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Social Media'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {'www.Twitter: Standardgroupuk \nLinkedIn: Standardcharteredgroup.co.uk'}
+                />
+              </View>
+              <View style = {styles.buttonView}>
+                <TouchableOpacity>
+                  <Image
+                    source = {require('../../assets/images/call.png')}
+                    style = {StyleSheet.flatten(styles.buttonCall)}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image
+                    source = {require('../../assets/images/message.png')}
+                    style = {StyleSheet.flatten(styles.buttonIcon)}
+                  />
+                </TouchableOpacity>
+              </View>
+          </View>
         </ScrollView>
+      </KeyboardAvoidingView>
+
       </View>
       
     </SafeAreaView>

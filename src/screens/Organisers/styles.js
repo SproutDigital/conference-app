@@ -102,5 +102,57 @@ export default styles = StyleSheet.create({
     color : theme.secondaryTextColor,
     textAlign : 'justify'
   },
+  titleText : {
+    fontSize :theme.SmallFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont,
+  },
+  textInfo : {
+    fontSize :theme.SmallFont,
+    color : theme.primaryTextColor,
+    fontFamily : theme.secondaryFont,
+    marginTop : 8
+  },
+  wrapper: {
+    flex: 1,
+    width : '100%',
+  },
+  formContainer : {
+    width : '100%',
+    justifyContent : 'center',
+    paddingLeft : 20,
+    paddingRight : 20,
+    // paddingBottom : 50
 
+  },
+  formView : {
+    flexDirection : 'column', 
+    width : '100%', 
+    borderBottomColor : theme.formBorderColor,
+    borderBottomWidth : 0.8,
+    marginTop : 4
+  },
+  buttonView : {
+    flexDirection : 'row',
+    marginTop : 20,
+    justifyContent : 'flex-end',
+    height : 50,
+    width : '100%',
+    marginBottom: 20,
+
+  },
+  buttonCall : {
+    height : 40,
+    width : 40,
+    resizeMode: 'contain',
+    tintColor : theme.primaryColor,
+    marginRight : 15, 
+
+  },
+  buttonIcon : {
+    height : 40,
+    width : 40,
+    resizeMode: 'contain',
+    tintColor : theme.primaryColor,
+  }
 });

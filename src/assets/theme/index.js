@@ -18,6 +18,7 @@ export default defaultTheme = {
     toolBarColor : colors.white,
     backgroundColor: colors.backGround,
     tintColor : colors.buttonBlue,
+    formBorderColor : colors.gray,
     // Font Type
     primaryFont: 'Poppins-Bold',
     secondaryFont: 'Poppins-Regular',
