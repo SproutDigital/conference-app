@@ -4,12 +4,10 @@ import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
-import { DrawerActions } from "react-navigation";
 import Carousel from 'react-native-carousel';
+import {connect} from 'react-redux'
 
-
-
-export default class AboutConference extends Component {
+class AboutConference extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -20,10 +18,11 @@ export default class AboutConference extends Component {
   }
   
   handleGoBack = () => {
-    return this.props.navigation.navigate('About');
+    return this.props.navigation.popToTop();
   }
 
   render () {
+    const {data} = this.props;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -73,11 +72,11 @@ export default class AboutConference extends Component {
         </View>
             <View style={styles.srollContent}>
               <DisplayText
-                text = {'Africa Leadership Conference in Nairobi, Kenya, 2019'}
+                text = {data.title}
                 styles = {StyleSheet.flatten(styles.aboutHeaderTxt)}
               />
               <DisplayText
-                text = {'Lorem ipsum dolor sit amet, consecteturfree remrreww adipiscing elit, sed do eiusmod tempors quiaeincididu utell labore etonemeswedd dolore magna aliquamani Ut enim adamxsw minim veniam, quis nostruddddgeio exercitationssdi ullamco laboris nisite ute aliquip exitt eaisffffi commodo consequat. Duis aute irure doloro oi reprehenderit in voluptate velit essencsi cillum dolorei eu fugiat nulla pariatur. Utenti excepteur sint occaecat cupidatat nonuytree profite proident, suntino in culpar qui official deserunt mollit anim id est laborum.teeerrr But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?'}
+                text = {data.description}
                 styles = {StyleSheet.flatten(styles.aboutBodyTxt)}
               />
           </View>
@@ -89,3 +88,13 @@ export default class AboutConference extends Component {
    )
   }
 } 
+
+const mapStateToProps = (state, ownProps) =>{
+  return{
+    
+    data: state.eventReducer.eventProfile
+  }
+}
+
+export default connect(mapStateToProps)(AboutConference)
+

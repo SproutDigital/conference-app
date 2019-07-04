@@ -9,7 +9,8 @@ const LoginEndpoint = `${Baseurl}user/login`,
     ResetPassword = `${Baseurl}user/resetPassword`,
     RequestNewTokenEndpoint = `${Baseurl}user/resendEmailCode`,
     ProfileUpdateEndpoint = `${Baseurl}profile/`,
-    ImageUploadEndpoint = `${Baseurl}upload/`
+    ImageUploadEndpoint = `${Baseurl}upload/`,
+    EventDetailsEndpoint = `${Baseurl}event/query`
 
 export {
     LoginEndpoint,
@@ -20,7 +21,8 @@ export {
     VerifyUserEndpoint,
     RequestNewTokenEndpoint,
     ProfileUpdateEndpoint,
-    ImageUploadEndpoint
+    ImageUploadEndpoint,
+    EventDetailsEndpoint
 }
 
 export const isEmailValid = (email) => {
@@ -32,10 +34,10 @@ export const  isEmpty =(str)  => {
     return (!str || 0 === str.trim().length);
 }
 
-export const sendRoute = (endpoint, body, method) => {
+export const sendRoute = (endpoint, body) => {
 
     return fetch(endpoint, {
-        method: method,
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -59,7 +61,7 @@ export const post = (endpoint, body, token) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'x-access-token': token,
+            'access_token': `JWT ${token}`,
         },
         body: body
     })

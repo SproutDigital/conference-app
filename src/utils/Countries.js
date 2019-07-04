@@ -1,5 +1,5 @@
 export default [
-  {"name":"Nigeria","flag":"🇳🇬","code":"NG","dial_code":"+234"},
+
   {"name":"Afghanistan","flag":"🇦🇫","code":"AF","dial_code":"+93"},
   {"name":"Åland Islands","flag":"🇦🇽","code":"AX","dial_code":"+358"},
   {"name":"Albania","flag":"🇦🇱","code":"AL","dial_code":"+355"},
@@ -161,6 +161,7 @@ export default [
   {"name":"New Zealand","flag":"🇳🇿","code":"NZ","dial_code":"+64"},
   {"name":"Nicaragua","flag":"🇳🇮","code":"NI","dial_code":"+505"},
   {"name":"Niger","flag":"🇳🇪","code":"NE","dial_code":"+227"},
+  {"name":"Nigeria","flag":"🇳🇬","code":"NG","dial_code":"+234"},
   {"name":"Niue","flag":"🇳🇺","code":"NU","dial_code":"+683"},
   {"name":"Norfolk Island","flag":"🇳🇫","code":"NF","dial_code":"+672"},
   {"name":"Northern Mariana Islands","flag":"🇲🇵","code":"MP","dial_code":"+1670"},

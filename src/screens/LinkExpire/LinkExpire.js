@@ -58,7 +58,7 @@ export default class LinkExpire extends Component {
       'email' : this.state.email.toLowerCase(), 
     });
 
-     await sendRoute (RequestNewTokenEndpoint, data, 'Post')
+     await sendRoute (RequestNewTokenEndpoint, data)
       .then((res) => {
         if (res.status == 'success') { 
           if(res.message.includes('verification mail has been sent'))   {

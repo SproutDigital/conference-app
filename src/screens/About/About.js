@@ -20,7 +20,7 @@ export default class About extends Component {
   
 
   handleGoBack = () => {
-    return this.props.navigation.popToTop();
+    return this.props.navigation.goBack();
   }
   handleAboutConference = () => {
     return this.props.navigation.navigate('AboutConference');

@@ -5,7 +5,7 @@ import {DisplayText, SingleButtonAlert, SubmitButton} from '../../components';
 import styles from './styles';
 import OtpInputs from 'react-native-otp-inputs';
 import colors from '../../assets/colors';
-import { sendRoute, getRoute, VerifyUserEndpoint, updateVerification, RequestNewTokenEndpoint} from '../../utils';
+import { sendRoute, getRoute, VerifyUserEndpoint, updateVerification, logout, RequestNewTokenEndpoint} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { NavigationActions, StackActions } from 'react-navigation';
 
@@ -23,7 +23,7 @@ export default class Verification extends Component {
     }
   }
   async componentDidMount() {
-  //  logout();
+   // logout();
   
   }
 
@@ -108,7 +108,7 @@ export default class Verification extends Component {
       'email' : this.state.email.toLowerCase(), 
     });
 
-     await sendRoute (RequestNewTokenEndpoint, data, 'POST')
+     await sendRoute (RequestNewTokenEndpoint, data)
       .then((res) => {
         if (res.status !== 'success') { 
           return  this.setState({ 

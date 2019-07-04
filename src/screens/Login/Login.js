@@ -1,18 +1,16 @@
 'use strict';
 
 import React, {Component} from 'react';
- import { View ,Text, Image,StyleSheet, ScrollView, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
+ import { View, Image,StyleSheet, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert, SubmitButton} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
 import { ProgressDialog } from 'react-native-simple-dialogs';
-import {isEmailValid, sendRoute, LoginEndpoint, saveProfile, saveEmail, isEmpty} from '../../utils';
+import {isEmailValid, sendRoute, LoginEndpoint, saveProfile, isEmpty} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from 'react-native-check-box'
-import * as Facebook from 'expo-facebook';
 
 
 export default class Login extends Component {
@@ -162,7 +160,7 @@ export default class Login extends Component {
     const {email, password, isChecked} = this.state;
    // let expoToken = await getExpoToken();
 
-
+    console.log('helllo')
     if(!isEmailValid(email)) {
       return this.setState({
         showAlert:true,
@@ -191,9 +189,8 @@ export default class Login extends Component {
       'email' : email.toLowerCase(), 
     });
 
-     await sendRoute (LoginEndpoint, data, 'POST')
+     await sendRoute (LoginEndpoint, data)
       .then((res) => {
-        console.log({'login res': res})
         this.setState({ 
           showLoading : false, 
         });
@@ -225,25 +222,7 @@ export default class Login extends Component {
 
 
 
-   handleFaceBookLogin =async()=> {
-    try {
-      const {
-        type, token, expires, permissions, declinedPermissions} = await Facebook.logInWithReadPermissionsAsync('377061942992401', {
-        permissions: ['public_profile'],
-      });
-      if (type === 'success') {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-
-        Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
-        console.log({'response...': response.json()})
-      } else {
-        // type === 'cancel'
-      }
-    } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
-    }
-  }
+   
   
   render () {
     const { title, message, showAlert, showLoading, isChecked } = this.state

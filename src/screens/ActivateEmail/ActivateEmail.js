@@ -58,7 +58,7 @@ export default class ActivateEmail extends Component {
       'email' : this.state.email.toLowerCase(), 
     });
 
-     await sendRoute (VerificationStatusEndpoint, data, 'POST')
+     await sendRoute (VerificationStatusEndpoint, data)
       .then((res) => {
         console.log({res})
         if (res.status !== 'success') {  
