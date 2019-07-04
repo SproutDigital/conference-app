@@ -98,7 +98,6 @@ export default styles = StyleSheet.create({
     height : 14,
     resizeMode : 'contain',
     marginLeft : 4,
-    marginTop : 2,
     tintColor : theme.primaryColor
   },
 });

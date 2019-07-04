@@ -25,7 +25,12 @@ export default class About extends Component {
   handleAboutConference = () => {
     return this.props.navigation.navigate('AboutConference');
   }
-  
+  handleAboutVenue = () => {
+    return this.props.navigation.navigate('Venue');
+  }
+  handleOrganisers = () => {
+    return this.props.navigation.navigate('Organisers');
+  }
 
   render () {
    return(
@@ -76,12 +81,15 @@ export default class About extends Component {
           </ImageBackground>
           {/* second grid */}
           <ImageBackground 
+            onPress = {this.handleAboutVenue}
             style={[styles.gridBox]} 
             blurRadius={0.1}
             imageStyle={{resizeMode: 'cover'}}
             source={require('../../assets/images/grid2.png')}>
 
-            <TouchableOpacity style={styles.overlay}>
+            <TouchableOpacity 
+              onPress = {this.handleAboutVenue}
+              style={styles.overlay}>
               <DisplayText
                 text = {"VENUE"}
                 styles = {StyleSheet.flatten(styles.gridText)}
@@ -94,12 +102,15 @@ export default class About extends Component {
           </ImageBackground>
           {/* third grid */}
           <ImageBackground 
+            onPress={this.handleOrganisers}
             style={[styles.gridBox]} 
             blurRadius={0.0}
             imageStyle={{resizeMode: 'cover'}}
             source={require('../../assets/images/grid3.png')}>
 
-            <TouchableOpacity style={styles.overlay}>
+            <TouchableOpacity 
+              onPress={this.handleOrganisers}
+              style={styles.overlay}>
               <DisplayText
                 text = {"ORGANISERS"}
                 styles = {StyleSheet.flatten(styles.gridText)}
