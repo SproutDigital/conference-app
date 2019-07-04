@@ -10,9 +10,7 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 
-
-
-export default class OnboardingProfile extends Component {
+ class OnboardingProfile extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -124,7 +122,7 @@ export default class OnboardingProfile extends Component {
       'type' : `${pickerResult.type}/${fileType}`
     });
     
-     await sendRoute (ImageUploadEndpoint, data, 'POST')
+     await sendRoute (ImageUploadEndpoint, data)
       .then((res) => {
         this.setState({ 
           showLoading : false, 
@@ -205,36 +203,42 @@ export default class OnboardingProfile extends Component {
       })
     }
 
-    this.setState({
-      showLoading: true,
-    });
-
     let data = await JSON.stringify({
-      'query':{_id},
-      'update' : {title: name_title, name, job_title}   
+      title: name_title, name, job_title  
     });
 
-    await putRoute (ProfileUpdateEndpoint, data, token)
-      .then((res) => {
-        this.setState({ 
-          showLoading : false, 
-        });
+    this.props.setProfile(data);
 
-        if(res.status == 'success') {
-          this.setState({ 
-            showLoading : false, 
-          });
-          this.props.navigation.navigate('OnboardingBio')
-        } 
-        else {
-          this.setState({ 
-           showLoading : false, 
-           message: res.message,
-           showAlert: true,
-           title: 'Hello'
-         });
-       }
-      });
+    // this.setState({
+    //   showLoading: true,
+    // });
+
+    // let data = await JSON.stringify({
+    //   'query':{_id},
+    //   'update' : {title: name_title, name, job_title}   
+    // });
+
+    // await putRoute (ProfileUpdateEndpoint, data, token)
+    //   .then((res) => {
+    //     this.setState({ 
+    //       showLoading : false, 
+    //     });
+
+    //     if(res.status == 'success') {
+    //       this.setState({ 
+    //         showLoading : false, 
+    //       });
+    //       this.props.navigation.navigate('OnboardingBio')
+    //     } 
+    //     else {
+    //       this.setState({ 
+    //        showLoading : false, 
+    //        message: res.message,
+    //        showAlert: true,
+    //        title: 'Hello'
+    //      });
+    //    }
+    //   });
   }
 
   
@@ -272,7 +276,6 @@ export default class OnboardingProfile extends Component {
 
   render () {
     const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
-    console.log({namestatus})
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -465,3 +468,18 @@ export default class OnboardingProfile extends Component {
     )
   }
 } 
+
+const mapStateToProps = (state, ownProps) =>{
+  return  {
+     // isLoggedIn: state.authreducer.isLoggedIn
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+      setProfile: (data) =>{dispatch(addProfile(data))},
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingProfile)
+

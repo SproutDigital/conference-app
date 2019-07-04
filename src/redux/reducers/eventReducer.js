@@ -1,15 +1,14 @@
 import * as types from '../actions/types';
 
 const initialState = {
-    profile:[],
+    eventProfile:{},
 }
-export default function profileReducer(state = initialState, action) {
+export default function eventReducer(state = initialState, action) {
     switch(action.type){
-        case types.ADD_PROFILE: 
+        case types.SET_EVENT_DETAILS: 
             return Object.assign({}, state, {
-                profile: [action.profile, ...profile]
+                eventProfile: action.data[0],
             });
-        
          default:
             return state;
 

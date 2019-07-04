@@ -1,5 +1,4 @@
 import { Platform, StyleSheet, Dimensions } from 'react-native';
-const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
 
@@ -176,7 +175,7 @@ export default styles = StyleSheet.create({
     
   },
   nameInputView : {
-    // height : 60,
+    marginTop : 16,
     width : '75%',
     flexDirection : 'column',
     borderBottomWidth : 0.5,

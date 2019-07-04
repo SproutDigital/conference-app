@@ -84,7 +84,7 @@ export default class ForgetPassword extends Component {
       'email' : email.toLowerCase(), 
     });
 
-     await sendRoute (Forgetpassword, data, 'POST')
+     await sendRoute (Forgetpassword, data)
       .then((res) => {
         console.log({res})
         if (res.status !== 'success') {  

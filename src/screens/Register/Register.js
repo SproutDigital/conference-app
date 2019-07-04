@@ -6,9 +6,11 @@ import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
 import styles from './styles';
-import {isEmailValid, sendRoute, RegisterEndpoint, getExpoToken, saveEmail, isEmpty} from '../../utils';
+import {isEmailValid, sendRoute, RegisterEndpoint, getExpoToken, isEmpty} from '../../utils';
 import WomanSvg from './WomanSvg';
 import { NavigationActions, StackActions } from 'react-navigation';
+import * as Facebook from 'expo-facebook';
+
 
 export default class Register extends Component {
   constructor(props) {
@@ -160,7 +162,7 @@ export default class Register extends Component {
       'expo_token' : expoToken,
     });
 
-     await sendRoute (RegisterEndpoint, data, 'POST')
+     await sendRoute (RegisterEndpoint, data)
       .then((res) => {
         if (res.status !== 'success') {  
           return  this.setState({ 
@@ -178,6 +180,32 @@ export default class Register extends Component {
           return this.resetNavigationStack();    
         }
       });
+  }
+
+
+
+  handleFaceBookLogin =async()=> {
+    try {
+      const {
+        type, token, expires, permissions, declinedPermissions} = await Facebook.logInWithReadPermissionsAsync('377061942992401', {
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+
+       // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+        console.log({'response...': await response.json()})
+      } else {
+        // type === 'cancel'
+      }
+      this.setState({showLoading:false})
+
+    } catch ({ message }) {
+      console.log({message})
+     // alert(`Facebook Login Error: ${message}`);
+      this.setState({showLoading:false})
+    }
   }
   
   render () {
@@ -301,8 +329,11 @@ export default class Register extends Component {
                         source={require('../../assets/images/twitter.png')}
                         style={StyleSheet.flatten(styles.socialIcons)}/> 
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={this.handleFaceBookLogin}>
+                                        
                       <Image
+                        onPress={this.handleFaceBookLogin}
                         source={require('../../assets/images/facebook.png')}
                         style={StyleSheet.flatten(styles.socialIcons)}/> 
                     </TouchableOpacity>
