@@ -9,6 +9,9 @@ import {logout, isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUpload
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
+import {connect} from 'react-redux';
+import { addProfile } from '../../redux/actions/profileActions';
+
 
  class OnboardingProfile extends Component {
   constructor(props) {
@@ -97,11 +100,7 @@ import * as ImagePicker from 'expo-image-picker';
         title: 'Hello'
         });
     } finally {
-      // this.setState({
-      //   showAlert: true,
-      //   message: 'Oops Something Went Wrong',
-      // title: 'Hello0'
-      // });
+     
     }
   }
 
@@ -189,7 +188,8 @@ import * as ImagePicker from 'expo-image-picker';
   }
 
   handleSubmitForm =async()=> {
-    const {name, job_title, name_title, _id, token} = this.state;
+
+    const {name, job_title, name_title} = this.state;
     if(isEmpty(name)) {
       return this.setState({
         showAlert:true,
@@ -203,42 +203,12 @@ import * as ImagePicker from 'expo-image-picker';
       })
     }
 
-    let data = await JSON.stringify({
+    let data = await {
       title: name_title, name, job_title  
-    });
+    };
 
     this.props.setProfile(data);
-
-    // this.setState({
-    //   showLoading: true,
-    // });
-
-    // let data = await JSON.stringify({
-    //   'query':{_id},
-    //   'update' : {title: name_title, name, job_title}   
-    // });
-
-    // await putRoute (ProfileUpdateEndpoint, data, token)
-    //   .then((res) => {
-    //     this.setState({ 
-    //       showLoading : false, 
-    //     });
-
-    //     if(res.status == 'success') {
-    //       this.setState({ 
-    //         showLoading : false, 
-    //       });
-    //       this.props.navigation.navigate('OnboardingBio')
-    //     } 
-    //     else {
-    //       this.setState({ 
-    //        showLoading : false, 
-    //        message: res.message,
-    //        showAlert: true,
-    //        title: 'Hello'
-    //      });
-    //    }
-    //   });
+    this.props.navigation.navigate('OnboardingBio');
   }
 
   

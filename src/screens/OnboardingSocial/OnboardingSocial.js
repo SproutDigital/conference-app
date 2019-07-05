@@ -8,13 +8,14 @@ import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile, updateOnBoarding} from '../../utils';
-import Toast from 'react-native-easy-toast';
+import {connect} from 'react-redux'
+
 
 const defaultFlag = data.filter(
-  obj => obj.name === 'Nigeria'
+  obj => obj.name === 'Afghanistan'
   )[0].flag
 
-export default class OnboardingSocial extends Component {
+class OnboardingSocial extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -54,7 +55,7 @@ export default class OnboardingSocial extends Component {
   }
   componentWillMount () {
     // Default render of country flag
-    const defaultFlag = data.filter(obj => obj.name === 'Nigeria')[0].flag;
+    const defaultFlag = data.filter(obj => obj.name === 'Afghanistan')[0].flag;
     this.setState({
       flag :defaultFlag,
     })
@@ -244,6 +245,18 @@ export default class OnboardingSocial extends Component {
     const {phone, website, facebook, twitter, linkedIn, instagram,  facebook_visible,
       twitter_visible, linkedin_visible, instagram_visible,  _id, token} = this.state;
 
+      const {profile} = this.props; 
+      let result = Object.assign(profile[0], profile[1]);
+
+      let title = result.title || null,
+        name = result.name,
+        job_title = result.job_title,
+        gender = result.gender,
+        company_name = result.company_name,
+        country = result.nationality,
+        short_bio = result.short_bio,
+        interest = result.interest;
+
     if(isEmpty(phone)) {
       return this.setState({
         showAlert:true,
@@ -257,8 +270,9 @@ export default class OnboardingSocial extends Component {
 
     let body = await JSON.stringify({
       'query':{_id},
-      'update' : {phone, website, facebook, twitter, linkedIn, instagram,  
-        facebook_visible, twitter_visible, linkedin_visible, instagram_visible}   
+      'update' : {title, name, job_title, company_name, gender, country, short_bio, interest, 
+        phone, website, facebook, twitter, linkedIn, instagram, facebook_visible, twitter_visible, 
+        linkedin_visible, instagram_visible,}   
     });
 
     await putRoute (ProfileUpdateEndpoint, body, token)
@@ -291,7 +305,6 @@ export default class OnboardingSocial extends Component {
       facebookStatus, twitterStatus,linkedInStatus, instagramStatus, 
       facebook_visible, twitter_visible,linkedin_visible, instagram_visible  } = this.state
     const countryData = data;
-
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -301,7 +314,7 @@ export default class OnboardingSocial extends Component {
         <TouchableOpacity
           style = {styles.headerImage}
           onPress={()=>this.props.navigation.navigate('OnboardingBio')}
-          >
+        >
           
           <Image
             source = {require('../../assets/images/back.png')}
@@ -638,7 +651,7 @@ export default class OnboardingSocial extends Component {
           </View>
           <View style = {styles.btnView}>
             <SubmitButton
-              title={'Sign Up'}
+              title={'Complete'}
               disabled={false}
               onPress={this.handleSubmitButton}
               imgSrc={require('../../assets/images/resume.png')}
@@ -647,17 +660,6 @@ export default class OnboardingSocial extends Component {
               titleStyle={StyleSheet.flatten(styles.buttonTxt)}
             />
  
-            <Toast
-              ref="toast"
-              style={{backgroundColor: 'green'}}
-              position='bottom'
-              positionValue={200}
-              fadeInDuration={750}
-              fadeOutDuration={5000}
-              opacity={0.8}
-              textStyle={{color:'white'}}
-            /> 
-
             <ProgressDialog
               visible={showLoading}
               title="Processing"
@@ -677,3 +679,14 @@ export default class OnboardingSocial extends Component {
    )
   }
 } 
+
+const mapStateToProps = (state, ownProps) =>{
+  return{
+    
+    profile: state.profileReducer.profile
+  }
+}
+
+export default connect(mapStateToProps)(OnboardingSocial)
+
+
