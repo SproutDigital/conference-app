@@ -10,7 +10,6 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile, updateOnBoarding} from '../../utils';
 import {connect} from 'react-redux'
 
-
 const defaultFlag = data.filter(
   obj => obj.name === 'Afghanistan'
   )[0].flag

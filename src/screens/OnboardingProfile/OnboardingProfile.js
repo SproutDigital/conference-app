@@ -245,7 +245,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
 
   render () {
-    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
+    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, namestatus} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
