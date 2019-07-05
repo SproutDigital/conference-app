@@ -23,6 +23,8 @@ import About from './About';
 import AboutConference from './AboutConference';
 import Venue from './Venue';
 import Organisers from './Organisers'
+import Sponsor from './Sponsor';
+
 
 export default {
   ForgetPassword, 
@@ -50,4 +52,5 @@ export default {
   AboutConference,
   Venue,
   Organisers,
+  Sponsor,
 };

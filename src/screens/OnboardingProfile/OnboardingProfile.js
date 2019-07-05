@@ -9,6 +9,7 @@ import {logout, isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUpload
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
+import {connect} from 'react-redux';
 
  class OnboardingProfile extends Component {
   constructor(props) {

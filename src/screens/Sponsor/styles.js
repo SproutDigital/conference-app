@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
-import colors from '../../assets/colors';
 import theme from '../../assets/theme';
 
 export default styles = StyleSheet.create({
@@ -104,26 +103,33 @@ export default styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2,
     elevation: 1,
-    paddingLeft : 8,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
     flexDirection : 'row',
+    alignItems : 'center'
   },
   sponsorImageView : {
     width : '30%',
+    
     // backgroundColor : 'red',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius : 20,
   },  
-  cardHeaderView : {
-    width : '98%',
-    flexDirection : 'row',
-    justifyContent : 'space-between',
-    paddingTop : 4
+  sponsorImage : {
+    resizeMode : 'contain',
+    height : '100%',
+    width : '100%',
   },
-
+  txtView : {
+    flexDirection : 'column',
+    height : '100%',
+    width : '70%',
+    paddingLeft : 8
+  },
   headerText : {
     fontFamily : theme.secondaryFont,
-    fontSize : theme.SmallFont,
+    fontSize : theme.MediumFont,
     color : theme.primaryTextColor
   },
   subHeaderText : {
@@ -147,24 +153,14 @@ export default styles = StyleSheet.create({
   buttonMoreView : {
     paddingHorizontal: 8,
     justifyContent: 'space-between',
-    flexDirection : 'row',
+    flexDirection : 'row'
   },
-  btnText : {
-    fontFamily : theme.secondaryFont,
-    fontSize : theme.thinyFont,
-    color : theme.colorAccent
-  },
-  titleView : {
-    width : '70%'
-  },
-  buttonView : {
-    backgroundColor : theme.primaryColor,
-    width : '25%',
-    height : 30,
-    borderRadius : 10,
-    justifyContent: 'center',
-    alignItems : 'center'
-  }
+  plusIcon : {
+    height : 25,
+    width : 30,
+    resizeMode : 'contain',
+    marginBottom : 4
 
+  }
 
 });

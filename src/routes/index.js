@@ -26,7 +26,9 @@ import Help from '../screens/Help/Help';
 import About from '../screens/About/About';
 import AboutConference from '../screens/AboutConference/AboutConference';
 import Venue from '../screens/Venue/Venue';
-import Organisers from '../screens/Organisers/Organisers'
+import Organisers from '../screens/Organisers/Organisers';
+import Sponsor from '../screens/Sponsor/Sponsor';
+import SponsorDetails from '../screens/SponsorDetails/SponsorDetails';
 
 const AuthStack = createStackNavigator({ 
 
@@ -224,6 +226,18 @@ export const OnBoardingStack = createStackNavigator({
       navigationOptions : {
         header : null,
       }
+    },
+    Sponsor :{
+      screen : Sponsor,
+      navigationOptions : {
+        header : null
+      }
+    },
+    SponsorDetails : {
+      screen : SponsorDetails,
+      navigationOptions : {
+        header : null,
+      },
     },
   },
   {
