@@ -220,8 +220,6 @@ export default styles = StyleSheet.create({
     flexDirection : 'column',
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
-    // paddingTop : 4,
-    // paddingBottom : 4,
     marginTop : 4,
   },
   buttonView :{

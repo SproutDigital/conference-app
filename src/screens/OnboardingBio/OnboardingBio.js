@@ -365,7 +365,6 @@ class OnboardingBio extends Component {
 
 const mapStateToProps = (state, ownProps) =>{
   return  {
-     // isLoggedIn: state.authreducer.isLoggedIn
   }
 }
 

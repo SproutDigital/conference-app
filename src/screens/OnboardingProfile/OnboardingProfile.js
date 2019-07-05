@@ -42,10 +42,9 @@ import { addProfile } from '../../redux/actions/profileActions';
       jobstatus: false,
       jobtitle: '',
       photo:'',
+      isNameFocused:false,
+      isJobTitleFocused:false,
     }
-
-    this.fullname = React.createRef();
-    this.job_title = React.createRef();
   }
 
   async componentDidMount(){
@@ -245,7 +244,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
 
   render () {
-    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, namestatus} = this.state;
+    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, isNameFocused, isJobTitleFocused} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -333,7 +332,10 @@ import { addProfile } from '../../redux/actions/profileActions';
             
           </View>
           {/* Name TextInput */}
-          <View style = {styles.nameInputView}>
+          <View style = {[styles.nameInputView, { 
+            borderBottomColor: isNameFocused ? theme.primaryTextColor
+            :theme.secondaryTextColor,
+              }]}>
             <DisplayText
               styles={StyleSheet.flatten(styles.titleText)}
               text = {'Name'}
@@ -353,10 +355,11 @@ import { addProfile } from '../../redux/actions/profileActions';
                 editable = {true}
                 ref={this.fullname}
                 returnKeyType = {"next"}
-                autoFocus={true}
                 blurOnSubmit={false}
+                onFocus={()=>this.setState({isNameFocused:true})}
+                onBlur={()=>this.setState({isNameFocused:false})}
                 onSubmitEditing={() => { 
-                  this.job_title && this.job_title.focus()
+                  this.jobTitleRef && this.jobTitleRef.focus()
                 }}
                 /> 
                 <TouchableOpacity onPress = {this.handleNametataus}>
@@ -369,7 +372,10 @@ import { addProfile } from '../../redux/actions/profileActions';
             </View>
 
           </View>
-          <View style = {styles.nameInputView}>
+          <View style = {[styles.nameInputView, { 
+            borderBottomColor: isJobTitleFocused ? theme.primaryTextColor
+            :theme.secondaryTextColor,
+              }]}>
             <DisplayText
               styles={StyleSheet.flatten(styles.titleText)}
               text = {'Job Title'}
@@ -388,8 +394,11 @@ import { addProfile } from '../../redux/actions/profileActions';
                 borderColor = {theme.colorAccent}
                 defaultValue = {jobtitle}
                 editable={true}
-                refs={(input) => { this.job_title = input; }}
-                autoFocus={namestatus}
+                returnKeyType = {"next"}
+                blurOnSubmit={false}
+                refs={(input) => { this.jobTitleRef = input; }}
+                onFocus={()=>this.setState({isJobTitleFocused:true})}
+                onBlur={()=>this.setState({isJobTitleFocused:false})}
                 onSubmitEditing={() => { 
                   this.handleSubmitForm();
                 }}
