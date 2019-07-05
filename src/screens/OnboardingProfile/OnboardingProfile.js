@@ -333,7 +333,7 @@ import { addProfile } from '../../redux/actions/profileActions';
           </View>
           {/* Name TextInput */}
           <View style = {[styles.nameInputView, { 
-            borderBottomColor: isNameFocused ? theme.primaryTextColor
+            borderBottomColor: isNameFocused ? colors.green
             :theme.secondaryTextColor,
               }]}>
             <DisplayText
@@ -373,7 +373,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
           </View>
           <View style = {[styles.nameInputView, { 
-            borderBottomColor: isJobTitleFocused ? theme.primaryTextColor
+            borderBottomColor: isJobTitleFocused ? colors.green
             :theme.secondaryTextColor,
               }]}>
             <DisplayText

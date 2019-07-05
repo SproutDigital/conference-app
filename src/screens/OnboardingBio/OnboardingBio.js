@@ -32,6 +32,8 @@ class OnboardingBio extends Component {
       title: '',
       token:'',
       _id:'',
+      isShortBioFocused: false,
+      isCompanyFocused:false,
 
     }
   }
@@ -138,7 +140,7 @@ class OnboardingBio extends Component {
   
   render () {
     const countryData = data
-    const {biodataStatus, gender, companyStatus, title, message, showAlert, showLoading } = this.state;
+    const {isCompanyFocused, isShortBioFocused, gender, title, message, showAlert, showLoading } = this.state;
 
    return(
     <SafeAreaView style={styles.container}> 
@@ -246,7 +248,9 @@ class OnboardingBio extends Component {
                 </View>
               </Modal>
             </View>
-            <View style = {styles.nameInputView}>
+            <View style = {[styles.nameInputView, { 
+              borderBottomColor: isCompanyFocused ? colors.green
+              :theme.secondaryTextColor}]}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Company'}
@@ -263,8 +267,14 @@ class OnboardingBio extends Component {
                 width = {'100%'}
                 borderBottomWidth = {0}
                 borderColor = {colors.white}
-                editable = {companyStatus}
-                ref={ref => this.companyInput = ref}
+                editable = {true}
+                returnKeyType = {"next"}
+                blurOnSubmit={false}
+                onFocus={()=>this.setState({isCompanyFocused:true})}
+                onBlur={()=>this.setState({isCompanyFocused:false})}
+                onSubmitEditing={() => { 
+                  this.shortBioRef && this.shortBioRef.focus()
+                }}
                 /> 
                 <TouchableOpacity 
                   style = {{paddingLeft : 8}}
@@ -277,7 +287,9 @@ class OnboardingBio extends Component {
               </TouchableOpacity>
             </View>
           </View>
-            <View style = {styles.nameInputView}>
+            <View style = {[styles.nameInputView, { 
+            borderBottomColor: isShortBioFocused ? colors.green
+            :theme.secondaryTextColor}]}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Short Bio'}
@@ -289,7 +301,16 @@ class OnboardingBio extends Component {
                 multiline={true}
                 onChangeText = {this.handleShortBio}
                 style={styles.textInputStyles} 
-                editable={biodataStatus}
+                editable={true}
+                refs={(input) => { this.shortBioRef = input; }}
+                returnKeyType = {"next"}
+                blurOnSubmit={false}
+                onFocus={()=>this.setState({isShortBioFocused:true})}
+                onBlur={()=>this.setState({isShortBioFocused:false})}
+                onSubmitEditing={() => { 
+                 // this.jobTitleRef && this.isShortBioFocused.focus()
+                }}
+                
                 />
               <TouchableOpacity 
                 style = {{paddingLeft : 8}}
