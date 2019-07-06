@@ -5,6 +5,7 @@ import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import {connect} from 'react-redux';
+import theme from '../../assets/theme'
 
 export default class Sponsor extends Component {
   constructor(props) {
@@ -60,6 +61,19 @@ export default class Sponsor extends Component {
             source = {require('../../assets/images/search.png')}
             style = {StyleSheet.flatten(styles.searchIcon)}
           />
+          <InputField
+            placeholder = {'Search Following'}
+            placeholderTextColor = {theme.secondaryTextColor}
+            textColor={theme.primaryTextColor}
+            inputType={'name'}
+            keyboardType={'default'}
+            onChangeText = {this.handleNameChange}
+            autoCapitalize = "words"
+            height = {30}
+            width = {'80%'}
+            borderBottomWidth = {0}
+            paddingLeft  = {8}
+          /> 
         </View>
         {/* Add this disign to you flatlist after fetching your data */}
         <TouchableOpacity 

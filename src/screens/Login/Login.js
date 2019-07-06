@@ -158,9 +158,6 @@ export default class Login extends Component {
 
   handleSignIn = async()=>{
     const {email, password, isChecked} = this.state;
-   // let expoToken = await getExpoToken();
-
-    console.log('helllo')
     if(!isEmailValid(email)) {
       return this.setState({
         showAlert:true,
@@ -176,7 +173,7 @@ export default class Login extends Component {
     else if(!isChecked) {
       return this.setState({
         showAlert:true,
-        message: 'Please the Box to Continue'
+        message: 'Please check the Box to Continue'
       })
     }
     

@@ -10,9 +10,11 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import {connect} from 'react-redux';
+import { addProfile } from '../../redux/actions/profileActions';
+
 
  class OnboardingProfile extends Component {
-  constructor(props) {
+  constructor(props) { 
     super(props);
     this.state ={
       token : '',
@@ -40,10 +42,9 @@ import {connect} from 'react-redux';
       jobstatus: false,
       jobtitle: '',
       photo:'',
+      isNameFocused:false,
+      isJobTitleFocused:false,
     }
-
-    this.fullname = React.createRef();
-    this.job_title = React.createRef();
   }
 
   async componentDidMount(){
@@ -98,11 +99,7 @@ import {connect} from 'react-redux';
         title: 'Hello'
         });
     } finally {
-      // this.setState({
-      //   showAlert: true,
-      //   message: 'Oops Something Went Wrong',
-      // title: 'Hello0'
-      // });
+     
     }
   }
 
@@ -190,7 +187,8 @@ import {connect} from 'react-redux';
   }
 
   handleSubmitForm =async()=> {
-    const {name, job_title, name_title, _id, token} = this.state;
+
+    const {name, job_title, name_title} = this.state;
     if(isEmpty(name)) {
       return this.setState({
         showAlert:true,
@@ -204,42 +202,12 @@ import {connect} from 'react-redux';
       })
     }
 
-    let data = await JSON.stringify({
+    let data = await {
       title: name_title, name, job_title  
-    });
+    };
 
     this.props.setProfile(data);
-
-    // this.setState({
-    //   showLoading: true,
-    // });
-
-    // let data = await JSON.stringify({
-    //   'query':{_id},
-    //   'update' : {title: name_title, name, job_title}   
-    // });
-
-    // await putRoute (ProfileUpdateEndpoint, data, token)
-    //   .then((res) => {
-    //     this.setState({ 
-    //       showLoading : false, 
-    //     });
-
-    //     if(res.status == 'success') {
-    //       this.setState({ 
-    //         showLoading : false, 
-    //       });
-    //       this.props.navigation.navigate('OnboardingBio')
-    //     } 
-    //     else {
-    //       this.setState({ 
-    //        showLoading : false, 
-    //        message: res.message,
-    //        showAlert: true,
-    //        title: 'Hello'
-    //      });
-    //    }
-    //   });
+    this.props.navigation.navigate('OnboardingBio');
   }
 
   
@@ -276,7 +244,7 @@ import {connect} from 'react-redux';
 
 
   render () {
-    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, namestatus, jobstatus} = this.state;
+    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, isNameFocused, isJobTitleFocused} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -364,7 +332,10 @@ import {connect} from 'react-redux';
             
           </View>
           {/* Name TextInput */}
-          <View style = {styles.nameInputView}>
+          <View style = {[styles.nameInputView, { 
+            borderBottomColor: isNameFocused ? colors.green
+            :theme.secondaryTextColor,
+              }]}>
             <DisplayText
               styles={StyleSheet.flatten(styles.titleText)}
               text = {'Name'}
@@ -384,10 +355,11 @@ import {connect} from 'react-redux';
                 editable = {true}
                 ref={this.fullname}
                 returnKeyType = {"next"}
-                autoFocus={true}
                 blurOnSubmit={false}
+                onFocus={()=>this.setState({isNameFocused:true})}
+                onBlur={()=>this.setState({isNameFocused:false})}
                 onSubmitEditing={() => { 
-                  this.job_title && this.job_title.focus()
+                  this.jobTitleRef && this.jobTitleRef.focus()
                 }}
                 /> 
                 <TouchableOpacity onPress = {this.handleNametataus}>
@@ -400,7 +372,10 @@ import {connect} from 'react-redux';
             </View>
 
           </View>
-          <View style = {styles.nameInputView}>
+          <View style = {[styles.nameInputView, { 
+            borderBottomColor: isJobTitleFocused ? colors.green
+            :theme.secondaryTextColor,
+              }]}>
             <DisplayText
               styles={StyleSheet.flatten(styles.titleText)}
               text = {'Job Title'}
@@ -419,8 +394,11 @@ import {connect} from 'react-redux';
                 borderColor = {theme.colorAccent}
                 defaultValue = {jobtitle}
                 editable={true}
-                refs={(input) => { this.job_title = input; }}
-                autoFocus={namestatus}
+                returnKeyType = {"next"}
+                blurOnSubmit={false}
+                refs={(input) => { this.jobTitleRef = input; }}
+                onFocus={()=>this.setState({isJobTitleFocused:true})}
+                onBlur={()=>this.setState({isJobTitleFocused:false})}
                 onSubmitEditing={() => { 
                   this.handleSubmitForm();
                 }}

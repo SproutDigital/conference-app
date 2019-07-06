@@ -7,10 +7,13 @@ import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import colors from '../../assets/colors';
-import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile} from '../../utils';
+import { isEmpty, getProfile} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
+import {connect} from 'react-redux';
+import { addProfile } from '../../redux/actions/profileActions';
 
-export default class OnboardingBio extends Component {
+
+class OnboardingBio extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -29,16 +32,10 @@ export default class OnboardingBio extends Component {
       title: '',
       token:'',
       _id:'',
+      isShortBioFocused: false,
+      isCompanyFocused:false,
 
     }
-  }
-
-   async componentDidMount(){
-    let profile = await getProfile();  
-    return await this.setState({
-      '_id' : profile.id,
-      'token' : profile.sessionToken,
-    })
   }
 
   handleCompanyStatus = () => {
@@ -117,8 +114,9 @@ export default class OnboardingBio extends Component {
 
   handleNextButton =async()=> {
 
-    const {gender, nationality, short_bio, company_name, interest, _id, token} = this.state;
+    const {gender, nationality, short_bio, company_name, interest} = this.state;
     let shortbio = short_bio.trim();
+
     if(isEmpty(company_name)) {
       return this.setState({
         showAlert:true,
@@ -131,42 +129,18 @@ export default class OnboardingBio extends Component {
         message: 'Enter Bio data Information'
       })
     }
-    this.setState({
-      showLoading: true,
-    });
-    
-    let body = await JSON.stringify({
-      'query':{_id},
-      'update' : {gender, nationality, short_bio:shortbio, company_name, interest}   
-    });
+  
+    let body = await {
+     gender, nationality, short_bio:shortbio, company_name, interest  
+    };
 
-    await putRoute (ProfileUpdateEndpoint, body, token)
-      .then((res) => {
-        console.log({res})
-        this.setState({ 
-          showLoading : false, 
-        });
-
-        if(res.status == 'success') {
-          this.setState({ 
-            showLoading : false, 
-          });
-          return this.props.navigation.navigate('LastPage')        
-        } 
-        else {
-          return this.setState({ 
-           showLoading : false, 
-           message: res.message,
-           showAlert: true,
-           title: 'Hello'
-         });
-       }
-      });
+    this.props.setProfile(body);
+    return this.props.navigation.navigate('LastPage')        
   }
   
   render () {
     const countryData = data
-    const {biodataStatus, gender, companyStatus, title, message, showAlert, showLoading } = this.state;
+    const {isCompanyFocused, isShortBioFocused, gender, title, message, showAlert, showLoading } = this.state;
 
    return(
     <SafeAreaView style={styles.container}> 
@@ -274,7 +248,9 @@ export default class OnboardingBio extends Component {
                 </View>
               </Modal>
             </View>
-            <View style = {styles.nameInputView}>
+            <View style = {[styles.nameInputView, { 
+              borderBottomColor: isCompanyFocused ? colors.green
+              :theme.secondaryTextColor}]}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Company'}
@@ -291,8 +267,14 @@ export default class OnboardingBio extends Component {
                 width = {'100%'}
                 borderBottomWidth = {0}
                 borderColor = {colors.white}
-                editable = {companyStatus}
-                ref={ref => this.companyInput = ref}
+                editable = {true}
+                returnKeyType = {"next"}
+                blurOnSubmit={false}
+                onFocus={()=>this.setState({isCompanyFocused:true})}
+                onBlur={()=>this.setState({isCompanyFocused:false})}
+                onSubmitEditing={() => { 
+                  this.shortBioRef && this.shortBioRef.focus()
+                }}
                 /> 
                 <TouchableOpacity 
                   style = {{paddingLeft : 8}}
@@ -305,7 +287,9 @@ export default class OnboardingBio extends Component {
               </TouchableOpacity>
             </View>
           </View>
-            <View style = {styles.nameInputView}>
+            <View style = {[styles.nameInputView, { 
+            borderBottomColor: isShortBioFocused ? colors.green
+            :theme.secondaryTextColor}]}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Short Bio'}
@@ -317,7 +301,16 @@ export default class OnboardingBio extends Component {
                 multiline={true}
                 onChangeText = {this.handleShortBio}
                 style={styles.textInputStyles} 
-                editable={biodataStatus}
+                editable={true}
+                refs={(input) => { this.shortBioRef = input; }}
+                returnKeyType = {"next"}
+                blurOnSubmit={false}
+                onFocus={()=>this.setState({isShortBioFocused:true})}
+                onBlur={()=>this.setState({isShortBioFocused:false})}
+                onSubmitEditing={() => { 
+                 // this.jobTitleRef && this.isShortBioFocused.focus()
+                }}
+                
                 />
               <TouchableOpacity 
                 style = {{paddingLeft : 8}}
@@ -390,3 +383,16 @@ export default class OnboardingBio extends Component {
     )
   }
 } 
+
+const mapStateToProps = (state, ownProps) =>{
+  return  {
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+      setProfile: (data) =>{dispatch(addProfile(data))},
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingBio)

@@ -8,13 +8,15 @@ import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile, updateOnBoarding} from '../../utils';
-import Toast from 'react-native-easy-toast';
+import {connect} from 'react-redux'
+import colors from '../../assets/colors';
+
 
 const defaultFlag = data.filter(
-  obj => obj.name === 'Nigeria'
+  obj => obj.name === 'Afghanistan'
   )[0].flag
 
-export default class OnboardingSocial extends Component {
+class OnboardingSocial extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -33,12 +35,12 @@ export default class OnboardingSocial extends Component {
       showAlert : false,
       showLoading : false,
 
-      phoneStatus:false,
-      websiteStatus:false,
-      facebookStatus:false,
-      twitterStatus:false,
-      linkedInStatus:false,
-      instagramStatus:false,
+      isPhoneFocused:false,
+      isWebsiteFocused:false,
+      isFacebookFocused:false,
+      isTwitterFocused:false,
+      isLinkedInFocused:false,
+      isInstagramFocused:false,
 
       website:'',
       facebook:'',
@@ -54,7 +56,7 @@ export default class OnboardingSocial extends Component {
   }
   componentWillMount () {
     // Default render of country flag
-    const defaultFlag = data.filter(obj => obj.name === 'Nigeria')[0].flag;
+    const defaultFlag = data.filter(obj => obj.name === 'Afghanistan')[0].flag;
     this.setState({
       flag :defaultFlag,
     })
@@ -244,6 +246,18 @@ export default class OnboardingSocial extends Component {
     const {phone, website, facebook, twitter, linkedIn, instagram,  facebook_visible,
       twitter_visible, linkedin_visible, instagram_visible,  _id, token} = this.state;
 
+      const {profile} = this.props; 
+      let result = Object.assign(profile[0], profile[1]);
+
+      let title = result.title || null,
+        name = result.name,
+        job_title = result.job_title,
+        gender = result.gender,
+        company_name = result.company_name,
+        country = result.nationality,
+        short_bio = result.short_bio,
+        interest = result.interest;
+
     if(isEmpty(phone)) {
       return this.setState({
         showAlert:true,
@@ -257,8 +271,9 @@ export default class OnboardingSocial extends Component {
 
     let body = await JSON.stringify({
       'query':{_id},
-      'update' : {phone, website, facebook, twitter, linkedIn, instagram,  
-        facebook_visible, twitter_visible, linkedin_visible, instagram_visible}   
+      'update' : {title, name, job_title, company_name, gender, country, short_bio, interest, 
+        phone, website, facebook, twitter, linkedIn, instagram, facebook_visible, twitter_visible, 
+        linkedin_visible, instagram_visible,}   
     });
 
     await putRoute (ProfileUpdateEndpoint, body, token)
@@ -287,11 +302,11 @@ export default class OnboardingSocial extends Component {
   }
   
   render () {
-    const { message, showAlert, showLoading, flag, phoneStatus, websiteStatus, 
-      facebookStatus, twitterStatus,linkedInStatus, instagramStatus, 
-      facebook_visible, twitter_visible,linkedin_visible, instagram_visible  } = this.state
-    const countryData = data;
+    const { message, showAlert, showLoading, flag, isPhoneFocused,isWebsiteFocused, isFacebookFocused,
+      isTwitterFocused, isLinkedInFocused,isInstagramFocused, facebook_visible, twitter_visible,
+      linkedin_visible, instagram_visible  } = this.state;
 
+    const countryData = data;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -301,7 +316,7 @@ export default class OnboardingSocial extends Component {
         <TouchableOpacity
           style = {styles.headerImage}
           onPress={()=>this.props.navigation.navigate('OnboardingBio')}
-          >
+        >
           
           <Image
             source = {require('../../assets/images/back.png')}
@@ -329,7 +344,9 @@ export default class OnboardingSocial extends Component {
             text={'Phone Number'}
             styles = {styles.formHeaderTxt}
           /> 
-          <View style = {styles.phoneView}>
+          <View style = {[styles.phoneView, { 
+                    borderBottomColor: isPhoneFocused ? colors.green
+                    :theme.secondaryTextColor}]}>
             {/* <View style = {styles.flag}> */}
             <TouchableOpacity 
               style = {styles.modalTp}
@@ -351,13 +368,20 @@ export default class OnboardingSocial extends Component {
               //placeholder='+234'
               placeholderTextColor='#adb4bc'
               keyboardType={'phone-pad'}
-              returnKeyType='done'
+              returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={false}
-              ref='PhoneInput'
+              ref={(input) => { this.PhoneInput = input; }}
               value={this.state.phone}
-              editable={phoneStatus}
+              editable={true}
+              blurOnSubmit={false}
+              onFocus={()=>this.setState({isPhoneFocused:true})}
+              onBlur={()=>this.setState({isPhoneFocused:false})}
+              onSubmitEditing={() => { 
+
+                this.websiteRef && this.websiteRef.focus()
+              }}
               onChangeText={(val) => {
                 if (this.state.phone === ''){
                   // render NIG phone code by default when Modal is not open
@@ -415,7 +439,9 @@ export default class OnboardingSocial extends Component {
           </View>
         </Modal>
         {/* website link */}
-        <View style = {styles.nameInputView}>
+        <View style = {[styles.nameInputView, { 
+              borderBottomColor: isWebsiteFocused ? colors.green
+              :theme.secondaryTextColor}]}>
           <DisplayText
             styles={StyleSheet.flatten(styles.titleText)}
             text = {'Website URL'}
@@ -433,8 +459,17 @@ export default class OnboardingSocial extends Component {
               height = {30}
               width = {'100%'}
               borderBottomWidth = {0}
+              refs={(input) => { this.websiteRef = input; }}
               borderColor = {theme.colorAccent}
-              editable = {websiteStatus}
+              editable = {true}
+              returnKeyType = {"next"}
+              blurOnSubmit={false}
+              onFocus={()=>this.setState({isWebsiteFocused:true})}
+              onBlur={()=>this.setState({isWebsiteFocused:false})}
+              onSubmitEditing={() => { 
+                this.facebookRef && this.facebookRef.focus()
+              }}
+
               /> 
               <TouchableOpacity 
                 style = {{paddingLeft : 8, paddingTop : 8}}
@@ -461,7 +496,9 @@ export default class OnboardingSocial extends Component {
           {/*  facebook */}
             <View style = {styles.bodyView}>
               <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
+                <View style = {[styles.textInputView, { 
+                    borderBottomColor: isFacebookFocused ? colors.green
+                    :theme.secondaryTextColor}]}>
                   <View style = {{flexDirection : 'row', width : '75%'}}>
                     <Image
                       source = {require('../../assets/images/facebook.png')}
@@ -479,7 +516,15 @@ export default class OnboardingSocial extends Component {
                       width = {'100%'}
                       borderBottomWidth = {0}
                       borderColor = {theme.colorAccent}
-                      editable = {facebookStatus}
+                      editable = {true}
+                      returnKeyType = {"next"}
+                      blurOnSubmit={false}
+                      refs={(input) => { this.facebookRef = input; }}
+                      onFocus={()=>this.setState({isFacebookFocused:true})}
+                      onBlur={()=>this.setState({isFacebookFocused:false})}
+                      onSubmitEditing={() => { 
+                        this.twitterRef && this.twitterRef.focus()
+                      }}
 
                       /> 
                     <TouchableOpacity 
@@ -506,7 +551,9 @@ export default class OnboardingSocial extends Component {
             {/* Twitter input */}
             <View style = {styles.bodyView}>
               <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
+                <View style = {[styles.textInputView, { 
+                    borderBottomColor: isTwitterFocused ? colors.green
+                    :theme.secondaryTextColor}]}>
                   <View style = {{flexDirection : 'row', width : '75%'}}>
                     <Image
                       source = {require('../../assets/images/twitter.png')}
@@ -524,7 +571,15 @@ export default class OnboardingSocial extends Component {
                       width = {'100%'}
                       borderBottomWidth = {0}
                       borderColor = {theme.colorAccent}
-                      editable={twitterStatus}
+                      editable={true}
+                      returnKeyType = {"next"}
+                      blurOnSubmit={false}
+                      refs={(input) => { this.twitterRef = input; }}
+                      onFocus={()=>this.setState({isTwitterFocused:true})}
+                      onBlur={()=>this.setState({isTwitterFocused:false})}
+                      onSubmitEditing={() => { 
+                        this.linkedInRef && this.linkedInRef.focus()
+                      }}
                       /> 
                     <TouchableOpacity 
                       style = {{paddingLeft : 8, paddingTop : 8}}
@@ -550,7 +605,9 @@ export default class OnboardingSocial extends Component {
             {/* linked in */}
             <View style = {styles.bodyView}>
               <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
+                <View style = {[styles.textInputView, { 
+                    borderBottomColor: isLinkedInFocused ? colors.green
+                    :theme.secondaryTextColor}]}>
                   <View style = {{flexDirection : 'row', width : '75%'}}>
                     <Image
                       source = {require('../../assets/images/linkedin.png')}
@@ -568,7 +625,15 @@ export default class OnboardingSocial extends Component {
                       width = {'100%'}
                       borderBottomWidth = {0}
                       borderColor = {theme.colorAccent}
-                      editable={linkedInStatus}
+                      editable={true}
+                      returnKeyType = {"next"}
+                      blurOnSubmit={false}
+                      refs={(input) => { this.linkedInRef = input; }}
+                      onFocus={()=>this.setState({isLinkedInFocused:true})}
+                      onBlur={()=>this.setState({isLinkedInFocused:false})}
+                      onSubmitEditing={() => { 
+                        this.instagramRef && this.instagramRef.focus()
+                      }}
                       /> 
                     <TouchableOpacity 
                       style = {{paddingLeft : 8, paddingTop : 8}}
@@ -594,7 +659,9 @@ export default class OnboardingSocial extends Component {
             {/* Instagram */}
             <View style = {styles.bodyView}>
               <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
+              <View style = {[styles.textInputView, { 
+                    borderBottomColor: isInstagramFocused ? colors.green
+                    :theme.secondaryTextColor}]}>   
                   <View style = {{flexDirection : 'row', width : '75%'}}>
                     <Image
                       source = {require('../../assets/images/instagram.png')}
@@ -612,7 +679,16 @@ export default class OnboardingSocial extends Component {
                       width = {'100%'}
                       borderBottomWidth = {0}
                       borderColor = {theme.colorAccent}
-                      editable={instagramStatus}
+                      editable={true}
+                      returnKeyType = {"done"}
+                      blurOnSubmit={false}
+                      refs={(input) => { this.instagramRef = input; }}
+                      onFocus={()=>this.setState({isInstagramFocused:true})}
+                      onBlur={()=>this.setState({isInstagramFocused:false})}
+                      onSubmitEditing={() => { 
+                        this.handleSubmitButton();
+                      }}
+                      
                       /> 
                     <TouchableOpacity 
                       style = {{paddingLeft : 8, paddingTop : 8}}
@@ -638,7 +714,7 @@ export default class OnboardingSocial extends Component {
           </View>
           <View style = {styles.btnView}>
             <SubmitButton
-              title={'Sign Up'}
+              title={'Complete'}
               disabled={false}
               onPress={this.handleSubmitButton}
               imgSrc={require('../../assets/images/resume.png')}
@@ -647,17 +723,6 @@ export default class OnboardingSocial extends Component {
               titleStyle={StyleSheet.flatten(styles.buttonTxt)}
             />
  
-            <Toast
-              ref="toast"
-              style={{backgroundColor: 'green'}}
-              position='bottom'
-              positionValue={200}
-              fadeInDuration={750}
-              fadeOutDuration={5000}
-              opacity={0.8}
-              textStyle={{color:'white'}}
-            /> 
-
             <ProgressDialog
               visible={showLoading}
               title="Processing"
@@ -677,3 +742,14 @@ export default class OnboardingSocial extends Component {
    )
   }
 } 
+
+const mapStateToProps = (state, ownProps) =>{
+  return{
+    
+    profile: state.profileReducer.profile
+  }
+}
+
+export default connect(mapStateToProps)(OnboardingSocial)
+
+

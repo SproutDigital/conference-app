@@ -68,10 +68,28 @@ export default styles = StyleSheet.create({
     backgroundColor : theme.colorAccent,
     height : 50,
     borderRadius : 4,
+    shadowColor : theme.primaryTextColor,
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    shadowOffset : {height : 1, width : 0},
     elevation : 1,
     flexDirection : 'row',
-    paddingLeft : 16,
-    alignItems : 'center'
+    paddingLeft : 8,
+    alignItems : 'center',
+    marginBottom : 8,
+  },
+  iconBotton : {
+    width : 25,
+    height : 25,
+    justifyContent: 'center',
+    alignItems : 'center',
+  },
+  iconBottonSearch : {
+    width : 25,
+    height : 25,
+    justifyContent: 'center',
+    alignItems : 'center',
+    marginLeft : 4,
   },
   viewBody : {
     alignItems : 'center',
@@ -79,8 +97,28 @@ export default styles = StyleSheet.create({
     padding : 20
   },
   searchIcon : {
-    width : 20,
-    height : 20,
+    width : 18,
+    height : 18,
+    resizeMode : 'contain'
+  },
+  checklistIcon : {
+    width : 18,
+    height : 18,
+    marginRight : 4
+  },
+  filterIcon : {
+    width : 16,
+    height : 16,
+    
+  },
+  iconBottonFilter : {
+    width : 25,
+    height : 25,
+    justifyContent: 'center',
+    alignItems : 'center',
+    marginLeft : 4,
+    position : 'absolute',
+    right : 8,
   },
   // listItems : {
   //   marginTop : 8,
@@ -95,17 +133,16 @@ export default styles = StyleSheet.create({
     backgroundColor: theme.colorAccent,
     borderRadius : 8,
     marginTop: 4,
-    marginBottom : 4,
     shadowColor: '#000',
     shadowOffset: { 
       width: 0, 
       height: 1 
     },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
+    shadowOpacity: 0.25,
+    shadowRadius: 2.62,
     elevation: 1,
     paddingLeft : 8,
-    flexDirection : 'row',
+    flexDirection : 'column',
   },
   sponsorImageView : {
     width : '30%',
@@ -164,6 +201,29 @@ export default styles = StyleSheet.create({
     borderRadius : 10,
     justifyContent: 'center',
     alignItems : 'center'
+  },
+  timeText : {
+    fontFamily : theme.primaryFont,
+    fontSize : theme.thinyFont,
+    color : theme.primaryColor,
+  },
+  nameText : {
+    fontFamily : theme.inputHintFont,
+    fontSize : theme.SmallFont,
+    color : theme.primaryTextColor,
+    marginLeft : 4
+  },
+  cardEventNames : {
+    flexDirection :  'row',
+    alignItems : 'center',
+  },
+  maleIcon : {
+    height : 20,
+    width : 20,
+    resizeMode : 'contain',
+    borderRadius : 30,
+    tintColor : theme.secondaryTextColor,
+    marginRight : 4
   }
 
 
