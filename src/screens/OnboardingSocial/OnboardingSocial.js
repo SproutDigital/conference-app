@@ -47,6 +47,8 @@ class OnboardingSocial extends Component {
       twitter:'',
       linkedin:'',
       instagram:'',
+      phone :'',
+
 
       _id: '',
       token: '',
@@ -56,7 +58,8 @@ class OnboardingSocial extends Component {
   }
   componentWillMount () {
     // Default render of country flag
-    const defaultFlag = data.filter(obj => obj.name === 'Afghanistan')[0].flag;
+    const {userProfile} = this.props; 
+    const defaultFlag =  data.filter(obj => obj.name === userProfile.profile.country ? userProfile.profile.country: 'Afghanistan')[0].flag;
     this.setState({
       flag :defaultFlag,
     })
@@ -65,11 +68,34 @@ class OnboardingSocial extends Component {
 
 
   async componentDidMount(){
-    let profile = await getProfile();  
-    return await this.setState({
-      '_id' : profile.id,
-      'token' : profile.sessionToken,
-    })
+    let asyncProfile = await getProfile();  
+    const {userProfile} = this.props; 
+    
+    try {
+      return await this.setState({
+        '_id' : asyncProfile.id,
+        'token' : asyncProfile.sessionToken,
+        'website': userProfile.profile.website,
+        'facebook':userProfile.profile.facebook,
+        'twitter': userProfile.profile.twitter,
+        'linkedin': userProfile.profile.linkedin,
+        'instagram': userProfile.profile.instagram,
+        'facebook_visible' : userProfile.profile.facebook_visible,
+        'twitter_visible' : userProfile.profile.twitter_visible,
+        'linkedin_visible' : userProfile.profile.linkedin_visible,
+        'instagram_visible ': userProfile.profile.instagram_visible,
+        'phone':  userProfile.profile.phone
+  
+      })
+    }
+    catch(e){
+      console.log({'erroroor': e})
+      return await this.setState({
+        '_id' : asyncProfile.id,
+        'token' : asyncProfile.sessionToken
+      })
+    }
+    
   }
  
   handleOnboardSocial = () => {
@@ -172,74 +198,10 @@ class OnboardingSocial extends Component {
     );
   }
 
-  
-  handlePhoneStatus = () => {
-    return this.setState(prevState => ({
-      phoneStatus: !prevState.phoneStatus,
-      websiteStatus:false,
-      facebookStatus:false,
-      twitterStatus:false,
-      linkedInStatus:false,
-      instagramStatus:false,
-    }));
-  }
-
-  handleWebsiteStatus = () => {
-    return this.setState(prevState => ({
-      websiteStatus: !prevState.websiteStatus,
-      phoneStatus:false,
-      facebookStatus:false,
-      twitterStatus:false,
-      linkedInStatus:false,
-      instagramStatus:false,
-    }));
-  }
-
-  handleFacebookStatus = () => {
-    return this.setState(prevState => ({
-      facebookStatus: !prevState.facebookStatus,
-      phoneStatus:false,
-      websiteStatus:false,
-      twitterStatus:false,
-      linkedInStatus:false,
-      instagramStatus:false,
-    }));
-  }
 
 
-  handleTwitterStatus = () => {
-    return this.setState(prevState => ({
-      twitterStatus: !prevState.twitterStatus,
-      phoneStatus:false,
-      websiteStatus:false,
-      facebookStatus:false,
-      linkedInStatus:false,
-      instagramStatus:false,
-    }));
-  }
 
-
-  handlelinkedInStatus = () => {
-    return this.setState(prevState => ({
-      linkedInStatus: !prevState.linkedInStatus,
-      phoneStatus:false,
-      websiteStatus:false,
-      facebookStatus:false,
-      twitterStatus:false,
-      instagramStatus:false,
-    }));
-  }
-
-  handleInstagramStatus = () => {
-    return this.setState(prevState => ({
-      facebookStatus: !prevState.instagramStatus,
-      phoneStatus:false,
-      websiteStatus:false,
-      facebookStatus:false,
-      twitterStatus:false,
-      linkedInStatus:false,
-    }));
-  }
+ 
 
   handleSubmitButton =async()=> {
 
@@ -254,7 +216,7 @@ class OnboardingSocial extends Component {
         job_title = result.job_title,
         gender = result.gender,
         company_name = result.company_name,
-        country = result.nationality,
+        country = result.country,
         short_bio = result.short_bio,
         interest = result.interest;
 
@@ -304,7 +266,7 @@ class OnboardingSocial extends Component {
   render () {
     const { message, showAlert, showLoading, flag, isPhoneFocused,isWebsiteFocused, isFacebookFocused,
       isTwitterFocused, isLinkedInFocused,isInstagramFocused, facebook_visible, twitter_visible,
-      linkedin_visible, instagram_visible  } = this.state;
+      linkedin_visible, instagram_visible, website, facebook, twitter, linkedin, phone, instagram } = this.state;
 
     const countryData = data;
    return(
@@ -345,8 +307,8 @@ class OnboardingSocial extends Component {
             styles = {styles.formHeaderTxt}
           /> 
           <View style = {[styles.phoneView, { 
-                    borderBottomColor: isPhoneFocused ? colors.green
-                    :theme.secondaryTextColor}]}>
+            borderBottomColor: isPhoneFocused ? colors.green
+            :theme.secondaryTextColor}]}>
             {/* <View style = {styles.flag}> */}
             <TouchableOpacity 
               style = {styles.modalTp}
@@ -373,19 +335,19 @@ class OnboardingSocial extends Component {
               autoCorrect={false}
               secureTextEntry={false}
               ref={(input) => { this.PhoneInput = input; }}
-              value={this.state.phone}
+              value={phone.toString()}
+              defaultValue={phone.toString()}
               editable={true}
               blurOnSubmit={false}
               onFocus={()=>this.setState({isPhoneFocused:true})}
               onBlur={()=>this.setState({isPhoneFocused:false})}
               onSubmitEditing={() => { 
-
                 this.websiteRef && this.websiteRef.focus()
               }}
               onChangeText={(val) => {
-                if (this.state.phone === ''){
+                if (phone === ''){
                   // render NIG phone code by default when Modal is not open
-                  this.onChangeText('phone', '+234' + val)
+                  this.onChangeText('phone', '+93' + val)
                 } else {
                   // render country code based on users choice with Modal
                   this.onChangeText('phone', val)
@@ -394,9 +356,9 @@ class OnboardingSocial extends Component {
             />
             <TouchableOpacity 
               style = {{paddingLeft : 8}}
-              onPress = {this.handlePhoneStatus}>
+              onPress = {()=>{}}>
               <Image
-                onPress = {this.handlePhoneStatus}
+                onPress = {()=>{}}
                 source = {require('../../assets/images/edit.png')}
                 style = {StyleSheet.flatten(styles.penIcon)}
               />
@@ -461,6 +423,7 @@ class OnboardingSocial extends Component {
               borderBottomWidth = {0}
               refs={(input) => { this.websiteRef = input; }}
               borderColor = {theme.colorAccent}
+              defaultValue={website}
               editable = {true}
               returnKeyType = {"next"}
               blurOnSubmit={false}
@@ -515,6 +478,7 @@ class OnboardingSocial extends Component {
                       height = {30}
                       width = {'100%'}
                       borderBottomWidth = {0}
+                      defaultValue={facebook}
                       borderColor = {theme.colorAccent}
                       editable = {true}
                       returnKeyType = {"next"}
@@ -529,9 +493,9 @@ class OnboardingSocial extends Component {
                       /> 
                     <TouchableOpacity 
                       style = {{paddingLeft : 8, paddingTop : 8}}
-                      onPress = {this.handleFacebookStatus}>
+                      onPress = {()=>{}}>
                       <Image
-                        onPress = {this.handleFacebookStatus}
+                        onPress = {()=>{}}
                         source = {require('../../assets/images/edit.png')}
                         style = {StyleSheet.flatten(styles.penIcon)}
                       />
@@ -572,6 +536,7 @@ class OnboardingSocial extends Component {
                       borderBottomWidth = {0}
                       borderColor = {theme.colorAccent}
                       editable={true}
+                      defaultValue={twitter}
                       returnKeyType = {"next"}
                       blurOnSubmit={false}
                       refs={(input) => { this.twitterRef = input; }}
@@ -583,9 +548,9 @@ class OnboardingSocial extends Component {
                       /> 
                     <TouchableOpacity 
                       style = {{paddingLeft : 8, paddingTop : 8}}
-                      onPress = {this.handleTwitterStatus}>
+                      onPress = {()=>{}}>
                       <Image
-                        onPress = {this.handleTwitterStatus}
+                        onPress = {()=>{}}
                         source = {require('../../assets/images/edit.png')}
                         style = {StyleSheet.flatten(styles.penIcon)}
                       />
@@ -626,6 +591,7 @@ class OnboardingSocial extends Component {
                       borderBottomWidth = {0}
                       borderColor = {theme.colorAccent}
                       editable={true}
+                      defaultValue={linkedin}
                       returnKeyType = {"next"}
                       blurOnSubmit={false}
                       refs={(input) => { this.linkedInRef = input; }}
@@ -637,9 +603,9 @@ class OnboardingSocial extends Component {
                       /> 
                     <TouchableOpacity 
                       style = {{paddingLeft : 8, paddingTop : 8}}
-                      onPress = {this.handlelinkedInStatus}>
+                      onPress = {()=>{}}>
                       <Image
-                        onPress = {this.handlelinkedInStatus}
+                        onPress = {()=>{}}
                         source = {require('../../assets/images/edit.png')}
                         style = {StyleSheet.flatten(styles.penIcon)}
                       />
@@ -679,6 +645,7 @@ class OnboardingSocial extends Component {
                       width = {'100%'}
                       borderBottomWidth = {0}
                       borderColor = {theme.colorAccent}
+                      defaultValue={instagram}
                       editable={true}
                       returnKeyType = {"done"}
                       blurOnSubmit={false}
@@ -692,9 +659,9 @@ class OnboardingSocial extends Component {
                       /> 
                     <TouchableOpacity 
                       style = {{paddingLeft : 8, paddingTop : 8}}
-                      onPress = {this.handleInstagramStatus}>
+                      onPress = {()=>{}}>
                       <Image
-                        onPress = {this.handleInstagramStatus}
+                        onPress = {()=>{}}
                         source = {require('../../assets/images/edit.png')}
                         style = {StyleSheet.flatten(styles.penIcon)}
                       />
@@ -743,10 +710,14 @@ class OnboardingSocial extends Component {
   }
 } 
 
+
+
 const mapStateToProps = (state, ownProps) =>{
   return{
     
-    profile: state.profileReducer.profile
+    profile: state.profileReducer.profile,
+    userProfile: state.loginReducer.profile
+
   }
 }
 

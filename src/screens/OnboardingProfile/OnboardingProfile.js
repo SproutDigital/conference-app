@@ -49,12 +49,20 @@ import { addProfile } from '../../redux/actions/profileActions';
 
   async componentDidMount(){
     //logout();
-    let profile = await getProfile();  
-    return await this.setState({
-      '_id' : profile.id,
-      'token' : profile.sessionToken,
-      'name': profile.name,
-    })
+    // let profile = await getProfile();  
+    const {profile} = this.props;
+      try {
+        await this.setState({
+          '_id' : profile.id,
+          'name': profile.name,
+          'name_title': profile.profile.title,
+          'job_title': profile.profile.job_title
+        })
+      }
+      catch(e){
+
+    }
+     
   }
 
   handleCloseNotification = () => {
@@ -139,21 +147,7 @@ import { addProfile } from '../../redux/actions/profileActions';
         }
       });
     }
-  handleNametataus = ()=> {
-    return this.setState(prevState=>({
-        namestatus:!prevState.namestatus,
-        jobstatus:false, 
-      })
-    )
-  }
-
-  handleJobStataus = ()=> {
-    return this.setState(prevState=>({
-      jobstatus:!prevState.jobstatus,
-      namestatus:false
-    })
-  )
-  }
+  
 
 
   handleUpdateImageUri =async(photo)=>{
@@ -244,7 +238,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
 
   render () {
-    const {showLoading, name_title, title, message, showAlert, name, photo, jobtitle, isNameFocused, isJobTitleFocused} = this.state;
+    const {showLoading, name_title, title, message, showAlert, name, photo, job_title, isNameFocused, isJobTitleFocused} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -281,9 +275,9 @@ import { addProfile } from '../../redux/actions/profileActions';
               /> 
               : 
             <Image
-              resizeMode = 'center'
+              resizeMode = 'contain'
               style = {styles.imageStyle}
-              source = {require('../../assets/images/sample_pics.png')}
+              source = {require('../../assets/images/name.png')}
               />
           }
           
@@ -392,7 +386,7 @@ import { addProfile } from '../../redux/actions/profileActions';
                 width = {'100%'}
                 returnKeyType = {"done"}
                 borderColor = {theme.colorAccent}
-                defaultValue = {jobtitle}
+                defaultValue = {job_title}
                 editable={true}
                 returnKeyType = {"next"}
                 blurOnSubmit={false}
@@ -448,9 +442,10 @@ import { addProfile } from '../../redux/actions/profileActions';
   }
 } 
 
+
 const mapStateToProps = (state, ownProps) =>{
-  return  {
-     // isLoggedIn: state.authreducer.isLoggedIn
+  return{
+    profile: state.loginReducer.profile
   }
 }
 
@@ -461,4 +456,5 @@ const mapDispatchToProps = (dispatch) =>{
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingProfile)
+
 

@@ -7,7 +7,7 @@ import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import colors from '../../assets/colors';
-import { isEmpty, getProfile} from '../../utils';
+import { isEmpty} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import {connect} from 'react-redux';
 import { addProfile } from '../../redux/actions/profileActions';
@@ -17,9 +17,9 @@ class OnboardingBio extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      gender: 'male',
+      gender: '',
       nationalityModalVisible : false,
-      nationality : 'Nationality',
+      country : 'Nationality',
       company_name : '',
       short_bio : '',
       interests: '',
@@ -35,6 +35,23 @@ class OnboardingBio extends Component {
       isShortBioFocused: false,
       isCompanyFocused:false,
 
+    }
+  }
+
+  async componentDidMount () {
+    const {profile} = this.props;
+      try {
+        await this.setState({
+           'gender' : profile.profile.gender,
+          'company_name': profile.profile.company_name,
+          'short_bio': profile.profile.short_bio,
+          'country' : profile.profile.country
+        })
+      }
+      catch(e){
+        await this.setState({
+          'gender' : 'male',
+       })
     }
   }
 
@@ -71,7 +88,7 @@ class OnboardingBio extends Component {
       )[0].name
       // Update the state then hide the Modal
       this.setState({ 
-        nationality : countryName,
+        country : countryName,
       })
       await this.hideNationalityModal()
     }
@@ -88,8 +105,6 @@ class OnboardingBio extends Component {
     this.setState({ 
       nationalityModalVisible: false 
     })
-    // Refocus on the Input field after selecting the country code
-    // this.refs.PhoneInput._root.focus()
   }
 
 
@@ -114,7 +129,7 @@ class OnboardingBio extends Component {
 
   handleNextButton =async()=> {
 
-    const {gender, nationality, short_bio, company_name, interest} = this.state;
+    const {gender, country, short_bio, company_name, interest} = this.state;
     let shortbio = short_bio.trim();
 
     if(isEmpty(company_name)) {
@@ -131,7 +146,7 @@ class OnboardingBio extends Component {
     }
   
     let body = await {
-     gender, nationality, short_bio:shortbio, company_name, interest  
+     gender, country, short_bio:shortbio, company_name, interest  
     };
 
     this.props.setProfile(body);
@@ -140,7 +155,8 @@ class OnboardingBio extends Component {
   
   render () {
     const countryData = data
-    const {isCompanyFocused, isShortBioFocused, gender, title, message, showAlert, showLoading } = this.state;
+    const {isCompanyFocused, isShortBioFocused, gender, title, message, 
+      showAlert, showLoading, country, company_name, short_bio } = this.state;
 
    return(
     <SafeAreaView style={styles.container}> 
@@ -205,7 +221,7 @@ class OnboardingBio extends Component {
             style = {styles.textBoder}>
             <View style = {styles.viewTxtNationality}>
               <Text style = {styles.inputTxt}>
-                {this.state.nationality}
+                {country}
               </Text>
               <Image
                 source = {require('../../assets/images/down_arrow.png')}
@@ -267,6 +283,7 @@ class OnboardingBio extends Component {
                 width = {'100%'}
                 borderBottomWidth = {0}
                 borderColor = {colors.white}
+                defaultValue={company_name}
                 editable = {true}
                 returnKeyType = {"next"}
                 blurOnSubmit={false}
@@ -287,7 +304,7 @@ class OnboardingBio extends Component {
               </TouchableOpacity>
             </View>
           </View>
-            <View style = {[styles.nameInputView, { 
+          <View style = {[styles.nameInputView, { 
             borderBottomColor: isShortBioFocused ? colors.green
             :theme.secondaryTextColor}]}>
               <DisplayText
@@ -303,6 +320,7 @@ class OnboardingBio extends Component {
                 style={styles.textInputStyles} 
                 editable={true}
                 refs={(input) => { this.shortBioRef = input; }}
+                defaultValue={short_bio}
                 returnKeyType = {"next"}
                 blurOnSubmit={false}
                 onFocus={()=>this.setState({isShortBioFocused:true})}
@@ -386,6 +404,8 @@ class OnboardingBio extends Component {
 
 const mapStateToProps = (state, ownProps) =>{
   return  {
+    profile: state.loginReducer.profile
+
   }
 }
 

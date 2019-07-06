@@ -10,10 +10,13 @@ import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
-import CheckBox from 'react-native-check-box'
+import CheckBox from 'react-native-check-box';
+import {connect} from 'react-redux';
+import { login } from '../../redux/actions/loginActions';
 
 
-export default class Login extends Component {
+
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -188,23 +191,28 @@ export default class Login extends Component {
 
      await sendRoute (LoginEndpoint, data)
       .then((res) => {
-        this.setState({ 
-          showLoading : false, 
-        });
 
+       
+        this.props.setProfile(res.payload);
         if(typeof res.status == 'undefined') {
-          this.setState({ 
-            showLoading : false, 
-          });
          
           if(!res.payload.verified) {
             saveProfile(res.payload.id, res.payload.name, res.token, false);
+            this.setState({ 
+              showLoading : false, 
+            });
             return this.resetNavigationStack('Verification');         
           }
           else if(res.payload.verified) {
             saveProfile(res.payload.id, res.payload.name, res.token, true);
-            return this.resetNavigationStack('DashBoard');    
+            this.setState({ 
+              showLoading : false, 
+            });
+            // return this.resetNavigationStack('DashBoard');    
+            return this.resetNavigationStack('OnboardingProfile');    
+
           }
+         
         } 
         else {
           this.setState({ 
@@ -266,7 +274,6 @@ export default class Login extends Component {
                     borderWidth = {1}
                     blurOnSubmit={false}
                     borderColor = {theme.colorAccent}
-                    autoFocus={true}
                     returnKeyType = {"next"}
                     blurOnSubmit={false}
                     onFocus={()=>this.setState({isEmailFocused:true})}
@@ -297,12 +304,12 @@ export default class Login extends Component {
                     returnKeyType={'done'}
                     blurOnSubmit={false}
                     onFocus={()=>this.setState({isPasswordFocused:true})}
-                   onBlur={()=>this.setState({isPasswordFocused:false})}
+                    onBlur={()=>this.setState({isPasswordFocused:false})}
                     onSubmitEditing={() => { 
                       this.handleSignIn();
                     }}
                   /> 
-              </View>
+              </View> 
             </View>
 
             <View style = {StyleSheet.flatten(styles.checkBoxView)}>
@@ -391,4 +398,18 @@ export default class Login extends Component {
     )
   } 
 } 
+
+
+const mapStateToProps = (state, ownProps) =>{
+  return  {
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+      setProfile: (data) =>{dispatch(login(data))},
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
 
