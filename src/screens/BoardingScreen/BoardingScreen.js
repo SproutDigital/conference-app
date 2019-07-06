@@ -47,7 +47,7 @@ const slides = [
   }
 
    async componentWillMount(){
-   //logout();
+   logout();
   // console.log({'he':new Date()})
     this.checkLogin();
   }
@@ -221,14 +221,6 @@ const slides = [
    
 } 
 
-// const mapStateToProps = (state, ownProps) =>{
-//   return{
-//       registered: state.authReducer.registered
-//   }
-// }
-
-
-//export default connect(mapStateToProps)(BoardingScreen)
 
 
 

@@ -31,7 +31,7 @@ export const isEmailValid = (email) => {
 }
 
 export const  isEmpty =(str)  => {
-    return (!str || 0 === str.trim().length);
+    return (!str || 0 === str.toString().trim().length); 
 }
 
 export const sendRoute = (endpoint, body) => {
