@@ -129,10 +129,10 @@ export default styles = StyleSheet.create({
   // },
   cardView:{
     width: '100%',
-    height : 110,
+    // height : 110,
     backgroundColor: theme.colorAccent,
     borderRadius : 8,
-    marginTop: 4,
+    marginTop: 8,
     shadowColor: '#000',
     shadowOffset: { 
       width: 0, 
@@ -155,11 +155,12 @@ export default styles = StyleSheet.create({
     width : '98%',
     flexDirection : 'row',
     justifyContent : 'space-between',
-    paddingTop : 4
+    paddingTop : 8,
+    alignItems : 'center'
   },
 
   headerText : {
-    fontFamily : theme.secondaryFont,
+    fontFamily : theme.inputHintFont,
     fontSize : theme.SmallFont,
     color : theme.primaryTextColor
   },
@@ -209,8 +210,8 @@ export default styles = StyleSheet.create({
   },
   nameText : {
     fontFamily : theme.inputHintFont,
-    fontSize : theme.SmallFont,
-    color : theme.primaryTextColor,
+    fontSize : 15,
+    color : theme.textGray,
     marginLeft : 4
   },
   cardEventNames : {
@@ -224,7 +225,41 @@ export default styles = StyleSheet.create({
     borderRadius : 30,
     tintColor : theme.secondaryTextColor,
     marginRight : 4
-  }
-
+  },
+  cardTxtBody : {
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.thinyFont,
+    color : theme.secondaryTextColor,
+    marginLeft : 4,
+    marginTop : 4,
+  },
+  tagsView : {
+    flexDirection : 'row',
+    padding : 8,
+    width : '100%'
+  },
+  buttonView : {
+    backgroundColor : theme.primaryColor,
+    width : '25%',
+    height : 25,
+    borderRadius : 10,
+    justifyContent: 'center',
+    alignItems : 'center',
+    marginRight : 4
+  },
+  plusBtn : {
+    height : 24,
+    width : 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position : 'absolute',
+    right : 8,
+    top :14
+  },
+  plusIcon : {
+    height : 20,
+    width : 20,
+    resizeMode : 'contain'
+  },
 
 });
