@@ -134,6 +134,7 @@ export default class InputField extends Component {
           onBlur={onBlur}
           onFocus={onFocus}
           borderBottomColor={borderBottomColor}
+          borderBottomWidth={borderBottomWidth}
           editable={editable}
           ref={refs}
           onSubmitEditing={onSubmitEditing}
@@ -180,6 +181,7 @@ InputField.propTypes = {
   borderBottomLeftRadius: PropTypes.number,
   borderBottomRightRadius: PropTypes.number,
   borderTopRightRadius: PropTypes.number,
+  borderBottomWidth: PropTypes.number, 
   borderTopLeftRadius: PropTypes.number,
   borderWidth: PropTypes.number,
   backgroundColor: PropTypes.string,
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   inputField : {
-    borderBottomWidth : 1,
+    // borderBottomWidth : 1,
     paddingTop : 1,
     fontFamily : theme.subHeaderFont,
     fontSize : theme.SmallFont,

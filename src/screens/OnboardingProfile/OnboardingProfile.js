@@ -14,7 +14,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
 
  class OnboardingProfile extends Component {
-  constructor(props) {
+  constructor(props) { 
     super(props);
     this.state ={
       token : '',

@@ -31,6 +31,9 @@ export default class About extends Component {
   handleOrganisers = () => {
     return this.props.navigation.navigate('Organisers');
   }
+  handleSponsor = () => {
+    return this.props.navigation.navigate('Sponsor')
+  }
 
   render () {
    return(
@@ -123,12 +126,15 @@ export default class About extends Component {
           </ImageBackground>
           {/* fourth grid */}
           <ImageBackground 
+            onPress = {this.handleSponsor}
             style={[styles.gridBox]} 
             blurRadius={0.1}
             imageStyle={{resizeMode: 'cover'}}
             source={require('../../assets/images/grid4.png')}>
 
-            <TouchableOpacity style={styles.overlay}>
+            <TouchableOpacity 
+              onPress = {this.handleSponsor}
+              style={styles.overlay}>
               <DisplayText
                 text = {"SPONSORS"}
                 styles = {StyleSheet.flatten(styles.gridText)}

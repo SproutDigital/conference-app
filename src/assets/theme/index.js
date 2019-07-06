@@ -19,6 +19,7 @@ export default defaultTheme = {
     backgroundColor: colors.backGround,
     tintColor : colors.buttonBlue,
     formBorderColor : colors.gray,
+    textGray : colors.textGray,
     // Font Type
     primaryFont: 'Poppins-Bold',
     secondaryFont: 'Poppins-Regular',

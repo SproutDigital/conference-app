@@ -3,13 +3,12 @@ import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
-import colors from '../../assets/colors';
 import { DrawerActions } from "react-navigation";
 import Carousel from 'react-native-carousel';
 import {connect} from 'react-redux';
 import { post, EventDetailsEndpoint, getProfile} from '../../utils';
 import { setEventDetails } from '../../redux/actions/eventActions';
-
+import theme from '../../assets/theme';
 
 
  class DashBoard extends Component {
@@ -80,6 +79,9 @@ import { setEventDetails } from '../../redux/actions/eventActions';
   handleAboutRoute = () => {
     return this.props.navigation.navigate('About');
   }
+  handleProgram = ()=> {
+    return this.props.navigation.navigate('Programs');
+  }
   
 
   render () {
@@ -98,7 +100,7 @@ import { setEventDetails } from '../../redux/actions/eventActions';
         <SafeAreaView style={styles.container}> 
           <StatusBar
             barStyle="light-content"
-            backgroundColor={colors.green_background}/>
+            backgroundColor={theme.colorAccent}/>
           <View style = {styles.navBar}>
             <TouchableOpacity
               onPress={this.toggleDrawer} 
@@ -156,7 +158,9 @@ import { setEventDetails } from '../../redux/actions/eventActions';
                     styles = {styles.boxText}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.boxes}>
+                <TouchableOpacity 
+                  onPress = { this.handleProgram }
+                  style={styles.boxes}>
                   <Image
                     source = {require('../../assets/images/program.png')}
                     style = {StyleSheet.flatten(styles.boxIcon)}
