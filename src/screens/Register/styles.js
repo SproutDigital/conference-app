@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions,Platform } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
@@ -7,8 +7,7 @@ import theme from '../../assets/theme';
   container: {
     flex: 1,
    // alignItems: 'center'
-    paddingLeft: 10,
-    paddingRight: 10,
+    
     paddingTop: 40,
     paddingBottom: 10, 
 
@@ -63,8 +62,8 @@ import theme from '../../assets/theme';
   },
   wrapper: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: (Platform.OS === 'ios') ? 30 : 30,
+    paddingRight: (Platform.OS === 'ios') ? 30 : 30,
     // marginTop: 15,
     paddingTop: 8,
     justifyContent: 'center',

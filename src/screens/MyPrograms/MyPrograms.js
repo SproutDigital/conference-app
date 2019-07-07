@@ -6,7 +6,7 @@ import styles from './styles';
 import theme from '../../assets/theme';
 // import { postRoute, getRoute, getEmail, VerifyUserEndpoint, } from '../../utils';
 
-export default class Programs extends Component {
+export default class MyPrograms extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -37,7 +37,7 @@ export default class Programs extends Component {
         </TouchableOpacity>
         <View style = {styles.nameView}>
           <DisplayText
-            text = {"PROGRAMS"}
+            text = {"MY PROGRAMS"}
             styles = {StyleSheet.flatten(styles.txtHeader)}
           />
         </View>
@@ -52,12 +52,12 @@ export default class Programs extends Component {
                 style = {StyleSheet.flatten(styles.searchIcon)}
               />
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.iconBottonSearch}>
+            {/* <TouchableOpacity style = {styles.iconBottonSearch}>
               <Image
                 source = {require('../../assets/images/search.png')}
                 style = {StyleSheet.flatten(styles.checklistIcon)}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             
           </View>
           

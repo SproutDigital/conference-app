@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Picker, Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import { View, Platform, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Picker, PickerIOS,Image, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
@@ -304,6 +304,7 @@ import { addProfile } from '../../redux/actions/profileActions';
             />
             <View style = {styles.selectView}>
               <View style={styles.pickerView}>
+              
                 <Picker
                   selectedValue={name_title}
                   style={styles.userCathegoryView}
@@ -313,11 +314,9 @@ import { addProfile } from '../../redux/actions/profileActions';
                   <Picker.Item label="Dr." value="Dr." />
                   <Picker.Item label="Chief" value="Chief" />
                 </Picker>
-
               </View>
               
               <TouchableOpacity>
-                
                 <Image
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}/>
@@ -350,6 +349,7 @@ import { addProfile } from '../../redux/actions/profileActions';
                 ref={this.fullname}
                 returnKeyType = {"next"}
                 blurOnSubmit={false}
+                borderBottomWidth = {0}
                 onFocus={()=>this.setState({isNameFocused:true})}
                 onBlur={()=>this.setState({isNameFocused:false})}
                 onSubmitEditing={() => { 
@@ -388,6 +388,7 @@ import { addProfile } from '../../redux/actions/profileActions';
                 borderColor = {theme.colorAccent}
                 defaultValue = {job_title}
                 editable={true}
+                borderBottomWidth = {0}
                 returnKeyType = {"next"}
                 blurOnSubmit={false}
                 refs={(input) => { this.jobTitleRef = input; }}

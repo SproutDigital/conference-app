@@ -69,8 +69,14 @@ export default styles = StyleSheet.create({
     height : 100,
     marginTop : 20,
     borderRadius : 100,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.62,
+    shadowOffset : {height : 2, width : 0},
+    shadowOpacity : 0.25,
     elevation : 2,
-    backgroundColor : theme.colorAccent
+    backgroundColor : theme.colorAccent,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cameraTouch : {
     width : 40,
@@ -90,8 +96,9 @@ export default styles = StyleSheet.create({
     resizeMode : 'contain'
   },
   imageStyle : {
-    width : '100%',
-    height : '100%',
+    width : '98%',
+    height : '98%',
+    borderRadius : 60,
     resizeMode : 'contain'
   },
   profileNameTxt : {
@@ -99,14 +106,24 @@ export default styles = StyleSheet.create({
     fontSize : theme.MediumFont
   },
   userCathegoryView : {
-    flex : 1,
+    height : 30,
     color : theme.primaryTextColor,
     fontFamily : theme.subHeaderFont,
     backgroundColor : theme.colorAccent,
     marginBottom : 8
+
+    // width: 200,
+    // backgroundColor: '#FFF0E0',
+    // borderColor: 'black',
+    // borderWidth: 1,
+  },
+  onePickerItem : {
+    height: 30,
+    color: 'red'
   },
   pickerView : {
-    height: 30, 
+    paddingBottom : 8,
+    height: 40, 
     width:'90%', 
     justifyContent: 'center',
   },
