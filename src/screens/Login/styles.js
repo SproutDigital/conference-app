@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 
 export const IMAGE_HEIGHT = window.width / 3;
@@ -18,8 +18,8 @@ export default styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: (Platform.OS === 'ios') ? 20 : 20,
+    paddingRight: (Platform.OS === 'ios') ? 20 : 20,
     marginTop: 15,
     paddingTop: 8,
     justifyContent: 'center',
@@ -158,22 +158,24 @@ export default styles = StyleSheet.create({
     marginTop : 30
   },
   checkBoxView : {
+    width : '100%',
     flexDirection : 'row',
-    justifyContent : 'space-around',
+    justifyContent : 'center',
+    marginLeft : (Platform.OS === 'ios') ? 40 : 40,
     // alignItems : 'center',
     paddingTop : 8,
   },
   checkBox : {
     flex: 1, 
-    padding: 10
+    // padding: 10
   },
   termCondition : {
     fontSize: theme.thinyFont,
     color: theme.darkGray,
-    marginTop: 11,
+    // marginTop: 8,
     fontFamily: theme.subHeaderFont,
     alignSelf: 'center',
     position : 'absolute',
-    right : 45,
+    right : (Platform.OS === 'ios') ? 75 : 65,
   },
 });

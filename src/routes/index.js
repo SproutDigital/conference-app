@@ -29,7 +29,7 @@ import Venue from '../screens/Venue/Venue';
 import Organisers from '../screens/Organisers/Organisers';
 import Sponsor from '../screens/Sponsor/Sponsor';
 import SponsorDetails from '../screens/SponsorDetails/SponsorDetails';
-
+import MyPrograms from '../screens/MyPrograms/MyProgramss';
 const AuthStack = createStackNavigator({ 
 
   BoardingScreen: {
@@ -239,6 +239,19 @@ export const OnBoardingStack = createStackNavigator({
         header : null,
       },
     },
+    MyPrograms : {
+      screen : MyPrograms,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    // Filter : {
+    //   screen : Filter,
+    //   navigationOptions : {
+    //     header : null,
+    //   }
+    // },
+    
   },
   {
     mode: 'modal',
