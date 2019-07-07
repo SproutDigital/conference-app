@@ -29,7 +29,7 @@ import Venue from '../screens/Venue/Venue';
 import Organisers from '../screens/Organisers/Organisers';
 import Sponsor from '../screens/Sponsor/Sponsor';
 import SponsorDetails from '../screens/SponsorDetails/SponsorDetails';
-import MyPrograms from '../screens/MyPrograms/MyProgramss';
+import MyPrograms from '../screens/MyPrograms/MyPrograms';
 const AuthStack = createStackNavigator({ 
 
   BoardingScreen: {

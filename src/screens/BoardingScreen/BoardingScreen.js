@@ -47,7 +47,7 @@ const slides = [
   }
 
    async componentWillMount(){
-   logout();
+  //  logout();
   // console.log({'he':new Date()})
     this.checkLogin();
   }
