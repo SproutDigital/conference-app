@@ -24,10 +24,12 @@ export default class LastPage extends Component {
         backgroundColor={theme.colorAccent}/>
       <View style = {styles.navBar}>
         <TouchableOpacity
-          style = {styles.headerImage}>
+          style = {styles.headerImage}
+          onPress={()=>this.props.navigation.goBack()}>
           <Image
             source = {require('../../assets/images/back.png')}
             style = {StyleSheet.flatten(styles.headerIcon)}
+            onPress={()=>this.props.navigation.goBack()}
           />
         </TouchableOpacity>
       </View>

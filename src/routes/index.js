@@ -1,5 +1,5 @@
-import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
-import { StatusBar } from 'react-native';
+import { createSwitchNavigator, StackNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import { StatusBar,  Animated, Easing } from 'react-native';
 //import {BoardingScreen, Login, Register, ForgetPassword, Logout } from '../screens'
 import BoardingScreen  from '../screens/BoardingScreen';
 import Register  from '../screens/Register';
@@ -29,7 +29,7 @@ import Venue from '../screens/Venue/Venue';
 import Organisers from '../screens/Organisers/Organisers';
 import Sponsor from '../screens/Sponsor/Sponsor';
 import SponsorDetails from '../screens/SponsorDetails/SponsorDetails';
-import MyPrograms from '../screens/MyPrograms/MyProgramss';
+import MyPrograms from '../screens/MyPrograms/MyPrograms';
 const AuthStack = createStackNavigator({ 
 
   BoardingScreen: {
@@ -86,12 +86,6 @@ const AuthStack = createStackNavigator({
     }
   }, 
 
-  OnboardingProfile: {
-    screen: OnboardingProfile,
-    navigationOptions: {
-      header: null,
-    }
-  },
   ResetPassword: {
     screen: ResetPassword,
     navigationOptions: {
@@ -104,22 +98,9 @@ const AuthStack = createStackNavigator({
       header : null,
     }
   },
-
-  DashBoard : {
-    screen : DashBoard,
-    navigationOptions : {
-      header : null,
-    }
-  },
 });
 
 export const OnBoardingStack = createStackNavigator({ 
-  DashBoard : {
-    screen : DashBoard,
-    navigationOptions : {
-      header : null,
-    }
-  },
 
   OnboardingProfile : {
     screen : OnboardingProfile,
@@ -157,7 +138,90 @@ export const OnBoardingStack = createStackNavigator({
   {
     mode: 'modal',
     cardStyle: {paddingTop: StatusBar.currentHeight}, //Setting the tb to go under the sb
-    headerMode: 'none'
+    headerMode: 'none',
+    transitionConfig: ()=>({
+      transitionSpec: {
+        duration: 750,
+        easing: Easing.out(Easing.poly(4)),
+        timing: Animated.timing,
+        useNativeDriver: true,
+      },
+      screenInterpolator : sceneProps => {
+        const { position, layout, scene, index, scenes } = sceneProps
+  
+        const thisSceneIndex = scene.index
+        const height = layout.initHeight
+        const width = layout.initWidth
+  
+        // We can access our navigation params on the scene's 'route' property
+        var thisSceneParams = scene.route.params || {}
+  
+        const translateX = position.interpolate({
+          inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+          outputRange: [width, 0, 0]
+        })
+  
+        const translateY = position.interpolate({
+          inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+          outputRange: [height, 0, 0]
+        })
+  
+        const opacity = position.interpolate({
+          inputRange: [thisSceneIndex - 1, thisSceneIndex - 0.5, thisSceneIndex],
+          outputRange: [0, 1, 1],
+        })
+  
+        const scale = position.interpolate({
+          inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+          outputRange: [4, 1, 1]
+        })
+  
+        const slideFromRight = { transform: [{ translateX }] }
+        const scaleWithOpacity = { opacity, transform: [{ scaleX: scale }, { scaleY: scale }] }
+        const slideInFromBottom = { transform: [{ translateY }] }
+  
+        if (thisSceneParams.plain) return slideInFromBottom  //slideFromRight
+        else if (index < 3) return slideFromRight   //slideInFromBottom
+        else return scaleWithOpacity
+      }
+      // screenInterpolator: sceneProps => {
+      //     const { position, layout, scene, index, scenes } = sceneProps
+      //     const toIndex = index
+      //     const thisSceneIndex = scene.index
+      //     const height = layout.initHeight
+      //     const width = layout.initWidth
+    
+      //     const translateX = position.interpolate({
+      //       inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+      //       outputRange: [width, 0, 0]
+      //     })
+    
+      //     // Since we want the card to take the same amount of time
+      //     // to animate downwards no matter if it's 3rd on the stack
+      //     // or 53rd, we interpolate over the entire range from 0 - thisSceneIndex
+      //     const translateY = position.interpolate({
+      //       inputRange: [0, thisSceneIndex],
+      //       outputRange: [height, 0]
+      //     })
+    
+      //     const slideFromRight = { transform: [{ translateX }] }
+      //     const slideFromBottom = { transform: [{ translateY }] }
+    
+      //     const lastSceneIndex = scenes[scenes.length - 1].index
+    
+      //     // Test whether we're skipping back more than one screen
+      //     if (lastSceneIndex - toIndex > 1) {
+      //       // Do not transoform the screen being navigated to
+      //       if (scene.index === toIndex) return
+      //       // Hide all screens in between
+      //       if (scene.index !== lastSceneIndex) return { opacity: 0 }
+      //       // Slide top screen down
+      //       return slideFromBottom
+      //     }  
+      //     return slideFromRight
+      //   },
+      
+    })
   });
   export const MenuStack = createStackNavigator({
   
@@ -244,13 +308,7 @@ export const OnBoardingStack = createStackNavigator({
       navigationOptions : {
         header : null,
       }
-    },
-    // Filter : {
-    //   screen : Filter,
-    //   navigationOptions : {
-    //     header : null,
-    //   }
-    // },
+    }
     
   },
   {
@@ -271,4 +329,3 @@ const AppSwitchNavigator = createSwitchNavigator({
 );
 
 export default createAppContainer(AppSwitchNavigator);
-

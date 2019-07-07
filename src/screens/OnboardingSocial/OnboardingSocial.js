@@ -198,11 +198,6 @@ class OnboardingSocial extends Component {
     );
   }
 
-
-
-
- 
-
   handleSubmitButton =async()=> {
 
     const {phone, website, facebook, twitter, linkedIn, instagram,  facebook_visible,

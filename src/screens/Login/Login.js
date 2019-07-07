@@ -208,8 +208,7 @@ class Login extends Component {
             this.setState({ 
               showLoading : false, 
             });
-            // return this.resetNavigationStack('DashBoard');    
-            return this.resetNavigationStack('OnboardingProfile');    
+            return this.props.navigation.navigate('OnBoard') ; 
 
           }
          
@@ -343,33 +342,7 @@ class Login extends Component {
                   styles = {styles.forgotPwd}
                   onPress = {this.handleForgetPassword}/>
               </View>
-              {/* <View style = { styles.signWithView}>
-                <DisplayText
-                  text={'Or Sign up with?'}
-                  styles = {styles.signupWith}
-                  onPress = {this.handleForgetPassword}/>
-                <View style = {styles.socialIconView}>
-                  <TouchableOpacity
-                    onPress={this.handleFaceBookLogin}>
-                    <Image
-                      onPress={this.handleFaceBookLogin}
-                      source={require('../../assets/images/linkedin.png')}
-                      style={StyleSheet.flatten(styles.socialIcons)}/> 
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={this.handleFaceBookLogin}>
-                    <Image
-                      onPress={this.handleFaceBookLogin}
-                      source={require('../../assets/images/twitter.png')}
-                      style={StyleSheet.flatten(styles.socialIcons)}/> 
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../../assets/images/facebook.png')}
-                      style={StyleSheet.flatten(styles.socialIcons)}/> 
-                  </TouchableOpacity>
-                </View>
-              </View> */}
+             
             </View>
             <Toast
               ref="toast"

@@ -166,7 +166,7 @@ class OnboardingBio extends Component {
       <View style = {styles.navBar}>
         <TouchableOpacity
           style = {styles.headerImage}
-          onPress={()=>this.props.navigation.navigate('OnboardingProfile')}
+          onPress={()=>this.props.navigation.goBack()}
           >
           <Image
             source = {require('../../assets/images/back.png')}

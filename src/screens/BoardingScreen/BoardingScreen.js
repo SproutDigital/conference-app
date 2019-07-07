@@ -162,13 +162,14 @@ const slides = [
       });
 
       if(isVerified == true && completed) {
-        return this.resetNavigationStack('DashBoard');
+        return this.props.navigation.navigate('Menu');
       }
       else if(isVerified == false){
         return this.resetNavigationStack('Verification');
       }
       else {
-        return this.resetNavigationStack('OnboardingProfile');
+        return this.props.navigation.navigate('OnBoard');
+        //return this.resetNavigationStack('OnboardingProfile');
       }
     }
     else {
