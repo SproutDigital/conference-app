@@ -51,8 +51,6 @@ class OnboardingSocial extends Component {
 
       _id: '',
       token: '',
-
-
     }
   }
   componentWillMount () {
@@ -199,12 +197,10 @@ class OnboardingSocial extends Component {
 
   handleSubmitButton =async()=> {
 
-    const {phone, website, facebook, twitter, linkedIn, instagram,  facebook_visible,
+    const {phone, website, facebook, twitter, linkedin, instagram,  facebook_visible,
       twitter_visible, linkedin_visible, instagram_visible,  _id, token} = this.state;
 
       const {profile} = this.props; 
-      //let result = Object.assign(profile[0], profile[1]);
-
       let title = profile.title || null,
         name = profile.name,
         job_title = profile.job_title,
@@ -228,7 +224,7 @@ class OnboardingSocial extends Component {
     let body = await JSON.stringify({
       'query':{_id},
       'update' : {title, name, job_title, company_name, gender, country, short_bio, interest, 
-        phone, website, facebook, twitter, linkedIn, instagram, facebook_visible, twitter_visible, 
+        phone, website, facebook, twitter, linkedin, instagram, facebook_visible, twitter_visible, 
         linkedin_visible, instagram_visible,}   
     });
 

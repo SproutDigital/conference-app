@@ -51,6 +51,7 @@ import { addProfile } from '../../redux/actions/profileActions';
     //logout();
      let asyncProfile = await getProfile();  
     const {profile} = this.props;
+    console.log('hhhhh',profile.profile.title)
       try {
         await this.setState({
           'token':asyncProfile.sessionToken,

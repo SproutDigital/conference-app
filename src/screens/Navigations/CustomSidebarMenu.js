@@ -1,10 +1,12 @@
 'use strict';
 import React, { Component } from 'react';
-import { View, SafeAreaView, Image, Text } from 'react-native';
+import { View, SafeAreaView, Image, Text, StyleSheet } from 'react-native';
 import colors from '../../assets/colors';
 import styles from './styles';
 import theme from '../../assets/theme';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import {DisplayText } from '../../components';
+
 
 
 const dashboard = require('../../assets/images/home.png'),
@@ -45,22 +47,41 @@ const dashboard = require('../../assets/images/home.png'),
       
     ];
   }
+
+  displayProfileImage = () =>{
+    if(typeof this.props.profile.photo !==  'undefined') {
+      return (<Image
+        source = {{uri: this.props.profile.photo}}
+        style={styles.sideMenuProfileIcon}
+      />);
+      }
+    else if(typeof this.props.profile.profile.photo !==  'undefined')  {
+      return (<Image
+        source = {{uri: this.props.profile.profile.photo}}
+        style={styles.sideMenuProfileIcon}
+      />);
+    }
+    else {
+      return (<Image
+        source = {require('../../assets/images/sample_pics.png')}
+        style={styles.sideMenuProfileIcon}
+      />);
+    } 
+  }
   render() {
     return (
       <SafeAreaView style={styles.sideMenuContainer}>
         {/*Top Large Image */}
         <View style = {styles.drawerImageView}>
-          <Image
-            source = {require('../../assets/images/sample_pics.png')}
-            style={styles.sideMenuProfileIcon}
-          />
+            {this.displayProfileImage()}
           <View style = {styles.userDetailView}>
-            <Text style = {styles.txtuser}>
-              Mr Ciroma Hassan
-            </Text>
-            <Text style = {styles.txtuser}>
+            <DisplayText
+              text={`${this.props.profile.title} ${this.props.profile.name}`}
+              styles = {StyleSheet.flatten(styles.txtuser)}
+            />
+            {/* <Text style = {styles.txtuser}>
               Speaker
-            </Text>
+            </Text> */}
           </View>
         </View>
         {/*Divider between Top Image and Sidebar Option*/}
@@ -109,11 +130,8 @@ const dashboard = require('../../assets/images/home.png'),
 }
 
 const mapStateToProps = (state, ownProps) =>{
-  return{
-    
+  return { 
     profile: state.profileReducer.profile,
-    //userProfile: state.loginReducer.profile
-
   }
 }
 
