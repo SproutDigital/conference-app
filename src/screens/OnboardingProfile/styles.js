@@ -3,6 +3,7 @@ const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
 import Constants from 'expo-constants'
+import { Platform } from '@aws-amplify/core';
 
 export default styles = StyleSheet.create({
   container: {
@@ -106,11 +107,11 @@ export default styles = StyleSheet.create({
     fontSize : theme.MediumFont
   },
   userCathegoryView : {
-    height : 30,
+    height : 50,
     color : theme.primaryTextColor,
     fontFamily : theme.subHeaderFont,
-    backgroundColor : theme.colorAccent,
-    marginBottom : 8
+    // backgroundColor : theme.colorAccent,
+    // marginBottom : 8
 
     // width: 200,
     // backgroundColor: '#FFF0E0',
@@ -187,8 +188,8 @@ export default styles = StyleSheet.create({
     height : 50,
     width : '100%',
     flexDirection : 'column',
-    borderBottomWidth : 0.5,
-    borderBottomColor: theme.secondaryTextColor,
+    // borderBottomWidth : 0.5,
+    // borderBottomColor: theme.secondaryTextColor,
     // paddingTop : 4,
     // paddingBottom : 4,
     marginTop : 16,
@@ -197,7 +198,13 @@ export default styles = StyleSheet.create({
     fontSize :theme.SmallFont,
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont,
+    marginTop : (Platform.OS === 'ios') ? 20 : 2
     
+  },
+  titleText2 : {
+    fontSize :theme.SmallFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont,    
   },
   pickerLabel : {
     fontSize :theme.SmallFont,
@@ -237,7 +244,7 @@ export default styles = StyleSheet.create({
     flexDirection : 'column',
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
-    marginTop : 4,
+    paddingTop : (Platform.OS === 'ios') ? 30:8,
   },
   buttonView :{
     flexDirection : 'row',

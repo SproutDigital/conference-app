@@ -241,9 +241,7 @@ import { addProfile } from '../../redux/actions/profileActions';
     const {showLoading, name_title, title, message, showAlert, name, photo, job_title, isNameFocused, isJobTitleFocused} = this.state;
    return(
     <SafeAreaView style={styles.container}> 
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={theme.colorAccent}/>
+      <StatusBar barStyle="default" /> 
       <View style = {styles.navBar}>
         <TouchableOpacity
           style = {styles.headerImage}>
@@ -283,20 +281,17 @@ import { addProfile } from '../../redux/actions/profileActions';
           
           <TouchableOpacity 
             style = { styles.cameraTouch}
-            onPress={this._pickImage}
-          >
+            onPress={this._pickImage}>
             <Image
               onPress={this._pickImage}
               source = {require('../../assets/images/camera.png')}
               style = {StyleSheet.flatten(styles.cameraIcon)}
             />
-        </TouchableOpacity>
+          </TouchableOpacity>
         </View>
-        <DisplayText
-          styles={StyleSheet.flatten(styles.profileNameTxt)}
-          text = {name}
-        />
-        
+          <DisplayText
+            styles={StyleSheet.flatten(styles.profileNameTxt)}
+            text = {name}/>
           <View style = {styles.titleView}>
             <DisplayText
               styles={StyleSheet.flatten(styles.pickerLabel)}
@@ -307,6 +302,7 @@ import { addProfile } from '../../redux/actions/profileActions';
               
                 <Picker
                   selectedValue={name_title}
+                  itemStyle={{ height: 50, width: '100%', }}
                   style={styles.userCathegoryView}
                   onValueChange={name_title => this.setState({ name_title })}>
                   <Picker.Item  label="Mr." value="Mr." />
@@ -316,13 +312,12 @@ import { addProfile } from '../../redux/actions/profileActions';
                 </Picker>
               </View>
               
-              <TouchableOpacity>
+              {/* <TouchableOpacity>
                 <Image
                   source = {require('../../assets/images/edit.png')}
                   style = {StyleSheet.flatten(styles.penIcon)}/>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
-            
           </View>
           {/* Name TextInput */}
           <View style = {[styles.nameInputView, { 
@@ -371,7 +366,7 @@ import { addProfile } from '../../redux/actions/profileActions';
             :theme.secondaryTextColor,
               }]}>
             <DisplayText
-              styles={StyleSheet.flatten(styles.titleText)}
+              styles={StyleSheet.flatten(styles.titleText2)}
               text = {'Job Title'}
             />
             <View style = {{flexDirection : 'row', width : '90%'}}>
