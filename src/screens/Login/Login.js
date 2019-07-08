@@ -12,7 +12,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
 import CheckBox from 'react-native-check-box';
 import {connect} from 'react-redux';
-import { login } from '../../redux/actions/loginActions';
+import { addProfile } from '../../redux/actions/profileActions';
 
 
 
@@ -191,8 +191,6 @@ class Login extends Component {
 
      await sendRoute (LoginEndpoint, data)
       .then((res) => {
-
-       
         this.props.setProfile(res.payload);
         if(typeof res.status == 'undefined') {
          
@@ -380,7 +378,7 @@ const mapStateToProps = (state, ownProps) =>{
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-      setProfile: (data) =>{dispatch(login(data))},
+      setProfile: (data) =>{dispatch(addProfile(data))},
   }
 }
 

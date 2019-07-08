@@ -404,7 +404,7 @@ class OnboardingBio extends Component {
 
 const mapStateToProps = (state, ownProps) =>{
   return  {
-    profile: state.loginReducer.profile
+    profile: state.profileReducer.profile
 
   }
 }

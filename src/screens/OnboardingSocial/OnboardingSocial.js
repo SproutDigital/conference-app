@@ -49,7 +49,6 @@ class OnboardingSocial extends Component {
       instagram:'',
       phone :'',
 
-
       _id: '',
       token: '',
 
@@ -58,8 +57,8 @@ class OnboardingSocial extends Component {
   }
   componentWillMount () {
     // Default render of country flag
-    const {userProfile} = this.props; 
-    const defaultFlag =  data.filter(obj => obj.name === userProfile.profile.country ? userProfile.profile.country: 'Afghanistan')[0].flag;
+    const {profile} = this.props; 
+    const defaultFlag =  data.filter(obj => obj.name === profile.profile.country ? profile.profile.country: 'Afghanistan')[0].flag;
     this.setState({
       flag :defaultFlag,
     })
@@ -69,22 +68,22 @@ class OnboardingSocial extends Component {
 
   async componentDidMount(){
     let asyncProfile = await getProfile();  
-    const {userProfile} = this.props; 
+    const {profile} = this.props; 
     
     try {
       return await this.setState({
         '_id' : asyncProfile.id,
         'token' : asyncProfile.sessionToken,
-        'website': userProfile.profile.website,
-        'facebook':userProfile.profile.facebook,
-        'twitter': userProfile.profile.twitter,
-        'linkedin': userProfile.profile.linkedin,
-        'instagram': userProfile.profile.instagram,
-        'facebook_visible' : userProfile.profile.facebook_visible,
-        'twitter_visible' : userProfile.profile.twitter_visible,
-        'linkedin_visible' : userProfile.profile.linkedin_visible,
-        'instagram_visible ': userProfile.profile.instagram_visible,
-        'phone':  userProfile.profile.phone
+        'website': profile.profile.website,
+        'facebook':profile.profile.facebook,
+        'twitter': profile.profile.twitter,
+        'linkedin': profile.profile.linkedin,
+        'instagram': profile.profile.instagram,
+        'facebook_visible' : profile.profile.facebook_visible,
+        'twitter_visible' : profile.profile.twitter_visible,
+        'linkedin_visible' : profile.profile.linkedin_visible,
+        'instagram_visible ': profile.profile.instagram_visible,
+        'phone':  profile.profile.phone
   
       })
     }
@@ -204,16 +203,16 @@ class OnboardingSocial extends Component {
       twitter_visible, linkedin_visible, instagram_visible,  _id, token} = this.state;
 
       const {profile} = this.props; 
-      let result = Object.assign(profile[0], profile[1]);
+      //let result = Object.assign(profile[0], profile[1]);
 
-      let title = result.title || null,
-        name = result.name,
-        job_title = result.job_title,
-        gender = result.gender,
-        company_name = result.company_name,
-        country = result.country,
-        short_bio = result.short_bio,
-        interest = result.interest;
+      let title = profile.title || null,
+        name = profile.name,
+        job_title = profile.job_title,
+        gender = profile.gender,
+        company_name = profile.company_name,
+        country = profile.country,
+        short_bio = profile.short_bio,
+        interest = profile.interest;
 
     if(isEmpty(phone)) {
       return this.setState({
@@ -709,9 +708,10 @@ class OnboardingSocial extends Component {
 
 const mapStateToProps = (state, ownProps) =>{
   return{
-    
+     //this profile is updated when a new user fills the onboarding form
     profile: state.profileReducer.profile,
-    userProfile: state.loginReducer.profile
+   // this is used to store user payload upon login
+    //profile: state.loginReducer.profile
 
   }
 }
