@@ -49,17 +49,23 @@ import { addProfile } from '../../redux/actions/profileActions';
 
   async componentDidMount(){
     //logout();
-    // let profile = await getProfile();  
+     let asyncProfile = await getProfile();  
     const {profile} = this.props;
       try {
         await this.setState({
+          'token':asyncProfile.sessionToken,
           '_id' : profile.id,
           'name': profile.name,
           'name_title': profile.profile.title,
-          'job_title': profile.profile.job_title
+          'job_title': profile.profile.job_title,
+          'photo': profile.profile.photo
         })
       }
       catch(e){
+        await this.setState({
+          'token':asyncProfile.sessionToken,
+          '_id' : asyncProfile.id
+        })
 
     }
      
@@ -101,6 +107,7 @@ import { addProfile } from '../../redux/actions/profileActions';
         uploadResponse = await this.uploadImageAsync(pickerResult); 
       }
     } catch (e) {
+      console.log({'e..': e})
       this.setState({
         showAlert: true,
         message: 'Oops Something Went Wrong',
@@ -130,6 +137,7 @@ import { addProfile } from '../../redux/actions/profileActions';
     
      await sendRoute (ImageUploadEndpoint, data)
       .then((res) => {
+        console.log({'upload to s3 ': res})
         this.setState({ 
           showLoading : false, 
         });
@@ -159,15 +167,19 @@ import { addProfile } from '../../redux/actions/profileActions';
 
     await putRoute (ProfileUpdateEndpoint, data, token)
       .then((res) => {
+        console.log({'upload uri ': res})
         this.setState({ 
           showLoading : false, 
         });
 
         if(res.status == 'success') {
+          let data = {'photo':res.data.photo};
           this.setState({ 
             showLoading : false, 
             photo:res.data.photo,
           });
+         return this.props.setProfile(data);
+
         } 
         else {
           this.setState({ 
@@ -199,7 +211,6 @@ import { addProfile } from '../../redux/actions/profileActions';
     let data = await {
       title: name_title, name, job_title  
     };
-
     this.props.setProfile(data);
     this.props.navigation.navigate('OnboardingBio');
   }
@@ -441,7 +452,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
 const mapStateToProps = (state, ownProps) =>{
   return{
-    profile: state.loginReducer.profile
+    profile: state.profileReducer.profile
   }
 }
 

@@ -1,10 +1,11 @@
 'use strict';
 import React, { Component } from 'react';
-import { View, StyleSheet, SafeAreaView, Image, Text } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { View, SafeAreaView, Image, Text } from 'react-native';
 import colors from '../../assets/colors';
 import styles from './styles';
 import theme from '../../assets/theme';
+import {connect} from 'react-redux'
+
 
 const dashboard = require('../../assets/images/home.png'),
  profile = require('../../assets/images/profile.png'),
@@ -12,7 +13,7 @@ const dashboard = require('../../assets/images/home.png'),
  settings = require('../../assets/images/setting.png'),
  logout = require('../../assets/images/logout.png');
 
-export default class CustomSidebarMenu extends Component {
+ class CustomSidebarMenu extends Component {
   constructor() {
     super();
     this.items = [
@@ -106,3 +107,14 @@ export default class CustomSidebarMenu extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) =>{
+  return{
+    
+    profile: state.profileReducer.profile,
+    //userProfile: state.loginReducer.profile
+
+  }
+}
+
+export default connect(mapStateToProps)(CustomSidebarMenu)

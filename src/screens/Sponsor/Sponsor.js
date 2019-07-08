@@ -18,7 +18,7 @@ export default class Sponsor extends Component {
   }
   
   handleGoBack = () => {
-    return this.props.navigation.popToTop();
+    return this.props.navigation.goBack();
   }
   handleViewSponser = () => {
     return this.props.navigation.navigate('SponsorDetails');

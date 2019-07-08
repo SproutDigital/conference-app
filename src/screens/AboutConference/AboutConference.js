@@ -18,7 +18,7 @@ class AboutConference extends Component {
   }
   
   handleGoBack = () => {
-    return this.props.navigation.popToTop();
+    return this.props.navigation.goBack();
   }
 
   render () {

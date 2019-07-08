@@ -16,24 +16,10 @@ export default class Profile extends Component {
   }
   componentDidMount(){
     setTimeout(() => {
-      this.resetNavigationStack();
+      this.props.navigation.navigate('Menu');
     }, 2000);
     // logout();
   }
-
-  resetNavigationStack = () => {
-    const navigateAction =  StackActions.reset({
-       index: 0,
-       actions: [
-         NavigationActions.navigate({
-           routeName: 'DashBoard',
-         }),
-       ],
-     });
-     this.props.navigation.dispatch(navigateAction);
- 
-   }
-
 
   render () {
    return(
