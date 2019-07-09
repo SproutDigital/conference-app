@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { saveExpoToken, logout, getOnBoardingStatus, getVerification, getProfile} from '../../utils';
+import { saveExpoToken, logout, post, FetchProfileEndpoint, getOnBoardingStatus, getVerification, getProfile} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
@@ -11,6 +11,8 @@ import  {Notifications} from 'expo';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
+import {connect} from 'react-redux';
+import { addProfile } from '../../redux/actions/profileActions';
 
 const slides = [
   {
@@ -37,7 +39,7 @@ const slides = [
 ];
 
 
- export default class BoardingScreen extends Component {
+ class BoardingScreen extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -47,7 +49,11 @@ const slides = [
   }
 
    async componentWillMount(){
+<<<<<<< HEAD
   //  logout();
+=======
+   //logout();
+>>>>>>> 0a7d28b2fd56675e47e3ac284b3a0bae8b029882
   // console.log({'he':new Date()})
     this.checkLogin();
   }
@@ -155,22 +161,8 @@ const slides = [
     let profile = await getProfile();
     let isVerified = await getVerification();
     let completed = await getOnBoardingStatus();
-
     if(profile.sessionToken) {
-      this.setState({
-        restoring : false,
-      });
-
-      if(isVerified == true && completed) {
-        return this.props.navigation.navigate('Menu');
-      }
-      else if(isVerified == false){
-        return this.resetNavigationStack('Verification');
-      }
-      else {
-        return this.props.navigation.navigate('OnBoard');
-        //return this.resetNavigationStack('OnboardingProfile');
-      }
+      this.fetchProfile(profile.sessionToken, profile.id, isVerified, completed);
     }
     else {
       this.setState({
@@ -186,6 +178,48 @@ const slides = [
   handleRegistration = () => {
     return this.props.navigation.navigate('Register');
   };
+
+  fetchProfile =async(token, _id, isVerified, completed)=>{
+ 
+   let data = await JSON.stringify({
+     'query':{_id},
+   });
+
+   await post (FetchProfileEndpoint, data, token)
+     .then((res) => {
+       if(res.status == 'success') {
+        this.props.setProfile(res.data[0]);
+        if(isVerified == true && completed) {
+          this.setState({
+            restoring : false,
+          });
+          return this.props.navigation.navigate('Menu');
+        }
+        else if(isVerified == false){
+          this.setState({
+            restoring : false,
+          });
+          return this.resetNavigationStack('Verification');
+        }
+        else {
+          this.setState({
+            restoring : false,
+          });
+          return this.props.navigation.navigate('OnBoard');
+
+        }
+
+       } 
+       else {
+         this.setState({ 
+          showLoading : false, 
+          message: res.message,
+          showAlert: true,
+          title: 'Hello'
+        });
+      }
+     });
+ }
 
   render () {
     
@@ -221,6 +255,21 @@ const slides = [
   } 
    
 } 
+
+const mapStateToProps = (state, ownProps) =>{
+  return{
+    profile: state.profileReducer.profile
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+      setProfile: (data) =>{dispatch(addProfile(data))},
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BoardingScreen)
+
 
 
 

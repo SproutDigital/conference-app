@@ -51,14 +51,12 @@ class OnboardingSocial extends Component {
 
       _id: '',
       token: '',
-
-
     }
   }
   componentWillMount () {
     // Default render of country flag
     const {profile} = this.props; 
-    const defaultFlag =  data.filter(obj => obj.name === profile.profile.country ? profile.profile.country: 'Afghanistan')[0].flag;
+    const defaultFlag =  data.filter(obj => obj.name === profile.country ? profile.country: 'Afghanistan')[0].flag;
     this.setState({
       flag :defaultFlag,
     })
@@ -74,16 +72,16 @@ class OnboardingSocial extends Component {
       return await this.setState({
         '_id' : asyncProfile.id,
         'token' : asyncProfile.sessionToken,
-        'website': profile.profile.website,
-        'facebook':profile.profile.facebook,
-        'twitter': profile.profile.twitter,
-        'linkedin': profile.profile.linkedin,
-        'instagram': profile.profile.instagram,
-        'facebook_visible' : profile.profile.facebook_visible,
-        'twitter_visible' : profile.profile.twitter_visible,
-        'linkedin_visible' : profile.profile.linkedin_visible,
-        'instagram_visible ': profile.profile.instagram_visible,
-        'phone':  profile.profile.phone
+        'website': profile.website,
+        'facebook':profile.facebook,
+        'twitter': profile.twitter,
+        'linkedin': profile.linkedin,
+        'instagram': profile.instagram,
+        'facebook_visible' : profile.facebook_visible,
+        'twitter_visible' : profile.twitter_visible,
+        'linkedin_visible' : profile.linkedin_visible,
+        'instagram_visible ': profile.instagram_visible,
+        'phone':  profile.phone
   
       })
     }
@@ -199,12 +197,10 @@ class OnboardingSocial extends Component {
 
   handleSubmitButton =async()=> {
 
-    const {phone, website, facebook, twitter, linkedIn, instagram,  facebook_visible,
+    const {phone, website, facebook, twitter, linkedin, instagram,  facebook_visible,
       twitter_visible, linkedin_visible, instagram_visible,  _id, token} = this.state;
 
       const {profile} = this.props; 
-      //let result = Object.assign(profile[0], profile[1]);
-
       let title = profile.title || null,
         name = profile.name,
         job_title = profile.job_title,
@@ -228,7 +224,7 @@ class OnboardingSocial extends Component {
     let body = await JSON.stringify({
       'query':{_id},
       'update' : {title, name, job_title, company_name, gender, country, short_bio, interest, 
-        phone, website, facebook, twitter, linkedIn, instagram, facebook_visible, twitter_visible, 
+        phone, website, facebook, twitter, linkedin, instagram, facebook_visible, twitter_visible, 
         linkedin_visible, instagram_visible,}   
     });
 

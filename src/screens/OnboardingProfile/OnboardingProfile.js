@@ -5,7 +5,7 @@ import {DisplayText, InputField, SingleButtonAlert } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
-import {logout, isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
+import {isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
@@ -48,7 +48,6 @@ import { addProfile } from '../../redux/actions/profileActions';
   }
 
   async componentDidMount(){
-    //logout();
      let asyncProfile = await getProfile();  
     const {profile} = this.props;
       try {
@@ -56,9 +55,9 @@ import { addProfile } from '../../redux/actions/profileActions';
           'token':asyncProfile.sessionToken,
           '_id' : profile.id,
           'name': profile.name,
-          'name_title': profile.profile.title,
-          'job_title': profile.profile.job_title,
-          'photo': profile.profile.photo
+          'name_title': profile.title,
+          'job_title': profile.job_title,
+          'photo': profile.photo
         })
       }
       catch(e){
@@ -107,7 +106,6 @@ import { addProfile } from '../../redux/actions/profileActions';
         uploadResponse = await this.uploadImageAsync(pickerResult); 
       }
     } catch (e) {
-      console.log({'e..': e})
       this.setState({
         showAlert: true,
         message: 'Oops Something Went Wrong',
@@ -137,7 +135,6 @@ import { addProfile } from '../../redux/actions/profileActions';
     
      await sendRoute (ImageUploadEndpoint, data)
       .then((res) => {
-        console.log({'upload to s3 ': res})
         this.setState({ 
           showLoading : false, 
         });
@@ -167,7 +164,6 @@ import { addProfile } from '../../redux/actions/profileActions';
 
     await putRoute (ProfileUpdateEndpoint, data, token)
       .then((res) => {
-        console.log({'upload uri ': res})
         this.setState({ 
           showLoading : false, 
         });

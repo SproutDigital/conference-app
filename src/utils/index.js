@@ -10,7 +10,8 @@ const LoginEndpoint = `${Baseurl}user/login`,
     RequestNewTokenEndpoint = `${Baseurl}user/resendEmailCode`,
     ProfileUpdateEndpoint = `${Baseurl}profile/`,
     ImageUploadEndpoint = `${Baseurl}upload/`,
-    EventDetailsEndpoint = `${Baseurl}event/query`
+    EventDetailsEndpoint = `${Baseurl}event/query`,
+    FetchProfileEndpoint = `${Baseurl}profile/query`
 
 export {
     LoginEndpoint,
@@ -22,7 +23,8 @@ export {
     RequestNewTokenEndpoint,
     ProfileUpdateEndpoint,
     ImageUploadEndpoint,
-    EventDetailsEndpoint
+    EventDetailsEndpoint,
+    FetchProfileEndpoint
 }
 
 export const isEmailValid = (email) => {
