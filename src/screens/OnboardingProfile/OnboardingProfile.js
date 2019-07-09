@@ -254,13 +254,7 @@ import { addProfile } from '../../redux/actions/profileActions';
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
       <View style = {styles.navBar}>
-        <TouchableOpacity
-          style = {styles.headerImage}>
-          <Image
-            source = {require('../../assets/images/back.png')}
-            style = {StyleSheet.flatten(styles.headerIcon)}
-          />
-        </TouchableOpacity>
+       
         <View style = {styles.nameView}>
           <DisplayText
             text={'PROFILE'}
@@ -347,7 +341,7 @@ import { addProfile } from '../../redux/actions/profileActions';
                 keyboardType={'default'}
                 onChangeText = {this.handleNameChange}
                 autoCapitalize = "words"
-                height = {25}
+                height = {30}
                 width = {'100%'}
                 borderColor = {theme.colorAccent}
                 defaultValue = {name}
@@ -388,7 +382,7 @@ import { addProfile } from '../../redux/actions/profileActions';
                 keyboardType={'default'}
                 onChangeText = {this.handleJobTitleChange}
                 autoCapitalize = "words"
-                height = {25}
+                height = {30}
                 width = {'100%'}
                 returnKeyType = {"done"}
                 borderColor = {theme.colorAccent}

@@ -1,9 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
 import Constants from 'expo-constants'
-import { Platform } from '@aws-amplify/core';
 
 export default styles = StyleSheet.create({
   container: {
@@ -12,10 +11,11 @@ export default styles = StyleSheet.create({
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
-    height : 80,
+    height : (Platform.OS === 'ios') ? 30 : 60,
     backgroundColor : theme.toolBarColor,
     width : '100%',
     alignItems : 'center',
+    justifyContent: 'center',
     paddingBottom : 4,
     shadowColor : theme.secondaryTextColor,
     shadowOffset : { 
@@ -50,14 +50,12 @@ export default styles = StyleSheet.create({
   },
   nameView: {
     flexDirection: 'row',
-    width: '70%',
     justifyContent: 'center',
-    marginRight : 16,
+    // marginRight : 16,
   },
   txtHeader: {
     fontSize: 18,
     color: theme.primaryTextColor,
-    width : '100%'
   },
   //body view
   viewBody : {
