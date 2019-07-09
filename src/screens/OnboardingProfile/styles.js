@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
@@ -11,20 +11,21 @@ export default styles = StyleSheet.create({
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
-    height : 80,
+    height : (Platform.OS === 'ios') ? 50 : 60,
     backgroundColor : theme.toolBarColor,
     width : '100%',
     alignItems : 'center',
+    justifyContent: 'center',
     paddingBottom : 4,
-    shadowColor : theme.secondaryTextColor,
+    shadowColor : theme.primaryTextColor,
     shadowOffset : { 
       width : 0, 
-      height : 4 
+      height : 1
     },
-    shadowOpacity : 0.5,
-    shadowRadius : 2,
-    elevation : 3,  
-    paddingTop : Constants.statusBarHeight    
+    shadowOpacity : 0.26,
+    shadowRadius : 2.52,
+    elevation : 1,  
+    paddingTop : (Platform.OS === 'ios') ? 0 : Constants.statusBarHeight    
   },
   
   headerIcon: {
@@ -48,15 +49,14 @@ export default styles = StyleSheet.create({
     width: '100%'
   },
   nameView: {
-    flexDirection: 'row',
-    width: '70%',
+    flex : 1,
+    alignItems : 'center',
     justifyContent: 'center',
-    marginRight : 16,
+    marginRight : 8,
   },
   txtHeader: {
     fontSize: 18,
     color: theme.primaryTextColor,
-    width : '100%'
   },
   //body view
   viewBody : {
@@ -106,11 +106,11 @@ export default styles = StyleSheet.create({
     fontSize : theme.MediumFont
   },
   userCathegoryView : {
-    height : 30,
+    height : 50,
     color : theme.primaryTextColor,
     fontFamily : theme.subHeaderFont,
-    backgroundColor : theme.colorAccent,
-    marginBottom : 8
+    // backgroundColor : theme.colorAccent,
+    // marginBottom : 8
 
     // width: 200,
     // backgroundColor: '#FFF0E0',
@@ -155,17 +155,64 @@ export default styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1, 
-    justifyContent: 'center', 
     alignItems: 'center',
-    paddingTop: 80,
+    paddingTop: (Platform.OS === 'ios') ? '40%' :'40%',
+
   },
+  
+  formContainer : {
+    width : '100%',
+    flexDirection: 'column',
+    marginTop: (Platform.OS === 'ios') ? 16 : 4,
+    borderBottomWidth : 0.5,
+    borderBottomColor : theme.formBorderColor,
+  },
+  formHeaderTxt: {
+    fontSize :theme.MediumFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont
+  },
+  textBoder: {
+    backgroundColor : theme.colorAccent,
+    height: 40,
+    paddingLeft: 4,
+    width:'100%',
+    borderRadius : 4,
+    paddingRight : 8,
+    justifyContent : 'center',
+  },
+  viewTxtTitle : {
+    width : '100%',
+    flexDirection : 'row',
+    justifyContent : 'space-between',
+    alignItems : 'center'
+
+  },
+  titleText : {
+    fontFamily: theme.subHeaderFont,
+    color: theme.primaryTextColor,
+    fontSize: 16,
+
+  },
+
+  
   modalStyle: {
-    backgroundColor: colors.whiteShade, 
-    borderColor: colors.gray,
+    backgroundColor: theme.colorAccent, 
+    borderColor: theme.formBorderColor,
     height: '40%', 
     width: '90%',
-    padding: 16,  
-    borderRadius: 4
+    padding: 8,  
+    borderRadius: 4,
+    elevation : 4,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.26,
+    shadowOpacity : 0.25,
+    shadowOffset : { height : 2, width : 0},
+  },
+  titleText : {
+    fontSize :theme.MediumFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont
   },
   modalTxt:{
     fontSize: 18,
@@ -187,17 +234,29 @@ export default styles = StyleSheet.create({
     height : 50,
     width : '100%',
     flexDirection : 'column',
-    borderBottomWidth : 0.5,
-    borderBottomColor: theme.secondaryTextColor,
+    // borderBottomWidth : 0.5,
+    // borderBottomColor: theme.secondaryTextColor,
     // paddingTop : 4,
     // paddingBottom : 4,
     marginTop : 16,
   },  
   titleText : {
     fontSize :theme.SmallFont,
+    color : theme.primaryTextColor,
+    fontFamily : theme.subHeaderFont,
+    // marginTop : (Platform.OS === 'ios') ? 20 : 2
+    
+  },
+  nameText : {
+    fontSize :theme.SmallFont,
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont,
-    
+    marginTop : (Platform.OS === 'ios') ? 16 : 2
+  },
+  titleText2 : {
+    fontSize :theme.SmallFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont,    
   },
   pickerLabel : {
     fontSize :theme.SmallFont,
@@ -237,8 +296,18 @@ export default styles = StyleSheet.create({
     flexDirection : 'column',
     borderBottomWidth : 0.5,
     borderBottomColor: theme.secondaryTextColor,
-    marginTop : 4,
+    marginTop : (Platform.OS === 'ios') ? 20 : 2,
   },
+  titleInputView : {
+    width : '100%',
+    flexDirection : 'column',
+    borderBottomWidth : 0.5,
+    borderBottomColor: theme.secondaryTextColor,
+    // paddingTop : 4,
+    paddingBottom : 4,
+    marginTop : (Platform.OS === 'ios') ? 8 : 2,
+  },
+  
   buttonView :{
     flexDirection : 'row',
     marginTop : 60,

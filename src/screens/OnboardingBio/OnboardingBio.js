@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, FlatList, TextInput,KeyboardAvoidingView,Picker, Modal,
-   Text, TouchableWithoutFeedback, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
+   Text, TouchableWithoutFeedback, SafeAreaView, StatusBar, Image, TouchableHighlight, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
@@ -34,6 +34,8 @@ class OnboardingBio extends Component {
       _id:'',
       isShortBioFocused: false,
       isCompanyFocused:false,
+      modalGenderVisible: false,
+      isValidGender: false,
 
     }
   }
@@ -50,10 +52,31 @@ class OnboardingBio extends Component {
       }
       catch(e){
         await this.setState({
-          'gender' : 'male',
+          'gender' : 'Male',
        })
     }
   }
+  //set gender picker
+  setGenderPicker = (newValue) => {
+    this.setState({
+      gender: newValue,
+      isValidGender: true
+    });
+    this.closeGenderModal();
+  }
+
+  handleGender = () => {
+    this.toggleGenderModal(true);
+  };
+
+  toggleGenderModal = (visible) => {
+    this.setState({ modalGenderVisible : visible });
+  };
+
+  closeGenderModal = () => {
+    this.toggleGenderModal(!this.state.modalGenderVisible);
+  };
+
 
   handleCompanyStatus = () => {
     return this.setState(prevState => ({
@@ -158,11 +181,14 @@ class OnboardingBio extends Component {
     const {isCompanyFocused, isShortBioFocused, gender, title, message, 
       showAlert, showLoading, country, company_name, short_bio } = this.state;
 
+    const pickerGender = [
+      {title: 'Female', value: 'Female'},
+      {title: 'Male', value: 'Male'},
+    ];
+
    return(
     <SafeAreaView style={styles.container}> 
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={theme.colorAccent}/>
+      <StatusBar barStyle="default"/>
       <View style = {styles.navBar}>
         <TouchableOpacity
           style = {styles.headerImage}
@@ -187,7 +213,7 @@ class OnboardingBio extends Component {
             style={{flex:1,}}
             showsVerticalScrollIndicator={false}>
               {/* Gender modal selection */}
-            <View style = {styles.titleView}>
+            {/* <View style = {styles.titleView}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Gender'}
@@ -207,10 +233,57 @@ class OnboardingBio extends Component {
                   source = {require('../../assets/images/down_arrow.png')}
                   style = {StyleSheet.flatten(styles.downArrow)}
                 />
-            </View>
+              </View>
     
-        </View>
-        <View style = {styles.CountryView}>
+            </View> */}
+            <View style = {styles.formContainer}>
+                <DisplayText
+                  text={'Gender *'}
+                  styles = {styles.formHeaderTxt}
+                />
+                <TouchableOpacity 
+                  underlayColor={colors.white}
+                  onPress = {this.handleGender}
+                  style = {styles.textBoder}>
+                  <View style = {styles.viewTxtgender}>
+                    <Text style = {styles.genderText}>
+                      {this.state.gender}
+                    </Text>
+                    <Image
+                      source = {require('../../assets/images/down_arrow.png')}
+                      style = {StyleSheet.flatten(styles.downArrow)}
+                    />
+                  </View>
+                </TouchableOpacity>
+                
+              </View>
+              <Modal
+              animationType="slide"
+              transparent={true}
+              visible = {this.state.modalGenderVisible}
+              onRequestClose={() => {console.log('Request was closed')}}>
+              <View style={styles.modalContainer}> 
+                <View style={styles.modalStyle}>
+                  <ScrollView 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ padding: 16}}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                      <DisplayText
+                        style={styles.textHeaderStyle}
+                        text ={' Gender '} 
+                        />
+                        {pickerGender.map((value, index) => {
+                          return <TouchableHighlight key={index} onPress={() => this.setGenderPicker(value.value)}>
+                            <Text style={styles.modalTxt}>{value.title}</Text>
+                          </TouchableHighlight>;
+                        })
+                        }                    
+                      </View>
+                    </ScrollView>
+                  </View>
+                </View>
+              </Modal>
+          <View style = {styles.CountryView}>
           <DisplayText
             text={'Nationality'}
             styles = {styles.formHeaderTxt}
@@ -218,7 +291,7 @@ class OnboardingBio extends Component {
           <TouchableOpacity 
             underlayColor={colors.white}
             onPress={() => this.showNationalityModal()}
-            style = {styles.textBoder}>
+            style = {styles.textBoderNationality}>
             <View style = {styles.viewTxtNationality}>
               <Text style = {styles.inputTxt}>
                 {country}
@@ -347,7 +420,7 @@ class OnboardingBio extends Component {
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Interest'}
               />
-              <TouchableOpacity style = {{marginTop : 4}} onPress = {this.handleInterestStatus}>
+              <TouchableOpacity style = {styles.interestButton} onPress = {this.handleInterestStatus}>
                 <Image
                   onPress = {this.handleInterestStatus}
                   source = {require('../../assets/images/edit.png')}
@@ -379,7 +452,7 @@ class OnboardingBio extends Component {
               />
               <Image
                 onPress = {this.handleNextButton}
-                source = {require('../../assets/images/send_arrow.png')}
+                source = {require('../../assets/images/foward_arrow.png')}
                 style = {StyleSheet.flatten(styles.nextIcon)}
               />
             </TouchableOpacity>

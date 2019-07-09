@@ -1,11 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, Platform, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Picker, PickerIOS,Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import { View, Platform, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Text, Modal,TouchableHighlight,Image, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, InputField, SingleButtonAlert } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
-import {isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
+import {logout, isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
@@ -28,7 +28,9 @@ import { addProfile } from '../../redux/actions/profileActions';
       titleVisible : false,
       modalTitleVisible : false,
       showLoading: false,
-       title:'',
+      title:'',
+      modalTitleVisible: false,
+      isValidTitle: false,
       isNameValid: false,
       name : '',
       job_title : '',
@@ -48,6 +50,7 @@ import { addProfile } from '../../redux/actions/profileActions';
   }
 
   async componentDidMount(){
+    //logout();
      let asyncProfile = await getProfile();  
     const {profile} = this.props;
       try {
@@ -55,9 +58,9 @@ import { addProfile } from '../../redux/actions/profileActions';
           'token':asyncProfile.sessionToken,
           '_id' : profile.id,
           'name': profile.name,
-          'name_title': profile.title,
-          'job_title': profile.job_title,
-          'photo': profile.photo
+          'name_title': profile.profile.title,
+          'job_title': profile.profile.job_title,
+          'photo': profile.profile.photo
         })
       }
       catch(e){
@@ -106,6 +109,7 @@ import { addProfile } from '../../redux/actions/profileActions';
         uploadResponse = await this.uploadImageAsync(pickerResult); 
       }
     } catch (e) {
+      console.log({'e..': e})
       this.setState({
         showAlert: true,
         message: 'Oops Something Went Wrong',
@@ -135,6 +139,7 @@ import { addProfile } from '../../redux/actions/profileActions';
     
      await sendRoute (ImageUploadEndpoint, data)
       .then((res) => {
+        console.log({'upload to s3 ': res})
         this.setState({ 
           showLoading : false, 
         });
@@ -164,6 +169,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
     await putRoute (ProfileUpdateEndpoint, data, token)
       .then((res) => {
+        console.log({'upload uri ': res})
         this.setState({ 
           showLoading : false, 
         });
@@ -243,22 +249,46 @@ import { addProfile } from '../../redux/actions/profileActions';
     }
   }
 
+  setTitlePicker = (newValue) => {
+    this.setState({
+      name_title: newValue,
+      isValidTitle: true
+    });
+    this.closeTitleModal();
+  }
+
+  handleTitle = () => {
+    this.toggleTitleModal(true);
+  };
+
+  toggleTitleModal = (visible) => {
+    this.setState({ modalTitleVisible : visible });
+  };
+
+  closeTitleModal = () => {
+    this.toggleTitleModal(!this.state.modalTitleVisible);
+  };
+
+
 
   render () {
     const {showLoading, name_title, title, message, showAlert, name, photo, job_title, isNameFocused, isJobTitleFocused} = this.state;
+    const pickerTitle = [
+      {title: 'Mr', value: 'Mr'},
+      {title: 'Mrs', value: 'Mrs'},
+      {title: 'Dr', value: 'Dr'},
+      {title: 'Barr', value: 'Barr'},
+      {title: 'Prof', value: 'Prof'},
+      {title: 'Eng', value: 'Eng'},
+      {title: 'Miss', value: 'Miss'},
+      {title: 'Chief', value: 'Chief'},
+
+    ];
    return(
     <SafeAreaView style={styles.container}> 
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={theme.colorAccent}/>
+      <StatusBar barStyle="default" /> 
       <View style = {styles.navBar}>
-        <TouchableOpacity
-          style = {styles.headerImage}>
-          <Image
-            source = {require('../../assets/images/back.png')}
-            style = {StyleSheet.flatten(styles.headerIcon)}
-          />
-        </TouchableOpacity>
+       
         <View style = {styles.nameView}>
           <DisplayText
             text={'PROFILE'}
@@ -290,46 +320,65 @@ import { addProfile } from '../../redux/actions/profileActions';
           
           <TouchableOpacity 
             style = { styles.cameraTouch}
-            onPress={this._pickImage}
-          >
+            onPress={this._pickImage}>
             <Image
               onPress={this._pickImage}
               source = {require('../../assets/images/camera.png')}
               style = {StyleSheet.flatten(styles.cameraIcon)}
             />
-        </TouchableOpacity>
+          </TouchableOpacity>
         </View>
-        <DisplayText
-          styles={StyleSheet.flatten(styles.profileNameTxt)}
-          text = {name}
-        />
-        
+          <DisplayText
+            styles={StyleSheet.flatten(styles.profileNameTxt)}
+            text = {name}/>
           <View style = {styles.titleView}>
-            <DisplayText
-              styles={StyleSheet.flatten(styles.pickerLabel)}
-              text = {'Title'}
-            />
-            <View style = {styles.selectView}>
-              <View style={styles.pickerView}>
-              
-                <Picker
-                  selectedValue={name_title}
-                  style={styles.userCathegoryView}
-                  onValueChange={name_title => this.setState({ name_title })}>
-                  <Picker.Item  label="Mr." value="Mr." />
-                  <Picker.Item label="Mrs" value="Mrs" />
-                  <Picker.Item label="Dr." value="Dr." />
-                  <Picker.Item label="Chief" value="Chief" />
-                </Picker>
+            <View style = {styles.formContainer}>
+                <DisplayText
+                  text={'Gender *'}
+                  styles = {styles.formHeaderTxt}
+                />
+                <TouchableOpacity 
+                  underlayColor={colors.white}
+                  onPress = {this.handleTitle}
+                  style = {styles.textBoder}>
+                  <View style = {styles.viewTxtTitle}>
+                    <Text style = {styles.titleText}>
+                      {name_title}
+                    </Text>
+                    <Image
+                      source = {require('../../assets/images/down_arrow.png')}
+                      style = {StyleSheet.flatten(styles.downArrow)}
+                    />
+                  </View>
+                </TouchableOpacity>
+                
               </View>
-              
-              <TouchableOpacity>
-                <Image
-                  source = {require('../../assets/images/edit.png')}
-                  style = {StyleSheet.flatten(styles.penIcon)}/>
-              </TouchableOpacity>
-            </View>
-            
+              <Modal
+              animationType="slide"
+              transparent={true}
+              visible = {this.state.modalTitleVisible}
+              onRequestClose={() => {console.log('Request was closed')}}>
+              <View style={styles.modalContainer}> 
+                <View style={styles.modalStyle}>
+                  <ScrollView 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ padding: 16}}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                      <DisplayText
+                        style={styles.textHeaderStyle}
+                        text ={' Title '} 
+                        />
+                        {pickerTitle.map((value, index) => {
+                          return <TouchableHighlight key={index} onPress={() => this.setTitlePicker(value.value)}>
+                            <Text style={styles.modalTxt}>{value.title}</Text>
+                          </TouchableHighlight>;
+                        })
+                        }                    
+                      </View>
+                    </ScrollView>
+                  </View>
+                </View>
+              </Modal>
           </View>
           {/* Name TextInput */}
           <View style = {[styles.nameInputView, { 
@@ -337,7 +386,7 @@ import { addProfile } from '../../redux/actions/profileActions';
             :theme.secondaryTextColor,
               }]}>
             <DisplayText
-              styles={StyleSheet.flatten(styles.titleText)}
+              styles={StyleSheet.flatten(styles.nameText)}
               text = {'Name'}
             />
             <View style = {{flexDirection : 'row', width : '90%'}}>
@@ -348,7 +397,7 @@ import { addProfile } from '../../redux/actions/profileActions';
                 keyboardType={'default'}
                 onChangeText = {this.handleNameChange}
                 autoCapitalize = "words"
-                height = {25}
+                height = {30}
                 width = {'100%'}
                 borderColor = {theme.colorAccent}
                 defaultValue = {name}
@@ -373,12 +422,12 @@ import { addProfile } from '../../redux/actions/profileActions';
             </View>
 
           </View>
-          <View style = {[styles.nameInputView, { 
+          <View style = {[styles.titleInputView, { 
             borderBottomColor: isJobTitleFocused ? colors.green
             :theme.secondaryTextColor,
               }]}>
             <DisplayText
-              styles={StyleSheet.flatten(styles.titleText)}
+              styles={StyleSheet.flatten(styles.titleText2)}
               text = {'Job Title'}
             />
             <View style = {{flexDirection : 'row', width : '90%'}}>
@@ -389,7 +438,7 @@ import { addProfile } from '../../redux/actions/profileActions';
                 keyboardType={'default'}
                 onChangeText = {this.handleJobTitleChange}
                 autoCapitalize = "words"
-                height = {25}
+                height = {30}
                 width = {'100%'}
                 returnKeyType = {"done"}
                 borderColor = {theme.colorAccent}
@@ -426,7 +475,7 @@ import { addProfile } from '../../redux/actions/profileActions';
             />
             <Image
               onPress = {this.handleSubmitForm}
-              source = {require('../../assets/images/send_arrow.png')}
+              source = {require('../../assets/images/foward_arrow.png')}
               style = {StyleSheet.flatten(styles.nextIcon)}
             />
           </TouchableOpacity>

@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions,Platform } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
@@ -10,7 +10,7 @@ export default styles = StyleSheet.create({
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
-    height : 60,
+    height : (Platform.OS === 'ios') ? 40 : 60,
     backgroundColor: theme.toolBarColor,
     width: '100%',
     alignItems: 'center',
@@ -72,23 +72,10 @@ export default styles = StyleSheet.create({
   // Modal Style 
   modalview : {
     backgroundColor : colors.red,
-    justifyContent: 'center',
-    alignItems : 'center'
+    // justifyContent: 'center',
+    // alignItems : 'center'
   },
-  modalContainer: {
-    flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    paddingTop: 80,
-  },
-  modalStyle: {
-    backgroundColor: colors.whiteShade, 
-    borderColor: colors.gray,
-    height: '40%', 
-    width: '90%',
-    padding: 16,  
-    borderRadius: 4
-  },
+
   modalTxt:{
     fontSize: 18,
     color: theme.secondaryTextColor,
@@ -131,9 +118,9 @@ export default styles = StyleSheet.create({
     marginTop : 16,
   },  
   titleText : {
-    fontSize :theme.MediumFont,
-    color : theme.secondaryTextColor,
-    fontFamily : theme.inputHintFont
+    fontFamily: theme.subHeaderFont,
+    color: theme.primaryTextColor,
+    fontSize: theme.SmallFont,
   },
   //Nationality 
   CountryView : {
@@ -148,13 +135,7 @@ export default styles = StyleSheet.create({
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont
   },
-  textBoder: {
-    // height: 40,
-    width:'100%',
-    paddingTop : 4,
-    paddingBottom : 4,
-    justifyContent : 'center',
-  },
+  
   viewTxtNationality : {
     width : '100%',
     flexDirection : 'row',
@@ -196,8 +177,9 @@ export default styles = StyleSheet.create({
     borderBottomColor: theme.secondaryTextColor,
     // paddingTop : 4,
     paddingBottom : 4,
-    marginTop : 2,
+    marginTop : (Platform.OS === 'ios') ? 8 : 2,
   },
+  
   penIcon : {
     width : 16,
     height : 16,
@@ -208,7 +190,10 @@ export default styles = StyleSheet.create({
   },
   textInputStyles : {
     height : 65,
-    width : '100%'
+    width : '100%',
+    color : theme.primaryTextColor,
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.SmallFont,
   },
   interestView : {
     width : '100%',
@@ -218,6 +203,9 @@ export default styles = StyleSheet.create({
   interestHeader : {
     flexDirection : 'row',
     justifyContent : 'space-between',
+  },
+  interestButton : {
+    marginTop : 8
   },
   selectedInterest : {
     width : '100%',
@@ -230,15 +218,17 @@ export default styles = StyleSheet.create({
     height : 25,
     borderRadius : 15,
     width : '30%',
-    marginTop : 8
+    marginTop : 8,
+    justifyContent: 'center',
+    alignItems : 'center',
+    paddingTop : (Platform.OS === 'ios') ? 3 : 0
 
   },
   addMore : {
     width : '100%',
     textAlign : 'center',
     color : theme.colorAccent,
-    alignItems : 'center',
-    paddingTop : 2,
+    // alignItems : 'center',
     fontFamily : theme.subHeaderFont,
   },
   buttonView :{
@@ -280,6 +270,78 @@ export default styles = StyleSheet.create({
     fontFamily : theme.subHeaderFont,
     marginBottom : 8,
     fontSize : theme.SmallFont
+  },
+
+  formContainer : {
+    width : '100%',
+    flexDirection: 'column',
+    marginTop: (Platform.OS === 'ios') ? 16 : 4,
+    borderBottomWidth : 0.5,
+    borderBottomColor : theme.formBorderColor,
+  },
+  textBoder: {
+    backgroundColor : theme.colorAccent,
+    height: 40,
+    paddingLeft: 4,
+    width:'100%',
+    borderRadius : 4,
+    paddingRight : 8,
+    justifyContent : 'center',
+  },
+  textBoderNationality: {
+    backgroundColor : theme.colorAccent,
+    height: 40,
+    paddingLeft: 4,
+    width:'100%',
+    borderRadius : 4,
+    paddingRight : 8,
+    justifyContent : 'center',
+  },
+  viewTxtgender : {
+    width : '100%',
+    flexDirection : 'row',
+    justifyContent : 'space-between',
+
+  },
+  genderText : {
+    fontFamily: theme.subHeaderFont,
+    color: theme.primaryTextColor,
+    fontSize: 16,
+
+  },
+
+  modalContainer: {
+    flex: 1, 
+    alignItems: 'center',
+    paddingTop: (Platform.OS === 'ios') ? '35%' :'40%',
+
+  },
+  modalStyle: {
+    backgroundColor: theme.colorAccent, 
+    borderColor: theme.formBorderColor,
+    height: '40%', 
+    width: '90%',
+    padding: 8,  
+    borderRadius: 4,
+    elevation : 4,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.26,
+    shadowOpacity : 0.25,
+    shadowOffset : { height : 2, width : 0},
+  },
+  modalTxt:{
+    fontSize: 18,
+    color: theme.primaryTextColor,
+    marginTop: 4,
+    marginBottom: 4,
+    fontFamily: theme.subHeaderFont
+  },
+  textHeaderStyle: {
+    fontSize:  22,
+    fontFamily: theme.headerFont,
+    marginTop: 8,
+    color: colors.green
+
   },
   
 });
