@@ -283,7 +283,7 @@ class OnboardingBio extends Component {
                   </View>
                 </View>
               </Modal>
-        <View style = {styles.CountryView}>
+          <View style = {styles.CountryView}>
           <DisplayText
             text={'Nationality'}
             styles = {styles.formHeaderTxt}

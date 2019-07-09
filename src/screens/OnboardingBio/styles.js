@@ -118,9 +118,9 @@ export default styles = StyleSheet.create({
     marginTop : 16,
   },  
   titleText : {
-    fontSize :theme.MediumFont,
-    color : theme.secondaryTextColor,
-    fontFamily : theme.inputHintFont
+    fontFamily: theme.subHeaderFont,
+    color: theme.primaryTextColor,
+    fontSize: theme.SmallFont,
   },
   //Nationality 
   CountryView : {
@@ -179,6 +179,7 @@ export default styles = StyleSheet.create({
     paddingBottom : 4,
     marginTop : (Platform.OS === 'ios') ? 8 : 2,
   },
+  
   penIcon : {
     width : 16,
     height : 16,
