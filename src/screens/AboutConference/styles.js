@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
@@ -101,6 +101,22 @@ export default styles = StyleSheet.create({
     fontSize : theme.SmallerFont,
     color : theme.secondaryTextColor,
     textAlign : 'justify'
+  },
+
+
+  // item: {
+  //   width: screenWidth - 60,
+  //   height: screenWidth - 60,
+  // },
+  imageContainer: {
+    flex: 1,
+    marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
+    backgroundColor: 'white',
+    borderRadius: 8,
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'cover',
   },
 
 });

@@ -21,35 +21,11 @@ import Help from '../Help/Help';
 import Notification from '../Notification/Notification';
 import Profile from '../Profile/Profile';
 import Logout from '../Logout/Logout';
-import { post, EventDetailsEndpoint, getProfile} from '../../utils';
-import { setEventDetails } from '../../redux/actions/eventActions';
 
 import CustomSidebarMenu from './CustomSidebarMenu';
 
 class Navigations extends Component {
-
-
-  async componentDidMount () {
-    let profile = await getProfile();
-     await this.fetchEventDetails(profile.sessionToken);
-  }
-
-  fetchEventDetails = async(token) => {
-
-    let data = await JSON.stringify({
-      'query' :  {'_id' : '5d247376c8ce0900171f03d9'}, 
-    });
-
-     await post (EventDetailsEndpoint, data, token )
-      .then((res) => {
-        this.setState({
-          restoring:false,
-        })
-        this.props.setEventProfile(res.data)
-      });
-
-  }
-
+  
 
   //Structure for the navigatin Drawer
   toggleDrawer = () => {
@@ -243,19 +219,19 @@ const BottomTab = createBottomTabNavigator({
 
 const App = createAppContainer(BottomTab);
 
-//export default App;
+export default App;
 
 
-const mapStateToProps = (state, ownProps) =>{
-  return  {
-     // isLoggedIn: state.authreducer.isLoggedIn
-  }
-}
-
-const mapDispatchToProps = (dispatch) =>{
-  return{
-      setEventProfile: (data) =>{dispatch(setEventDetails(data))},
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+  //All the screen from the DashBoard will be indexed here
+//   First: {
+//     screen: DashBoard,
+//     navigationOptions: ({ navigation }) => ({
+//       title: 'Dashboard',
+//       headerLeft: <Navigations navigationProps={navigation} />,
+//       headerStyle: {
+//         backgroundColor: colors.green_background,
+//       },
+//       headerTintColor: '#fff',
+//     }),
+//   },
+// });

@@ -4,9 +4,16 @@ import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import { DrawerActions } from "react-navigation";
-import Carousel from 'react-native-carousel';
+import Carousel, { ParallaxImage, Pagination } from 'react-native-snap-carousel';
 import {connect} from 'react-redux';
+import { post, EventDetailsEndpoint, getProfile} from '../../utils';
+import { setEventDetails } from '../../redux/actions/eventActions';
 import theme from '../../assets/theme';
+import { sliderWidth, itemWidth } from '../../utils/SliderEntry.style';
+import SliderEntry from '../../utils/SliderEntry';
+
+const SLIDER_1_FIRST_ITEM = 1;
+
 
 
  class DashBoard extends Component {
@@ -17,8 +24,63 @@ import theme from '../../assets/theme';
       showAlert : false,
       message : '',
       restoring: true,
+      slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
+      data:{}
+
     }
   }
+
+   async componentDidMount () {
+    let profile = await getProfile();
+     await this.fetchEventDetails(profile.sessionToken);
+  }
+
+  _renderItemWithParallax ({item, index}, parallaxProps) {
+    return (
+        <SliderEntry
+          data={item}
+          even={(index + 1) % 2 === 0}
+          parallax={true}
+          parallaxProps={parallaxProps}
+        />
+    );
+  }
+
+
+  _renderItem ({item, index}, parallaxProps) {
+    return (
+        <View style={styles.item}>
+            <ParallaxImage
+                source={{ uri: item.thumbnail }}
+                containerStyle={styles.imageContainer}
+                style={styles.image}
+                parallaxFactor={0.4}
+                {...parallaxProps}
+            />
+            {/* <Text style={styles.title} numberOfLines={2}>
+                { item.title }
+            </Text> */}
+        </View>
+    );
+  }
+
+  fetchEventDetails = async(token) => {
+
+    let data = await JSON.stringify({
+      'query' :  {'_id' : '5d248d45c8ce0900171f03e2'}, 
+    });
+
+     await post (EventDetailsEndpoint, data, token )
+      .then((res) => {
+        this.setState({
+          restoring:false,
+          data:res.data[0]
+        })
+        this.props.setEventProfile(res.data)
+      });
+
+  }
+
   
   toggleDrawer = () => {
     //Props to open/close the drawer
@@ -37,11 +99,11 @@ import theme from '../../assets/theme';
   render () {
 
 
-    const {restoring } = this.state;
+    const {restoring, slider1ActiveSlide } = this.state;
     if(restoring) {
       return (
-        <View>
-
+        <View style={styles.container} >
+          <Text>loading page... message from Dashboard</Text>
         </View>
       );
     }
@@ -69,24 +131,38 @@ import theme from '../../assets/theme';
           </View>
           </View>
           <View style = {styles.sliderView}>
-            <Carousel 
-              indicatorAtBottom={true}
-              indicatorColor="#FFFFFF"
-              indicatorSize={20}
-              indicatorSpace={15}
-              indicatorText= '•'
-              delay={8000}
-              width={375}>
-              <View style={styles.slideCarosel}>
-                <Text>Page 1</Text>
-              </View>
-              <View style={styles.slideCarosel}>
-                <Text>Page 2</Text>
-              </View>
-              <View style={styles.slideCarosel}>
-                <Text>Page 3</Text>
-              </View>
-            </Carousel>
+            <Carousel
+              ref={c => this._slider1Ref = c}
+              data={this.state.data.header_image}
+              renderItem={this._renderItemWithParallax}
+              sliderWidth={sliderWidth}
+              itemWidth={itemWidth}
+              hasParallaxImages={true}
+              firstItem={SLIDER_1_FIRST_ITEM}
+              inactiveSlideScale={0.94}
+              inactiveSlideOpacity={0.7}
+              // inactiveSlideShift={20}
+              containerCustomStyle={styles.slider}
+              contentContainerCustomStyle={styles.sliderContentContainer}
+              loop={true}
+              loopClonesPerSide={2}
+              autoplay={true}
+              autoplayDelay={500}
+              autoplayInterval={3000}
+              onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
+            />
+            <Pagination
+              dotsLength={this.state.data.header_image.length}
+              activeDotIndex={slider1ActiveSlide}
+              containerStyle={styles.paginationContainer}
+              dotColor={'rgba(255, 255, 255, 0.92)'}
+              dotStyle={styles.paginationDot}
+              inactiveDotColor={theme.colorAccent}
+              inactiveDotOpacity={0.4}
+              inactiveDotScale={0.6}
+              carouselRef={this._slider1Ref}
+              tappableDots={!!this._slider1Ref}
+            />
           </View>
           <View style={styles.tileView}>
             <ScrollView 

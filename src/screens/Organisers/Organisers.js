@@ -1,12 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SubmitButton, SingleButtonAlert } from '../../components';
+import {DisplayText } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
-import { DrawerActions } from "react-navigation";
-import Carousel from 'react-native-carousel';
-import theme from '../../assets/theme';
+import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+//const { width: screenWidth } = Dimensions.get('window')
 
 
 export default class Organisers extends Component {
@@ -93,24 +92,14 @@ export default class Organisers extends Component {
             style={{flex:1}}
             showsVerticalScrollIndicator={false}>
           <View style = {styles.sliderView}>
-          <Carousel 
-            indicatorAtBottom={true}
-            indicatorColor="#FFFFFF"
-            indicatorSize={20}
-            indicatorSpace={15}
-            indicatorText= '•'
-            delay={8000}
-            width={375}>
-            <View style={styles.slideCarosel}>
-              <Text>Page 1</Text>
-            </View>
-            <View style={styles.slideCarosel}>
-              <Text>Page 2</Text>
-            </View>
-            <View style={styles.slideCarosel}>
-              <Text>Page 3</Text>
-            </View>
-          </Carousel>
+          {/* <Carousel
+            sliderWidth={screenWidth}
+            sliderHeight={screenWidth}
+            itemWidth={screenWidth - 60}
+            data={this.props.header_image}
+            renderItem={this._renderItem}
+            hasParallaxImages={true}
+          /> */}
         </View>
             <View style={styles.srollContent}>
               <DisplayText
