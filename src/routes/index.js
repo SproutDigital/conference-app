@@ -320,8 +320,8 @@ export const OnBoardingStack = createStackNavigator({
 const AppSwitchNavigator = createSwitchNavigator({
   AuthLoading:BoardingScreen,
   Auth:AuthStack,
-  OnBoard : OnBoardingStack,
-  Menu: MenuStack,
+  OnBoard:OnBoardingStack,
+  Menu:MenuStack,
 },
   {
     initialRouteName: 'AuthLoading',

@@ -6,8 +6,6 @@ import styles from './styles';
 import { DrawerActions } from "react-navigation";
 import Carousel from 'react-native-carousel';
 import {connect} from 'react-redux';
-import { post, EventDetailsEndpoint, getProfile} from '../../utils';
-import { setEventDetails } from '../../redux/actions/eventActions';
 import theme from '../../assets/theme';
 
 
@@ -21,54 +19,6 @@ import theme from '../../assets/theme';
       restoring: true,
     }
   }
-
-   async componentDidMount () {
-    let profile = await getProfile();
-     await this.fetchEventDetails(profile.sessionToken);
-  }
-
-  fetchEventDetails = async(token) => {
-
-    let data = await JSON.stringify({
-      'query' :  {'_id' : '5d1ca6b09b0b080017036e62'}, 
-    });
-
-     await post (EventDetailsEndpoint, data, token )
-      .then((res) => {
-       // console.log({res})
-        this.setState({
-          restoring:false,
-        })
-        this.props.setEventProfile(res.data)
-        // if (res.status !== 'success') {  
-        //   return  this.setState({ 
-        //     showLoading : false,
-        //     title : 'Hello',
-        //     message : res.message,
-        //     showAlert : true,
-        //   }); 
-        // }
-        // else {
-        //   if(res.verified) {
-        //     this.setState({ 
-        //       showLoading : false, 
-        //       resolved: true
-        //     });
-        //     return this.resetNavigationStack(); 
-        //   }
-        //   else {
-        //     return this.setState({ 
-        //       showLoading : false, 
-        //       resolved: true
-
-        //     });
-        //   }
-             
-       // }
-      });
-
-  }
-
   
   toggleDrawer = () => {
     //Props to open/close the drawer
