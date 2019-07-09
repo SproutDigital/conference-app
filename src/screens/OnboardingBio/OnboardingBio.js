@@ -42,10 +42,10 @@ class OnboardingBio extends Component {
     const {profile} = this.props;
       try {
         await this.setState({
-           'gender' : profile.profile.gender,
-          'company_name': profile.profile.company_name,
-          'short_bio': profile.profile.short_bio,
-          'country' : profile.profile.country
+           'gender' : profile.gender,
+          'company_name': profile.company_name,
+          'short_bio': profile.short_bio,
+          'country' : profile.country
         })
       }
       catch(e){

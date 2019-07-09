@@ -56,7 +56,7 @@ class OnboardingSocial extends Component {
   componentWillMount () {
     // Default render of country flag
     const {profile} = this.props; 
-    const defaultFlag =  data.filter(obj => obj.name === profile.profile.country ? profile.profile.country: 'Afghanistan')[0].flag;
+    const defaultFlag =  data.filter(obj => obj.name === profile.country ? profile.country: 'Afghanistan')[0].flag;
     this.setState({
       flag :defaultFlag,
     })
@@ -72,16 +72,16 @@ class OnboardingSocial extends Component {
       return await this.setState({
         '_id' : asyncProfile.id,
         'token' : asyncProfile.sessionToken,
-        'website': profile.profile.website,
-        'facebook':profile.profile.facebook,
-        'twitter': profile.profile.twitter,
-        'linkedin': profile.profile.linkedin,
-        'instagram': profile.profile.instagram,
-        'facebook_visible' : profile.profile.facebook_visible,
-        'twitter_visible' : profile.profile.twitter_visible,
-        'linkedin_visible' : profile.profile.linkedin_visible,
-        'instagram_visible ': profile.profile.instagram_visible,
-        'phone':  profile.profile.phone
+        'website': profile.website,
+        'facebook':profile.facebook,
+        'twitter': profile.twitter,
+        'linkedin': profile.linkedin,
+        'instagram': profile.instagram,
+        'facebook_visible' : profile.facebook_visible,
+        'twitter_visible' : profile.twitter_visible,
+        'linkedin_visible' : profile.linkedin_visible,
+        'instagram_visible ': profile.instagram_visible,
+        'phone':  profile.phone
   
       })
     }

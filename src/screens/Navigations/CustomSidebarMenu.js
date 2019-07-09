@@ -55,9 +55,9 @@ const dashboard = require('../../assets/images/home.png'),
         style={styles.sideMenuProfileIcon}
       />);
       }
-    else if(typeof this.props.profile.profile.photo !==  'undefined')  {
+    else if(typeof this.props.profile.photo !==  'undefined')  {
       return (<Image
-        source = {{uri: this.props.profile.profile.photo}}
+        source = {{uri: this.props.profile.photo}}
         style={styles.sideMenuProfileIcon}
       />);
     }

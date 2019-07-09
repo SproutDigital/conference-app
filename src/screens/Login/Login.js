@@ -14,8 +14,6 @@ import CheckBox from 'react-native-check-box';
 import {connect} from 'react-redux';
 import { addProfile } from '../../redux/actions/profileActions';
 
-
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -191,9 +189,9 @@ class Login extends Component {
 
      await sendRoute (LoginEndpoint, data)
       .then((res) => {
-        this.props.setProfile(res.payload);
+        console.log({'login res.. ': res})
         if(typeof res.status == 'undefined') {
-         
+          this.props.setProfile(res.payload.profile);
           if(!res.payload.verified) {
             saveProfile(res.payload.id, res.payload.name, res.token, false);
             this.setState({ 
