@@ -475,7 +475,7 @@ import { addProfile } from '../../redux/actions/profileActions';
             />
             <Image
               onPress = {this.handleSubmitForm}
-              source = {require('../../assets/images/send_arrow.png')}
+              source = {require('../../assets/images/foward_arrow.png')}
               style = {StyleSheet.flatten(styles.nextIcon)}
             />
           </TouchableOpacity>
