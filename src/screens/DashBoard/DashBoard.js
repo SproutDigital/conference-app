@@ -42,7 +42,7 @@ const deviceWidth = Dimensions.get('window').width;
 
      await post (EventDetailsEndpoint, data, token )
       .then((res) => {
-        console.log({res})
+       // console.log({res})
         this.setState({
           restoring:false,
           data:res.data[0]

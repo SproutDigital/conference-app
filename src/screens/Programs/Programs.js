@@ -27,10 +27,10 @@ export default class Programs extends Component {
       <StatusBar barStyle="default" /> 
       <View style = {styles.navBar}>
         <TouchableOpacity
-          onPress={this.handleGoBack} 
+          onPress={()=>this.props.navigation.goBack()} 
           style = {styles.headerImage}>
           <Image
-            onPress={this.handleGoBack} 
+            onPress={()=>this.props.navigation.goBack()} 
             source = {require('../../assets/images/back.png')}
             style = {StyleSheet.flatten(styles.headerIcon)}
           />

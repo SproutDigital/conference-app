@@ -11,7 +11,8 @@ const LoginEndpoint = `${Baseurl}user/login`,
     ProfileUpdateEndpoint = `${Baseurl}profile/`,
     ImageUploadEndpoint = `${Baseurl}upload/`,
     EventDetailsEndpoint = `${Baseurl}event/query`,
-    FetchProfileEndpoint = `${Baseurl}profile/query`
+    FetchProfileEndpoint = `${Baseurl}profile/query`,
+    FetchCompanyEndpoint = `${Baseurl}company/query/`;
 
 export {
     LoginEndpoint,
@@ -24,7 +25,9 @@ export {
     ProfileUpdateEndpoint,
     ImageUploadEndpoint,
     EventDetailsEndpoint,
-    FetchProfileEndpoint
+    FetchProfileEndpoint,
+    FetchCompanyEndpoint
+    
 }
 
 export const isEmailValid = (email) => {
