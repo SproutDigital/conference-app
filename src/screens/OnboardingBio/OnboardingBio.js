@@ -32,6 +32,8 @@ class OnboardingBio extends Component {
       title: '',
       token:'',
       _id:'',
+      add_tag: '',
+      tag_list: [],
       isShortBioFocused: false,
       isCompanyFocused:false,
       modalGenderVisible: false,
@@ -141,6 +143,11 @@ class OnboardingBio extends Component {
       short_bio
     });
    
+  }
+  handleAddTag = (add_tag) => {
+    this.setState({
+      add_tag
+    });
   }
 
   handleCloseNotification = () => {
@@ -420,6 +427,7 @@ class OnboardingBio extends Component {
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Interest'}
               />
+              
               <TouchableOpacity style = {styles.interestButton} onPress = {this.handleInterestStatus}>
                 <Image
                   onPress = {this.handleInterestStatus}
@@ -428,14 +436,19 @@ class OnboardingBio extends Component {
                 />
               </TouchableOpacity>
             </View>
+            <View style = {styles.tagView}>
+              
+            </View>
             <View style = {styles.selectedInterest}>
               <TouchableOpacity 
                 onPress = {this.handleAddMore}
                 style = {styles.addmoreBtn}>
-                <DisplayText
+                <TextInput
+                  placeholder = {' +Add More '}
+                  onChangeText = {this.handleAddTag}
+
                   onPress = {this.handleAddMore}
-                  text={'+Add more'}
-                  styles = {StyleSheet.flatten(styles.addMore)}
+                  style = {StyleSheet.flatten(styles.addMore)}
                 />
               </TouchableOpacity>
             </View>

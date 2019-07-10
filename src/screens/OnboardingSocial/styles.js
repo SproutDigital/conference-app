@@ -50,7 +50,7 @@ export default styles = StyleSheet.create({
     marginRight : 16
   },
   txtHeader: {
-    fontSize: theme.MediumFont,
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
     color: theme.primaryTextColor,
     width : '100%'
   },
@@ -87,7 +87,7 @@ export default styles = StyleSheet.create({
     marginTop : 16,
   },
   formHeaderTxt: {
-    fontSize: theme.MediumFont,
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
     color: theme.secondaryTextColor,
     fontFamily: theme.inputHintFont,
   },
@@ -185,7 +185,7 @@ export default styles = StyleSheet.create({
 
   },
   titleText : {
-    fontSize :theme.MediumFont,
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont
   },
