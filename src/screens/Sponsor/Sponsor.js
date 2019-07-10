@@ -91,7 +91,8 @@ export default class Sponsor extends Component {
               styles = {StyleSheet.flatten(styles.headerText)}
             />
  
-             <Text  onPress = {() => this.handleFlatlist(item)} 
+             <Text  
+              // onPress = {() => this.handleFlatlist()} 
               numberOfLines = { 2 } 
               ellipsizeMode = 'middle'
                style = {styles.subHeaderText}>
