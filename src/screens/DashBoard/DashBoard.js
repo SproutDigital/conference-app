@@ -1,6 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, Text,TouchableOpacity, Animated,Dimensions,Platform,} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, Text,TouchableOpacity, Animated,Dimensions,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import { DrawerActions } from "react-navigation";
@@ -8,16 +8,10 @@ import {connect} from 'react-redux';
 import { post, EventDetailsEndpoint, getProfile} from '../../utils';
 import { setEventDetails } from '../../redux/actions/eventActions';
 
-const deviceWidth = Dimensions.get('window').width,
- FIXED_BAR_WIDTH = 280,
- BAR_SPACE = 10;
+const deviceWidth = Dimensions.get('window').width;
 
 
  class DashBoard extends Component {
-
-  
-  //numItems = images.length;
-  //itemWidth = (FIXED_BAR_WIDTH / this.numItems) - ((this.numItems - 1) * BAR_SPACE);
   animVal = new Animated.Value(0);
 
 
@@ -97,7 +91,7 @@ const deviceWidth = Dimensions.get('window').width,
           />
         )
         imageArray.push(thisImage) 
-      })
+      });
 
       return(
         <SafeAreaView style={styles.container}> 
@@ -135,11 +129,7 @@ const deviceWidth = Dimensions.get('window').width,
             {imageArray}
 
           </ScrollView>
-          {/* <View
-            style={styles.barContainer}
-          >
-            {barArray}
-          </View> */}
+        
           </View>
           <View style={styles.tileView}>
             <ScrollView 

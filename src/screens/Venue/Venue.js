@@ -1,16 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet,} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Image,TouchableOpacity, StyleSheet, Animated,Dimensions,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import {connect} from 'react-redux';
-import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
-
-//const { width: screenWidth } = Dimensions.get('window')
 
 
-
+const deviceWidth = Dimensions.get('window').width;
 
  class Venue extends Component {
   constructor(props) {
@@ -21,13 +18,30 @@ import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
       message : '',
     }
   }
-  
+
+  animVal = new Animated.Value(0);
+
   handleGoBack = () => {
     return this.props.navigation.navigate('About');
   }
 
   render () {
     const {data} = this.props;
+
+    let imageArray = [],
+     images = data.header_image;
+
+    images.forEach((image, i) => {
+      const thisImage = (
+        <Image
+          key={`image${i}`}
+          source={{uri: image}}
+          style={{ width: deviceWidth, marginTop:0, height:200 }}
+        />
+      )
+      imageArray.push(thisImage) 
+    });
+    
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -56,25 +70,22 @@ import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
             style={{flex:1}}
             showsVerticalScrollIndicator={false}>
           <View style = {styles.sliderView}>
-          {/* <Carousel 
-            indicatorAtBottom={true}
-            indicatorColor="#FFFFFF"
-            indicatorSize={20}
-            indicatorSpace={15}
-            indicatorText= '•'
-            delay={8000}
-            width={375}>
-            <View style={styles.slideCarosel}>
-              <Text>Page 1</Text>
-            </View>
-            <View style={styles.slideCarosel}>
-              <Text>Page 2</Text>
-            </View>
-            <View style={styles.slideCarosel}>
-              <Text>Page 3</Text>
-            </View>
-          </Carousel> */}
-        </View>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              scrollEventThrottle={10}
+              pagingEnabled
+              onScroll={
+                Animated.event(
+                  [{ nativeEvent: { contentOffset: { x: this.animVal } } }]
+                )
+              }
+            >
+
+            {imageArray}
+
+            </ScrollView>
+           </View>
             <View style={styles.srollContent}>
               <DisplayText
                 text = {'Central Hall , Kenya'}

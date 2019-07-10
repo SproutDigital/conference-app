@@ -1,13 +1,12 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Image,TouchableOpacity, StyleSheet, Animated, Dimensions} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import {connect} from 'react-redux';
-import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 
-//const { width: screenWidth } = Dimensions.get('window')
+const deviceWidth = Dimensions.get('window').width;
 
 class AboutConference extends Component {
   constructor(props) {
@@ -18,35 +17,30 @@ class AboutConference extends Component {
       message : '',
     }
   }
-  
+  animVal = new Animated.Value(0);
+
   handleGoBack = () => {
     return this.props.navigation.goBack();
   }
 
-
-
-  _renderItem ({item, index}, parallaxProps) {
-    return (
-        <View style={styles.item}>
-            <ParallaxImage
-                source={{ uri: item.thumbnail }}
-                containerStyle={styles.imageContainer}
-                style={styles.image}
-                parallaxFactor={0.4}
-                {...parallaxProps}
-            />
-            {/* <Text style={styles.title} numberOfLines={2}>
-                { item.title }
-            </Text> */}
-        </View>
-    );
-  }
-
-
-  
-
   render () {
     const {data} = this.props;
+
+    let imageArray = [],
+      // barArray = [],
+       images = data.header_image;
+
+      images.forEach((image, i) => {
+        const thisImage = (
+          <Image
+            key={`image${i}`}
+            source={{uri: image}}
+            style={{ width: deviceWidth, marginTop:0, height:200 }}
+          />
+        )
+        imageArray.push(thisImage) 
+      });
+
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar
@@ -75,14 +69,22 @@ class AboutConference extends Component {
             style={{flex:1}}
             showsVerticalScrollIndicator={false}>
           <View style = {styles.sliderView}>
-            {/* <Carousel
-              sliderWidth={screenWidth}
-              sliderHeight={screenWidth}
-              itemWidth={screenWidth - 60}
-              data={this.props.header_image}
-              renderItem={this._renderItem}
-              hasParallaxImages={true}
-            /> */}
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              scrollEventThrottle={10}
+              pagingEnabled
+              onScroll={
+                Animated.event(
+                  [{ nativeEvent: { contentOffset: { x: this.animVal } } }]
+                )
+              }
+            >
+
+              {imageArray}
+
+            </ScrollView>
+        
           </View>
             <View style={styles.srollContent}>
               <DisplayText
