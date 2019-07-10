@@ -50,7 +50,8 @@ export default StyleSheet.create({
     },
     image: {
         ...StyleSheet.absoluteFillObject,
-        resizeMode: 'cover',
+       // resizeMode: 'cover',
+       height:150,
         borderRadius: IS_IOS ? entryBorderRadius : 0,
         borderTopLeftRadius: entryBorderRadius,
         borderTopRightRadius: entryBorderRadius

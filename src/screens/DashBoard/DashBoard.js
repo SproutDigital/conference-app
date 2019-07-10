@@ -1,22 +1,26 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, Text,TouchableOpacity, StyleSheet,} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, Text,TouchableOpacity, Animated,Dimensions,Platform,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
 import { DrawerActions } from "react-navigation";
-import Carousel, { ParallaxImage, Pagination } from 'react-native-snap-carousel';
 import {connect} from 'react-redux';
 import { post, EventDetailsEndpoint, getProfile} from '../../utils';
 import { setEventDetails } from '../../redux/actions/eventActions';
-import theme from '../../assets/theme';
-import { sliderWidth, itemWidth } from '../../utils/SliderEntry.style';
-import SliderEntry from '../../utils/SliderEntry';
 
-const SLIDER_1_FIRST_ITEM = 1;
-
+const deviceWidth = Dimensions.get('window').width,
+ FIXED_BAR_WIDTH = 280,
+ BAR_SPACE = 10;
 
 
  class DashBoard extends Component {
+
+  
+  //numItems = images.length;
+  //itemWidth = (FIXED_BAR_WIDTH / this.numItems) - ((this.numItems - 1) * BAR_SPACE);
+  animVal = new Animated.Value(0);
+
+
   constructor(props) {
     super(props);
     this.state ={
@@ -24,7 +28,6 @@ const SLIDER_1_FIRST_ITEM = 1;
       showAlert : false,
       message : '',
       restoring: true,
-      slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
       data:{}
 
     }
@@ -35,34 +38,7 @@ const SLIDER_1_FIRST_ITEM = 1;
      await this.fetchEventDetails(profile.sessionToken);
   }
 
-  _renderItemWithParallax ({item, index}, parallaxProps) {
-    return (
-        <SliderEntry
-          data={item}
-          even={(index + 1) % 2 === 0}
-          parallax={true}
-          parallaxProps={parallaxProps}
-        />
-    );
-  }
-
-
-  _renderItem ({item, index}, parallaxProps) {
-    return (
-        <View style={styles.item}>
-            <ParallaxImage
-                source={{ uri: item.thumbnail }}
-                containerStyle={styles.imageContainer}
-                style={styles.image}
-                parallaxFactor={0.4}
-                {...parallaxProps}
-            />
-            {/* <Text style={styles.title} numberOfLines={2}>
-                { item.title }
-            </Text> */}
-        </View>
-    );
-  }
+ 
 
   fetchEventDetails = async(token) => {
 
@@ -72,6 +48,7 @@ const SLIDER_1_FIRST_ITEM = 1;
 
      await post (EventDetailsEndpoint, data, token )
       .then((res) => {
+        console.log({res})
         this.setState({
           restoring:false,
           data:res.data[0]
@@ -97,9 +74,7 @@ const SLIDER_1_FIRST_ITEM = 1;
   
 
   render () {
-
-
-    const {restoring, slider1ActiveSlide } = this.state;
+    const {restoring, data} = this.state;
     if(restoring) {
       return (
         <View style={styles.container} >
@@ -108,6 +83,22 @@ const SLIDER_1_FIRST_ITEM = 1;
       );
     }
     else {
+
+      let imageArray = [],
+      // barArray = [],
+       images = data.header_image;
+
+      images.forEach((image, i) => {
+        const thisImage = (
+          <Image
+            key={`image${i}`}
+            source={{uri: image}}
+            style={{ width: deviceWidth, marginTop:0, height:200 }}
+          />
+        )
+        imageArray.push(thisImage) 
+      })
+
       return(
         <SafeAreaView style={styles.container}> 
           <StatusBar barStyle="default"/>
@@ -123,44 +114,32 @@ const SLIDER_1_FIRST_ITEM = 1;
             </TouchableOpacity>
             <View style = {styles.nameView}>
               <Image
-                source = {require('../../assets/images/inapp_logo.png')}
+                source = {{uri:data.logo}}
                 style = {StyleSheet.flatten(styles.headerLogoIcon)}
               />
           </View>
           </View>
           <View style = {styles.sliderView}>
-            <Carousel
-              ref={c => this._slider1Ref = c}
-              data={this.state.data.header_image}
-              renderItem={this._renderItemWithParallax}
-              sliderWidth={sliderWidth}
-              itemWidth={itemWidth}
-              hasParallaxImages={true}
-              firstItem={SLIDER_1_FIRST_ITEM}
-              inactiveSlideScale={0.94}
-              inactiveSlideOpacity={0.7}
-              // inactiveSlideShift={20}
-              containerCustomStyle={styles.slider}
-              contentContainerCustomStyle={styles.sliderContentContainer}
-              loop={true}
-              loopClonesPerSide={2}
-              autoplay={true}
-              autoplayDelay={500}
-              autoplayInterval={3000}
-              onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
-            />
-            <Pagination
-              dotsLength={this.state.data.header_image.length}
-              activeDotIndex={slider1ActiveSlide}
-              containerStyle={styles.paginationContainer}
-              dotColor={'rgba(255, 255, 255, 0.92)'}
-              dotStyle={styles.paginationDot}
-              inactiveDotColor={theme.colorAccent}
-              inactiveDotOpacity={0.4}
-              inactiveDotScale={0.6}
-              carouselRef={this._slider1Ref}
-              tappableDots={!!this._slider1Ref}
-            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              scrollEventThrottle={10}
+              pagingEnabled
+              onScroll={
+                Animated.event(
+                  [{ nativeEvent: { contentOffset: { x: this.animVal } } }]
+                )
+              }
+            >
+
+            {imageArray}
+
+          </ScrollView>
+          {/* <View
+            style={styles.barContainer}
+          >
+            {barArray}
+          </View> */}
           </View>
           <View style={styles.tileView}>
             <ScrollView 

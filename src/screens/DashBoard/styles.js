@@ -11,7 +11,6 @@ export default styles = StyleSheet.create({
   },
   navBar: {
     flexDirection : 'row',
-    // paddingTop : (Platform.OS === "ios") ? 16 : 14,
     height : 60,
     backgroundColor: theme.toolBarColor,
     width: '100%',
@@ -119,35 +118,25 @@ export default styles = StyleSheet.create({
     marginTop : 8,
 
   },
-  slideCarosel : {
-    width:  '100%',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+
+
+  barContainer: {
+    position: 'absolute',
+    zIndex: 2,
+    top: 40,
+    flexDirection: 'row',
   },
-
-  slider: {
-    marginTop: (Platform.OS === 'ios') ? 0 : 0,
-    overflow: 'visible' // for custom animations
-    },
-    sliderContentContainer: {
-        // paddingVertical: 10 // for custom animation
-    },
-    paginationContainer: {
-        paddingVertical: 8,
-        position : 'absolute',
-        bottom : 20,
-        right: 0
-    },
-    paginationDot: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        marginHorizontal: 8
-    }
-
-
-
-
+  track: {
+    backgroundColor: '#ccc',
+    overflow: 'hidden',
+    height: 2,
+  },
+  bar: {
+    backgroundColor: '#5294d6',
+    height: 2,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  },
+  
 });
