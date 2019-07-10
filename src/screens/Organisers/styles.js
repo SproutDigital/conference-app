@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
-const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
 

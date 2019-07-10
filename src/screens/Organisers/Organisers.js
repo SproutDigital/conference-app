@@ -1,14 +1,15 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, KeyboardAvoidingView,  Animated,Dimensions,} from 'react-native';
-import {DisplayText } from '../../components';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, KeyboardAvoidingView, 
+   Animated,Dimensions, Linking, Platform} from 'react-native';
+import {DisplayText, Icons } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import {connect} from 'react-redux';
+import { post, FetchCompanyEndpoint, getProfile} from '../../utils';
+
 
 const deviceWidth = Dimensions.get('window').width;
-
-
 
 class Organisers extends Component {
   constructor(props) {
@@ -20,13 +21,19 @@ class Organisers extends Component {
       contactAddress : '',
       phoneNumber : '',
       isContactAddressValid : false,
-      isPhoneNumberValid : false
+      isPhoneNumberValid : false,
+      dat: {}
     }
     this.contact_address = React.createRef();
     this.phone_number = React.createRef();
+    this.fetchProfile();
 
   }
   animVal = new Animated.Value(0);
+
+  // async componentDidMount() {
+
+  // }
 
   handleGoBack = () => {
     return this.props.navigation.navigate('About');
@@ -62,10 +69,77 @@ class Organisers extends Component {
     }
   }
 
+
+  dialCall=()=> {
+ 
+    let phoneNumber = '',
+    number = this.state.dat.phone;
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${number}`;
+    }
+    else {
+      phoneNumber = `telprompt:${number}`;
+    }
+ 
+    Linking.openURL(phoneNumber);
+  };
+
+
+
+  fetchProfile =async()=>{
+    let profile = await getProfile();
+    let token = await profile.sessionToken;
+    let body = await JSON.stringify({
+      'query':{_id : '5d24720fc8ce0900171f03d6'},
+    });
+ 
+    await post (FetchCompanyEndpoint, body, token)
+      .then((res) => {
+        if(res.status == 'success') {
+          this.setState({
+            dat: res.data[0],
+          });
+
+        // this.props.setProfile(res.data[0]);
+        //  if(isVerified == true && completed) {
+        //    this.setState({
+        //      restoring : false,
+        //    });
+        //    //return this.props.navigation.navigate('Menu');
+        //  }
+        //  else if(isVerified == false){
+        //    this.setState({
+        //      restoring : false,
+        //    });
+        //    return this.resetNavigationStack('Verification');
+        //  }
+        //  else {
+        //    this.setState({
+        //      restoring : false,
+        //    });
+        //    return this.props.navigation.navigate('OnBoard');
+ 
+        //  }
+ 
+        } 
+        else {
+          this.setState({ 
+           showLoading : false, 
+           message: res.message,
+           showAlert: true,
+           title: 'Hello'
+         });
+       }
+      });
+  }
+
   render () {
-    const {contactAddress} = this.state;
+    const { dat} = this.state;
 
     const {data} = this.props;
+    let d = dat.phone ? false : true;
+    let emailStatus = dat.email ? false : true;
+
 
     let imageArray = [],
      images = data.header_image;
@@ -130,11 +204,11 @@ class Organisers extends Component {
            </View>
             <View style={styles.srollContent}>
               <DisplayText
-                text = {'Social Conference  , Kenya'}
+                text = {dat.name ? dat.name : '' }
                 styles = {StyleSheet.flatten(styles.aboutHeaderTxt)}
               />
               <DisplayText
-                text = {' pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?'}
+                text = {dat.short_bio ? dat.short_bio : ''}
                 styles = {StyleSheet.flatten(styles.aboutBodyTxt)}
               />
           </View>
@@ -146,7 +220,7 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {'Block 6, Djibouti Crescent, Wuse II, Abuja.'}
+                  text = {dat.address ? dat.address : ''}
                 />
 
               </View>
@@ -158,7 +232,7 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {'+2348051909878'}
+                  text = {dat.phone ? dat.phone.toString() : ''}
                 />
               </View>
               {/* Email Address Texf */}
@@ -169,7 +243,7 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {'organizer@charteredgroup.co.uk'}
+                  text = {dat.email ? dat.email : ''}
                 />
               </View>
               {/* Website text */}
@@ -180,7 +254,7 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {'www.standardcharteredgroup.co.uk'}
+                  text = {dat.website ? dat.website : ''}
                 />
               </View>
               {/* Social Media */}
@@ -191,22 +265,39 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {'www.Twitter: Standardgroupuk \nLinkedIn: Standardcharteredgroup.co.uk'}
+                  text = {`Facebook: ${dat.facebook_visible ? dat.facebook: '*******'} \nInstagram: ${dat.instagram_visible ? dat.instagram: '*******'} \nTwitter: ${dat.twitter_visible ? dat.twitter  : '*******'} \nLinkedIn: ${dat.linkedin_visible ? dat.linkedin : '********'}`}
                 />
               </View>
               <View style = {styles.buttonView}>
-                <TouchableOpacity>
+                {/* <Icons 
+                  disabled={dat.phone ? false : true}
+                  onPress ={this.dialCall(dat.phone)}
+                  name ={}
+                  btnstyle ={styles.buttonCall} 
+                  iconColor ={'white'} 
+                  iconSize={24} */}
+                
+                <TouchableOpacity
+                  style = {[{opacity: d ? 0.2 : null}]}
+                  disabled = {d}
+                  onPress ={this.dialCall}
+                >
                   <Image
                     source = {require('../../assets/images/call.png')}
                     style = {StyleSheet.flatten(styles.buttonCall)}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  style = {[{opacity: emailStatus ? 0.2 : null}]}
+                  disabled = {emailStatus}
+                  onPress={() => Linking.openURL(`mailto:${dat.email}`) }
+                      title="support@example.com"
+                  >
                   <Image
                     source = {require('../../assets/images/message.png')}
                     style = {StyleSheet.flatten(styles.buttonIcon)}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> 
               </View>
           </View>
         </ScrollView>

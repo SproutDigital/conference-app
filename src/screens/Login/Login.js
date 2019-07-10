@@ -189,7 +189,6 @@ class Login extends Component {
 
      await sendRoute (LoginEndpoint, data)
       .then((res) => {
-        console.log({'login res.. ': res})
         if(typeof res.status == 'undefined') {
           this.props.setProfile(res.payload.profile);
           if(!res.payload.verified) {
