@@ -110,9 +110,7 @@ const SLIDER_1_FIRST_ITEM = 1;
     else {
       return(
         <SafeAreaView style={styles.container}> 
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor={theme.colorAccent}/>
+          <StatusBar barStyle="default"/>
           <View style = {styles.navBar}>
             <TouchableOpacity
               onPress={this.toggleDrawer} 

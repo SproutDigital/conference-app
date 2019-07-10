@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
@@ -70,7 +70,7 @@ export default styles = StyleSheet.create({
   },
   sliderView : {
     backgroundColor : colors.buttonBlue,
-    height: '30%',
+    // height: '30%',
     width : '100%',
   },
   tileView : {
@@ -128,14 +128,17 @@ export default styles = StyleSheet.create({
   },
 
   slider: {
-    marginTop: 15,
+    marginTop: (Platform.OS === 'ios') ? 0 : 0,
     overflow: 'visible' // for custom animations
     },
     sliderContentContainer: {
-        paddingVertical: 10 // for custom animation
+        // paddingVertical: 10 // for custom animation
     },
     paginationContainer: {
-        paddingVertical: 8
+        paddingVertical: 8,
+        position : 'absolute',
+        bottom : 20,
+        right: 0
     },
     paginationDot: {
         width: 8,
