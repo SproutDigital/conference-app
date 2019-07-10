@@ -18,7 +18,7 @@ export default class Programs extends Component {
   }
 
   handleOnboard = () => {
-    return this.props.navigation.navigate('OnboardingProfile');
+    return this.props.navigation.goBack();
   }
   
   render () {

@@ -66,6 +66,7 @@ class Organisers extends Component {
     const {contactAddress} = this.state;
 
     const {data} = this.props;
+    console.log({data})
 
     let imageArray = [],
      images = data.header_image;

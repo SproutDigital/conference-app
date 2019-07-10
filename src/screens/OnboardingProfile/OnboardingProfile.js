@@ -58,9 +58,9 @@ import { addProfile } from '../../redux/actions/profileActions';
           'token':asyncProfile.sessionToken,
           '_id' : profile.id,
           'name': profile.name,
-          'name_title': profile.profile.title,
-          'job_title': profile.profile.job_title,
-          'photo': profile.profile.photo
+          'name_title': profile.title,
+          'job_title': profile.job_title,
+          'photo': profile.photo
         })
       }
       catch(e){
@@ -334,7 +334,7 @@ import { addProfile } from '../../redux/actions/profileActions';
           <View style = {styles.titleView}>
             <View style = {styles.formContainer}>
                 <DisplayText
-                  text={'Gender *'}
+                  text={'Title *'}
                   styles = {styles.formHeaderTxt}
                 />
                 <TouchableOpacity 
