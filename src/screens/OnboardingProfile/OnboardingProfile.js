@@ -328,9 +328,11 @@ import { addProfile } from '../../redux/actions/profileActions';
             />
           </TouchableOpacity>
         </View>
-          <DisplayText
-            styles={StyleSheet.flatten(styles.profileNameTxt)}
-            text = {name}/>
+        <DisplayText
+          styles={StyleSheet.flatten(styles.profileNameTxt)}
+          text = {name}
+        />
+
           <View style = {styles.titleView}>
             <View style = {styles.formContainer}>
                 <DisplayText
@@ -422,12 +424,13 @@ import { addProfile } from '../../redux/actions/profileActions';
             </View>
 
           </View>
+
           <View style = {[styles.titleInputView, { 
             borderBottomColor: isJobTitleFocused ? colors.green
             :theme.secondaryTextColor,
               }]}>
             <DisplayText
-              styles={StyleSheet.flatten(styles.titleText2)}
+              styles={StyleSheet.flatten(styles.jobtitleText)}
               text = {'Job Title'}
             />
             <View style = {{flexDirection : 'row', width : '90%'}}>
