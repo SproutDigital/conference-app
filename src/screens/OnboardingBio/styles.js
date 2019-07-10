@@ -118,9 +118,9 @@ export default styles = StyleSheet.create({
     marginTop : 16,
   },  
   titleText : {
-    fontFamily: theme.subHeaderFont,
-    color: theme.primaryTextColor,
-    fontSize: theme.SmallFont,
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont
   },
   //Nationality 
   CountryView : {
@@ -131,7 +131,7 @@ export default styles = StyleSheet.create({
     marginTop : 8
   },
   formHeaderTxt: {
-    fontSize :theme.MediumFont,
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont
   },
@@ -342,6 +342,10 @@ export default styles = StyleSheet.create({
     marginTop: 8,
     color: colors.green
 
+  },
+  tagView : {
+    width : "90%",
+    flexWrap : 'wrap',
   },
   
 });

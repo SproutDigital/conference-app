@@ -148,27 +148,34 @@ export default styles = StyleSheet.create({
   },
 
   // Modal Style 
-  modalview : {
-    backgroundColor : colors.red,
-    justifyContent: 'center',
-    alignItems : 'center'
-  },
+  // modalview : {
+  //   backgroundColor : colors.red,
+  //   justifyContent: 'center',
+  //   alignItems : 'center'
+  // },
   modalContainer: {
     flex: 1, 
     alignItems: 'center',
-    paddingTop: (Platform.OS === 'ios') ? '40%' :'40%',
+    paddingTop: (Platform.OS === 'ios') ? '35%' :'40%',
 
   },
-  
-  formContainer : {
-    width : '100%',
-    flexDirection: 'column',
-    marginTop: (Platform.OS === 'ios') ? 16 : 4,
-    borderBottomWidth : 0.5,
-    borderBottomColor : theme.formBorderColor,
+  modalStyle: {
+    backgroundColor: theme.colorAccent, 
+    borderColor: theme.formBorderColor,
+    height: '50%', 
+    width: '90%',
+    padding: 8,  
+    borderRadius: 4,
+    elevation : 4,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.26,
+    shadowOpacity : 0.25,
+    shadowOffset : { height : 2, width : 0},
   },
+  
+ 
   formHeaderTxt: {
-    fontSize :theme.MediumFont,
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
     color : theme.secondaryTextColor,
     fontFamily : theme.inputHintFont
   },
@@ -196,19 +203,7 @@ export default styles = StyleSheet.create({
   },
 
   
-  modalStyle: {
-    backgroundColor: theme.colorAccent, 
-    borderColor: theme.formBorderColor,
-    height: '40%', 
-    width: '90%',
-    padding: 8,  
-    borderRadius: 4,
-    elevation : 4,
-    shadowColor : theme.primaryTextColor,
-    shadowRadius : 2.26,
-    shadowOpacity : 0.25,
-    shadowOffset : { height : 2, width : 0},
-  },
+
   titleText : {
     fontSize :theme.MediumFont,
     color : theme.secondaryTextColor,
@@ -229,17 +224,14 @@ export default styles = StyleSheet.create({
     width : '100%',
   },
 
-  // Textinput styling
   titleView : {
-    height : 50,
     width : '100%',
     flexDirection : 'column',
-    // borderBottomWidth : 0.5,
-    // borderBottomColor: theme.secondaryTextColor,
-    // paddingTop : 4,
-    // paddingBottom : 4,
-    marginTop : 16,
-  },  
+    marginTop: (Platform.OS === 'ios') ? 16 : 4,
+    borderBottomWidth : 0.5,
+    borderBottomColor : theme.formBorderColor,
+  }, 
+
   titleText : {
     fontSize :theme.SmallFont,
     color : theme.primaryTextColor,
@@ -247,16 +239,22 @@ export default styles = StyleSheet.create({
     // marginTop : (Platform.OS === 'ios') ? 20 : 2
     
   },
-  nameText : {
-    fontSize :theme.SmallFont,
-    color : theme.secondaryTextColor,
-    fontFamily : theme.inputHintFont,
-    marginTop : (Platform.OS === 'ios') ? 16 : 2
+  nameInputView : {
+    width : '100%',
+    flexDirection : 'column',
+    borderBottomWidth : 0.5,
+    borderBottomColor: theme.secondaryTextColor,
+    marginTop : (Platform.OS === 'ios') ? 8 : 2,
   },
-  titleText2 : {
-    fontSize :theme.SmallFont,
+  nameText : {
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
     color : theme.secondaryTextColor,
-    fontFamily : theme.inputHintFont,    
+    fontFamily : theme.inputHintFont
+  },
+  jobtitleText : {
+    fontSize :(Platform.OS === 'ios') ? theme.MediumFont : theme.SmallFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont   
   },
   pickerLabel : {
     fontSize :theme.SmallFont,
@@ -290,14 +288,7 @@ export default styles = StyleSheet.create({
     alignItems : 'center',
     
   },
-  nameInputView : {
-    // height : 60,
-    width : '100%',
-    flexDirection : 'column',
-    borderBottomWidth : 0.5,
-    borderBottomColor: theme.secondaryTextColor,
-    marginTop : (Platform.OS === 'ios') ? 20 : 2,
-  },
+ 
   titleInputView : {
     width : '100%',
     flexDirection : 'column',
