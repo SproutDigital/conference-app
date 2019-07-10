@@ -38,9 +38,7 @@ export default class About extends Component {
   render () {
    return(
     <SafeAreaView style={styles.container}> 
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={colors.green_background}/>
+      <StatusBar barStyle="default"/>
       <View style = {styles.navBar}>
         <TouchableOpacity
           onPress={this.handleGoBack} 
