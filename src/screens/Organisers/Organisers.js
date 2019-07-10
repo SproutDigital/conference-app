@@ -85,6 +85,29 @@ class Organisers extends Component {
   };
 
 
+  webSiteLink(){
+    const {dat} = this.state
+    if(dat.website) {
+      return(
+          <DisplayText
+            styles={[StyleSheet.flatten(styles.textInfo), {color:'blue' }]}
+            text = {dat.website}
+            onPress={() => Linking.openURL(`https://${dat.website}`).catch(err => console.log('An error occurred', err))}
+          />
+      )
+    }
+    else  {
+      return(
+          <DisplayText
+            styles={StyleSheet.flatten(styles.textInfo)}
+            text = {''}
+          />
+      )
+    }
+    
+  }
+
+
 
   fetchProfile =async()=>{
     let profile = await getProfile();
@@ -99,27 +122,6 @@ class Organisers extends Component {
           this.setState({
             dat: res.data[0],
           });
-
-        // this.props.setProfile(res.data[0]);
-        //  if(isVerified == true && completed) {
-        //    this.setState({
-        //      restoring : false,
-        //    });
-        //    //return this.props.navigation.navigate('Menu');
-        //  }
-        //  else if(isVerified == false){
-        //    this.setState({
-        //      restoring : false,
-        //    });
-        //    return this.resetNavigationStack('Verification');
-        //  }
-        //  else {
-        //    this.setState({
-        //      restoring : false,
-        //    });
-        //    return this.props.navigation.navigate('OnBoard');
- 
-        //  }
  
         } 
         else {
@@ -250,10 +252,11 @@ class Organisers extends Component {
                   styles={StyleSheet.flatten(styles.titleText)}
                   text = {'Website'}
                 />
-                <DisplayText
+                 {this.webSiteLink()}
+                {/* <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
                   text = {dat.website ? dat.website : ''}
-                />
+                /> */}
               </View>
               {/* Social Media */}
               <View style = {styles.formView}>
