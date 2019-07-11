@@ -1,13 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
-import { View,SafeAreaView, StatusBar, Image, FlatList, Text,TouchableOpacity, StyleSheet,} from 'react-native';
+import { View,SafeAreaView, StatusBar, Image, FlatList, TouchableOpacity, TouchableWithoutFeedback, StyleSheet,} from 'react-native';
 import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import {connect} from 'react-redux';
 import theme from '../../assets/theme'
 
-export default class Sponsor extends Component {
+ class Sponsor extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -44,7 +44,9 @@ export default class Sponsor extends Component {
       "twitter": "btcrown",
       "twitter_visible": true,
       "website": "www.Cobwebsolutionsng.com",
-      "linkedin": "btcrown"
+      "linkedin": "btcrown",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png",
+
   },
 
 
@@ -157,6 +159,7 @@ export default class Sponsor extends Component {
   ];
 
   componentDidMount(){
+    console.log({'sponsors... : ': this.props.data.sponsors})
     this.setState({
       data:this.data
     })
@@ -190,7 +193,7 @@ export default class Sponsor extends Component {
 
   renderRow = ({item}) => {
     return (
-      <View style = {styles.listViewItem}>    
+       <View style = {styles.listViewItem}>    
         <TouchableOpacity 
           onPress = {this.handleViewSponser}
           style = {styles.cardView}>
@@ -202,36 +205,31 @@ export default class Sponsor extends Component {
           </View>
           <View style = {styles.txtView}>
             <DisplayText
+              numberOfLines = { 1 } 
+              ellipsizeMode = 'middle'
               text = {item.name}
               styles = {StyleSheet.flatten(styles.headerText)}
             />
- 
-             <Text  
-              // onPress = {() => this.handleFlatlist()} 
+
+            <DisplayText
               numberOfLines = { 2 } 
               ellipsizeMode = 'middle'
-               style = {styles.subHeaderText}>
-              {item.short_bio}
-            </Text>
+              text = {item.short_bio}
+              styles = {StyleSheet.flatten(styles.subHeaderText)}
+            />
+ 
             
             <View style={styles.buttonMoreView}>
               <DisplayText
                 text = {"see more"}
                 styles = {StyleSheet.flatten(styles.moreText)}
               />
-              <TouchableOpacity style ={styles.iconView}>
-                <Image
-                  source = {require('../../assets/images/contactplusicon.png')}
-                  style = {StyleSheet.flatten(styles.plusIcon)}
-                />
-              </TouchableOpacity>
             </View>
           </View>
           
         </TouchableOpacity>
-        
-      </View>
-    );
+        </View>
+      );
   }
 
   
@@ -297,17 +295,12 @@ export default class Sponsor extends Component {
 } 
 
 
-// const mapStateToProps = (state, ownProps) =>{
-//   return  {
-//      // isLoggedIn: state.authreducer.isLoggedIn
-//   }
-// }
+const mapStateToProps = (state, ownProps) =>{
+  return{
+    
+    data: state.eventReducer.eventProfile
+  }
+}
 
-// const mapDispatchToProps = (dispatch) =>{
-//   return{
-//     setProfile: (data) =>{dispatch(addProfile(data))},
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Sponsor)
+export default connect(mapStateToProps)(Sponsor)
 
