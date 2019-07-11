@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import theme from '../../assets/theme';
+import { Platform } from '@unimodules/core';
 
 export default styles = StyleSheet.create({
 
@@ -62,7 +63,7 @@ export default styles = StyleSheet.create({
   },
 
   searchView : {
-    width : '100%',
+    width : '90%',
     marginTop : 8,
     backgroundColor : theme.colorAccent,
     height : 50,
@@ -75,7 +76,7 @@ export default styles = StyleSheet.create({
   viewBody : {
     alignItems : 'center',
     flex : 1,
-    padding : 20
+    // padding : 20
   },
   searchIcon : {
     width : 20,
@@ -88,6 +89,13 @@ export default styles = StyleSheet.create({
   //   borderRadius : 8,
   //   height : 100,
   // },
+  listViewItem : {
+    alignItems : 'center',
+    width : '100%',
+    justifyContent: 'center',
+    paddingLeft : 20,
+    paddingRight : 20,
+  },
   cardView:{
     width: '100%',
     height : 110,
@@ -95,12 +103,12 @@ export default styles = StyleSheet.create({
     borderRadius : 8,
     marginTop: 4,
     marginBottom : 4,
-    shadowColor: '#000',
+    shadowColor: theme.primaryTextColor,
     shadowOffset: { 
       width: 0, 
       height: 1 
     },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.25,
     shadowRadius: 2,
     elevation: 1,
     paddingHorizontal: 8,
@@ -110,16 +118,15 @@ export default styles = StyleSheet.create({
   },
   sponsorImageView : {
     width : '30%',
-    
-    // backgroundColor : 'red',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius : 20,
+    borderRadius : 100,
   },  
   sponsorImage : {
     resizeMode : 'contain',
-    height : '100%',
-    width : '100%',
+    height : '95%',
+    width : '95%',
+    borderRadius : (Platform.OS === 'ios') ? 20 : 100
   },
   txtView : {
     flexDirection : 'column',
