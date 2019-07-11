@@ -121,7 +121,6 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius : 20,
-    backgroundColor :'red'
   },  
   sponsorImage : {
     resizeMode : 'contain',
