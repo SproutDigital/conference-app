@@ -69,7 +69,9 @@ export default class InputField extends Component {
       refs,
       autoFocus,
       blurOnSubmit,
-      onSubmitEditing
+      onSubmitEditing,
+       numberOfLines,
+      ellipsizeMode,
     } = this.props;
 
     const { secureInput, inputValue } = this.state;
@@ -140,6 +142,8 @@ export default class InputField extends Component {
           onSubmitEditing={onSubmitEditing}
           returnKeyType={returnKeyType}
           blurOnSubmit={blurOnSubmit}
+          numberOfLines = { numberOfLines } 
+          ellipsizeMode = {ellipsizeMode}
 
         />
         {inputType === 'password'
