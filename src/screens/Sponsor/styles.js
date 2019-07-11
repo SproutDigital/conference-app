@@ -120,13 +120,14 @@ export default styles = StyleSheet.create({
     width : '30%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius : 100,
+    borderRadius : 20,
+    backgroundColor :'red'
   },  
   sponsorImage : {
     resizeMode : 'contain',
-    height : '95%',
-    width : '95%',
-    borderRadius : (Platform.OS === 'ios') ? 20 : 100
+    height : '80%',
+    width : '100%',
+    borderRadius : (Platform.OS === 'ios') ? 20 : 30
   },
   txtView : {
     flexDirection : 'column',
