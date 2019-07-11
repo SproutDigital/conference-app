@@ -123,7 +123,7 @@ export default styles = StyleSheet.create({
     borderRadius : 20,
   },  
   sponsorImage : {
-    resizeMode : 'contain',
+    resizeMode : 'cover',
     height : '80%',
     width : '100%',
     borderRadius : (Platform.OS === 'ios') ? 20 : 30
