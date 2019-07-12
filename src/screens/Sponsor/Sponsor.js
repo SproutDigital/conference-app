@@ -1,9 +1,8 @@
 'use strict';
 import React, {Component} from 'react';
-import { View,SafeAreaView, StatusBar, Image, FlatList, TouchableOpacity, TouchableWithoutFeedback, StyleSheet,} from 'react-native';
+import { View,SafeAreaView, StatusBar, Image, FlatList, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, InputField} from '../../components';
 import styles from './styles';
-import colors from '../../assets/colors';
 import {connect} from 'react-redux';
 import theme from '../../assets/theme'
 
@@ -186,8 +185,11 @@ import theme from '../../assets/theme'
   handleGoBack = () => {
     return this.props.navigation.goBack();
   }
-  handleViewSponser = () => {
-    return this.props.navigation.navigate('SponsorDetails');
+
+  handleViewSponser(item){
+    return this.props.navigation.navigate('SponsorDetails', {
+       item
+    });
   }
 
 
@@ -195,7 +197,7 @@ import theme from '../../assets/theme'
     return (
        <View style = {styles.listViewItem}>    
         <TouchableOpacity 
-          onPress = {this.handleViewSponser}
+          onPress = {()=>this.handleViewSponser(item)}
           style = {styles.cardView}>
           <View style = {styles.sponsorImageView}>
             <Image

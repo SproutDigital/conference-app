@@ -1,10 +1,9 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, KeyboardAvoidingView, Text,TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField} from '../../components';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, KeyboardAvoidingView,TouchableOpacity,
+   StyleSheet, Linking} from 'react-native';
+import {DisplayText} from '../../components';
 import styles from './styles';
-import {connect} from 'react-redux';
-import theme from '../../assets/theme';
 
 export default class SponsorDetails extends Component {
   constructor(props) {
@@ -17,12 +16,37 @@ export default class SponsorDetails extends Component {
     }
   }
 
+  
+
   handleGoBack = () => {
     return this.props.navigation.navigate('Sponsor');
   }
 
+  webSiteLink(){
+    const item = this.props.navigation.getParam('item');
+    if(item.website) {
+      return(
+        <DisplayText
+          styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue' }]}
+          text = {item.website}
+          onPress={() => Linking.openURL(`https://${item.website}`).catch(err => console.log('An error occurred', err))}
+        />
+      )
+    }
+    else  {
+      return(
+          <DisplayText
+            styles={StyleSheet.flatten(styles.socialTitleText)}
+            text = {''}
+          />
+      )
+    }
+    
+  }
+
   render () {
-    const {photo , isFacebookFocused} = this.state
+    const item = this.props.navigation.getParam('item');
+    let photo = item.photo;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default"/>
@@ -52,7 +76,7 @@ export default class SponsorDetails extends Component {
 
             <View style={styles.roundImageView}>
             { 
-              photo && photo.length > 0 ?
+               photo && photo.length > 0 ?
               <Image 
                 source={{ uri: photo }} 
                 style={styles.imageStyle} 
@@ -65,7 +89,7 @@ export default class SponsorDetails extends Component {
                 />
                 
               }
-              <TouchableOpacity 
+              {/* <TouchableOpacity 
                 style = { styles.cameraTouch}
                 // onPress={this._pickImage}
                 >
@@ -74,11 +98,11 @@ export default class SponsorDetails extends Component {
                   source = {require('../../assets/images/camera.png')}
                   style = {StyleSheet.flatten(styles.cameraIcon)}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <DisplayText
               styles={StyleSheet.flatten(styles.profileNameTxt)}
-              text = {'MTN Nigeria'}
+              text = {item.company_name}
             />
             <View style = {styles.line}></View>
             <DisplayText
@@ -87,7 +111,7 @@ export default class SponsorDetails extends Component {
             />
             <DisplayText
               styles={StyleSheet.flatten(styles.aboutTxt)}
-              text = {'Lorem ipsum imsum use computers or hand an tools to ipsum lo posters, websites,logos, bro n chures, maoregazines and many other materials to communicate ideas and information.'}
+              text = {item.short_bio}
             />
             <View style = {styles.socialMediaView}>
               <DisplayText
@@ -105,7 +129,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {'Official MTN Nigeria'}
+                      text = {`${item.facebook_visible ? item.facebook: '*******'}`}
                     />
  
                   </View>
@@ -124,7 +148,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {'TwitterMTNNigeria'}
+                      text = {`${item.twitter_visible ? item.twitter: '*******'}`}
                     />
  
                   </View>
@@ -142,7 +166,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {'Linkin MTN '}
+                      text = {`${item.linkedin_visible ? item.linkedin: '*******'}`}
                     />
  
                   </View>
@@ -161,7 +185,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {'InsMTN Nigeria'}
+                      text = {`${item.instagram_visible ? item.instagram: '*******'}`}
                     />
                   </View>
                 </View>
@@ -182,7 +206,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {'+234-9087654567'}
+                      text = {item.phone? item.phone.toString(): ''}
                     />
                   </View>
                 </View>
@@ -198,10 +222,8 @@ export default class SponsorDetails extends Component {
                   />
                   <View style = {styles.hanlenameView}>                    
                    <View style = {styles.dot}></View>               
-                    <DisplayText
-                      styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {'www.mtnnigeria.ng'}
-                    />
+                    {this.webSiteLink()}
+                    
                   </View>
                 </View>
               </View>

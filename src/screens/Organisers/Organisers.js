@@ -2,9 +2,8 @@
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, KeyboardAvoidingView, 
    Animated,Dimensions, Linking, Platform} from 'react-native';
-import {DisplayText, Icons } from '../../components';
+import {DisplayText} from '../../components';
 import styles from './styles';
-import colors from '../../assets/colors';
 import {connect} from 'react-redux';
 import { post, FetchCompanyEndpoint, getProfile} from '../../utils';
 
