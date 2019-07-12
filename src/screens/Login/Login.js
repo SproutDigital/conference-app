@@ -12,7 +12,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
 import CheckBox from 'react-native-check-box';
 import {connect} from 'react-redux';
-import { addProfile } from '../../redux/actions/ProfileActions';
+import { addProfile } from '../../redux/actions/profileActions';
 
 class Login extends Component {
   constructor(props) {

@@ -10,7 +10,7 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import {connect} from 'react-redux';
-import { addProfile } from '../../redux/actions/ProfileActions';
+import { addProfile } from '../../redux/actions/profileActions';
 
 
  class OnboardingProfile extends Component {
@@ -307,6 +307,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
           { 
             photo && photo.length > 0 ?
             <Image 
+              resizeMode = 'contain'
               source={{ uri: photo }} 
               style={styles.imageStyle} 
               /> 
