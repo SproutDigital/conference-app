@@ -4,22 +4,104 @@ import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, Style
 import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
-// import { postRoute, getRoute, getEmail, VerifyUserEndpoint, } from '../../utils';
+import {connect} from 'react-redux';
 
-export default class Programs extends Component {
+class Programs extends Component {
   constructor(props) {
     super(props);
     this.state ={
 
     }
   }
-  componentWillMount(){
-    // logout();
-  }
 
   handleOnboard = () => {
     return this.props.navigation.goBack();
   }
+
+  renderRow = ({item}) => {
+    return (
+      <View 
+        onPress = {this.handleViewSponser}
+        style = {styles.cardView}>
+        <View style = {styles.cardHeaderView}>
+          <DisplayText
+            text = {item.title}
+            styles = {StyleSheet.flatten(styles.headerText)}
+          />
+          <TouchableOpacity style = {styles.buttonView}>
+            <DisplayText
+              text = {item.type}
+              styles = {StyleSheet.flatten(styles.btnText)}
+            /> 
+          </TouchableOpacity>
+        </View>
+        <DisplayText
+          text = {`${item.start_time} - ${item.end_time}`}
+          styles = {StyleSheet.flatten(styles.timeText)}
+          />
+        <View style = {styles.cardEventNames}>
+          <Image
+            source = {require('../../assets/images/male.png')}
+            style = {StyleSheet.flatten(styles.maleIcon)}
+          />
+          <Image
+            source = {require('../../assets/images/male.png')}
+            style = {StyleSheet.flatten(styles.maleIcon)}
+          />
+          <DisplayText
+            text = {' Barr. Josh Av,'}
+            styles = {StyleSheet.flatten(styles.nameText)}
+            />
+          <DisplayText
+            text = {'Tammy J,'}
+            styles = {StyleSheet.flatten(styles.nameText)}
+            />
+          <DisplayText
+            text = {'Dr John'}
+            styles = {StyleSheet.flatten(styles.nameText)}
+            />
+        </View>
+          <DisplayText
+            numberOfLines = { 2 } 
+            ellipsizeMode = 'middle'
+            text = {item.description}
+            styles = {StyleSheet.flatten(styles.cardTxtBody)}
+          />
+          <DisplayText
+            text = {'Hall 4, Long Amphitheatre, Sheraton. '}
+            styles = {StyleSheet.flatten(styles.nameText)}
+            />
+          <View style = {styles.tagsView}>
+            <TouchableOpacity style = {styles.buttonView}>
+              <DisplayText
+                text = {"Technology"}
+                styles = {StyleSheet.flatten(styles.btnText)}
+              /> 
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.buttonView}>
+              <DisplayText
+                text = {"Business"}
+                styles = {StyleSheet.flatten(styles.btnText)}
+              /> 
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.buttonView}>
+              <DisplayText
+                text = {"TalkShow"}
+                styles = {StyleSheet.flatten(styles.btnText)}
+              /> 
+            </TouchableOpacity>
+
+            
+            <TouchableOpacity style = {styles.plusBtn}>
+              <Image
+                source = {require('../../assets/images/plus_btn.png')}
+                style = {StyleSheet.flatten(styles.plusIcon)}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>  
+      );
+    }
   
   render () {
    return(
@@ -83,85 +165,15 @@ export default class Programs extends Component {
           
         </View>
       {/* Add this disign to you flatlist after fetching your data */}
-      <View 
-        onPress = {this.handleViewSponser}
-        style = {styles.cardView}>
-        <View style = {styles.cardHeaderView}>
-          <DisplayText
-            text = {"The Business of Branding"}
-            styles = {StyleSheet.flatten(styles.headerText)}
-          />
-          <TouchableOpacity style = {styles.buttonView}>
-            <DisplayText
-              text = {"workshop"}
-              styles = {StyleSheet.flatten(styles.btnText)}
-            /> 
-          </TouchableOpacity>
-        </View>
-        <DisplayText
-          text = {'Today 03:00pm - 05:00pm'}
-          styles = {StyleSheet.flatten(styles.timeText)}
-          />
-        <View style = {styles.cardEventNames}>
-          <Image
-            source = {require('../../assets/images/male.png')}
-            style = {StyleSheet.flatten(styles.maleIcon)}
-          />
-          <Image
-            source = {require('../../assets/images/male.png')}
-            style = {StyleSheet.flatten(styles.maleIcon)}
-          />
-          <DisplayText
-            text = {' Barr. Josh Av,'}
-            styles = {StyleSheet.flatten(styles.nameText)}
-            />
-          <DisplayText
-            text = {'Tammy J,'}
-            styles = {StyleSheet.flatten(styles.nameText)}
-            />
-          <DisplayText
-            text = {'Dr John'}
-            styles = {StyleSheet.flatten(styles.nameText)}
-            />
-        </View>
-          <DisplayText
-            text = {'Lorem ipsum dolor sit amet, consecteturedmunn swacing elit, sed do eiusmod tempor incidffsddewrer'}
-            styles = {StyleSheet.flatten(styles.cardTxtBody)}
-          />
-          <DisplayText
-            text = {'Hall 4, Long Amphitheatre, Sheraton. '}
-            styles = {StyleSheet.flatten(styles.nameText)}
-            />
-          <View style = {styles.tagsView}>
-            <TouchableOpacity style = {styles.buttonView}>
-              <DisplayText
-                text = {"Technology"}
-                styles = {StyleSheet.flatten(styles.btnText)}
-              /> 
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.buttonView}>
-              <DisplayText
-                text = {"Business"}
-                styles = {StyleSheet.flatten(styles.btnText)}
-              /> 
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.buttonView}>
-              <DisplayText
-                text = {"TalkShow"}
-                styles = {StyleSheet.flatten(styles.btnText)}
-              /> 
-            </TouchableOpacity>
+     
+      <FlatList          
+        data={this.props.program}          
+        renderItem={this.renderRow}          
+        keyExtractor={ data=> data._id}   
+        showsVerticalScrollIndicator={false}
+      
+      />
 
-            
-            <TouchableOpacity style = {styles.plusBtn}>
-              <Image
-                source = {require('../../assets/images/plus_btn.png')}
-                style = {StyleSheet.flatten(styles.plusIcon)}
-              />
-            </TouchableOpacity>
-          </View>
-      </View>
-  
     </View>  
     
   </SafeAreaView>
@@ -169,3 +181,13 @@ export default class Programs extends Component {
    )
   }
 } 
+
+const mapStateToProps = (state, ownProps) =>{
+  return{
+    program: state.ProgramReducer.program
+  }
+}
+
+
+export default connect(mapStateToProps)(Programs)
+
