@@ -36,7 +36,6 @@ export default function authReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 registered:action.bool,
             });
-       
          default:
             return state;
 

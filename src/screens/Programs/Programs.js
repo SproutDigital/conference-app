@@ -119,7 +119,7 @@ class Programs extends Component {
         </TouchableOpacity>
         <View style = {styles.nameView}>
           <DisplayText
-            text = {"PROGRAMS"}
+            text = {"PROGRAM"}
             styles = {StyleSheet.flatten(styles.txtHeader)}
           />
         </View>

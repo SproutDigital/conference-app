@@ -34,8 +34,7 @@ export default function AuthReducer(state = initialState, action) {
         case types.REGISTRATION_STATUS: 
             return Object.assign({}, state, {
                 registered:action.bool,
-            });
-       
+            });   
          default:
             return state;
 

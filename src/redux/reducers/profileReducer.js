@@ -9,8 +9,6 @@ export default function ProfileReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 profile:{ ...state.profile, ...action.profile},      
             });
-        
-      
          default:
             return state;
 
