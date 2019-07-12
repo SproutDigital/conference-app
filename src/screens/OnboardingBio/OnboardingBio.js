@@ -10,7 +10,7 @@ import colors from '../../assets/colors';
 import { isEmpty} from '../../utils';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import {connect} from 'react-redux';
-import { addProfile } from '../../redux/actions/profileActions';
+import { addProfile } from '../../redux/actions/ProfileActions';
 
 
 class OnboardingBio extends Component {
@@ -490,7 +490,7 @@ class OnboardingBio extends Component {
 
 const mapStateToProps = (state, ownProps) =>{
   return  {
-    profile: state.profileReducer.profile
+    profile: state.ProfileReducer.profile
 
   }
 }

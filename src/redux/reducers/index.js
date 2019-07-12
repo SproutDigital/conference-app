@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
-import eventReducer from './eventReducer';
-import profileReducer from './profileReducer';
-import loginReducer from './loginReducer';
+import AuthReducer from './AuthReducer';
+import EventReducer from './EventReducer';
+import ProfileReducer from './ProfileReducer';
+import LoginReducer from './LoginReducer';
+import SponsorReducer from './SponsorReducer'; 
 
 export default rootReducer = combineReducers({
-  authReducer, eventReducer, profileReducer, loginReducer,
+  AuthReducer, EventReducer, ProfileReducer, LoginReducer, SponsorReducer
 });

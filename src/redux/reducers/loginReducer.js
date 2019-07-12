@@ -7,7 +7,7 @@ const initialState = {
     isLoggedIn: false,
 
 }
-export default function authReducer(state = initialState, action) {
+export default function AuthReducer(state = initialState, action) {
     switch(action.type){
         case types.SET_EXPO_TOKEN: 
             return Object.assign({}, state, {

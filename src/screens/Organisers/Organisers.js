@@ -314,7 +314,7 @@ class Organisers extends Component {
 const mapStateToProps = (state, ownProps) =>{
   return{
     
-    data: state.eventReducer.eventProfile
+    data: state.EventReducer.eventProfile
   }
 }
 

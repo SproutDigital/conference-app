@@ -131,7 +131,7 @@ const dashboard = require('../../assets/images/home.png'),
 
 const mapStateToProps = (state, ownProps) =>{
   return { 
-    profile: state.profileReducer.profile,
+    profile: state.ProfileReducer.profile,
   }
 }
 

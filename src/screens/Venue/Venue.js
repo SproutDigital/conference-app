@@ -109,7 +109,7 @@ const deviceWidth = Dimensions.get('window').width;
 const mapStateToProps = (state, ownProps) =>{
   return{
     
-    data: state.eventReducer.eventProfile
+    data: state.EventReducer.eventProfile
   }
 }
 

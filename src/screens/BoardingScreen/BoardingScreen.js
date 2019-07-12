@@ -12,7 +12,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
 import {connect} from 'react-redux';
-import { addProfile } from '../../redux/actions/profileActions';
+import { addProfile } from '../../redux/actions/ProfileActions';
 
 const slides = [
   {
@@ -254,13 +254,13 @@ const slides = [
 
 const mapStateToProps = (state, ownProps) =>{
   return{
-    profile: state.profileReducer.profile
+    profile: state.ProfileReducer.profile
   }
 }
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-      setProfile: (data) =>{dispatch(addProfile(data))},
+    setProfile: (data) =>{dispatch(addProfile(data))},
   }
 }
 

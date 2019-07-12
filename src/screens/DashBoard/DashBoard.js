@@ -6,7 +6,8 @@ import styles from './styles';
 import { DrawerActions } from "react-navigation";
 import {connect} from 'react-redux';
 import { post, EventDetailsEndpoint, getProfile} from '../../utils';
-import { setEventDetails } from '../../redux/actions/eventActions';
+import { setEventDetails } from '../../redux/actions/EventActions';
+import { setSponsorDetails } from '../../redux/actions/SponsorActions';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -35,7 +36,8 @@ const deviceWidth = Dimensions.get('window').width;
  
 
   fetchEventDetails = async(token) => {
-
+    const { setEventProfile, setSponsor} = this.props;
+    console.log()
     let data = await JSON.stringify({
       'query' :  {'_id' : '5d248d45c8ce0900171f03e2'}, 
     });
@@ -46,7 +48,8 @@ const deviceWidth = Dimensions.get('window').width;
           restoring:false,
           data:res.data[0]
         })
-        this.props.setEventProfile(res.data)
+        setEventProfile(res.data);
+        setSponsor(res.data[0].sponsors);
       });
 
   }
@@ -282,6 +285,7 @@ const mapStateToProps = (state, ownProps) =>{
 const mapDispatchToProps = (dispatch) =>{
   return{
       setEventProfile: (data) =>{dispatch(setEventDetails(data))},
+      setSponsor: (data)=>{dispatch(setSponsorDetails(data))}
   }
 }
 

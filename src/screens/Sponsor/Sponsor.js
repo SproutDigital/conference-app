@@ -20,7 +20,7 @@ import theme from '../../assets/theme'
   }
 
 
-  data = [
+  sponsors = [
     {
       "_id": "5d1f909571e71900179b72f3",
       "email": "mastat17@yahoo.com",
@@ -158,11 +158,10 @@ import theme from '../../assets/theme'
   ];
 
   componentDidMount(){
-    console.log({'sponsors... : ': this.props.data.sponsors})
     this.setState({
-      data:this.data
+      data:this.sponsors
     })
-    this.arrayholder = this.data;
+    this.arrayholder = this.sponsors;
   }
   
 
@@ -298,7 +297,7 @@ import theme from '../../assets/theme'
 const mapStateToProps = (state, ownProps) =>{
   return{
     
-    data: state.eventReducer.eventProfile
+    sponsors: state.SponsorReducer.sponsorProfile
   }
 }
 

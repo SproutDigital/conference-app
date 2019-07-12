@@ -10,7 +10,7 @@ import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import {connect} from 'react-redux';
-import { addProfile } from '../../redux/actions/profileActions';
+import { addProfile } from '../../redux/actions/ProfileActions';
 
 
  class OnboardingProfile extends Component {
@@ -505,7 +505,7 @@ import { addProfile } from '../../redux/actions/profileActions';
 
 const mapStateToProps = (state, ownProps) =>{
   return{
-    profile: state.profileReducer.profile
+    profile: state.ProfileReducer.profile
   }
 }
 

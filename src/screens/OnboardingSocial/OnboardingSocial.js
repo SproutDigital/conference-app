@@ -705,7 +705,7 @@ class OnboardingSocial extends Component {
 const mapStateToProps = (state, ownProps) =>{
   return{
      //this profile is updated when a new user fills the onboarding form
-    profile: state.profileReducer.profile,
+    profile: state.ProfileReducer.profile,
    // this is used to store user payload upon login
     //profile: state.loginReducer.profile
 
