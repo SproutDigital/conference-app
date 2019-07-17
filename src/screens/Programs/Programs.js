@@ -18,11 +18,15 @@ class Programs extends Component {
     return this.props.navigation.goBack();
   }
 
+  handleViewProgram = () => {
+    return this.props.navigation.navigate('ProgramDetails');
+  }
   renderRow = ({item}) => {
     return (
-      <View 
-        onPress = {this.handleViewSponser}
-        style = {styles.cardView}>
+      <View style = {styles.listViewItem}>    
+        <TouchableOpacity 
+          onPress = {()=>this.handleViewProgram(item)}
+          style = {styles.cardView}>
         <View style = {styles.cardHeaderView}>
           <DisplayText
             text = {item.title}
@@ -39,28 +43,7 @@ class Programs extends Component {
           text = {`${item.start_time} - ${item.end_time}`}
           styles = {StyleSheet.flatten(styles.timeText)}
           />
-        <View style = {styles.cardEventNames}>
-          <Image
-            source = {require('../../assets/images/male.png')}
-            style = {StyleSheet.flatten(styles.maleIcon)}
-          />
-          <Image
-            source = {require('../../assets/images/male.png')}
-            style = {StyleSheet.flatten(styles.maleIcon)}
-          />
-          <DisplayText
-            text = {' Barr. Josh Av,'}
-            styles = {StyleSheet.flatten(styles.nameText)}
-            />
-          <DisplayText
-            text = {'Tammy J,'}
-            styles = {StyleSheet.flatten(styles.nameText)}
-            />
-          <DisplayText
-            text = {'Dr John'}
-            styles = {StyleSheet.flatten(styles.nameText)}
-            />
-        </View>
+      
           <DisplayText
             numberOfLines = { 2 } 
             ellipsizeMode = 'middle'
@@ -99,7 +82,8 @@ class Programs extends Component {
               />
             </TouchableOpacity>
           </View>
-        </View>  
+          </TouchableOpacity> 
+        </View> 
       );
     }
   
@@ -166,6 +150,8 @@ class Programs extends Component {
         </View>
       {/* Add this disign to you flatlist after fetching your data */}
      
+      
+      {/* <View> */}
       <FlatList          
         data={this.props.program}          
         renderItem={this.renderRow}          
@@ -173,6 +159,7 @@ class Programs extends Component {
         showsVerticalScrollIndicator={false}
       
       />
+      {/* </View> */}
 
     </View>  
     

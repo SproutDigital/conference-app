@@ -6,8 +6,8 @@ import theme from '../../assets/theme';
 export default styles = StyleSheet.create({
 
   container: {
-    flex: 1,
-  },
+  flex : 1,
+},
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
@@ -92,9 +92,11 @@ export default styles = StyleSheet.create({
     marginLeft : 4,
   },
   viewBody : {
-    alignItems : 'center',
-    flex : 1,
-    padding : 20
+    // alignItems : 'center',
+    // justifyContent: 'center',
+    height : '90%',
+    paddingLeft : 20,
+    paddingRight : 20,
   },
   searchIcon : {
     width : 18,
@@ -120,16 +122,8 @@ export default styles = StyleSheet.create({
     position : 'absolute',
     right : 8,
   },
-  // listItems : {
-  //   marginTop : 8,
-  //   width : '90%',
-  //   elevation : 1,
-  //   borderRadius : 8,
-  //   height : 100,
-  // },
   cardView:{
-    width: '100%',
-    // height : 110,
+    width: '98%',
     backgroundColor: theme.colorAccent,
     borderRadius : 8,
     marginTop: 8,
@@ -142,7 +136,16 @@ export default styles = StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 1,
     paddingLeft : 8,
+    paddingRight : 8,
     flexDirection : 'column',
+    marginLeft : 4
+  },
+  listViewItem : {
+    width : '100%',
+    // justifyContent: 'center',
+    // alignItems : 'center',
+    // paddingLeft : 10,
+    // paddingRight : 10,
   },
   sponsorImageView : {
     width : '30%',
@@ -215,6 +218,7 @@ export default styles = StyleSheet.create({
     marginLeft : 4
   },
   cardEventNames : {
+    // width : '50%',
     flexDirection :  'row',
     alignItems : 'center',
   },
@@ -261,5 +265,6 @@ export default styles = StyleSheet.create({
     width : 20,
     resizeMode : 'contain'
   },
+
 
 });
