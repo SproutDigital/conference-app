@@ -30,6 +30,8 @@ import Organisers from '../screens/Organisers/Organisers';
 import Sponsor from '../screens/Sponsor/Sponsor';
 import SponsorDetails from '../screens/SponsorDetails/SponsorDetails';
 import MyPrograms from '../screens/MyPrograms/MyPrograms';
+import ProgramDetails from '../screens/ProgramDetails/ProgramDetails';
+
 const AuthStack = createStackNavigator({ 
 
   BoardingScreen: {
@@ -305,6 +307,12 @@ export const OnBoardingStack = createStackNavigator({
     },
     MyPrograms : {
       screen : MyPrograms,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    ProgramDetails : {
+      screen : ProgramDetails,
       navigationOptions : {
         header : null,
       }

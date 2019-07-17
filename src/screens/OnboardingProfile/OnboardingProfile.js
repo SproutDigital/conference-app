@@ -307,6 +307,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
           { 
             photo && photo.length > 0 ?
             <Image 
+              resizeMode = 'contain'
               source={{ uri: photo }} 
               style={styles.imageStyle} 
               /> 

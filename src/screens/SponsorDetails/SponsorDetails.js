@@ -78,6 +78,7 @@ export default class SponsorDetails extends Component {
             { 
                photo && photo.length > 0 ?
               <Image 
+                resizeMode = 'contain'
                 source={{ uri: photo }} 
                 style={styles.imageStyle} 
                 /> 

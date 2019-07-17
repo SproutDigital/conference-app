@@ -276,20 +276,15 @@ import theme from '../../assets/theme'
             paddingLeft  = {8}
           /> 
         </View>
-        {/* Add this disign to you flatlist after fetching your data */}
           <FlatList          
             data={this.state.data}          
             renderItem={this.renderRow}          
             keyExtractor={ data=> data._id}   
             showsVerticalScrollIndicator={false}
-          
           />
-        
       </View>  
-      
     </SafeAreaView>
-    
-   )
+    )
   }
 } 
 
