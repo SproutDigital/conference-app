@@ -94,7 +94,7 @@ export default styles = StyleSheet.create({
   viewBody : {
     // alignItems : 'center',
     // justifyContent: 'center',
-    height : '90%',
+    flex: 1,
     paddingLeft : 20,
     paddingRight : 20,
   },

@@ -10,12 +10,37 @@ class Programs extends Component {
   constructor(props) {
     super(props);
     this.state ={
-
+      message : '',
+      data:[],
     }
+    this.arrayholder = [];
+
+  }
+
+  componentDidMount(){
+    this.setState({
+      data: this.props.program,
+    });
+    this.arrayholder = this.props.program;
   }
 
   handleOnboard = () => {
     return this.props.navigation.goBack();
+  }
+
+  searchFilterFunction = text => {
+    this.setState({
+      value: text,
+    });
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.title.toUpperCase()} ${item.description.toUpperCase()}`;
+      const textData = text.toUpperCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+    return this.setState({
+      data: newData,
+    });
   }
 
   handleViewProgram = () => {
@@ -139,8 +164,9 @@ class Programs extends Component {
             textColor={theme.primaryTextColor}
             inputType={'name'}
             keyboardType={'default'}
-            onChangeText = {this.handleNameChange}
-            autoCapitalize = "words"
+            onChangeText={text => this.searchFilterFunction(text)}
+            autoCorrect={false}
+            value={this.state.value}            
             height = {30}
             width = {'70%'}
             borderBottomWidth = {0}
@@ -153,7 +179,7 @@ class Programs extends Component {
       
       {/* <View> */}
       <FlatList          
-        data={this.props.program}          
+        data={this.state.data}          
         renderItem={this.renderRow}          
         keyExtractor={ data=> data._id}   
         showsVerticalScrollIndicator={false}
