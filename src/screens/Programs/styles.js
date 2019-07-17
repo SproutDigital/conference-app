@@ -123,7 +123,7 @@ export default styles = StyleSheet.create({
     right : 8,
   },
   cardView:{
-    width: '98%',
+    width: '99%',
     backgroundColor: theme.colorAccent,
     borderRadius : 8,
     marginTop: 8,
@@ -138,10 +138,11 @@ export default styles = StyleSheet.create({
     paddingLeft : 8,
     paddingRight : 8,
     flexDirection : 'column',
-    marginLeft : 4
+    marginLeft : 2
   },
   listViewItem : {
     width : '100%',
+    marginBottom : 4
     // justifyContent: 'center',
     // alignItems : 'center',
     // paddingLeft : 10,

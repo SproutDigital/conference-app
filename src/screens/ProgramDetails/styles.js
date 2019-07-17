@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 import colors from '../../assets/colors';
 import theme from '../../assets/theme';
@@ -10,7 +10,7 @@ export default styles = StyleSheet.create({
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
-    height : 60,
+    height : (Platform.OS === "ios") ? 40 : 60,
     backgroundColor: theme.toolBarColor,
     width: '100%',
     alignItems: 'center',
@@ -54,16 +54,160 @@ export default styles = StyleSheet.create({
     alignItems : 'center'
   },
   txtHeader: {
-    fontSize: 18,
-    color: theme.primaryColor,
+    fontSize: theme.MediumFont,
+    color: theme.primaryTextColor,
     marginLeft: 16,
     alignSelf: 'center',
     
   },
-  exitTxt: {
-    fontSize: 40,
-    color: colors.text_color,
-    fontFamily: 'Poppins-Regular',
-    marginLeft: 16
+  programView : {
+    flex : 1,
+    width : '100%',
+    // alignItems : 'center',
+    padding : 20
   },
+  blueCard : {
+    width : '99%',
+    backgroundColor : theme.primaryColor,
+    borderRadius : 8,
+    justifyContent: 'flex-start',
+    // alignItems: 'center',
+    paddingHorizontal : 16,
+    paddingVertical : 20,
+    marginLeft : 2
+  },
+  headerCardTxt : {
+    fontSize : (Platform.OS === 'ios') ? theme.MediumFont : theme.MediumFont,
+    fontFamily : theme.semiBoldFont,
+    color : theme.colorAccent,
+    textAlign : 'left',
+    lineHeight : 20,
+    paddingTop : 4
+  },
+  cardDate : {
+    fontFamily : theme.secondaryFont,
+    fontSize : theme.SmallerFont,
+    color : theme.colorAccent,
+  },
+  cardSpeaker : {
+    width : '99%',
+    borderRadius : 8,
+    marginTop : 16,
+    height : 50,
+    paddingHorizontal : 8,
+    paddingVertical : 4,
+    elevation : 1,
+    shadowOffset : { height : 1, width : 0 },
+    shadowOpacity : 0.25,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.56,
+    backgroundColor : theme.colorAccent,
+    marginLeft : 2
+
+  },
+  cardCategory : {
+    width : '99%',
+    borderRadius : 8,
+    marginTop : 16,
+    // height : 50,
+    paddingHorizontal : 8,
+    paddingVertical : 4,
+    elevation : 1,
+    shadowOffset : { height : 1, width : 0 },
+    shadowOpacity : 0.25,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.56,
+    backgroundColor : theme.colorAccent,
+    marginLeft : 2,
+    marginBottom : 8
+
+  },
+  sponser : {
+    fontFamily : theme.secondaryFont,
+    fontSize : theme.SmallerFont,
+    color : theme.secondaryTextColor,
+  },
+  sponserName : {
+    fontFamily : theme.secondaryFont,
+    fontSize : theme.SmallFont,
+    color : theme.textGray,
+  },
+  typeTxt : {
+    fontFamily : theme.secondaryFont,
+    fontSize : theme.thinyFont,
+    color : theme.textGray,
+  },
+  catTypeView : {
+    flexDirection : 'row',
+    flexWrap : 'wrap',
+  },
+  cartType : {
+    color : theme.textGray,
+    padding : 4,
+  },
+  textCont : {
+    borderRadius : 8,
+    backgroundColor : theme.primaryColor,
+    marginBottom : 8,
+  },
+  blueButton : {
+    width : '99%',
+    backgroundColor : theme.primaryColor,
+    borderRadius : 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft : 2,
+    height : 45,
+    marginTop : 16
+  },
+  buttonTxt : {
+    fontSize : (Platform.OS === 'ios') ? theme.SmallFont : theme.SmallerFont,
+    fontFamily : theme.headerFont,
+    color : theme.colorAccent,
+  },
+  attendyView : {
+    flexDirection : 'row',
+    paddingTop : 16,
+    // justifyContent: 'center',
+    alignItems : 'center',
+    marginBottom : 16,
+
+  },
+  imageView : {
+    width : 50,
+    height : 50,
+    borderRadius : (Platform.OS === 'ios') ? 30 : 30,
+    elevation : 1,
+    shadowOffset : { height : 1, width : 0 },
+    shadowOpacity : 0.25,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.56,
+    backgroundColor : theme.colorAccent,
+    justifyContent: 'center',
+    alignItems : 'center',
+  },
+  headerIcon : {
+    width : 45,
+    height : 45,
+    borderRadius : (Platform.OS === 'ios') ? 20 : 30,
+  },
+  attendyTxt : {
+    fontFamily : theme.secondaryFont,
+    fontSize : theme.thinyFont,
+    color : theme.textGray,
+    marginLeft : 8
+  },
+  imageViewPlus : {
+    width : 50,
+    height : 50,
+    borderRadius : (Platform.OS === 'ios') ? 30 : 30,
+    elevation : 1,
+    shadowOffset : { height : 1, width : 0 },
+    shadowOpacity : 0.25,
+    shadowColor : theme.primaryTextColor,
+    shadowRadius : 2.56,
+    backgroundColor : theme.colorAccent,
+    justifyContent: 'center',
+    alignItems : 'center',
+  }
 });
