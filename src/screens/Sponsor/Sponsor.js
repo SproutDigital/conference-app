@@ -13,7 +13,7 @@ import theme from '../../assets/theme'
       token : '',
       showAlert : false,
       message : '',
-      data: []
+      data:[]
     }
     this.arrayholder = [];
 

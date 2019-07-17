@@ -1,12 +1,12 @@
 import * as types from '../actions/types';
 const initialState = {
-    sponsorProfile:[],
+    eventProfile:{},
 }
-export default function sponsorReducer(state = initialState, action) {
+export default function EventReducer(state = initialState, action) {
     switch(action.type){
-        case types.SET_SPONSOR_DETAILS: 
+        case types.SET_EVENT_DETAILS: 
             return Object.assign({}, state, {
-                sponsorProfile: action.data,
+                eventProfile: action.data[0],
             });
          default:
             return state;

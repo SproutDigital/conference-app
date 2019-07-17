@@ -1,9 +1,9 @@
 import * as types from './types';
 
-export const setEventDetails = (data) => dispatch => {
+export const setProgramDetails = (data) => dispatch => {
     //console.log({data})
    dispatch({
-    type: types.SET_EVENT_DETAILS,
+    type: types.SET_PROGRAM_DETAILS,
     data,
   });
 }

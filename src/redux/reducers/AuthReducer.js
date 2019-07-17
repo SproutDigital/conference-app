@@ -5,9 +5,10 @@ const initialState = {
     sessionToken: null,
     expoToken: null,
     isLoggedIn: false,
+    registered: false,
 
 }
-export default function AuthReducer(state = initialState, action) {
+export default function authReducer(state = initialState, action) {
     switch(action.type){
         case types.SET_EXPO_TOKEN: 
             return Object.assign({}, state, {
@@ -29,13 +30,12 @@ export default function AuthReducer(state = initialState, action) {
         case types.LOGIN:
             return Object.assign({}, state, {
                 isLoggedIn: true,
-                profile: action.profile,
+                sessionToken: action.sessionToken,
             });
         case types.REGISTRATION_STATUS: 
             return Object.assign({}, state, {
                 registered:action.bool,
             });
-       
          default:
             return state;
 

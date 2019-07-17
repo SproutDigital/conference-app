@@ -11,28 +11,23 @@ export default class Logout extends Component {
     this.state = {
       showLoading: true,
     }
-  
   }
 
   componentWillMount() {
-    logout().then(()=>{
-      
+    logout().then(()=>{   
       this.setState({showLoading:false});
-      return this.props.navigation.navigate('Auth');
-        
+      return this.props.navigation.navigate('Auth');    
     })
    }
   render() {
     const {showLoading} = this.state
     return (
       <SafeAreaView style={styles.container}>
-         <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
-            />
-          
-            
+        <ProgressDialog
+          visible={showLoading}
+          title="Processing"
+          message="Please wait..."
+        />      
       </SafeAreaView>
 
     );

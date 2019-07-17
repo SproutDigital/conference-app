@@ -4,24 +4,21 @@ import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, Style
 import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
-// import { postRoute, getRoute, getEmail, VerifyUserEndpoint, } from '../../utils';
+import {connect} from 'react-redux';
 
-export default class MyPrograms extends Component {
+
+class MyPrograms extends Component {
   constructor(props) {
     super(props);
     this.state ={
 
     }
   }
-  componentWillMount(){
-    // logout();
-  }
+  
 
-  handleOnboard = () => {
-    return this.props.navigation.navigate('OnboardingProfile');
-  }
   
   render () {
+    console.log({'programsss : ': this.props.program})
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default" /> 
@@ -169,3 +166,14 @@ export default class MyPrograms extends Component {
    )
   }
 } 
+
+
+// const mapStateToProps = (state, ownProps) =>{
+//   return{
+//     program: state.ProgramReducer.profile
+//   }
+// }
+
+
+export default MyPrograms
+

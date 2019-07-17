@@ -27,8 +27,6 @@ export const setRegistrationStatus = (bool) => dispatch => {
     bool,
   });
 }
-
-
 export const logout = () => dispatch => {
   dispatch({
     type: types.LOG_OUT,
