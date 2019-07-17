@@ -263,10 +263,43 @@ class Organisers extends Component {
                   styles={StyleSheet.flatten(styles.titleText)}
                   text = {'Social Media'}
                 />
-                <DisplayText
+              
+                {/* <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
                   text = {`Facebook: ${dat.facebook_visible ? dat.facebook: '*******'} \nInstagram: ${dat.instagram_visible ? dat.instagram: '*******'} \nTwitter: ${dat.twitter_visible ? dat.twitter  : '*******'} \nLinkedIn: ${dat.linkedin_visible ? dat.linkedin : '********'}`}
+                /> */}
+                {dat.facebook_visible ?
+                  <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {`Facebook: ${dat.facebook}`}
                 />
+                : null
+                }
+                
+                {dat.instagram_visible ?
+                  <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {`Instagram: ${ dat.instagram}`}
+                />
+                 : null
+                }
+                
+                { dat.twitter_visible ?
+                  <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {`Twitter: ${dat.twitter}`}
+                />
+                 : null
+                }
+                
+                { dat.linkedin_visible ? 
+                  <DisplayText
+                    styles={StyleSheet.flatten(styles.textInfo)}
+                    text = {`LinkedIn: ${dat.linkedin}`}
+                  />
+                  : null
+                }
+                
               </View>
               <View style = {styles.buttonView}>
                 {/* <Icons 
@@ -291,7 +324,7 @@ class Organisers extends Component {
                   style = {[{opacity: emailStatus ? 0.2 : null}]}
                   disabled = {emailStatus}
                   onPress={() => Linking.openURL(`mailto:${dat.email}`) }
-                      title="support@example.com"
+                    title="support@example.com"
                   >
                   <Image
                     source = {require('../../assets/images/message.png')}

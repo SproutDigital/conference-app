@@ -96,6 +96,51 @@ const deviceWidth = Dimensions.get('window').width;
                 styles = {StyleSheet.flatten(styles.aboutBodyTxt)}
               />
           </View>
+          <View style = {styles.formContainer}>         
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Address'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {data.location.address ? data.location.address : ''}
+                />
+
+              </View>
+              {/* Phone number */}
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Post Code'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {data.location.postcode ? data.location.postcode : ''}
+                />
+              </View>
+              {/* Email Address Texf */}
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'State'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {data.location.state}
+                />
+              </View>
+              <View style = {styles.formView}>
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.titleText)}
+                  text = {'Country'}
+                />
+                <DisplayText
+                  styles={StyleSheet.flatten(styles.textInfo)}
+                  text = {data.location.country}
+                />
+              </View>
+          </View>
         </ScrollView>
       </View>
       

@@ -103,4 +103,34 @@ export default styles = StyleSheet.create({
     textAlign : 'justify'
   },
 
+  formContainer : {
+    width : '100%',
+    justifyContent : 'center',
+    paddingLeft : 20,
+    paddingRight : 20,
+    // paddingBottom : 50
+
+  },
+
+  formView : {
+    flexDirection : 'column', 
+    width : '100%', 
+    borderBottomColor : theme.formBorderColor,
+    borderBottomWidth : 0.8,
+    marginTop : 4
+  },
+
+
+  titleText : {
+    fontSize :theme.SmallFont,
+    color : theme.secondaryTextColor,
+    fontFamily : theme.inputHintFont,
+  },
+  textInfo : {
+    fontSize :theme.SmallFont,
+    color : theme.primaryTextColor,
+    fontFamily : theme.secondaryFont,
+    marginTop : 8
+  },
+
 });

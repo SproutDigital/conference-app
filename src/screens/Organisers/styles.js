@@ -99,7 +99,9 @@ export default styles = StyleSheet.create({
     fontFamily : theme.subHeaderFont,
     fontSize : theme.SmallerFont,
     color : theme.secondaryTextColor,
-    textAlign : 'justify'
+    textAlign : 'justify',
+    lineHeight: 25,
+
   },
   titleText : {
     fontSize :theme.SmallFont,
