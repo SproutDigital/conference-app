@@ -96,9 +96,9 @@ export default styles = StyleSheet.create({
     resizeMode : 'contain'
   },
   imageStyle : {
-    width : '98%',
-    height : '98%',
-    borderRadius : 60,
+    width : 95,
+    height : 95,
+    borderRadius : (Platform.OS === 'ios') ? 46 : 150,
     resizeMode : 'contain'
   },
   profileNameTxt : {
