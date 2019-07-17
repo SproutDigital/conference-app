@@ -252,10 +252,7 @@ class Organisers extends Component {
                   text = {'Website'}
                 />
                  {this.webSiteLink()}
-                {/* <DisplayText
-                  styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {dat.website ? dat.website : ''}
-                /> */}
+               
               </View>
               {/* Social Media */}
               <View style = {styles.formView}>
