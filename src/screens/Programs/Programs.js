@@ -115,7 +115,7 @@ class Programs extends Component {
   render () {
    return(
     <SafeAreaView style={styles.container}> 
-      <StatusBar barStyle="default" /> 
+      <StatusBar barStyle="default"/>
       <View style = {styles.navBar}>
         <TouchableOpacity
           onPress={()=>this.props.navigation.goBack()} 
