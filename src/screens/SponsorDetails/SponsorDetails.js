@@ -1,7 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, KeyboardAvoidingView,TouchableOpacity,
-   StyleSheet, Linking} from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, KeyboardAvoidingView,TouchableOpacity, StyleSheet, Linking} from 'react-native';
 import {DisplayText} from '../../components';
 import styles from './styles';
 

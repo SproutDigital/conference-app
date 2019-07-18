@@ -111,9 +111,9 @@ export default styles = StyleSheet.create({
     padding: 2
   },
   imageStyle : {
-    width : 110,
-    height : 110,
-    borderRadius : (Platform.OS ==='ios') ? 60 : 100,
+    width : 115,
+    height : 115,
+    borderRadius : (Platform.OS ==='ios') ? 55 : 100,
     resizeMode : 'contain'
   },
   cameraTouch : {
