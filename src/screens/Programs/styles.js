@@ -257,9 +257,10 @@ export default styles = StyleSheet.create({
     width : 24,
     justifyContent: 'center',
     alignItems: 'center',
-    position : 'absolute',
-    right : 8,
-    top :14
+    alignSelf: 'flex-end',
+    // position : 'absolute',
+    // right : 8,
+    // top :14
   },
   plusIcon : {
     height : 20,

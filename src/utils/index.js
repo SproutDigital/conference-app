@@ -1,7 +1,9 @@
 const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
-const LoginEndpoint = `${Baseurl}user/login`,
+const 
+    EventId = '5d248d45c8ce0900171f03e2',
+    LoginEndpoint = `${Baseurl}user/login`,
     RegisterEndpoint = `${Baseurl}user/register`,
     VerificationStatusEndpoint = `${Baseurl}user/check_status`,
     VerifyUserEndpoint = `${Baseurl}user/confirmation/`,
@@ -12,9 +14,11 @@ const LoginEndpoint = `${Baseurl}user/login`,
     ImageUploadEndpoint = `${Baseurl}upload/`,
     EventDetailsEndpoint = `${Baseurl}event/query`,
     FetchProfileEndpoint = `${Baseurl}profile/query`,
-    FetchCompanyEndpoint = `${Baseurl}company/query/`;
+    FetchCompanyEndpoint = `${Baseurl}company/query/`,
+    AddParticipantEndpoint = `${Baseurl}event/addParticipant`
 
 export {
+    EventId,
     LoginEndpoint,
     RegisterEndpoint,
     VerificationStatusEndpoint,
@@ -26,7 +30,8 @@ export {
     ImageUploadEndpoint,
     EventDetailsEndpoint,
     FetchProfileEndpoint,
-    FetchCompanyEndpoint
+    FetchCompanyEndpoint,
+    AddParticipantEndpoint
     
 }
 

@@ -14,6 +14,7 @@ YellowBox.ignoreWarnings(['Remote debugger']);
 import {connect} from 'react-redux';
 import { addProfile } from '../../redux/actions/ProfileActions';
 
+
 const slides = [
   {
     key: 'somethun',
@@ -49,8 +50,7 @@ const slides = [
   }
 
    async componentWillMount(){
-  //  logout();
-  // console.log({'he':new Date()})
+   //logout();
     this.checkLogin();
   }
 

@@ -5,7 +5,7 @@ import {DisplayText, } from '../../components';
 import styles from './styles';
 import { DrawerActions } from "react-navigation";
 import {connect} from 'react-redux';
-import { post, EventDetailsEndpoint, getProfile} from '../../utils';
+import {  EventId, post, EventDetailsEndpoint, getProfile} from '../../utils';
 import { setEventDetails, } from '../../redux/actions/EventActions';
 import { setSponsorDetails } from '../../redux/actions/SponsorActions';
 import { setProgramDetails } from '../../redux/actions/ProgramActions';
@@ -39,9 +39,8 @@ const deviceWidth = Dimensions.get('window').width;
 
   fetchEventDetails = async(token) => {
     const { setEventProfile, setSponsor, setProgram} = this.props;
-    console.log()
     let data = await JSON.stringify({
-      'query' :  {'_id' : '5d248d45c8ce0900171f03e2'}, 
+      'query' :  {'_id' : EventId}, 
     });
 
      await post (EventDetailsEndpoint, data, token )

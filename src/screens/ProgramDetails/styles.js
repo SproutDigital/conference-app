@@ -93,7 +93,7 @@ export default styles = StyleSheet.create({
     width : '99%',
     borderRadius : 8,
     marginTop : 16,
-    height : 50,
+    //height : 50,
     paddingHorizontal : 8,
     paddingVertical : 4,
     elevation : 1,
@@ -168,7 +168,6 @@ export default styles = StyleSheet.create({
   attendyView : {
     flexDirection : 'row',
     paddingTop : 16,
-    // justifyContent: 'center',
     alignItems : 'center',
     marginBottom : 16,
 
@@ -209,5 +208,9 @@ export default styles = StyleSheet.create({
     backgroundColor : theme.colorAccent,
     justifyContent: 'center',
     alignItems : 'center',
+  },
+  rating: {
+    flex:1, 
+    alignItems:'flex-start'
   }
 });

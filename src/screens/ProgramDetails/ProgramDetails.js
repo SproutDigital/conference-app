@@ -3,8 +3,11 @@ import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
 import {DisplayText, } from '../../components';
 import styles from './styles';
-import colors from '../../assets/colors';
 import { DrawerActions } from "react-navigation";
+import moment from 'moment';
+import { AirbnbRating } from 'react-native-ratings';
+import {AddParticipantEndpoint, EventId, post, getProfile} from '../../utils'
+
 
 
 
@@ -17,6 +20,8 @@ export default class Profile extends Component {
       message : '',
     }
   }
+
+  
   
   toggleDrawer = () => {
     //Props to open/close the drawer
@@ -26,9 +31,48 @@ export default class Profile extends Component {
   handlePressBack = () => {
     return this.props.navigation.goBack();
   }
-  
+
+  displaySpeakers(speakers){
+    let items = [];
+    if(speakers) {
+     items = speakers.map((row, i ) => {
+      return (<DisplayText
+        text = {`${row.name} ${' '}`}
+        styles = {StyleSheet.flatten(styles.sponserName)}
+        key={i}
+      />)
+        
+      })
+      
+    } 
+    return items;
+  }
+
+
+  addParticipant = async() => {
+   // const { setEventProfile, setSponsor, setProgram} = this.props;
+   let profile = await getProfile();
+    let data = await JSON.stringify({
+      'eventid' :  EventId, 
+    });
+
+     await post (AddParticipantEndpoint, data, profile.sessionToken )
+      .then((res) => {
+        console.log({res})
+      //   this.setState({
+      //     restoring:false,
+      //     data:res.data[0]
+      //   })
+      //   setEventProfile(res.data);
+      //   setSponsor(res.data[0].sponsors);
+      //   setProgram(res.data[0].program);
+       });
+  }
 
   render () {
+    let program = this.props.navigation.getParam('program');
+    console.log({program})
+    let date = moment(program.date).format('MMM DD, YYYY');
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default"/>
@@ -55,11 +99,11 @@ export default class Profile extends Component {
           showsVerticalScrollIndicator={false}>
           <View style = {styles.blueCard}>
             <DisplayText
-              text = {'The Business of Branding'}
+              text = {program.title}
               styles = {StyleSheet.flatten(styles.headerCardTxt)}
             />
             <DisplayText
-              text = {'23rd July, 2018 4:00pm'}
+              text = {`${date} ${program.start_time}`}
               styles = {StyleSheet.flatten(styles.cardDate)}
             />
           </View>
@@ -70,7 +114,7 @@ export default class Profile extends Component {
               styles = {StyleSheet.flatten(styles.sponser)}
             />
             <DisplayText
-              text = {'In software engineering, dependency injection is a technique whereby one object supplies the dependencies of another object. A "dependency" is an object that can be used, for example a service. Instead of a client specifying which service it will use, something tells the client what '}
+              text = {program.description}
               styles = {StyleSheet.flatten(styles.typeTxt)}
             />
           </View>
@@ -95,7 +139,7 @@ export default class Profile extends Component {
             </View>
           </View>
 
-          <TouchableOpacity style = {styles.blueButton}>
+          <TouchableOpacity style = {styles.blueButton} onPress={this.addParticipant}>
             <DisplayText
               text = {'+ Add to my Program'}
               styles = {StyleSheet.flatten(styles.buttonTxt)}
@@ -107,10 +151,16 @@ export default class Profile extends Component {
               text = {'Rating'}
               styles = {StyleSheet.flatten(styles.sponser)}
             />
-            <DisplayText
-              text = {'*****'}
-              styles = {StyleSheet.flatten(styles.sponserName)}
-            />
+            <View style={styles.rating}>
+              <AirbnbRating
+                count={5}
+                defaultRating={5}
+                size={20}
+                showRating={false}
+              />
+            </View>
+            
+           
           </View>
 
           {/* LOCATIO */}
@@ -120,7 +170,7 @@ export default class Profile extends Component {
               styles = {StyleSheet.flatten(styles.sponser)}
             />
             <DisplayText
-              text = {'Tap to see location'}
+              text = {program.venue}
               styles = {StyleSheet.flatten(styles.sponserName)}
             />
           </View>
@@ -130,10 +180,9 @@ export default class Profile extends Component {
               text = {'Speaker'}
               styles = {StyleSheet.flatten(styles.sponser)}
             />
-            <DisplayText
-              text = {'Mathew JJ \n'}
-              styles = {StyleSheet.flatten(styles.sponserName)}
-            />
+             <View style ={{width: '93%', flexWrap : 'wrap'}}>
+              {this.displaySpeakers(program.speakers)}
+             </View>
           </View>
           
           {/* Attendy one Image */}

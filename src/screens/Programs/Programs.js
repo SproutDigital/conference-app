@@ -5,6 +5,7 @@ import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import {connect} from 'react-redux';
+import moment from 'moment';
 
 class Programs extends Component {
   constructor(props) {
@@ -21,7 +22,70 @@ class Programs extends Component {
     this.setState({
       data: this.props.program,
     });
+    
     this.arrayholder = this.props.program;
+  }
+
+  dateToFromNowDaily = (item ) =>{
+   // 2019-07-17T23:42
+    let eDate  = `${item.date}T${item.start_time}`;
+    // get from-now for this date
+    var fromNow = moment(eDate, "YYYY-MM-DD HH:mm" ).fromNow();
+
+    // ensure the date is displayed with today and yesterday
+    return moment(eDate, "YYYY-MM-DD HH:mm").calendar( null, {
+        lastWeek: '[Last] dddd',
+        lastDay:  '[Happened Yesterday]',
+        nextDay:  '[Tomorrow]',
+        nextWeek: 'dddd',
+        sameDay: function (now) {
+          if (this.isAfter(now)) {
+            return '[Will Happen Today]';
+          } else {
+            return '[Happened Today]';
+          }
+        },            
+        sameElse: function () {
+          return "[" + fromNow + "]";
+        }
+    });
+  }
+
+
+  showEventDate(item) {
+    let formatedDate = this.dateToFromNowDaily(item);
+    if(formatedDate.includes('in')) {
+     return( <DisplayText
+        text = {`${formatedDate} ${item.start_time}`}
+        styles = {StyleSheet.flatten(styles.timeText)}
+      />)
+    }
+    else if(formatedDate === 'Happened Yesterday') {
+      return( <DisplayText
+        text = {formatedDate}
+        styles = {StyleSheet.flatten(styles.timeText)}
+      /> )
+    }
+    else if(formatedDate.includes('Will')) {
+      return( <DisplayText
+        text = {`${'Today'} ${item.start_time} - ${item.end_time}`}
+          styles = {StyleSheet.flatten(styles.timeText)}
+        />
+      )
+    }
+    else if(formatedDate.includes('Happened')) {
+      return( <DisplayText
+       text = {`${'Happened Today'} ${item.start_time} - ${item.end_time}`}
+        styles = {StyleSheet.flatten(styles.timeText)}
+      />)
+    }
+    else if(formatedDate.includes('Tomorrow')) {
+      return( <DisplayText
+       text = {`${formatedDate} ${item.start_time} - ${item.end_time}`}
+        styles = {StyleSheet.flatten(styles.timeText)}
+      />)
+    }
+        
   }
 
   handleOnboard = () => {
@@ -43,10 +107,25 @@ class Programs extends Component {
     });
   }
 
-  handleViewProgram = () => {
-    return this.props.navigation.navigate('ProgramDetails');
+  handleViewProgram = program => {
+    return this.props.navigation.navigate('ProgramDetails', {
+      'program' : program,
+    });
   }
   renderRow = ({item}) => {
+    let items = [];
+    if( item.tags) {
+      items = item.tags.map((row, i ) => {
+        return (
+          <TouchableOpacity key={i} style = {styles.buttonView}>
+            <DisplayText
+              text = {row}
+              styles = {StyleSheet.flatten(styles.btnText)}
+            /> 
+          </TouchableOpacity>
+        )
+      })
+    } 
     return (
       <View style = {styles.listViewItem}>    
         <TouchableOpacity 
@@ -59,16 +138,12 @@ class Programs extends Component {
           />
           <TouchableOpacity style = {styles.buttonView}>
             <DisplayText
-              text = {item.type}
+              text = {item.type }
               styles = {StyleSheet.flatten(styles.btnText)}
             /> 
           </TouchableOpacity>
         </View>
-        <DisplayText
-          text = {`${item.start_time} - ${item.end_time}`}
-          styles = {StyleSheet.flatten(styles.timeText)}
-          />
-      
+         {this.showEventDate(item)}
           <DisplayText
             numberOfLines = { 2 } 
             ellipsizeMode = 'middle'
@@ -76,30 +151,14 @@ class Programs extends Component {
             styles = {StyleSheet.flatten(styles.cardTxtBody)}
           />
           <DisplayText
-            text = {'Hall 4, Long Amphitheatre, Sheraton. '}
+            text = {item.venue}
             styles = {StyleSheet.flatten(styles.nameText)}
             />
           <View style = {styles.tagsView}>
-            <TouchableOpacity style = {styles.buttonView}>
-              <DisplayText
-                text = {"Technology"}
-                styles = {StyleSheet.flatten(styles.btnText)}
-              /> 
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.buttonView}>
-              <DisplayText
-                text = {"Business"}
-                styles = {StyleSheet.flatten(styles.btnText)}
-              /> 
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.buttonView}>
-              <DisplayText
-                text = {"TalkShow"}
-                styles = {StyleSheet.flatten(styles.btnText)}
-              /> 
-            </TouchableOpacity>
-
             
+            <View style ={{width: '93%', flexDirection: 'row'}}>
+              {items}
+            </View>
             <TouchableOpacity style = {styles.plusBtn}>
               <Image
                 source = {require('../../assets/images/plus_btn.png')}
