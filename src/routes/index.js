@@ -32,6 +32,7 @@ import MyPrograms from '../screens/MyPrograms/MyPrograms';
 import ProgramDetails from '../screens/ProgramDetails/ProgramDetails';
 import People from '../screens/People/People';
 import PeopleMain from '../screens/PeopleMain/PeopleMain';
+import Resources from '../screens/Resources/Resources';
 
 const AuthStack = createStackNavigator({ 
 
@@ -329,7 +330,13 @@ export const OnBoardingStack = createStackNavigator({
       navigationOptions : {
         header : null,
       }
-    }
+    },
+    Resources : {
+      screen : Resources,
+      navigationOptions : {
+        header : null,
+      }
+    },
     
   },
   {
