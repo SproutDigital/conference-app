@@ -25,6 +25,8 @@ import Venue from './Venue';
 import Organisers from './Organisers'
 import Sponsor from './Sponsor';
 import MyProgram from './MyProgram';
+import PeopleMain from './PeopleMain';
+import ProgramDetails from './ProgramDetails'
 
 export default {
   ForgetPassword, 
@@ -54,4 +56,6 @@ export default {
   Organisers,
   Sponsor,
   MyProgram,
+  PeopleMain,
+  ProgramDetails,
 };

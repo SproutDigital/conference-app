@@ -21,7 +21,6 @@ import Navigations from '../screens/Navigations/Navigations';
 import Settings from '../screens/Settings/Settings';
 import Notification from '../screens/Notification/Notification';
 import Programs from '../screens/Programs/Programs';
-import People from '../screens/People/People';
 import Help from '../screens/Help/Help';
 import About from '../screens/About/About';
 import AboutConference from '../screens/AboutConference/AboutConference';
@@ -31,6 +30,8 @@ import Sponsor from '../screens/Sponsor/Sponsor';
 import SponsorDetails from '../screens/SponsorDetails/SponsorDetails';
 import MyPrograms from '../screens/MyPrograms/MyPrograms';
 import ProgramDetails from '../screens/ProgramDetails/ProgramDetails';
+import People from '../screens/People/People';
+import PeopleMain from '../screens/PeopleMain/PeopleMain';
 
 const AuthStack = createStackNavigator({ 
 
@@ -313,6 +314,18 @@ export const OnBoardingStack = createStackNavigator({
     },
     ProgramDetails : {
       screen : ProgramDetails,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    People : {
+      screen : People,
+      navigationOptions : {
+        header : null,
+      }
+    },
+    PeopleMain : {
+      screen : PeopleMain,
       navigationOptions : {
         header : null,
       }

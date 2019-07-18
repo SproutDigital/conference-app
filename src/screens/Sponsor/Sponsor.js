@@ -218,8 +218,6 @@ import theme from '../../assets/theme'
               text = {item.short_bio}
               styles = {StyleSheet.flatten(styles.subHeaderText)}
             />
- 
-            
             <View style={styles.buttonMoreView}>
               <DisplayText
                 text = {"see more"}
@@ -229,10 +227,9 @@ import theme from '../../assets/theme'
           </View>
           
         </TouchableOpacity>
-        </View>
-      );
+      </View>
+    );
   }
-
   
   render () {
    return(
