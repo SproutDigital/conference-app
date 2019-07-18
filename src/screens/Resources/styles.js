@@ -11,7 +11,7 @@ export default styles = StyleSheet.create({
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
-    height : 60,
+    height : (Platform.OS === "ios") ? 40 : 60,
     backgroundColor: theme.toolBarColor,
     width: '100%',
     alignItems: 'center',
@@ -86,6 +86,13 @@ export default styles = StyleSheet.create({
     width : 20,
     height : 20,
   },
+  // listItems : {
+  //   marginTop : 8,
+  //   width : '90%',
+  //   elevation : 1,
+  //   borderRadius : 8,
+  //   height : 100,
+  // },
   listViewItem : {
     alignItems : 'center',
     width : '100%',
@@ -95,7 +102,7 @@ export default styles = StyleSheet.create({
   },
   cardView:{
     width: '99%',
-    height : 110,
+    // height : 110,
     backgroundColor: theme.colorAccent,
     borderRadius : 8,
     marginTop: 4,
@@ -110,62 +117,113 @@ export default styles = StyleSheet.create({
     elevation: 1,
     paddingHorizontal: 8,
     paddingVertical: 8,
-    flexDirection : 'row',
-    alignItems : 'center'
+    // flexDirection : 'row',
+    // alignItems : 'center'
   },
-  sponsorImageView : {
-    width : '30%',
+  ImageView : {
+    width : 40,
+    height : 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius : (Platform.OS === 'ios') ? 15 : 18
-
+    borderRadius : (Platform.OS === 'ios') ? 20 : 30,
+    marginTop : 4
   },  
-  sponsorImage : {
+  personImage : {
     resizeMode : 'cover',
-    height : '80%',
-    width : '100%',
-    borderRadius : (Platform.OS === 'ios') ? 15 : 18
+    height : 39,
+    width : 39,
+    borderRadius : (Platform.OS === 'ios') ? 20 : 30
   },
-  txtView : {
-    flexDirection : 'column',
-    height : '100%',
-    width : '70%',
-    paddingLeft : 8
+  resouceView : {
+    flexDirection : 'row',
+    width : '98%',
+    paddingHorizontal : 4,
   },
-  headerText : {
+  resourceTxt : {
     fontFamily : theme.secondaryFont,
-    fontSize : theme.MediumFont,
-    color : theme.primaryTextColor
+    fontSize : theme.SmallerFont,
+    color : theme.secondaryTextColor
   },
-  subHeaderText : {
-    // marginTop : 4,
-    fontFamily : theme.subHeaderFont,
-    fontSize : theme.SmallFont,
-    color : theme.secondaryTextColor,
-    height : 40
-  },
-  moreText : {
-    marginTop : 4,
+  bioDetailTxt : {
     fontFamily : theme.secondaryFont,
     fontSize : theme.thinyFont,
-    color : theme.primaryColor
+    color : theme.primaryTextColor
   },
-  iconView : {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width : 40,
+
+  pdfIcon : {
+    height : 20,
+    width : 20,
+    marginTop : 8
+  },
+  line : {
+    width : '100%',
+    marginVertical : 4,
+    backgroundColor : theme.formBorderColor,
+    borderWidth : 0.5,
+    borderColor : theme.formBorderColor,
   },
   buttonMoreView : {
     paddingHorizontal: 8,
     justifyContent: 'space-between',
     flexDirection : 'row'
   },
-  plusIcon : {
-    height : 25,
-    width : 30,
-    resizeMode : 'contain',
+  downloadtxt : {
+    fontFamily : theme.subHeaderFont,
+    color : theme.colorAccent,
+    fontSize : theme.SmallFont,
+    marginTop : (Platform.OS === "ios") ? 4 : 0
+  },
+  downloadBtn : {
+    width : '30%',
+    borderRadius : 8,
+    paddingHorizontal : 8,
+    backgroundColor : theme.primaryColor,
+    justifyContent: 'center',
+    alignItems : 'center',
+    marginStart : 4,
+    marginVertical : 2,
+    paddingVertical : 2,
+    alignSelf : 'flex-end'
+    
+  },
+    bioTextView : {
+    width : '95%',
+    marginBottom : 8
+  },
+  imageText : {
+    flexDirection : 'row',
+  },
+  datebutton : {
+    width : '20%',
+    height : 30,
+    borderRadius : 4,
+    backgroundColor : theme.primaryColor,
+    justifyContent: 'center',
+    alignItems : 'center',
     marginBottom : 4
+  },
+  txtDate : {
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.SmallerFont,
+    color : theme.colorAccent,
+    marginTop : (Platform.OS === 'ios') ? 4 : 0
+  },
+  txtFilter : {
+    fontFamily : theme.subHeaderFont,
+    fontSize : theme.SmallFont,
+    color : theme.textGray,
+    marginRight : 16,
 
-  }
-
+  },
+  dateView : {
+    flexDirection : 'row',
+    marginTop : (Platform.OS === 'ios') ? 10 : 8,
+    alignItems :  'center'
+  },
+  titleText : {
+    fontFamily : theme.secondaryFont,
+    fontSize : theme.SmallFont,
+    color : theme.primaryTextColor,
+    marginLeft : 4,
+  },
 });

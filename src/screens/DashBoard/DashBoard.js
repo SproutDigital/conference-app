@@ -69,7 +69,15 @@ const deviceWidth = Dimensions.get('window').width;
   handleProgram = ()=> {
     return this.props.navigation.navigate('Programs');
   }
-  
+  handleResources = () => {
+    return this.props.navigation.navigate('Resources')
+  }
+  handleSponsors = () => {
+    return this.props.navigation.navigate('Sponsor')
+  }
+  handlepeople = () => {
+    return this.props.navigation.navigate('People')
+  }
 
   render () {
     const {restoring, data} = this.state;
@@ -167,32 +175,44 @@ const deviceWidth = Dimensions.get('window').width;
                     styles = {styles.boxText}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.boxes}>
+                <TouchableOpacity 
+                  onPress = {this.handlepeople}
+                  style={styles.boxes}>
                   <Image
+                    onPress = {this.handlepeople}
                     source = {require('../../assets/images/group.png')}
                     style = {StyleSheet.flatten(styles.boxIcon)}
                   />
                   <DisplayText
+                    onPress = {this.handlepeople}
                     text={'People'}
                     styles = {styles.boxText}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.boxes}>
+                <TouchableOpacity 
+                  onPress = {this.handleSponsors}
+                  style={styles.boxes}>
                   <Image
+                    onPress = {this.handleSponsors}
                     source = {require('../../assets/images/sponsors.png')}
                     style = {StyleSheet.flatten(styles.boxIcon)}
                   />
                   <DisplayText
+                    onPress = {this.handleSponsors}
                     text={'Sponsors'}
                     styles = {styles.boxText}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.boxes}>
+                <TouchableOpacity 
+                  onPress = {this.handleResources}
+                  style={styles.boxes}>
                   <Image
+                    onPress = {this.handleResources}
                     source = {require('../../assets/images/resources.png')}
                     style = {StyleSheet.flatten(styles.boxIcon)}
                   />
                   <DisplayText
+                    onPress = {this.handleResources}
                     text={'Resources'}
                     styles = {styles.boxText}
                   />

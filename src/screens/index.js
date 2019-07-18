@@ -27,7 +27,7 @@ import Sponsor from './Sponsor';
 import MyProgram from './MyProgram';
 import PeopleMain from './PeopleMain';
 import ProgramDetails from './ProgramDetails'
-
+import Resources from './Resources';
 export default {
   ForgetPassword, 
   Login, 
@@ -58,4 +58,5 @@ export default {
   MyProgram,
   PeopleMain,
   ProgramDetails,
+  Resources,
 };

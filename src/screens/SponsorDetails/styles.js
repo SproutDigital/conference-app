@@ -104,7 +104,7 @@ export default styles = StyleSheet.create({
     shadowOpacity : 0.25,
     shadowColor : theme.primaryTextColor,
     shadowRadius : 2.56,
-    borderRadius : (Platform.OS === 'ios') ? 100 : 100,
+    borderRadius : (Platform.OS === 'ios') ? 100 : 150,
     marginTop : 16,
     justifyContent: 'center',
     alignItems : 'center',
@@ -113,7 +113,7 @@ export default styles = StyleSheet.create({
   imageStyle : {
     width : 115,
     height : 115,
-    borderRadius : (Platform.OS ==='ios') ? 55 : 100,
+    borderRadius : (Platform.OS ==='ios') ? 55 : 150,
     resizeMode : 'contain'
   },
   cameraTouch : {
