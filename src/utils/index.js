@@ -15,7 +15,8 @@ const
     EventDetailsEndpoint = `${Baseurl}event/query`,
     FetchProfileEndpoint = `${Baseurl}profile/query`,
     FetchCompanyEndpoint = `${Baseurl}company/query/`,
-    AddParticipantEndpoint = `${Baseurl}event/addParticipant`
+    AddParticipantEndpoint = `${Baseurl}event/addParticipant`,
+    CreateRatingEndpoint = `${Baseurl}rating/create`
 
 export {
     EventId,
@@ -31,7 +32,8 @@ export {
     EventDetailsEndpoint,
     FetchProfileEndpoint,
     FetchCompanyEndpoint,
-    AddParticipantEndpoint
+    AddParticipantEndpoint,
+    CreateRatingEndpoint
     
 }
 

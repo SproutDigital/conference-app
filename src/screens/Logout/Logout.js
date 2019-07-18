@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {SafeAreaView,} from 'react-native';
-import {logout} from '../../utils/index'
-import { ProgressDialog } from 'react-native-simple-dialogs';
+import {logout} from '../../utils/index';
+import {Preloader} from '../../components';
 
 
 export default class Logout extends Component {
@@ -23,11 +23,10 @@ export default class Logout extends Component {
     const {showLoading} = this.state
     return (
       <SafeAreaView style={styles.container}>
-        <ProgressDialog
-          visible={showLoading}
-          title="Processing"
-          message="Please wait..."
-        />      
+        <Preloader
+          modalVisible={this.state.showLoading}
+          animationType="fade"
+        />  
       </SafeAreaView>
 
     );

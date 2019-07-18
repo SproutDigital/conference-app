@@ -1,13 +1,12 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+import {DisplayText, InputField, SingleButtonAlert , Preloader} from '../../components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import styles from './styles';
 import LockSvg from './LockSvg';
 import Toast from 'react-native-easy-toast';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import { sendRoute, ResetPassword, isEmpty} from '../../utils';
 
 export default class ForgetPassword extends Component {
@@ -179,10 +178,9 @@ export default class ForgetPassword extends Component {
               textStyle={{color:'white'}}
             /> 
 
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
+            <Preloader
+              modalVisible={showLoading}
+             animationType="fade"
             />
             <SingleButtonAlert
               title = {'Hello'} 

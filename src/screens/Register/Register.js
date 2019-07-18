@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, SafeAreaView, StatusBar, Image, StyleSheet,TouchableOpacity, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader } from '../../components';
 import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
@@ -362,10 +362,9 @@ export default class Register extends Component {
                   textStyle={{color:'white'}}
                 /> 
 
-                <ProgressDialog
-                  visible={showLoading}
-                  title="Processing"
-                  message="Please wait..."
+                <Preloader
+                  modalVisible={showLoading}
+                animationType="fade"
                 />
                 <SingleButtonAlert
                   title = {'Hello'} 

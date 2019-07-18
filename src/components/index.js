@@ -3,6 +3,7 @@ import {SubmitButton} from './Buttons';
 import {InputField}  from './TextInput';
 import {DisplayText}  from './Text';
  import  {Icons} from './Icons/Icons';
+ import {Preloader} from './Preloader';
 
 export {
   Alert , 
@@ -11,5 +12,6 @@ export {
   InputField, 
   DisplayText, 
   Icons, 
+  Preloader,
   //InputFieldBorder
 } 

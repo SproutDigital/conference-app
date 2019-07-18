@@ -2,9 +2,8 @@
 
 import React, {Component} from 'react';
  import { View, Image,StyleSheet, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton} from '../../components';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import {isEmailValid, sendRoute, LoginEndpoint, saveProfile, isEmpty} from '../../utils';
 import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
@@ -349,10 +348,9 @@ class Login extends Component {
               opacity={0.8}
               textStyle={{color:'white'}}
             /> 
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
+            <Preloader
+              modalVisible={showLoading}
+             animationType="fade"
             />
             <SingleButtonAlert
               title = {title} 

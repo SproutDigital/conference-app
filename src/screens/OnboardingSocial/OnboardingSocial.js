@@ -2,11 +2,10 @@
 import React, {Component} from 'react';
 import { View, ScrollView, FlatList, Switch, Modal, TextInput, KeyboardAvoidingView, 
   TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader } from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import { isEmpty,  putRoute, ProfileUpdateEndpoint, getProfile, updateOnBoarding} from '../../utils';
 import {connect} from 'react-redux'
 import colors from '../../assets/colors';
@@ -680,10 +679,9 @@ class OnboardingSocial extends Component {
               titleStyle={StyleSheet.flatten(styles.buttonTxt)}
             />
  
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
+            <Preloader
+              modalVisible={this.state.showLoading}
+             animationType="fade"
             />
             <SingleButtonAlert
               title = {'Hello'} 

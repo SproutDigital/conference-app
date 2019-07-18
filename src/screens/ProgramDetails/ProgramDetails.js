@@ -1,31 +1,33 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, } from '../../components';
+import {DisplayText, Preloader} from '../../components';
 import styles from './styles';
 import { DrawerActions } from "react-navigation";
 import moment from 'moment';
 import { AirbnbRating } from 'react-native-ratings';
-import {AddParticipantEndpoint, EventId, post, getProfile} from '../../utils'
-
-
-
+import {AddParticipantEndpoint, CreateRatingEndpoint, EventId, post, getProfile} from '../../utils'
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state ={
+    this.state = {
       token : '',
       showAlert : false,
+      showLoading:false,
       message : '',
+      program : {},
     }
   }
 
-  
-  
+  componentDidMount() {
+    let program = this.props.navigation.getParam('program');
+    this.setState({program});
+
+  }
+
   toggleDrawer = () => {
-    //Props to open/close the drawer
-    // this.props.navigation.toggleDrawer();
+
     this.props.navigation.dispatch(DrawerActions.toggleDrawer())
   };
   handlePressBack = () => {
@@ -48,30 +50,56 @@ export default class Profile extends Component {
     return items;
   }
 
+  ratingCompleted = (rating) => { 
+    this.submitRating(rating);
+  }
+
+   submitRating = async(rating) => {
+    const {program} = this.state;
+    let profile =  await getProfile();
+    this.setState({
+      showLoading:true,
+    })
+    let data =  JSON.stringify({
+      'eventid' :  program._id, 
+      'userid' : profile.id,
+       rating
+    });
+    await post (CreateRatingEndpoint, data, profile.sessionToken )
+      .then((res) => {    
+        if(res.status == 'success') {
+          this.setState({
+            showLoading:false,
+          })
+        }
+       
+      });
+  }
+
 
   addParticipant = async() => {
-   // const { setEventProfile, setSponsor, setProgram} = this.props;
    let profile = await getProfile();
+    this.setState({
+      showLoading:true,
+    })
     let data = await JSON.stringify({
       'eventid' :  EventId, 
+      'participantid' : profile.id,
+       'attendees' : true
     });
 
      await post (AddParticipantEndpoint, data, profile.sessionToken )
       .then((res) => {
         console.log({res})
-      //   this.setState({
-      //     restoring:false,
-      //     data:res.data[0]
-      //   })
-      //   setEventProfile(res.data);
-      //   setSponsor(res.data[0].sponsors);
-      //   setProgram(res.data[0].program);
+        this.setState({
+          showLoading:false,
+        })
+       
        });
   }
 
   render () {
-    let program = this.props.navigation.getParam('program');
-    console.log({program})
+   const {program} = this.state;    
     let date = moment(program.date).format('MMM DD, YYYY');
    return(
     <SafeAreaView style={styles.container}> 
@@ -154,13 +182,12 @@ export default class Profile extends Component {
             <View style={styles.rating}>
               <AirbnbRating
                 count={5}
-                defaultRating={5}
+                defaultRating={0}
                 size={20}
                 showRating={false}
+                onFinishRating={this.ratingCompleted}
               />
             </View>
-            
-           
           </View>
 
           {/* LOCATIO */}
@@ -204,6 +231,10 @@ export default class Profile extends Component {
               styles = {StyleSheet.flatten(styles.attendyTxt)}
             />
           </View>
+            <Preloader
+              modalVisible={this.state.showLoading}
+             animationType="fade"
+            />
           {/* Attendy one Image */}
         </ScrollView>
       </View>
