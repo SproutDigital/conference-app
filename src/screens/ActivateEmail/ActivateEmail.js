@@ -1,11 +1,10 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, TouchableOpacity, SafeAreaView, StatusBar, Image, StyleSheet, Linking} from 'react-native';
-import {DisplayText, } from '../../components';
+import {DisplayText, Preloader} from '../../components';
 import styles from './styles';
 import ExpireSvg from './ExpireSvg';
-import { ProgressDialog } from 'react-native-simple-dialogs';
-import { sendRoute, logout, getEmail, VerificationStatusEndpoint} from '../../utils';
+import { sendRoute, getEmail, VerificationStatusEndpoint} from '../../utils';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 
@@ -60,7 +59,6 @@ export default class ActivateEmail extends Component {
 
      await sendRoute (VerificationStatusEndpoint, data)
       .then((res) => {
-        console.log({res})
         if (res.status !== 'success') {  
           return  this.setState({ 
             showLoading : false,
@@ -132,10 +130,16 @@ export default class ActivateEmail extends Component {
                 styles = {StyleSheet.flatten(styles.bottomTxt)}
                 text = {`Activation link has been sent to \n${email}!`}
               />
-              <ProgressDialog
-                visible={showLoading}
-                title="Processing"
-                message="Please wait..."
+              <Preloader
+                modalVisible={showLoading}
+                animationType="fade"
+              />
+
+              <ErrorAlert
+                title = {'Error!'} 
+                message = {errorMessage}
+                handleCloseNotification = {this.handleCloseNotification}
+                visible = {showAlert}
               />
             </View>
 

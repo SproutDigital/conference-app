@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, Preloader} from '../../components';
+import {DisplayText, Preloader, ErrorAlert, SuccessAlert} from '../../components';
 import styles from './styles';
 import { DrawerActions } from "react-navigation";
 import moment from 'moment';
@@ -13,7 +13,10 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       token : '',
-      showAlert : false,
+      showSuccessAlert : false,
+      successMessage: '',
+      showErrorAlert: false,
+      errorMessage: '',
       showLoading:false,
       message : '',
       program : {},
@@ -32,6 +35,13 @@ export default class Profile extends Component {
   };
   handlePressBack = () => {
     return this.props.navigation.goBack();
+  }
+
+  handleCloseNotification = () => {
+    return this.setState({
+      showSuccessAlert : false,
+      showErrorAlert: false
+    });
   }
 
   displaySpeakers(speakers){
@@ -69,7 +79,17 @@ export default class Profile extends Component {
       .then((res) => {    
         if(res.status == 'success') {
           this.setState({
-            showLoading:false,
+            showLoading: false,
+            showSuccessAlert: true,
+            successMessage : res.status
+            
+          })
+        }
+        else {
+          this.setState({
+            showLoading: false,
+            showErrorAlert: true,
+            errorMessage : res.status
           })
         }
        
@@ -90,16 +110,26 @@ export default class Profile extends Component {
 
      await post (AddParticipantEndpoint, data, profile.sessionToken )
       .then((res) => {
-        console.log({res})
-        this.setState({
-          showLoading:false,
-        })
+        if(res.status == 'success') {
+          this.setState({
+            showLoading:false,
+            showSuccessAlert: true,
+             successMessage : res.status
+          })
+        }
+        else {
+          this.setState({
+            showLoading: false,
+            showErrorAlert: true,
+            errorMessage : res.status
+          })
+        }
        
        });
   }
 
   render () {
-   const {program} = this.state;    
+   const {program, showLoading, errorMessage, showErrorAlert, successMessage, showSuccessAlert} = this.state;    
     let date = moment(program.date).format('MMM DD, YYYY');
    return(
     <SafeAreaView style={styles.container}> 
@@ -127,7 +157,7 @@ export default class Profile extends Component {
           showsVerticalScrollIndicator={false}>
           <View style = {styles.blueCard}>
             <DisplayText
-              text = {program.title}
+              text = {program.title || ''}
               styles = {StyleSheet.flatten(styles.headerCardTxt)}
             />
             <DisplayText
@@ -142,7 +172,7 @@ export default class Profile extends Component {
               styles = {StyleSheet.flatten(styles.sponser)}
             />
             <DisplayText
-              text = {program.description}
+              text = {program.description || '' }
               styles = {StyleSheet.flatten(styles.typeTxt)}
             />
           </View>
@@ -197,7 +227,7 @@ export default class Profile extends Component {
               styles = {StyleSheet.flatten(styles.sponser)}
             />
             <DisplayText
-              text = {program.venue}
+              text = {program.venue || ''}
               styles = {StyleSheet.flatten(styles.sponserName)}
             />
           </View>
@@ -216,10 +246,21 @@ export default class Profile extends Component {
           <View style = {styles.attendyView}>
           </View>
             <Preloader
-              modalVisible={this.state.showLoading}
+              modalVisible={showLoading}
              animationType="fade"
             />
-          {/* Attendy one Image */}
+            <ErrorAlert
+                title = {'Error!'} 
+                message = {errorMessage}
+                handleCloseNotification = {this.handleCloseNotification}
+                visible = {showErrorAlert}
+              />
+            <SuccessAlert
+              title = {'Success!'} 
+              message = {successMessage}
+              handleCloseNotification = {this.handleCloseNotification}
+              visible = {showSuccessAlert}
+            />
         </ScrollView>
       </View>
     </SafeAreaView>

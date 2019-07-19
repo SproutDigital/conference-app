@@ -1,11 +1,10 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, TouchableOpacity, SafeAreaView, StatusBar, Image, StyleSheet,} from 'react-native';
-import {DisplayText, SubmitButton , SingleButtonAlert} from '../../components';
+import {DisplayText, SubmitButton , Preloader,  ErrorAlert} from '../../components';
 import styles from './styles';
 import ExpireSvg from './ExpireSvg';
 import { sendRoute, RequestNewTokenEndpoint, getEmail} from '../../utils';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 
@@ -126,17 +125,16 @@ export default class LinkExpire extends Component {
             />
           </View>
 
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
+            <Preloader
+              modalVisible={showLoading}
+            animationType="fade"
             />
-            <SingleButtonAlert
-              title = {'Hello'} 
-              message = {message}
+            <ErrorAlert
+              title = {'Error!'} 
+              message = {errorMessage}
               handleCloseNotification = {this.handleCloseNotification}
               visible = {showAlert}
-            /> 
+            />
         </View>
       </SafeAreaView>
     )

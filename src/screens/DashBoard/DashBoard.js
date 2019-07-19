@@ -9,10 +9,9 @@ import {  EventId, post, EventDetailsEndpoint, getProfile} from '../../utils';
 import { setEventDetails, } from '../../redux/actions/EventActions';
 import { setSponsorDetails } from '../../redux/actions/SponsorActions';
 import { setProgramDetails } from '../../redux/actions/ProgramActions';
-
+import { setResources } from '../../redux/actions/ResourceActions';
 
 const deviceWidth = Dimensions.get('window').width;
-
 
  class DashBoard extends Component {
   animVal = new Animated.Value(0);
@@ -38,7 +37,7 @@ const deviceWidth = Dimensions.get('window').width;
  
 
   fetchEventDetails = async(token) => {
-    const { setEventProfile, setSponsor, setProgram} = this.props;
+    const { setEventProfile, setSponsor, setProgram, setResource} = this.props;
     let data = await JSON.stringify({
       'query' :  {'_id' : EventId}, 
     });
@@ -49,9 +48,11 @@ const deviceWidth = Dimensions.get('window').width;
           restoring:false,
           data:res.data[0]
         })
+
         setEventProfile(res.data);
         setSponsor(res.data[0].sponsors);
         setProgram(res.data[0].program);
+        setResource(res.data[0].resources);
       });
 
   }
@@ -309,6 +310,8 @@ const mapDispatchToProps = (dispatch) =>{
     setEventProfile: (data) =>dispatch(setEventDetails(data)),
     setSponsor: (data)=>dispatch(setSponsorDetails(data)),
     setProgram: (data)=>dispatch(setProgramDetails(data)),
+    setResource: (data)=>dispatch(setResources(data)),
+
   }
 }
 

@@ -1,14 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, FlatList, TextInput,KeyboardAvoidingView,Picker, Modal,
+import { View, ScrollView, FlatList, TextInput,KeyboardAvoidingView,Modal,
    Text, TouchableWithoutFeedback, SafeAreaView, StatusBar, Image, TouchableHighlight, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert} from '../../components';
+import {DisplayText, InputField, ErrorAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
 import colors from '../../assets/colors';
 import { isEmpty} from '../../utils';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import {connect} from 'react-redux';
 import { addProfile } from '../../redux/actions/ProfileActions';
 
@@ -185,7 +184,7 @@ class OnboardingBio extends Component {
   
   render () {
     const countryData = data
-    const {isCompanyFocused, isShortBioFocused, gender, title, message, 
+    const {isCompanyFocused, isShortBioFocused, title, message, 
       showAlert, showLoading, country, company_name, short_bio } = this.state;
 
     const pickerGender = [
@@ -470,19 +469,15 @@ class OnboardingBio extends Component {
               />
             </TouchableOpacity>
           </View>
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
-            />  
+            
         </ScrollView>
       </KeyboardAvoidingView>
-       <SingleButtonAlert
-          title = {title} 
-          message = {message}
-          handleCloseNotification = {this.handleCloseNotification}
-          visible = {showAlert}
-        />
+      <ErrorAlert
+        title = {'Error!'} 
+        message = {message}
+        handleCloseNotification = {this.handleCloseNotification}
+        visible = {showAlert}
+      />
     </SafeAreaView>
     )
   }

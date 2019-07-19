@@ -27,7 +27,6 @@ class Programs extends Component {
   }
 
   dateToFromNowDaily = (item ) =>{
-   // 2019-07-17T23:42
     let eDate  = `${item.date}T${item.start_time}`;
     // get from-now for this date
     var fromNow = moment(eDate, "YYYY-MM-DD HH:mm" ).fromNow();
@@ -113,7 +112,7 @@ class Programs extends Component {
     });
   }
   renderRow = ({item}) => {
-    console.log({"itemsssssssss ": item})
+   // console.log({"itemsssssssss ": item})
     let items = [];
     if( item.tags) {
       items = item.tags.map((row, i ) => {

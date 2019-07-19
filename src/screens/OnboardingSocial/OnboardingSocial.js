@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { View, ScrollView, FlatList, Switch, Modal, TextInput, KeyboardAvoidingView, 
   TouchableWithoutFeedback,SafeAreaView, StatusBar, Image, TouchableOpacity, Text, StyleSheet,} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader } from '../../components';
+import {DisplayText, InputField, ErrorAlert, SubmitButton, Preloader } from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import data from '../../utils/Countries';
@@ -683,12 +683,14 @@ class OnboardingSocial extends Component {
               modalVisible={this.state.showLoading}
              animationType="fade"
             />
-            <SingleButtonAlert
-              title = {'Hello'} 
+
+            <ErrorAlert
+              title = {'Error!'} 
               message = {message}
               handleCloseNotification = {this.handleCloseNotification}
               visible = {showAlert}
             />
+            
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

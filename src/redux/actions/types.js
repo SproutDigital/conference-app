@@ -8,5 +8,7 @@ export const LOG_OUT = 'LOG_OUT';
 export const SET_EVENT_DETAILS= 'EVENT_DETAILS';
 export const SET_SPONSOR_DETAILS= 'SPONSOR_DETAILS';
 export const SET_PROGRAM_DETAILS= 'PROGRAM_DETAILS';
+export const SET_RESOURCES= 'RESOURCES';
+
 
 

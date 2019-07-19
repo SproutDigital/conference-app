@@ -1,165 +1,39 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField} from '../../components';
+import {DisplayText, InputField, Preloader, ErrorAlert, SuccessAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
-import { postRoute, getRoute, getEmail, } from '../../utils';
+import {connect} from 'react-redux';
+import * as FileSystem from 'expo-file-system';
 
 
 
-export default class Resources extends Component {
+
+ class Resources extends Component {
   constructor(props) {
     super(props);
     this.state ={
       data : [],
+      showSuccessAlert : false,
+      successMessage: '',
+      showErrorAlert: false,
+      errorMessage: '',
+      showLoading:false,
     }
+    this.arrayholder = [];
+
   }
 
-  resource = [
-    {
-      "_id": "5d1f909571e71900179b72f3",
-      "email": "mastat17@yahoo.com",
-      "name": "Tunde Anwo",
-      "expo_token": "ExponentPushToken[abY2COJOc1w7SzoGxa1SVZ]",
-      "event": [],
-      "__v": 0,
-      "company_name": "cobweb solutions",
-      "country": "Nigeria",
-      "facebook": "btcrown",
-      "facebook_visible": true,
-      "gender": "male",
-      "instagram": "btcrown",
-      "instagram_visible": false,
-      "job_title": "Digital Communications",
-      "linkedin_visible": true,
-      "phone": 2348094206060,
-      "short_bio": "Love lifeAug 18, 2018 - If you have been developing mobile people have thought about and already!!",
-      "title": "Mr",
-      "twitter": "btcrown",
-      "twitter_visible": true,
-      "website": "www.Cobwebsolutionsng.com",
-      "linkedin": "btcrown",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png",
-
-  },
-
-
-
-  {
-    "_id": "5d1f909571e71900179b72f2",
-    "email": "mastat17@yahoo.com",
-    "name": "Babatunde Anwo-Ade",
-    "expo_token": "ExponentPushToken[abY2COJOc1w7SzoGxa1SVZ]",
-    "event": [],
-    "__v": 0,
-    "company_name": "cobweb solutions",
-    "country": "Nigeria",
-    "facebook": "btcrown",
-    "facebook_visible": true,
-    "gender": "male",
-    "instagram": "btcrown",
-    "instagram_visible": false,
-    "job_title": "Digital Communications",
-    "linkedin_visible": true,
-    "phone": 2348094206060,
-    "short_bio": "Love lifeAug 18, 2018 - If you have been developing mobile people have thought about and already!!",
-    "title": "Mr",
-    "twitter": "btcrown",
-    "twitter_visible": true,
-    "website": "www.Cobwebsolutionsng.com",
-    "linkedin": "btcrown",
-    "photo": "https://s3.us-west-2.amazonaws.com/spr-bucket/1562533768",
-
-  },
-
-  
-  {
-      "_id": "5d1c92249b0b080017036e52",
-      "email": "edwardobande36@gmail.com",
-      "name": "Edward Obande",
-      "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-      "event": [],
-      "__v": 0,
-      "job_title": "Developers",
-      "title": "Mrs",
-      "company_name": "logical address",
-      "gender": "Male",
-      "short_bio": "Very easy ND fast learner",
-      "facebook": "Edward.obande",
-      "facebook_visible": true,
-      "instagram": "eddie",
-      "instagram_visible": false,
-      "linkedin_visible": true,
-      "phone": 3568103727918,
-      "twitter": "@eddiebigs",
-      "twitter_visible": true,
-      "website": "Facebook. Com",
-      "country": "Greenland",
-      "photo": "https://yt3.ggpht.com/a-/ACSszfGfL6O_P3JLe_4K7DYh2jsqdmVUYAdhOJKP=s900-mo-c-c0xffffffff-rj-k-no",
-      "linkedin": "edddiessss"
-  },
-
-  {
-    "_id": "5d1c92249b0b080017036e51",
-    "email": "edwardobande36@gmail.com",
-    "name": "Victor Ajor",
-    "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-    "event": [],
-    "__v": 0,
-    "job_title": "Developers",
-    "title": "Mrs",
-    "company_name": "logical address",
-    "gender": "Male",
-    "short_bio": "you have been developing mobile people have thought about and already!!",
-    "facebook": "Edward.obande",
-    "facebook_visible": true,
-    "instagram": "eddie",
-    "instagram_visible": false,
-    "linkedin_visible": true,
-    "phone": 3568103727918,
-    "twitter": "@eddiebigs",
-    "twitter_visible": true,
-    "website": "Facebook. Com",
-    "country": "Greenland",
-    "photo": "http://freedomonline.com.ng/wp-content/uploads/2013/05/glo_logo.jpg",
-    "linkedin": "edddiessss"
-  },
-
-  {
-    "_id": "5d1c92249b0b080017036e53",
-    "email": "edwardobande36@gmail.com",
-    "name": "Dihweng Albert",
-    "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-    "event": [],
-    "__v": 0,
-    "job_title": "Developers",
-    "title": "Mrs",
-    "company_name": "logical address",
-    "gender": "Male",
-    "short_bio": "Love lifeAug 1 people have thought about and already!!",
-    "facebook": "Edward.obande",
-    "facebook_visible": true,
-    "instagram": "eddie",
-    "instagram_visible": false,
-    "linkedin_visible": true,
-    "phone": 3568103727918,
-    "twitter": "@eddiebigs",
-    "twitter_visible": true,
-    "website": "Facebook. Com",
-    "country": "Greenland",
-    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png",
-    "linkedin": "edddiessss"
-  }
-  ];
-  componentWillMount(){
-    // logout();
+  componentDidMount(){
     this.setState({
-      data:this.resource,
-    })
+      data: this.props.resources,
+    });
+    
+    this.arrayholder = this.props.resources;
   }
 
-
+ 
   handleGoBack = () => {
     return this.props.navigation.goBack();
   }
@@ -168,12 +42,46 @@ export default class Resources extends Component {
        item
     });
   }
+
+  handleCloseNotification = () => {
+    return this.setState({
+      showSuccessAlert : false,
+      showErrorAlert: false
+    });
+  }
+
+   async downloadResource(remoteUri){
+    this.setState({showLoading : true})
+    FileSystem.downloadAsync(
+      'http://gahp.net/wp-content/uploads/2017/09/sample.pdf',
+      FileSystem.documentDirectory +`${'resource.pdf'}`
+    )
+      .then(({ uri }) => {
+        console.log('Finished downloading to ', uri);
+        this.setState({
+          showLoading: false,
+          showSuccessAlert: true,
+          successMessage : `${'Downloaded to'}${uri}`
+          
+        })
+      })
+      .catch(error => {
+        console.error(error);
+        this.setState({
+          showLoading: false,
+          showErrorAlert: true,
+          errorMessage : `${'Downloaded to'}${error}`
+          
+        })
+      });
+  }
   renderRow = ({item}) => {
+    console.log({item})
     return (
        <View style = {styles.listViewItem}>    
         <View style = {styles.cardView}>
           <DisplayText
-             text = {"Introduction Speech by Host"}
+             text = {item.title}
              styles = {StyleSheet.flatten(styles.titleText)}
            />
           <View style = {styles.resouceView}>
@@ -184,13 +92,13 @@ export default class Resources extends Component {
             <DisplayText
               numberOfLines = { 2 } 
               ellipsizeMode = 'middle'
-              text = {'you have been developing mobile people have thought about and already mobile people have thought!'}
+              text = {item.description}
               styles = {StyleSheet.flatten(styles.resourceTxt)}
             />
        
           </View>
           <View style={styles.line}></View>
-          <TouchableOpacity style = {styles.downloadBtn}>
+          <TouchableOpacity style = {styles.downloadBtn} onPress={()=>this.downloadResource(item.url, item.title)}>
             <DisplayText
               text = {'Download'}
               styles = {StyleSheet.flatten(styles.downloadtxt)}
@@ -203,6 +111,8 @@ export default class Resources extends Component {
   }
 
   render () {
+    const {showLoading, errorMessage, showErrorAlert, successMessage, showSuccessAlert} = this.state;    
+
     return(
      <SafeAreaView style={styles.container}> 
        <StatusBar barStyle="default"/>
@@ -263,7 +173,32 @@ export default class Resources extends Component {
              showsVerticalScrollIndicator={false}
            />
        </View>  
+       <Preloader
+          modalVisible={showLoading}
+          animationType="fade"
+        />
+        <ErrorAlert
+            title = {'Error!'} 
+            message = {errorMessage}
+            handleCloseNotification = {this.handleCloseNotification}
+            visible = {showErrorAlert}
+          />
+        <SuccessAlert
+          title = {'Success!'} 
+          message = {successMessage}
+          handleCloseNotification = {this.handleCloseNotification}
+          visible = {showSuccessAlert}
+        />
      </SafeAreaView>
      )
    }
  } 
+
+ const mapStateToProps = (state, ownProps) =>{
+  return{
+    resources: state.ResourceReducer.resources
+  }
+}
+
+
+export default connect(mapStateToProps)(Resources)
