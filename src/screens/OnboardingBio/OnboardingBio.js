@@ -392,7 +392,7 @@ class OnboardingBio extends Component {
               />
             <View style = {{flexDirection : 'row', width : '90%'}}>
               <TextInput
-                placeholder = {'Graphic designers use computers or hand an tools to create posters, websites, logos, bro nchures, magazines and many other materials to communicate ideas and information'}
+                placeholder = {'Example: A decade of experience in photography jounalism. Love creating pieces that captivate and move to action'}
                 numberOfLines = {5}
                 multiline={true}
                 onChangeText = {this.handleShortBio}
@@ -421,7 +421,8 @@ class OnboardingBio extends Component {
             </View>
           </View>
           <View style = {styles.interestView}>
-            <View style = {styles.interestHeader}>
+            
+            {/* <View style = {styles.interestHeader}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.titleText)}
                 text = {'Interest'}
@@ -434,7 +435,7 @@ class OnboardingBio extends Component {
                   style = {StyleSheet.flatten(styles.penIcon)}
                 />
               </TouchableOpacity>
-            </View>
+            </View> */}
             <View style = {styles.tagView}>
               
             </View>
