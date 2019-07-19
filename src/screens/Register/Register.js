@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, SafeAreaView, StatusBar, Image, StyleSheet,TouchableOpacity, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton } from '../../components';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton, SuccessAlert, ErrorAlert } from '../../components';
 import colors from '../../assets/colors';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import Toast from 'react-native-easy-toast';
@@ -10,6 +10,7 @@ import {isEmailValid, sendRoute, RegisterEndpoint, getExpoToken, isEmpty} from '
 import WomanSvg from './WomanSvg';
 import { NavigationActions, StackActions } from 'react-navigation';
 import * as Facebook from 'expo-facebook';
+import CheckBox from 'react-native-check-box';
 
 
 export default class Register extends Component {
@@ -25,6 +26,10 @@ export default class Register extends Component {
       isNameValid : false,
       showAlert : false,
       message : '',
+      successMessage : '',
+      errorMessage : '',
+      showSuccessAlert : false,
+      showErrorAlert : false,
       refreshing: false,
       showLoading: false,
       role: '',
@@ -32,12 +37,20 @@ export default class Register extends Component {
       isEmailFocused: false,
       isNameFocused:false,
       isPasswordFocused:false,
+      isChecked: false,
     }
 
     this.fullname = React.createRef();
     this.email = React.createRef();
     this.password = React.createRef();
 
+  }
+
+  handleCheckBox = () => {
+    this.setState(prevState=>({
+        isChecked:!prevState.isChecked,
+      })
+    )
   }
 
   resetNavigationStack = () => {
@@ -113,7 +126,9 @@ export default class Register extends Component {
 
   handleCloseNotification = () => {
     return this.setState({
-       showAlert : false
+       showAlert : false,
+       showSuccessAlert : false,
+        showErrorAlert : false
      })
    }
 
@@ -129,7 +144,7 @@ export default class Register extends Component {
   }
 
   handleRegistration = async()=>{
-    const {email, name, password} = this.state;
+    const {email, name, password, isChecked} = this.state;
     let expoToken = await getExpoToken();
 
     if(isEmpty(name)) {
@@ -146,8 +161,14 @@ export default class Register extends Component {
     }
     else if(isEmpty(password)) {
       return this.setState({
-        showAlert:true,
-        message: 'Enter Valid Password'
+        showErrorAlert:true,
+        errorMessage: 'Enter Valid Password'
+      })
+    }
+    else if(!isChecked) {
+      return this.setState({
+        showSuccessAlert:true,
+        successMessage: 'Please check the Box to Continue'
       })
     }
     
@@ -209,7 +230,7 @@ export default class Register extends Component {
   }
   
   render () {
-    const {showLoading, showAlert, message} = this.state;
+    const {showLoading, showAlert, message, isChecked, successMessage, errorMessage, showSuccessAlert, showErrorAlert} = this.state;
     return(
       <SafeAreaView style={styles.container}> 
         <StatusBar barStyle="default"/>
@@ -298,7 +319,21 @@ export default class Register extends Component {
                     /> 
                 </View>
                 
-              </View>         
+              </View>   
+              <View style = {StyleSheet.flatten(styles.checkBoxView)}>
+              <CheckBox
+                style={styles.checkBox}
+                onClick={this.handleCheckBox}
+                isChecked={isChecked}
+                // rightText={"I agree to the"}
+              />
+              <DisplayText
+                text={'By continuing, you agree to our terms, \nconditions and privacy policy.'}
+                styles = {styles.termCondition}
+                onPress = {this.handleLogin}
+              />
+            </View>
+                  
               <View style = {styles.btnView}>
                 <SubmitButton
                   title={'Sign Up'}
@@ -372,6 +407,18 @@ export default class Register extends Component {
                   message = {message}
                   handleCloseNotification = {this.handleCloseNotification}
                   visible = {showAlert}
+                />
+                <SuccessAlert
+                  title = {'Success!'} 
+                  message = {successMessage}
+                  handleCloseNotification = {this.handleCloseNotification}
+                  visible = {showSuccessAlert}
+                />
+                <ErrorAlert
+                  title = {'Error!'} 
+                  message = {errorMessage}
+                  handleCloseNotification = {this.handleCloseNotification}
+                  visible = {showErrorAlert}
                 />
               </View>
               {/* </ScrollView> */}
