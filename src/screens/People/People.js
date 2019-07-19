@@ -12,6 +12,8 @@ class People extends Component {
     this.state ={
       data : [],
     }
+    this.arrayholder = [];
+
   }
 
 
@@ -20,6 +22,23 @@ class People extends Component {
     this.setState({
       data: [ ...speakers, ...sponsors, ...attendees],
     })
+    this.arrayholder =  [ ...speakers, ...sponsors, ...attendees];
+  }
+
+
+  searchFilterFunction = text => {
+    this.setState({
+      value: text,
+    });
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.title.toUpperCase()} ${item.description.toUpperCase()}`;
+      const textData = text.toUpperCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+    return this.setState({
+      data: newData,
+    });
   }
 
 
@@ -28,7 +47,7 @@ class People extends Component {
   }
   handlePeopleMain(item){
     return this.props.navigation.navigate('PeopleMain', {
-       item
+       'item': item.profile
     });
   }
   renderRow = ({item}) => {

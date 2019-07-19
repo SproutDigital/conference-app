@@ -145,11 +145,12 @@ class Organisers extends Component {
         
       <View style={styles.viewBody}>
       <KeyboardAvoidingView
-            style={styles.wrapper}
-            behavior = 'padding'> 
+        style={styles.wrapper}
+        behavior = 'padding'> 
         <ScrollView 
-            style={{flex:1}}
-            showsVerticalScrollIndicator={false}>
+          style={{flex:1}}
+          showsVerticalScrollIndicator={false}
+          >
           <View style = {styles.sliderView}>
             <ScrollView
               horizontal
