@@ -1,11 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, Platform, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Text, Modal,TouchableHighlight,Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, Preloader } from '../../components';
+import { View, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Text, Modal,TouchableHighlight,Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import {DisplayText, InputField, ErrorAlert, Preloader } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
-import {logout, isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
+import {isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import {connect} from 'react-redux';
@@ -490,12 +490,14 @@ import { addProfile } from '../../redux/actions/ProfileActions';
         </View>
         </ScrollView>
         </KeyboardAvoidingView>
-        <SingleButtonAlert
-          title = {title} 
+        
+        <ErrorAlert
+          title = {'Error!'} 
           message = {message}
           handleCloseNotification = {this.handleCloseNotification}
           visible = {showAlert}
         />
+        
       </SafeAreaView>
     )
   }

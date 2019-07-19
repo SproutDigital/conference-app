@@ -6,7 +6,6 @@ import styles from './styles';
 import colors from '../../assets/colors';
 import {connect} from 'react-redux';
 
-
 const deviceWidth = Dimensions.get('window').width;
 
  class Venue extends Component {

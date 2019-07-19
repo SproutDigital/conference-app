@@ -1,16 +1,14 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, SafeAreaView, StatusBar, Image, StyleSheet,TouchableOpacity, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader } from '../../components';
+import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader, SuccessAlert, ErrorAlert } from '../../components';
 import colors from '../../assets/colors';
-import { ProgressDialog } from 'react-native-simple-dialogs';
-import Toast from 'react-native-easy-toast';
 import styles from './styles';
 import {isEmailValid, sendRoute, RegisterEndpoint, getExpoToken, isEmpty} from '../../utils';
 import WomanSvg from './WomanSvg';
 import { NavigationActions, StackActions } from 'react-navigation';
 import * as Facebook from 'expo-facebook';
-
+import CheckBox from 'react-native-check-box';
 
 export default class Register extends Component {
   constructor(props) {
@@ -25,6 +23,10 @@ export default class Register extends Component {
       isNameValid : false,
       showAlert : false,
       message : '',
+      successMessage : '',
+      errorMessage : '',
+      showSuccessAlert : false,
+      showErrorAlert : false,
       refreshing: false,
       showLoading: false,
       role: '',
@@ -32,6 +34,7 @@ export default class Register extends Component {
       isEmailFocused: false,
       isNameFocused:false,
       isPasswordFocused:false,
+      isChecked: false,
     }
 
     this.fullname = React.createRef();
@@ -40,13 +43,19 @@ export default class Register extends Component {
 
   }
 
+  handleCheckBox = () => {
+    this.setState(prevState=>({
+        isChecked:!prevState.isChecked,
+      })
+    )
+  }
+
   resetNavigationStack = () => {
    const navigateAction =  StackActions.reset({
       index: 0,
       actions: [
         NavigationActions.navigate({
           routeName: 'Login',
-          //params: {'message': message},
         }),
       ],
     });
@@ -113,7 +122,9 @@ export default class Register extends Component {
 
   handleCloseNotification = () => {
     return this.setState({
-       showAlert : false
+       showAlert : false,
+       showSuccessAlert : false,
+       showErrorAlert : false
      })
    }
 
@@ -129,25 +140,31 @@ export default class Register extends Component {
   }
 
   handleRegistration = async()=>{
-    const {email, name, password} = this.state;
+    const {email, name, password, isChecked} = this.state;
     let expoToken = await getExpoToken();
 
     if(isEmpty(name)) {
       return this.setState({
         showAlert:true,
-        message: 'Enter Valid Name'
+        errorMessage: 'Enter Valid Name'
       })
     }
     else if(!isEmailValid(email)) {
       return this.setState({
         showAlert:true,
-        message: 'Invalid Email Address'
+        errorMessage: 'Invalid Email Address'
       })
     }
     else if(isEmpty(password)) {
       return this.setState({
         showAlert:true,
-        message: 'Enter Valid Password'
+        errorMessage: 'Enter Valid Password'
+      })
+    }
+    else if(!isChecked) {
+      return this.setState({
+        showAlert:true,
+        errorMessage: 'Please check the Box to Continue'
       })
     }
     
@@ -168,7 +185,7 @@ export default class Register extends Component {
           return  this.setState({ 
             showLoading : false,
             title : 'Hello',
-            message : res.message,
+            errorMessage : res.message,
             showAlert : true,
           }); 
         }
@@ -209,7 +226,7 @@ export default class Register extends Component {
   }
   
   render () {
-    const {showLoading, showAlert, message} = this.state;
+    const {showLoading, showAlert, isChecked, successMessage, errorMessage, showSuccessAlert, showErrorAlert} = this.state;
     return(
       <SafeAreaView style={styles.container}> 
         <StatusBar barStyle="default"/>
@@ -298,7 +315,21 @@ export default class Register extends Component {
                     /> 
                 </View>
                 
-              </View>         
+              </View>   
+              <View style = {StyleSheet.flatten(styles.checkBoxView)}>
+              <CheckBox
+                style={styles.checkBox}
+                onClick={this.handleCheckBox}
+                isChecked={isChecked}
+                // rightText={"I agree to the"}
+              />
+              <DisplayText
+                text={'By continuing, you agree to our terms, \nconditions and privacy policy.'}
+                styles = {styles.termCondition}
+                onPress = {this.handleLogin}
+              />
+            </View>
+                  
               <View style = {styles.btnView}>
                 <SubmitButton
                   title={'Sign Up'}
@@ -309,7 +340,7 @@ export default class Register extends Component {
                   imgStyle={StyleSheet.flatten(styles.iconDoor)}
                   titleStyle={StyleSheet.flatten(styles.buttonTxt)}
                 />
-                <View style = { styles.signWithView}>
+                {/* <View style = { styles.signWithView}>
                   <DisplayText
                     text={'Or Sign up with?'}
                     styles = {styles.signupWith}
@@ -337,8 +368,8 @@ export default class Register extends Component {
                         source={require('../../assets/images/facebook.png')}
                         style={StyleSheet.flatten(styles.socialIcons)}/> 
                     </TouchableOpacity>
-                  </View>
-                </View>
+                  </View> */}
+                {/* </View> */}
                 <View style = {StyleSheet.flatten(styles.signupLinkView)}>
                   <DisplayText
                     text={'Already have an Account? '}
@@ -351,7 +382,7 @@ export default class Register extends Component {
                     onPress = {this.handleLoginRoute}
                   />
                 </View>
-                <Toast
+                {/* <Toast
                   ref="toast"
                   style={{backgroundColor: 'green'}}
                   position='bottom'
@@ -360,15 +391,22 @@ export default class Register extends Component {
                   fadeOutDuration={5000}
                   opacity={0.8}
                   textStyle={{color:'white'}}
-                /> 
+                />  */}
 
                 <Preloader
                   modalVisible={showLoading}
                 animationType="fade"
                 />
-                <SingleButtonAlert
-                  title = {'Hello'} 
-                  message = {message}
+               
+                <SuccessAlert
+                  title = {'Success!'} 
+                  message = {successMessage}
+                  handleCloseNotification = {this.handleCloseNotification}
+                  visible = {showSuccessAlert}
+                />
+                <ErrorAlert
+                  title = {'Error!'} 
+                  message = {errorMessage}
                   handleCloseNotification = {this.handleCloseNotification}
                   visible = {showAlert}
                 />

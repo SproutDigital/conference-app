@@ -50,7 +50,7 @@ const slides = [
   }
 
    async componentWillMount(){
-  // logout();
+  //  logout();
     this.checkLogin();
   }
 

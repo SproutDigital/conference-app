@@ -2,14 +2,13 @@
 
 import React, {Component} from 'react';
  import { View, Image,StyleSheet, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader} from '../../components';
+import {DisplayText, InputField, SingleButtonAlert, SubmitButton, ErrorAlert, Preloader} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
 import {isEmailValid, sendRoute, LoginEndpoint, saveProfile, isEmpty} from '../../utils';
-import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
-import CheckBox from 'react-native-check-box';
+// import CheckBox from 'react-native-check-box';
 import {connect} from 'react-redux';
 import { addProfile } from '../../redux/actions/ProfileActions';
 
@@ -21,7 +20,7 @@ class Login extends Component {
       isPasswordValid: false,
       showAlert: false,
       showLoading: false,
-      isChecked: false,
+      // isChecked: false,
       email : '',
       title: '',
       message: '',
@@ -49,12 +48,12 @@ class Login extends Component {
     this.keyboardWillHideSub.remove();
   }
 
-  handleCheckBox = () => {
-    this.setState(prevState=>({
-        isChecked:!prevState.isChecked,
-    })
-    )
-  }
+  // handleCheckBox = () => {
+  //   this.setState(prevState=>({
+  //       isChecked:!prevState.isChecked,
+  //   })
+  //   )
+  // }
 
   resetNavigationStack = (location) => {
     const navigateAction =  StackActions.reset({
@@ -157,7 +156,7 @@ class Login extends Component {
 
 
   handleSignIn = async()=>{
-    const {email, password, isChecked} = this.state;
+    const {email, password} = this.state;
     if(!isEmailValid(email)) {
       return this.setState({
         showAlert:true,
@@ -170,12 +169,7 @@ class Login extends Component {
         message: 'Enter Valid Password'
       });
     }
-    else if(!isChecked) {
-      return this.setState({
-        showAlert:true,
-        message: 'Please check the Box to Continue'
-      })
-    }
+    
     
     this.setState({
       showLoading: true,
@@ -223,7 +217,7 @@ class Login extends Component {
    
   
   render () {
-    const { title, message, showAlert, showLoading, isChecked } = this.state
+    const { title, message, showAlert, showLoading,  } = this.state
 
     return(
     <View style={styles.container}> 
@@ -295,7 +289,7 @@ class Login extends Component {
               </View> 
             </View>
 
-            <View style = {StyleSheet.flatten(styles.checkBoxView)}>
+            {/* <View style = {StyleSheet.flatten(styles.checkBoxView)}>
               <CheckBox
                 style={styles.checkBox}
                 onClick={this.handleCheckBox}
@@ -308,7 +302,7 @@ class Login extends Component {
                 onPress = {this.handleLogin}
               />
             </View>
-            
+             */}
             <View style = {styles.btnView}>
               
               <SubmitButton
@@ -328,25 +322,19 @@ class Login extends Component {
               </View>
              
             </View>
-            <Toast
-              ref="toast"
-              style={{backgroundColor: 'green'}}
-              position='bottom'
-              positionValue={200}
-              fadeInDuration={750}
-              fadeOutDuration={5000}
-              opacity={0.8}
-              textStyle={{color:'white'}}
-            /> 
+            
             <Preloader
               modalVisible={showLoading}
              animationType="fade"
             />
-            <SingleButtonAlert
-              title = {title} 
+
+            <ErrorAlert
+              title = {'Error!'} 
               message = {message}
               handleCloseNotification = {this.handleCloseNotification}
-              visible = {showAlert}/>
+              visible = {showAlert}
+            />
+            
         </KeyboardAvoidingView>
         {/* </ScrollView> */}
 
