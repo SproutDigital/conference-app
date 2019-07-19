@@ -87,7 +87,7 @@ import theme from '../../assets/theme';
   footerView : {
     width : '100%',
     position : 'absolute',
-    bottom : -30,
+    bottom : -35,
     right :30
   },
   footerIcon : {},
@@ -108,6 +108,7 @@ import theme from '../../assets/theme';
     // marginTop: 15,
     fontFamily: theme.secondaryFont,
     alignSelf: 'center',
+    marginBottom : 4
   },
   signWithView : {
     width : '100%',
@@ -131,6 +132,27 @@ import theme from '../../assets/theme';
     marginBottom : 8,
     fontFamily : theme.subHeaderFont,
     fontSize : theme.thinyFont
+  },
+  checkBoxView : {
+    width : '100%',
+    flexDirection : 'row',
+    justifyContent : 'center',
+    marginLeft : (Platform.OS === 'ios') ? 40 : 40,
+    // alignItems : 'center',
+    paddingTop : 8,
+  },
+  checkBox : {
+    flex: 1, 
+    // padding: 10
+  },
+  termCondition : {
+    fontSize: theme.thinyFont,
+    color: theme.darkGray,
+    // marginTop: 8,
+    fontFamily: theme.subHeaderFont,
+    alignSelf: 'center',
+    position : 'absolute',
+    right : (Platform.OS === 'ios') ? 75 : 65,
   },
 
 });

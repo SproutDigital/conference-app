@@ -10,7 +10,7 @@ import Toast from 'react-native-easy-toast';
 import colors from '../../assets/colors';
 import { NavigationActions, StackActions } from 'react-navigation';
 import theme from '../../assets/theme';
-import CheckBox from 'react-native-check-box';
+// import CheckBox from 'react-native-check-box';
 import {connect} from 'react-redux';
 import { addProfile } from '../../redux/actions/ProfileActions';
 
@@ -22,7 +22,7 @@ class Login extends Component {
       isPasswordValid: false,
       showAlert: false,
       showLoading: false,
-      isChecked: false,
+      // isChecked: false,
       email : '',
       title: '',
       message: '',
@@ -50,12 +50,12 @@ class Login extends Component {
     this.keyboardWillHideSub.remove();
   }
 
-  handleCheckBox = () => {
-    this.setState(prevState=>({
-        isChecked:!prevState.isChecked,
-    })
-    )
-  }
+  // handleCheckBox = () => {
+  //   this.setState(prevState=>({
+  //       isChecked:!prevState.isChecked,
+  //   })
+  //   )
+  // }
 
   resetNavigationStack = (location) => {
     const navigateAction =  StackActions.reset({
@@ -158,7 +158,7 @@ class Login extends Component {
 
 
   handleSignIn = async()=>{
-    const {email, password, isChecked} = this.state;
+    const {email, password} = this.state;
     if(!isEmailValid(email)) {
       return this.setState({
         showAlert:true,
@@ -171,12 +171,7 @@ class Login extends Component {
         message: 'Enter Valid Password'
       });
     }
-    else if(!isChecked) {
-      return this.setState({
-        showAlert:true,
-        message: 'Please check the Box to Continue'
-      })
-    }
+    
     
     this.setState({
       showLoading: true,
@@ -224,7 +219,7 @@ class Login extends Component {
    
   
   render () {
-    const { title, message, showAlert, showLoading, isChecked } = this.state
+    const { title, message, showAlert, showLoading,  } = this.state
 
     return(
     <View style={styles.container}> 
@@ -306,7 +301,7 @@ class Login extends Component {
               </View> 
             </View>
 
-            <View style = {StyleSheet.flatten(styles.checkBoxView)}>
+            {/* <View style = {StyleSheet.flatten(styles.checkBoxView)}>
               <CheckBox
                 style={styles.checkBox}
                 onClick={this.handleCheckBox}
@@ -319,7 +314,7 @@ class Login extends Component {
                 onPress = {this.handleLogin}
               />
             </View>
-            
+             */}
             <View style = {styles.btnView}>
               
               <SubmitButton
