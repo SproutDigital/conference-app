@@ -6,10 +6,12 @@ import LoginReducer from './LoginReducer';
 import SponsorReducer from './SponsorReducer'; 
 import ProgramReducer from './ProgramReducer'; 
 import ResourceReducer from './ResourceReducer'; 
+import AttendeeReducer from './AttendeeReducer';
+import SpeakerReducer from './SpeakerReducer';
 
 
 
 export default rootReducer = combineReducers({
   AuthReducer, EventReducer, ProfileReducer, LoginReducer, SponsorReducer, ProgramReducer,
-  ResourceReducer
+  ResourceReducer, AttendeeReducer, SpeakerReducer, 
 });

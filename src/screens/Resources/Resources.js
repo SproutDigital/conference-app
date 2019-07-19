@@ -1,13 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
+import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, Linking} from 'react-native';
 import {DisplayText, InputField, Preloader, ErrorAlert, SuccessAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import {connect} from 'react-redux';
 import * as FileSystem from 'expo-file-system';
-
-
 
 
  class Resources extends Component {
@@ -20,6 +18,8 @@ import * as FileSystem from 'expo-file-system';
       showErrorAlert: false,
       errorMessage: '',
       showLoading:false,
+      filePreviewText: ''
+
     }
     this.arrayholder = [];
 
@@ -33,6 +33,21 @@ import * as FileSystem from 'expo-file-system';
     this.arrayholder = this.props.resources;
   }
 
+  searchFilterFunction = text => {
+    this.setState({
+      value: text,
+    });
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.title.toUpperCase()} ${item.description.toUpperCase()}`;
+      const textData = text.toUpperCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+    return this.setState({
+      data: newData,
+    });
+  }
+
  
   handleGoBack = () => {
     return this.props.navigation.goBack();
@@ -42,6 +57,7 @@ import * as FileSystem from 'expo-file-system';
        item
     });
   }
+
 
   handleCloseNotification = () => {
     return this.setState({
@@ -53,17 +69,17 @@ import * as FileSystem from 'expo-file-system';
    async downloadResource(remoteUri){
     this.setState({showLoading : true})
     FileSystem.downloadAsync(
-      'http://gahp.net/wp-content/uploads/2017/09/sample.pdf',
-      FileSystem.documentDirectory +`${'resource.pdf'}`
+      'https://www.tutorialspoint.com/react_native/react_native_tutorial.pdf',
+       FileSystem.documentDirectory +`${'resource.pdf'}`
     )
       .then(({ uri }) => {
         console.log('Finished downloading to ', uri);
         this.setState({
           showLoading: false,
-          showSuccessAlert: true,
-          successMessage : `${'Downloaded to'}${uri}`
-          
+          //showSuccessAlert: true,
+         // successMessage : `${'Downloaded to'}${uri}` 
         })
+        this.openFile(uri)
       })
       .catch(error => {
         console.error(error);
@@ -74,6 +90,10 @@ import * as FileSystem from 'expo-file-system';
           
         })
       });
+  }
+
+  openFile(uri) {
+    Linking.openURL(uri)
   }
   renderRow = ({item}) => {
     console.log({item})
@@ -154,7 +174,7 @@ import * as FileSystem from 'expo-file-system';
              paddingLeft  = {8}
            /> 
          </View>
-         <View style = { styles.dateView}>
+         {/* <View style = { styles.dateView}>
           <DisplayText
              text = {"Filter"}
              styles = {StyleSheet.flatten(styles.txtFilter)}
@@ -165,13 +185,14 @@ import * as FileSystem from 'expo-file-system';
              styles = {StyleSheet.flatten(styles.txtDate)}
            />
          </TouchableOpacity>
-         </View>
+         </View> */}
            <FlatList          
              data={this.state.data}          
              renderItem={this.renderRow}          
              keyExtractor={ data=> data._id}   
              showsVerticalScrollIndicator={false}
            />
+            
        </View>  
        <Preloader
           modalVisible={showLoading}

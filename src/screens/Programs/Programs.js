@@ -112,7 +112,6 @@ class Programs extends Component {
     });
   }
   renderRow = ({item}) => {
-   // console.log({"itemsssssssss ": item})
     let items = [];
     if( item.tags) {
       items = item.tags.map((row, i ) => {

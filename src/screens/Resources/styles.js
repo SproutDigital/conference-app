@@ -34,6 +34,10 @@ export default styles = StyleSheet.create({
     height: 35,
     width: 80,
   },
+  filePreview: {
+    flex: 1,
+    padding: 10,
+  },
   headerImage: {
     borderRadius: 30,
     height: 40,

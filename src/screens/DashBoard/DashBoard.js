@@ -10,6 +10,8 @@ import { setEventDetails, } from '../../redux/actions/EventActions';
 import { setSponsorDetails } from '../../redux/actions/SponsorActions';
 import { setProgramDetails } from '../../redux/actions/ProgramActions';
 import { setResources } from '../../redux/actions/ResourceActions';
+import {setSpeakers} from '../../redux/actions/SpeakerActions';
+import {setAttendees} from '../../redux/actions/AttendeeActions';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -37,7 +39,8 @@ const deviceWidth = Dimensions.get('window').width;
  
 
   fetchEventDetails = async(token) => {
-    const { setEventProfile, setSponsor, setProgram, setResource} = this.props;
+    const { setEventProfile, setSponsor, setProgram, setResource, setAttendee, setSpeaker} = this.props;
+
     let data = await JSON.stringify({
       'query' :  {'_id' : EventId}, 
     });
@@ -48,11 +51,13 @@ const deviceWidth = Dimensions.get('window').width;
           restoring:false,
           data:res.data[0]
         })
-
+         // console.log({'dashboard' : res.data[0]})
         setEventProfile(res.data);
         setSponsor(res.data[0].sponsors);
         setProgram(res.data[0].program);
         setResource(res.data[0].resources);
+        setAttendee(res.data[0].attendees);
+        setSpeaker(res.data[0].speakers);
       });
 
   }
@@ -311,6 +316,9 @@ const mapDispatchToProps = (dispatch) =>{
     setSponsor: (data)=>dispatch(setSponsorDetails(data)),
     setProgram: (data)=>dispatch(setProgramDetails(data)),
     setResource: (data)=>dispatch(setResources(data)),
+    setAttendee: (data)=>dispatch(setAttendees(data)),
+    setSpeaker: (data)=>dispatch(setSpeakers(data)),
+
 
   }
 }

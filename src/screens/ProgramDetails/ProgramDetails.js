@@ -75,6 +75,7 @@ export default class Profile extends Component {
       'userid' : profile.id,
        rating
     });
+    console.log({data})
     await post (CreateRatingEndpoint, data, profile.sessionToken )
       .then((res) => {    
         if(res.status == 'success') {
@@ -121,7 +122,7 @@ export default class Profile extends Component {
           this.setState({
             showLoading: false,
             showErrorAlert: true,
-            errorMessage : res.status
+            errorMessage : res.message
           })
         }
        

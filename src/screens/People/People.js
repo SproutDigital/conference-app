@@ -4,11 +4,9 @@ import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, Style
 import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
-import { postRoute, getRoute, getEmail, } from '../../utils';
+import {connect} from 'react-redux';
 
-
-
-export default class People extends Component {
+class People extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -16,146 +14,11 @@ export default class People extends Component {
     }
   }
 
-  people = [
-    {
-      "_id": "5d1f909571e71900179b72f3",
-      "email": "mastat17@yahoo.com",
-      "name": "Tunde Anwo",
-      "expo_token": "ExponentPushToken[abY2COJOc1w7SzoGxa1SVZ]",
-      "event": [],
-      "__v": 0,
-      "company_name": "cobweb solutions",
-      "country": "Nigeria",
-      "facebook": "btcrown",
-      "facebook_visible": true,
-      "gender": "male",
-      "instagram": "btcrown",
-      "instagram_visible": false,
-      "job_title": "Digital Communications",
-      "linkedin_visible": true,
-      "phone": 2348094206060,
-      "short_bio": "Love lifeAug 18, 2018 - If you have been developing mobile people have thought about and already!!",
-      "title": "Mr",
-      "twitter": "btcrown",
-      "twitter_visible": true,
-      "website": "www.Cobwebsolutionsng.com",
-      "linkedin": "btcrown",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png",
 
-  },
-
-
-
-  {
-    "_id": "5d1f909571e71900179b72f2",
-    "email": "mastat17@yahoo.com",
-    "name": "Babatunde Anwo-Ade",
-    "expo_token": "ExponentPushToken[abY2COJOc1w7SzoGxa1SVZ]",
-    "event": [],
-    "__v": 0,
-    "company_name": "cobweb solutions",
-    "country": "Nigeria",
-    "facebook": "btcrown",
-    "facebook_visible": true,
-    "gender": "male",
-    "instagram": "btcrown",
-    "instagram_visible": false,
-    "job_title": "Digital Communications",
-    "linkedin_visible": true,
-    "phone": 2348094206060,
-    "short_bio": "Love lifeAug 18, 2018 - If you have been developing mobile people have thought about and already!!",
-    "title": "Mr",
-    "twitter": "btcrown",
-    "twitter_visible": true,
-    "website": "www.Cobwebsolutionsng.com",
-    "linkedin": "btcrown",
-    "photo": "https://s3.us-west-2.amazonaws.com/spr-bucket/1562533768",
-
-  },
-
-  
-  {
-      "_id": "5d1c92249b0b080017036e52",
-      "email": "edwardobande36@gmail.com",
-      "name": "Edward Obande",
-      "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-      "event": [],
-      "__v": 0,
-      "job_title": "Developers",
-      "title": "Mrs",
-      "company_name": "logical address",
-      "gender": "Male",
-      "short_bio": "Very easy ND fast learner",
-      "facebook": "Edward.obande",
-      "facebook_visible": true,
-      "instagram": "eddie",
-      "instagram_visible": false,
-      "linkedin_visible": true,
-      "phone": 3568103727918,
-      "twitter": "@eddiebigs",
-      "twitter_visible": true,
-      "website": "Facebook. Com",
-      "country": "Greenland",
-      "photo": "https://yt3.ggpht.com/a-/ACSszfGfL6O_P3JLe_4K7DYh2jsqdmVUYAdhOJKP=s900-mo-c-c0xffffffff-rj-k-no",
-      "linkedin": "edddiessss"
-  },
-
-  {
-    "_id": "5d1c92249b0b080017036e51",
-    "email": "edwardobande36@gmail.com",
-    "name": "Victor Ajor",
-    "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-    "event": [],
-    "__v": 0,
-    "job_title": "Developers",
-    "title": "Mrs",
-    "company_name": "logical address",
-    "gender": "Male",
-    "short_bio": "you have been developing mobile people have thought about and already!!",
-    "facebook": "Edward.obande",
-    "facebook_visible": true,
-    "instagram": "eddie",
-    "instagram_visible": false,
-    "linkedin_visible": true,
-    "phone": 3568103727918,
-    "twitter": "@eddiebigs",
-    "twitter_visible": true,
-    "website": "Facebook. Com",
-    "country": "Greenland",
-    "photo": "http://freedomonline.com.ng/wp-content/uploads/2013/05/glo_logo.jpg",
-    "linkedin": "edddiessss"
-  },
-
-  {
-    "_id": "5d1c92249b0b080017036e53",
-    "email": "edwardobande36@gmail.com",
-    "name": "Dihweng Albert",
-    "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-    "event": [],
-    "__v": 0,
-    "job_title": "Developers",
-    "title": "Mrs",
-    "company_name": "logical address",
-    "gender": "Male",
-    "short_bio": "Love lifeAug 1 people have thought about and already!!",
-    "facebook": "Edward.obande",
-    "facebook_visible": true,
-    "instagram": "eddie",
-    "instagram_visible": false,
-    "linkedin_visible": true,
-    "phone": 3568103727918,
-    "twitter": "@eddiebigs",
-    "twitter_visible": true,
-    "website": "Facebook. Com",
-    "country": "Greenland",
-    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png",
-    "linkedin": "edddiessss"
-  }
-  ];
   componentWillMount(){
-    // logout();
+    const {speakers, sponsors, attendees} = this.props
     this.setState({
-      data:this.people
+      data: [ ...speakers, ...sponsors, ...attendees],
     })
   }
 
@@ -177,7 +40,7 @@ export default class People extends Component {
           <View style ={styles.imageText}>
           <View style = {styles.ImageView}>
             <Image
-              source = {{uri: item.photo}}
+              source = {{uri: item.profile.photo}}
               style = {StyleSheet.flatten(styles.personImage)}
             />
           </View>
@@ -185,14 +48,14 @@ export default class People extends Component {
             <DisplayText
               numberOfLines = { 1 } 
               ellipsizeMode = 'middle'
-              text = {item.name}
+              text = {item.profile.name}
               styles = {StyleSheet.flatten(styles.headerText)}
             />
 
             <DisplayText
               numberOfLines = { 2 } 
               ellipsizeMode = 'middle'
-              text = {item.company_name}
+              text = {item.profile.company_name}
               styles = {StyleSheet.flatten(styles.subHeaderText)}
             />
           </View>
@@ -202,16 +65,16 @@ export default class People extends Component {
                 <DisplayText
                   numberOfLines = { 2 } 
                   ellipsizeMode = 'middle'
-                  text = {item.short_bio}
+                  text = {item.profile.short_bio}
                   styles = {StyleSheet.flatten(styles.bioDetailTxt)}
                 />
               </View>
-              <TouchableOpacity style = {styles.plusBtn}>
+              {/* <TouchableOpacity style = {styles.plusBtn}>
                 <Image
                   source = {require('../../assets/images/plus_btn.png')}
                   style = {StyleSheet.flatten(styles.plusIcon)}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
           </View>
           
         </TouchableOpacity>
@@ -220,6 +83,7 @@ export default class People extends Component {
   }
 
   render () {
+    console.log({'statesss' : this.state.data})
     return(
      <SafeAreaView style={styles.container}> 
        <StatusBar barStyle="default"/>
@@ -272,3 +136,16 @@ export default class People extends Component {
      )
    }
  } 
+
+ const mapStateToProps = (state, ownProps) =>{
+  return{
+    attendees: state.AttendeeReducer.attendees,
+    sponsors: state.SponsorReducer.sponsorProfile,
+    speakers: state.SpeakerReducer.speakers,
+
+
+  }
+}
+
+
+export default connect(mapStateToProps)(People)
