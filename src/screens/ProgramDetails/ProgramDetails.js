@@ -214,22 +214,6 @@ export default class Profile extends Component {
           
           {/* Attendy one Image */}
           <View style = {styles.attendyView}>
-            <View style = {styles.imageView}>
-              <Image
-                source = {require('../../assets/images/sample_pics.png')}
-                style = {StyleSheet.flatten(styles.headerIcon)}
-              />
-            </View>
-            <View style = {styles.imageViewPlus}>
-              <Image
-                source = {require('../../assets/images/sample_pics.png')}
-                style = {StyleSheet.flatten(styles.headerIcon)}
-              />
-            </View>
-            <DisplayText
-              text = {'4 Deleigate already attending'}
-              styles = {StyleSheet.flatten(styles.attendyTxt)}
-            />
           </View>
             <Preloader
               modalVisible={this.state.showLoading}

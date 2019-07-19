@@ -227,17 +227,7 @@ class Login extends Component {
 
     return(
     <View style={styles.container}> 
-      {/* <View style = {styles.curve}>
-        <Curve/>
-      </View> */}
-      {/* <Text style={styles.logoTxt} >
-        ignite
-      </Text> */}
-      
      
-      {/* <ScrollView 
-          style={{flex:1,}}
-          showsVerticalScrollIndicator={false}>  */}
       <KeyboardAvoidingView
         style={styles.wrapper}
         behavior="padding">

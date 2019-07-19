@@ -88,11 +88,11 @@ const deviceWidth = Dimensions.get('window').width;
            </View>
             <View style={styles.srollContent}>
               <DisplayText
-                text = {'Central Hall , Kenya'}
+                text = {data.location.name}
                 styles = {StyleSheet.flatten(styles.aboutHeaderTxt)}
               />
               <DisplayText
-                text = {`${data.location.postcode} ${data.location.address} ${data.location.state} ${data.location.country}`}
+                text = {data.location.description}
                 styles = {StyleSheet.flatten(styles.aboutBodyTxt)}
               />
           </View>

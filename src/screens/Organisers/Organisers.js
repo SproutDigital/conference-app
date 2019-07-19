@@ -5,7 +5,6 @@ import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, Sty
 import {DisplayText} from '../../components';
 import styles from './styles';
 import {connect} from 'react-redux';
-import { post, FetchCompanyEndpoint, getProfile} from '../../utils';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -21,18 +20,14 @@ class Organisers extends Component {
       phoneNumber : '',
       isContactAddressValid : false,
       isPhoneNumberValid : false,
-      dat: {}
+      data: this.props.data,
     }
     this.contact_address = React.createRef();
     this.phone_number = React.createRef();
-    this.fetchProfile();
+   // this.fetchProfile();
 
   }
   animVal = new Animated.Value(0);
-
-  // async componentDidMount() {
-
-  // }
 
   handleGoBack = () => {
     return this.props.navigation.navigate('About');
@@ -72,7 +67,7 @@ class Organisers extends Component {
   dialCall=()=> {
  
     let phoneNumber = '',
-    number = this.state.dat.phone;
+    number = this.state.data.company.phone;
     if (Platform.OS === 'android') {
       phoneNumber = `tel:${number}`;
     }
@@ -85,13 +80,13 @@ class Organisers extends Component {
 
 
   webSiteLink(){
-    const {dat} = this.state
-    if(dat.website) {
+    const {data} = this.state
+    if(data.company.website) {
       return(
           <DisplayText
             styles={[StyleSheet.flatten(styles.textInfo), {color:'blue' }]}
-            text = {dat.website}
-            onPress={() => Linking.openURL(`https://${dat.website}`).catch(err => console.log('An error occurred', err))}
+            text = {data.company.website}
+            onPress={() => Linking.openURL(`https://${data.company.website}`).catch(err => console.log('An error occurred', err))}
           />
       )
     }
@@ -107,39 +102,10 @@ class Organisers extends Component {
   }
 
 
-
-  fetchProfile =async()=>{
-    let profile = await getProfile();
-    let token = await profile.sessionToken;
-    let body = await JSON.stringify({
-      'query':{_id : '5d24720fc8ce0900171f03d6'},
-    });
- 
-    await post (FetchCompanyEndpoint, body, token)
-      .then((res) => {
-        if(res.status == 'success') {
-          this.setState({
-            dat: res.data[0],
-          });
- 
-        } 
-        else {
-          this.setState({ 
-           showLoading : false, 
-           message: res.message,
-           showAlert: true,
-           title: 'Hello'
-         });
-       }
-      });
-  }
-
   render () {
-    const { dat} = this.state;
-
-    const {data} = this.props;
-    let d = dat.phone ? false : true;
-    let emailStatus = dat.email ? false : true;
+    const { data} = this.state;
+    let d = data.company.phone ? false : true;
+    let emailStatus = data.company.email ? false : true;
 
 
     let imageArray = [],
@@ -203,11 +169,11 @@ class Organisers extends Component {
            </View>
             <View style={styles.srollContent}>
               <DisplayText
-                text = {dat.name ? dat.name : '' }
+                text = {data.company.name ? data.company.name : '' }
                 styles = {StyleSheet.flatten(styles.aboutHeaderTxt)}
               />
               <DisplayText
-                text = {dat.short_bio ? dat.short_bio : ''}
+                text = {data.company.short_bio ? data.company.short_bio : ''}
                 styles = {StyleSheet.flatten(styles.aboutBodyTxt)}
               />
           </View>
@@ -219,7 +185,7 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {dat.address ? dat.address : ''}
+                  text = {data.company.address ? data.company.address : ''}
                 />
 
               </View>
@@ -231,7 +197,7 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {dat.phone ? dat.phone.toString() : ''}
+                  text = {data.company.phone ? data.company.phone.toString() : ''}
                 />
               </View>
               {/* Email Address Texf */}
@@ -242,7 +208,7 @@ class Organisers extends Component {
                 />
                 <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {dat.email ? dat.email : ''}
+                  text = {data.company.email ? data.company.email : ''}
                 />
               </View>
               {/* Website text */}
@@ -263,36 +229,36 @@ class Organisers extends Component {
               
                 {/* <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Facebook: ${dat.facebook_visible ? dat.facebook: '*******'} \nInstagram: ${dat.instagram_visible ? dat.instagram: '*******'} \nTwitter: ${dat.twitter_visible ? dat.twitter  : '*******'} \nLinkedIn: ${dat.linkedin_visible ? dat.linkedin : '********'}`}
+                  text = {`Facebook: ${data.facebook_visible ? data.facebook: '*******'} \nInstagram: ${data.instagram_visible ? data.instagram: '*******'} \nTwitter: ${data.twitter_visible ? data.twitter  : '*******'} \nLinkedIn: ${data.linkedin_visible ? data.linkedin : '********'}`}
                 /> */}
-                {dat.facebook_visible ?
+                {data.company.facebook_visible ?
                   <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Facebook: ${dat.facebook}`}
+                  text = {`Facebook: ${data.company.facebook}`}
                 />
                 : null
                 }
                 
-                {dat.instagram_visible ?
+                {data.company.instagram_visible ?
                   <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Instagram: ${ dat.instagram}`}
+                  text = {`Instagram: ${ data.company.instagram}`}
                 />
                  : null
                 }
                 
-                { dat.twitter_visible ?
+                { data.company.twitter_visible ?
                   <DisplayText
                   styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Twitter: ${dat.twitter}`}
+                  text = {`Twitter: ${data.company.twitter}`}
                 />
                  : null
                 }
                 
-                { dat.linkedin_visible ? 
+                { data.company.linkedin_visible ? 
                   <DisplayText
                     styles={StyleSheet.flatten(styles.textInfo)}
-                    text = {`LinkedIn: ${dat.linkedin}`}
+                    text = {`LinkedIn: ${data.company.linkedin}`}
                   />
                   : null
                 }
@@ -300,8 +266,8 @@ class Organisers extends Component {
               </View>
               <View style = {styles.buttonView}>
                 {/* <Icons 
-                  disabled={dat.phone ? false : true}
-                  onPress ={this.dialCall(dat.phone)}
+                  disabled={data.phone ? false : true}
+                  onPress ={this.dialCall(data.phone)}
                   name ={}
                   btnstyle ={styles.buttonCall} 
                   iconColor ={'white'} 
@@ -320,7 +286,7 @@ class Organisers extends Component {
                 <TouchableOpacity
                   style = {[{opacity: emailStatus ? 0.2 : null}]}
                   disabled = {emailStatus}
-                  onPress={() => Linking.openURL(`mailto:${dat.email}`) }
+                  onPress={() => Linking.openURL(`mailto:${data.company.email}`) }
                     title="support@example.com"
                   >
                   <Image

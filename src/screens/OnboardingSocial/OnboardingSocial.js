@@ -253,7 +253,7 @@ class OnboardingSocial extends Component {
   }
   
   render () {
-    const { message, showAlert, showLoading, flag, isPhoneFocused,isWebsiteFocused, isFacebookFocused,
+    const { message, showAlert, flag, isPhoneFocused,isWebsiteFocused, isFacebookFocused,
       isTwitterFocused, isLinkedInFocused,isInstagramFocused, facebook_visible, twitter_visible,
       linkedin_visible, instagram_visible, website, facebook, twitter, linkedin, phone, instagram } = this.state;
 
@@ -324,8 +324,8 @@ class OnboardingSocial extends Component {
               autoCorrect={false}
               secureTextEntry={false}
               ref={(input) => { this.PhoneInput = input; }}
-              value={phone.toString()}
-              defaultValue={phone.toString()}
+              value={phone ? phone.toString() : ''}
+              defaultValue={phone ? phone.toString() : ''}
               editable={true}
               blurOnSubmit={false}
               onFocus={()=>this.setState({isPhoneFocused:true})}

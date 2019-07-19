@@ -1,12 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, Platform, ScrollView, SafeAreaView, KeyboardAvoidingView,StatusBar,Text, Modal,TouchableHighlight,Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert } from '../../components';
+import {DisplayText, InputField, SingleButtonAlert, Preloader } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors'
 import theme from '../../assets/theme';
 import {logout, isEmpty, putRoute, sendRoute, ProfileUpdateEndpoint, ImageUploadEndpoint, getProfile} from '../../utils';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import {connect} from 'react-redux';
@@ -56,7 +55,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
       try {
         await this.setState({
           'token':asyncProfile.sessionToken,
-          '_id' : profile.id,
+          '_id' : profile._id,
           'name': profile.name,
           'name_title': profile.title,
           'job_title': profile.job_title,
@@ -166,7 +165,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
       'query':{_id},
       'update' : {photo}   
     });
-
+      console.log({data})
     await putRoute (ProfileUpdateEndpoint, data, token)
       .then((res) => {
         console.log({'upload uri ': res})
@@ -484,10 +483,9 @@ import { addProfile } from '../../redux/actions/ProfileActions';
             />
           </TouchableOpacity>
 
-          <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
+          <Preloader
+              modalVisible={showLoading}
+             animationType="fade"
             />
         </View>
         </ScrollView>

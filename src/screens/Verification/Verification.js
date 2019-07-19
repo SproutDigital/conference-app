@@ -1,12 +1,11 @@
 'use strict';
 import React, {Component} from 'react';
 import { TouchableOpacity, View, StyleSheet, SafeAreaView, Image} from 'react-native';
-import {DisplayText, SingleButtonAlert, SubmitButton} from '../../components';
+import {DisplayText, SingleButtonAlert, SubmitButton, Preloader} from '../../components';
 import styles from './styles';
 import OtpInputs from 'react-native-otp-inputs';
 import colors from '../../assets/colors';
 import { sendRoute, getRoute, VerifyUserEndpoint, updateVerification, logout, RequestNewTokenEndpoint} from '../../utils';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 export default class Verification extends Component {
@@ -82,7 +81,7 @@ export default class Verification extends Component {
             showLoading : false, 
           }); 
            updateVerification()
-          return this.resetNavigationStack('OnboardingProfile'); 
+          return this.props.navigation.navigate('OnBoard'); 
         }  
       })
       .catch((res) => {
@@ -204,10 +203,9 @@ render() {
               opacity={0.8}
               textStyle={{color:'white'}}
             />  */}
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
+           <Preloader
+              modalVisible={showLoading}
+             animationType="fade"
             />
             <SingleButtonAlert
               title = {'Hello'} 

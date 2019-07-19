@@ -15,153 +15,14 @@ import theme from '../../assets/theme'
       message : '',
       data:[]
     }
-    this.arrayholder = [];
 
   }
-
-
-  sponsors = [
-    {
-      "_id": "5d1f909571e71900179b72f3",
-      "email": "mastat17@yahoo.com",
-      "name": "Babatunde Anwo-Ade",
-      "expo_token": "ExponentPushToken[abY2COJOc1w7SzoGxa1SVZ]",
-      "event": [],
-      "__v": 0,
-      "company_name": "cobweb solutions",
-      "country": "Nigeria",
-      "facebook": "btcrown",
-      "facebook_visible": true,
-      "gender": "male",
-      "instagram": "btcrown",
-      "instagram_visible": false,
-      "job_title": "Digital Communications",
-      "linkedin_visible": true,
-      "phone": 2348094206060,
-      "short_bio": "Love life!!",
-      "title": "Mr",
-      "twitter": "btcrown",
-      "twitter_visible": true,
-      "website": "www.Cobwebsolutionsng.com",
-      "linkedin": "btcrown",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png",
-
-  },
-
-
-
-  {
-    "_id": "5d1f909571e71900179b72f2",
-    "email": "mastat17@yahoo.com",
-    "name": "Babatunde Anwo-Ade",
-    "expo_token": "ExponentPushToken[abY2COJOc1w7SzoGxa1SVZ]",
-    "event": [],
-    "__v": 0,
-    "company_name": "cobweb solutions",
-    "country": "Nigeria",
-    "facebook": "btcrown",
-    "facebook_visible": true,
-    "gender": "male",
-    "instagram": "btcrown",
-    "instagram_visible": false,
-    "job_title": "Digital Communications",
-    "linkedin_visible": true,
-    "phone": 2348094206060,
-    "short_bio": "Love life!!",
-    "title": "Mr",
-    "twitter": "btcrown",
-    "twitter_visible": true,
-    "website": "www.Cobwebsolutionsng.com",
-    "linkedin": "btcrown",
-    "photo": "https://s3.us-west-2.amazonaws.com/spr-bucket/1562533768",
-
-  },
-
-  
-  {
-      "_id": "5d1c92249b0b080017036e52",
-      "email": "edwardobande36@gmail.com",
-      "name": "Etisalat",
-      "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-      "event": [],
-      "__v": 0,
-      "job_title": "Developers",
-      "title": "Mrs",
-      "company_name": "logical address",
-      "gender": "Male",
-      "short_bio": "Very easy ND fast learner",
-      "facebook": "Edward.obande",
-      "facebook_visible": true,
-      "instagram": "eddie",
-      "instagram_visible": false,
-      "linkedin_visible": true,
-      "phone": 3568103727918,
-      "twitter": "@eddiebigs",
-      "twitter_visible": true,
-      "website": "Facebook. Com",
-      "country": "Greenland",
-      "photo": "https://yt3.ggpht.com/a-/ACSszfGfL6O_P3JLe_4K7DYh2jsqdmVUYAdhOJKP=s900-mo-c-c0xffffffff-rj-k-no",
-      "linkedin": "edddiessss"
-  },
-
-  {
-    "_id": "5d1c92249b0b080017036e51",
-    "email": "edwardobande36@gmail.com",
-    "name": "GLO",
-    "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-    "event": [],
-    "__v": 0,
-    "job_title": "Developers",
-    "title": "Mrs",
-    "company_name": "logical address",
-    "gender": "Male",
-    "short_bio": "Very easy ND fast learner",
-    "facebook": "Edward.obande",
-    "facebook_visible": true,
-    "instagram": "eddie",
-    "instagram_visible": false,
-    "linkedin_visible": true,
-    "phone": 3568103727918,
-    "twitter": "@eddiebigs",
-    "twitter_visible": true,
-    "website": "Facebook. Com",
-    "country": "Greenland",
-    "photo": "http://freedomonline.com.ng/wp-content/uploads/2013/05/glo_logo.jpg",
-    "linkedin": "edddiessss"
-  },
-
-  {
-    "_id": "5d1c92249b0b080017036e53",
-    "email": "edwardobande36@gmail.com",
-    "name": "MTN",
-    "expo_token": "ExponentPushToken[dmwWVMIU9rFjTYuwJk30Rv]",
-    "event": [],
-    "__v": 0,
-    "job_title": "Developers",
-    "title": "Mrs",
-    "company_name": "logical address",
-    "gender": "Male",
-    "short_bio": "Very easy ND fast learner",
-    "facebook": "Edward.obande",
-    "facebook_visible": true,
-    "instagram": "eddie",
-    "instagram_visible": false,
-    "linkedin_visible": true,
-    "phone": 3568103727918,
-    "twitter": "@eddiebigs",
-    "twitter_visible": true,
-    "website": "Facebook. Com",
-    "country": "Greenland",
-    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png",
-    "linkedin": "edddiessss"
-  }
-  ];
-
   componentDidMount(){
     this.setState({
-      data:this.sponsors
+      data:this.props.sponsors,
     })
-    this.arrayholder = this.sponsors;
+    this.arrayholder = this.props.sponsors;
+    
   }
   
 
@@ -170,7 +31,7 @@ import theme from '../../assets/theme'
       value: text,
     });
     const newData = this.arrayholder.filter(item => {
-      const itemData = `${item.name.toUpperCase()} ${item.short_bio.toUpperCase()}`;
+      const itemData = `${item.profile.name.toUpperCase()} ${item.profile.short_bio.toUpperCase()}`;
       const textData = text.toUpperCase();
 
       return itemData.indexOf(textData) > -1;
@@ -200,7 +61,7 @@ import theme from '../../assets/theme'
           style = {styles.cardView}>
           <View style = {styles.sponsorImageView}>
             <Image
-              source = {{uri: item.photo}}
+              source = {{uri: item.profile.photo}}
               style = {StyleSheet.flatten(styles.sponsorImage)}
             />
           </View>
@@ -208,14 +69,14 @@ import theme from '../../assets/theme'
             <DisplayText
               numberOfLines = { 1 } 
               ellipsizeMode = 'middle'
-              text = {item.name}
+              text = {item.profile.name}
               styles = {StyleSheet.flatten(styles.headerText)}
             />
 
             <DisplayText
               numberOfLines = { 2 } 
               ellipsizeMode = 'middle'
-              text = {item.short_bio}
+              text = {item.profile.short_bio}
               styles = {StyleSheet.flatten(styles.subHeaderText)}
             />
             <View style={styles.buttonMoreView}>

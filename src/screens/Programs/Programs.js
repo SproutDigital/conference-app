@@ -113,6 +113,7 @@ class Programs extends Component {
     });
   }
   renderRow = ({item}) => {
+    console.log({"itemsssssssss ": item})
     let items = [];
     if( item.tags) {
       items = item.tags.map((row, i ) => {
@@ -233,10 +234,7 @@ class Programs extends Component {
           /> 
           
         </View>
-      {/* Add this disign to you flatlist after fetching your data */}
      
-      
-      {/* <View> */}
       <FlatList          
         data={this.state.data}          
         renderItem={this.renderRow}          
