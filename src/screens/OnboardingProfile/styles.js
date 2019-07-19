@@ -78,6 +78,12 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  imageStyle : {
+    width : 95,
+    height : 95,
+    borderRadius : (Platform.OS === 'ios') ? 46 : 60,
+    resizeMode : 'cover'
+  },
   cameraTouch : {
     width : 40,
     height : 40,
@@ -95,12 +101,7 @@ export default styles = StyleSheet.create({
     height : 20,
     resizeMode : 'contain'
   },
-  imageStyle : {
-    width : 95,
-    height : 95,
-    borderRadius : (Platform.OS === 'ios') ? 46 : 150,
-    resizeMode : 'contain'
-  },
+
   profileNameTxt : {
     fontFamily : theme.semiBoldFont,
     fontSize : theme.MediumFont

@@ -19,7 +19,7 @@ const slides = [
   {
     key: 'somethun',
     title: 'Check the Conference \nCalendar',
-    text: 'Pickout talks You \'d love to attend and \nset reminder',
+    text: 'Pick out talks You\'d love to attend and \nset reminder',
     image: require('../../assets/images/people.png'),
     backgroundColor: '#59b2ab',
   },
@@ -32,7 +32,7 @@ const slides = [
   },
   {
     key: 'somethun1',
-    title: 'Quick Help',
+    title: '\n\n\n\nQuick Help',
     text: 'Cant find a meeting room, not sure \nabout the weather? Like we said, \n"Everything in one place"',
     image: require('../../assets/images/woman.png'),
     backgroundColor: '#22bcb5',

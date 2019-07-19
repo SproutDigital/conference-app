@@ -234,6 +234,11 @@ export default class Register extends Component {
           <KeyboardAvoidingView
             style={styles.wrapper}
             behavior = 'padding'> 
+              <View style= {{justifyContent: 'center', alignItems: 'center'}}>
+                <Image
+                  source={require('../../assets/images/logo.png')}
+                  style={StyleSheet.flatten(styles.iconForm)}/> 
+              </View>
               <View>
                 <View style = {[styles.textInputView,{ borderColor: this.state.isNameFocused
                  ? colors.green

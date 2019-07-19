@@ -24,7 +24,7 @@ let styles = StyleSheet.create({
   },
 
   sliderText: {
-    fontSize: defaultTheme.thinyFont,
+    fontSize: defaultTheme.SmallFont,
     color: defaultTheme.primaryTextColor,
     backgroundColor: 'transparent',
     textAlign: 'center',
