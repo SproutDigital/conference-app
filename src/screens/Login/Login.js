@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
  import { View, Image,StyleSheet, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton, ErrorAlert, Preloader} from '../../components';
+import {DisplayText, InputField, SubmitButton, ErrorAlert, Preloader} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
 import {isEmailValid, sendRoute, LoginEndpoint, saveProfile, isEmpty} from '../../utils';
 import colors from '../../assets/colors';
@@ -206,7 +206,6 @@ class Login extends Component {
             showLoading : false, 
             message: res.message,
             showAlert: true,
-            title: 'Hello'
           });
         }
       });

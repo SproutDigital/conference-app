@@ -106,7 +106,6 @@ class People extends Component {
   }
 
   render () {
-    console.log({'statesss' : this.state.data})
     return(
      <SafeAreaView style={styles.container}> 
        <StatusBar barStyle="default"/>
