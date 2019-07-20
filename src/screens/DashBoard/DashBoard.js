@@ -158,6 +158,7 @@ const deviceWidth = Dimensions.get('window').width;
                 <View style ={styles.dots}></View>
                 <View style ={styles.dots}></View>
                 <View style ={styles.dots}></View>
+
               </View>
             </View>            
           </View>

@@ -160,6 +160,7 @@ export default styles = StyleSheet.create({
     flexDirection : 'row',
     justifyContent : 'space-between',
     paddingTop : 8,
+    paddingLeft : 4
     // alignItems : 'center'
   },
 
@@ -216,6 +217,7 @@ export default styles = StyleSheet.create({
     fontFamily : theme.primaryFont,
     fontSize : theme.thinyFont,
     color : theme.primaryColor,
+    marginLeft : 4
   },
   nameText : {
     fontFamily : theme.inputHintFont,

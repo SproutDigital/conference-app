@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     
    Alert_Message:{
     fontSize: theme.SmallFont, 
-    color: colors.red,
+    color: colors.green,
     textAlign: 'center',
     fontFamily : theme.subHeaderFont,
     marginBottom : 60,
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
   messages : { 
     width: '100%', 
     height: StyleSheet.hairlineWidth, 
-    backgroundColor: colors.gold,
   },
   buttonStyle: {  
     width: '100%',

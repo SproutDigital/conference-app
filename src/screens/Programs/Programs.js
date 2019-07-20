@@ -123,8 +123,11 @@ class Programs extends Component {
     if( item.tags) {
       items = item.tags.map((row, i ) => {
         return (
-          <TouchableOpacity key={i} style = {styles.buttonTagView}>
+          <TouchableOpacity 
+            onPress = {()=>this.handleViewProgram(item)}
+            key={i} style = {styles.buttonTagView}>
             <DisplayText
+              onPress = {()=>this.handleViewProgram(item)}
               text = {row}
               styles = {StyleSheet.flatten(styles.btnText)}
             /> 
@@ -146,8 +149,11 @@ class Programs extends Component {
               styles = {StyleSheet.flatten(styles.headerText)}
             />
           </View>
-          <TouchableOpacity style = {styles.buttonView}>
+          <TouchableOpacity 
+              onPress = {()=>this.handleViewProgram(item)}
+              style = {styles.buttonView}>
             <DisplayText
+              onPress = {()=>this.handleViewProgram(item)}
               text = {item.type }
               styles = {StyleSheet.flatten(styles.btnText)}
             /> 
@@ -155,12 +161,14 @@ class Programs extends Component {
         </View>
          {this.showEventDate(item)}
           <DisplayText
+            onPress = {()=>this.handleViewProgram(item)}
             numberOfLines = { 2 } 
             ellipsizeMode = 'middle'
             text = {item.description}
             styles = {StyleSheet.flatten(styles.cardTxtBody)}
           />
           <DisplayText
+            onPress = {()=>this.handleViewProgram(item)}
             text = {item.venue}
             styles = {StyleSheet.flatten(styles.nameText)}
             />
