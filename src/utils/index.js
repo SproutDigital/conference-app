@@ -2,7 +2,7 @@ const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
 const 
-    EventId = '5d31dc33adcd9800177e87c9',
+    EventCode = 'Afric821340KEN',
     LoginEndpoint = `${Baseurl}user/login`,
     RegisterEndpoint = `${Baseurl}user/register`,
     VerificationStatusEndpoint = `${Baseurl}user/check_status`,
@@ -19,7 +19,7 @@ const
     CreateRatingEndpoint = `${Baseurl}rating/create`
 
 export {
-    EventId,
+    EventCode,
     LoginEndpoint,
     RegisterEndpoint,
     VerificationStatusEndpoint,

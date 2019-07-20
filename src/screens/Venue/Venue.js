@@ -108,7 +108,7 @@ const deviceWidth = Dimensions.get('window').width;
 
               </View>
               {/* Phone number */}
-              <View style = {styles.formView}>
+              {/* <View style = {styles.formView}>
                 <DisplayText
                   styles={StyleSheet.flatten(styles.titleText)}
                   text = {'Post Code'}
@@ -117,7 +117,7 @@ const deviceWidth = Dimensions.get('window').width;
                   styles={StyleSheet.flatten(styles.textInfo)}
                   text = {data.location.postcode ? data.location.postcode : ''}
                 />
-              </View>
+              </View> */}
               {/* Email Address Texf */}
               <View style = {styles.formView}>
                 <DisplayText
