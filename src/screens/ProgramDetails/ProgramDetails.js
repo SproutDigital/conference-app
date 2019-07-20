@@ -20,14 +20,24 @@ export default class Profile extends Component {
       errorMessage: '',
       showLoading:false,
       message : '',
-      program : {},
+      disabled:true,
+      program:false,
+      rateCount: 0,
     }
   }
 
   componentDidMount() {
     let program = this.props.navigation.getParam('program');
-    this.setState({program});
+    let formattedDate = moment(program.date).format('YYYY-MM-DD');
+    let endTime = new Date(moment(`${formattedDate}T${program.end_time}:00+01:00`).format());
+    let currentTime = moment().valueOf();
 
+    if(  endTime.valueOf() > currentTime ) {
+       this.setState({
+        disabled : false
+      })
+    }
+    this.setState({program});
   }
 
   toggleDrawer = () => {
@@ -41,7 +51,7 @@ export default class Profile extends Component {
   handleCloseNotification = () => {
     return this.setState({
       showSuccessAlert : false,
-      showErrorAlert: false
+      showErrorAlert: false,
     });
   }
 
@@ -66,7 +76,9 @@ export default class Profile extends Component {
   }
 
    submitRating = async(rating) => {
+
     const {program} = this.state;
+
     let profile =  await getProfile();
     this.setState({
       showLoading:true,
@@ -131,7 +143,7 @@ export default class Profile extends Component {
   }
 
   render () {
-   const {program, showLoading, errorMessage, showErrorAlert, successMessage, showSuccessAlert} = this.state;    
+   const {program, showLoading, errorMessage, showErrorAlert, rateCount, successMessage, disabled, showSuccessAlert} = this.state;    
     let date = moment(program.date).format('MMM DD, YYYY');
    return(
     <SafeAreaView style={styles.container}> 
@@ -185,14 +197,11 @@ export default class Profile extends Component {
               text = {'Category'}
               styles = {StyleSheet.flatten(styles.sponser)}
             />
-            <DisplayText
-              text = {'type'}
-              styles = {StyleSheet.flatten(styles.typeTxt)}
-            />
+           
             <View style ={styles.catTypeView}>
               <View style = {styles.textCont}>
                 <DisplayText
-                  text = {'Technology'}
+                  text = {program.type || ''}
                   styles = {StyleSheet.flatten(styles.cartType)}
                 />
               </View>
@@ -214,9 +223,10 @@ export default class Profile extends Component {
             <View style={styles.rating}>
               <AirbnbRating
                 count={5}
-                defaultRating={0}
+                defaultRating={rateCount}
                 size={20}
                 showRating={false}
+                isDisabled={disabled}
                 onFinishRating={this.ratingCompleted}
               />
             </View>
