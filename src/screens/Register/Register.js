@@ -230,14 +230,14 @@ export default class Register extends Component {
     return(
       <SafeAreaView style={styles.container}> 
         <StatusBar barStyle="default"/>
-       
+             
           <KeyboardAvoidingView
             style={styles.wrapper}
             behavior = 'padding'> 
               <View style= {{justifyContent: 'center', alignItems: 'center'}}>
                 <Image
                   source={require('../../assets/images/logo.png')}
-                  style={StyleSheet.flatten(styles.iconForm)}/> 
+                  style={StyleSheet.flatten(styles.logoIcon)}/> 
               </View>
               <View>
                 <View style = {[styles.textInputView,{ borderColor: this.state.isNameFocused

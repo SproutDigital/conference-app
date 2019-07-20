@@ -8,7 +8,7 @@ import theme from '../../assets/theme';
     flex: 1,
    // alignItems: 'center'
     
-    paddingTop: 40,
+    // paddingTop: 40,
     paddingBottom: 10, 
 
   },
@@ -65,7 +65,7 @@ import theme from '../../assets/theme';
     paddingLeft: (Platform.OS === 'ios') ? 30 : 30,
     paddingRight: (Platform.OS === 'ios') ? 30 : 30,
     // marginTop: 15,
-    paddingTop: 8,
+    // paddingTop: 8,
     justifyContent: 'center',
     alignItems : 'center',
   },
@@ -97,7 +97,7 @@ import theme from '../../assets/theme';
   },
   createAccount : {
     fontSize: theme.SmallFont,
-    color: theme.primaryTextColor,
+    color: theme.primaryColor,
     // marginTop: 15,
     fontFamily: theme.secondaryFont,
     alignSelf: 'center',
@@ -154,6 +154,11 @@ import theme from '../../assets/theme';
     position : 'absolute',
     right : (Platform.OS === 'ios') ? 75 : 65,
   },
+  logoIcon : {
+    width : 150,
+    height : 100,
+    resizeMode : 'contain',
+  }
 
 });
 

@@ -436,7 +436,7 @@ class OnboardingBio extends Component {
                 />
               </TouchableOpacity>
             </View> */}
-            <View style = {styles.tagView}>
+            {/* <View style = {styles.tagView}>
               
             </View>
             <View style = {styles.selectedInterest}>
@@ -451,7 +451,7 @@ class OnboardingBio extends Component {
                   style = {StyleSheet.flatten(styles.addMore)}
                 />
               </TouchableOpacity>
-            </View>
+            </View> */}
             
           </View>
           <View style = {styles.btnViewNext}> 

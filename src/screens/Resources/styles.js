@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 import theme from '../../assets/theme';
 import { Platform } from '@unimodules/core';
+import colors from '../../assets/colors';
 
 export default styles = StyleSheet.create({
 
@@ -65,7 +66,6 @@ export default styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily : theme.secondaryFont
   },
-
   searchView : {
     width : '100%',
     marginTop : 8,
@@ -82,7 +82,6 @@ export default styles = StyleSheet.create({
     alignItems : 'center'
   },
   viewBody : {
-    // alignItems : 'center',
     flex : 1,
     padding : 20
   },
@@ -90,19 +89,10 @@ export default styles = StyleSheet.create({
     width : 20,
     height : 20,
   },
-  // listItems : {
-  //   marginTop : 8,
-  //   width : '90%',
-  //   elevation : 1,
-  //   borderRadius : 8,
-  //   height : 100,
-  // },
   listViewItem : {
     alignItems : 'center',
     width : '100%',
     justifyContent: 'center',
-    // paddingLeft : 20,
-    // paddingRight : 20,
   },
   cardView:{
     width: '99%',
@@ -119,7 +109,7 @@ export default styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2,
     elevation: 1,
-    paddingHorizontal: 8,
+    // paddingHorizontal: 8,
     paddingVertical: 8,
     // flexDirection : 'row',
     // alignItems : 'center'
@@ -141,12 +131,13 @@ export default styles = StyleSheet.create({
   resouceView : {
     flexDirection : 'row',
     width : '98%',
-    paddingHorizontal : 4,
+    paddingHorizontal : 8,
   },
   resourceTxt : {
     fontFamily : theme.secondaryFont,
     fontSize : theme.SmallerFont,
-    color : theme.secondaryTextColor
+    color : theme.secondaryTextColor,
+    paddingRight: 8,
   },
   bioDetailTxt : {
     fontFamily : theme.secondaryFont,
@@ -161,10 +152,9 @@ export default styles = StyleSheet.create({
   },
   line : {
     width : '100%',
+    height : 4,
     marginVertical : 4,
-    backgroundColor : theme.formBorderColor,
-    borderWidth : 0.5,
-    borderColor : theme.formBorderColor,
+    backgroundColor : "#f5f5f5",
   },
   buttonMoreView : {
     paddingHorizontal: 8,
@@ -187,6 +177,7 @@ export default styles = StyleSheet.create({
     marginStart : 4,
     marginVertical : 2,
     paddingVertical : 2,
+    marginHorizontal : 8,
     alignSelf : 'flex-end'
     
   },
@@ -228,6 +219,6 @@ export default styles = StyleSheet.create({
     fontFamily : theme.secondaryFont,
     fontSize : theme.SmallFont,
     color : theme.primaryTextColor,
-    marginLeft : 4,
+    marginHorizontal : 8,
   },
 });

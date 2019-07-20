@@ -134,7 +134,7 @@ export default styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 2.62,
-    elevation: 1,
+    elevation: 4,
     paddingLeft : 8,
     paddingRight : 8,
     flexDirection : 'column',
@@ -142,7 +142,7 @@ export default styles = StyleSheet.create({
   },
   listViewItem : {
     width : '100%',
-    marginBottom : 4
+    marginVertical : 6
     // justifyContent: 'center',
     // alignItems : 'center',
     // paddingLeft : 10,
@@ -245,7 +245,18 @@ export default styles = StyleSheet.create({
   },
   buttonView : {
     backgroundColor : theme.primaryColor,
-    width : '25%',
+    // width : '25%',
+    paddingHorizontal : 8,
+    height : 25,
+    borderRadius : 10,
+    justifyContent: 'center',
+    alignItems : 'center',
+    marginRight : 4
+  },
+  buttonTagView : {
+    backgroundColor : theme.primaryColor,
+    // width : '25%',
+    paddingHorizontal : 8,
     height : 25,
     borderRadius : 10,
     justifyContent: 'center',

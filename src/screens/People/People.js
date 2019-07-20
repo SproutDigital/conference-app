@@ -59,6 +59,7 @@ class People extends Component {
           <View style ={styles.imageText}>
           <View style = {styles.ImageView}>
             <Image
+              onPress = {()=>this.handlePeopleMain(item)}
               source = {{uri: item.profile.photo}}
               style = {StyleSheet.flatten(styles.personImage)}
             />
@@ -69,13 +70,15 @@ class People extends Component {
               ellipsizeMode = 'middle'
               text = {item.profile.name}
               styles = {StyleSheet.flatten(styles.headerText)}
+              onPress = {()=>this.handlePeopleMain(item)}
             />
 
             <DisplayText
-              numberOfLines = { 2 } 
-              ellipsizeMode = 'middle'
+              numberOfLines = { 1 } 
+              // ellipsizeMode = 'middle'
               text = {item.profile.company_name}
               styles = {StyleSheet.flatten(styles.subHeaderText)}
+              onPress = {()=>this.handlePeopleMain(item)}
             />
           </View>
           </View>
@@ -86,6 +89,7 @@ class People extends Component {
                   ellipsizeMode = 'middle'
                   text = {item.profile.short_bio}
                   styles = {StyleSheet.flatten(styles.bioDetailTxt)}
+                  onPress = {()=>this.handlePeopleMain(item)}
                 />
               </View>
               {/* <TouchableOpacity style = {styles.plusBtn}>
