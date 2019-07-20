@@ -139,10 +139,13 @@ class Programs extends Component {
           onPress = {()=>this.handleViewProgram(item)}
           style = {styles.cardView}>
         <View style = {styles.cardHeaderView}>
-          <DisplayText
-            text = {item.title}
-            styles = {StyleSheet.flatten(styles.headerText)}
-          />
+          <View style = {styles.headerProgramView}>
+            <DisplayText
+              onPress = {()=>this.handleViewProgram(item)}
+              text = {item.title}
+              styles = {StyleSheet.flatten(styles.headerText)}
+            />
+          </View>
           <TouchableOpacity style = {styles.buttonView}>
             <DisplayText
               text = {item.type }

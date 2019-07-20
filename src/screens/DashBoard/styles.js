@@ -69,8 +69,12 @@ export default styles = StyleSheet.create({
   },
   sliderView : {
     backgroundColor : colors.buttonBlue,
-    // height: '30%',
     width : '100%',
+    shadowOpacity: 0.25, 
+    shadowOffset: {height: 2, width:0},
+    shadowColor: theme.textGray, 
+    shadowRadius: 2.56,
+
   },
   tileView : {
     flex : 1,
@@ -91,14 +95,6 @@ export default styles = StyleSheet.create({
     width : 100,
     height : 100,
     backgroundColor : 'rgba(255,255,255,0.8)',
-    // shadowColor: theme.secondaryTextColor,
-    // shadowOffset: { 
-    //   width: 0, 
-    //   height: 2 
-    // },
-    // shadowOpacity: 0.3,
-    // shadowRadius: 4,
-    // elevation: 2, 
     borderRadius : 4,
     justifyContent: 'center',
     alignItems : 'center',
@@ -118,5 +114,30 @@ export default styles = StyleSheet.create({
     marginTop : 8,
 
   },
-  
+  sliderDot : {
+    width : '100%',
+    height : 30,
+    backgroundColor : 'rgba(0,0,0,0.5)',
+    position : 'absolute',
+    bottom : 0,
+    flexDirection: 'row'
+  },
+  sliderTxtView : {
+    width : '80%',
+    paddingLeft : 8,
+  },
+  dotsView : {
+    flexDirection : 'row',
+    paddingRight : 8,
+    justifyContent: 'center',
+    alignItems : 'center'
+  },
+  dots : {
+    height : 8,
+    width : 8,
+    backgroundColor : theme.colorAccent,
+    borderRadius : 8,
+    padding : 2,
+    marginLeft : 4,
+  }  
 });
