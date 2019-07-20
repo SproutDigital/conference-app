@@ -53,12 +53,12 @@ export default class LastPage extends Component {
           style = {styles.buttonView}>
           <DisplayText
             onPress = {this.handleSwipe}
-            text={'SWIPE'}
+            text={'Next'}
             styles = {StyleSheet.flatten(styles.txtNext)}
           />
           <Image
             onPress = {this.handleSwipe}
-            source = {require('../../assets/images/up_arrow.png')}
+            source = {require('../../assets/images/foward_arrow.png')}
             style = {StyleSheet.flatten(styles.nextIcon)}
           />
         </TouchableOpacity>

@@ -116,7 +116,7 @@ class Programs extends Component {
     if( item.tags) {
       items = item.tags.map((row, i ) => {
         return (
-          <TouchableOpacity key={i} style = {styles.buttonView}>
+          <TouchableOpacity key={i} style = {styles.buttonTagView}>
             <DisplayText
               text = {row}
               styles = {StyleSheet.flatten(styles.btnText)}
@@ -125,6 +125,7 @@ class Programs extends Component {
         )
       })
     } 
+    //console.log({item})
     return (
       <View style = {styles.listViewItem}>    
         <TouchableOpacity 

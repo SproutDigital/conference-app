@@ -98,10 +98,10 @@ export default styles = StyleSheet.create({
   },
   aboutBodyTxt : {
     fontFamily : theme.subHeaderFont,
-    fontSize : theme.SmallerFont,
-    color : theme.secondaryTextColor,
+    color : theme.primaryTextColor,
     textAlign : 'justify',
-    lineHeight: 25,
+    fontSize : (Platform.OS === 'ios') ? theme.SmallerFont :theme.SmallFont,
+    lineHeight: (Platform.OS === 'ios') ? 20 : 23,
   },
 
 

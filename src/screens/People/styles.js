@@ -97,12 +97,11 @@ export default styles = StyleSheet.create({
     alignItems : 'center',
     width : '100%',
     justifyContent: 'center',
-    // paddingLeft : 20,
-    // paddingRight : 20,
+    marginVertical : 6
   },
   cardView:{
     width: '99%',
-    height : 110,
+    // height : 110,
     backgroundColor: theme.colorAccent,
     borderRadius : 8,
     marginTop: 4,
@@ -114,9 +113,9 @@ export default styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 2,
-    elevation: 1,
+    elevation: 2,
     paddingHorizontal: 8,
-    paddingVertical: 8,
+    paddingVertical: 4,
     // flexDirection : 'row',
     // alignItems : 'center'
   },
@@ -176,7 +175,7 @@ export default styles = StyleSheet.create({
   },
   bioTextView : {
     width : '95%',
-    marginBottom : 8
+    marginBottom : 4
   },
   imageText : {
     flexDirection : 'row',

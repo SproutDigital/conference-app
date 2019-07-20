@@ -89,7 +89,7 @@ export default class PeopleMain extends Component {
                 />
                 
               }
-              <TouchableOpacity 
+              {/* <TouchableOpacity 
                 style = { styles.cameraTouch}
                 // onPress={this._pickImage}
                 >
@@ -98,7 +98,7 @@ export default class PeopleMain extends Component {
                   source = {require('../../assets/images/camera.png')}
                   style = {StyleSheet.flatten(styles.cameraIcon)}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <DisplayText
               styles={StyleSheet.flatten(styles.profileNameTxt)}
