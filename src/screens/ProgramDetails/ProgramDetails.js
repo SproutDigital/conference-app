@@ -6,7 +6,8 @@ import styles from './styles';
 import { DrawerActions } from "react-navigation";
 import moment from 'moment';
 import { AirbnbRating } from 'react-native-ratings';
-import {AddParticipantEndpoint, CreateRatingEndpoint, EventId, post, getProfile} from '../../utils'
+import {CreateNotificationEndpoint, CreateRatingEndpoint, post, getProfile} from '../../utils'
+
 
 export default class Profile extends Component {
   constructor(props) {
@@ -75,15 +76,13 @@ export default class Profile extends Component {
       'userid' : profile.id,
        rating
     });
-    console.log({data})
     await post (CreateRatingEndpoint, data, profile.sessionToken )
       .then((res) => {    
         if(res.status == 'success') {
           this.setState({
             showLoading: false,
             showSuccessAlert: true,
-            successMessage : res.status
-            
+            successMessage : res.status   
           })
         }
         else {
@@ -98,18 +97,20 @@ export default class Profile extends Component {
   }
 
 
-  addParticipant = async() => {
+  setNotification = async() => {
    let profile = await getProfile();
+   const {program} = this.state;
+
     this.setState({
       showLoading:true,
     })
     let data = await JSON.stringify({
-      'eventid' :  EventId, 
-      'participantid' : profile.id,
-       'attendees' : true
+      'eventid' :  program.eventid, 
+      'userid' : profile.id,
+       'programid' : program._id,
     });
 
-     await post (AddParticipantEndpoint, data, profile.sessionToken )
+     await post (CreateNotificationEndpoint, data, profile.sessionToken )
       .then((res) => {
         if(res.status == 'success') {
           this.setState({
@@ -198,7 +199,7 @@ export default class Profile extends Component {
             </View>
           </View>
 
-          <TouchableOpacity style = {styles.blueButton} onPress={this.addParticipant}>
+          <TouchableOpacity style = {styles.blueButton} onPress={this.setNotification}>
             <DisplayText
               text = {'+ Add to my Program'}
               styles = {StyleSheet.flatten(styles.buttonTxt)}

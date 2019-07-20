@@ -15,8 +15,9 @@ const
     EventDetailsEndpoint = `${Baseurl}event/query`,
     FetchProfileEndpoint = `${Baseurl}profile/query`,
     FetchCompanyEndpoint = `${Baseurl}company/query/`,
-    AddParticipantEndpoint = `${Baseurl}event/addParticipant`,
-    CreateRatingEndpoint = `${Baseurl}rating/create`
+    CreateNotificationEndpoint = `${Baseurl}message/create`,
+    CreateRatingEndpoint = `${Baseurl}rating/create`;
+    
 
 export {
     EventCode,
@@ -32,7 +33,7 @@ export {
     EventDetailsEndpoint,
     FetchProfileEndpoint,
     FetchCompanyEndpoint,
-    AddParticipantEndpoint,
+    CreateNotificationEndpoint,
     CreateRatingEndpoint
     
 }

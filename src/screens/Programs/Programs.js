@@ -27,7 +27,7 @@ class Programs extends Component {
   }
 
   dateToFromNowDaily = (item ) =>{
-    let eDate  = `${item.date}T${item.start_time}`;
+    let eDate  = `${item.date}`;
     // get from-now for this date
     var fromNow = moment(eDate, "YYYY-MM-DD HH:mm" ).fromNow();
 
@@ -53,6 +53,7 @@ class Programs extends Component {
 
   showEventDate(item) {
     let formatedDate = this.dateToFromNowDaily(item);
+
     if(formatedDate.includes('in')) {
      return( <DisplayText
         text = {`${formatedDate} ${item.start_time}`}
@@ -83,6 +84,12 @@ class Programs extends Component {
        text = {`${formatedDate} ${item.start_time} - ${item.end_time}`}
         styles = {StyleSheet.flatten(styles.timeText)}
       />)
+    }
+    else {
+      return( <DisplayText
+        text = {`${formatedDate} ${item.start_time} - ${item.end_time}`}
+         styles = {StyleSheet.flatten(styles.timeText)}
+       />)
     }
         
   }

@@ -51,7 +51,7 @@ const deviceWidth = Dimensions.get('window').width;
           restoring:false,
           data:res.data[0]
         })
-          console.log({'dashboard' : res.data[0]})
+          console.log({'dashboard' : res.data[0].sponsors})
         setEventProfile(res.data);
         setSponsor(res.data[0].sponsors);
         setProgram(res.data[0].program);
