@@ -93,6 +93,7 @@ export default styles = StyleSheet.create({
     alignItems : 'center',
     width : '100%',
     justifyContent: 'center',
+    marginVertical : 6
   },
   cardView:{
     width: '99%',
@@ -136,13 +137,14 @@ export default styles = StyleSheet.create({
   resourceTxt : {
     fontFamily : theme.secondaryFont,
     fontSize : theme.SmallerFont,
-    color : theme.secondaryTextColor,
-    paddingRight: 8,
+    color : theme.textGray,
+    paddingHorizontal: 8,
   },
   bioDetailTxt : {
     fontFamily : theme.secondaryFont,
     fontSize : theme.thinyFont,
-    color : theme.primaryTextColor
+    color : theme.primaryTextColor,
+    paddingLeft : 8
   },
 
   pdfIcon : {
@@ -152,7 +154,7 @@ export default styles = StyleSheet.create({
   },
   line : {
     width : '100%',
-    height : 4,
+    height : 8,
     marginVertical : 4,
     backgroundColor : "#f5f5f5",
   },
@@ -168,7 +170,7 @@ export default styles = StyleSheet.create({
     marginTop : (Platform.OS === "ios") ? 4 : 0
   },
   downloadBtn : {
-    width : '30%',
+    width : '25%',
     borderRadius : 8,
     paddingHorizontal : 8,
     backgroundColor : theme.primaryColor,

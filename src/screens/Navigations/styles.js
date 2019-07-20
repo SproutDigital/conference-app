@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 const window = Dimensions.get('window');
 import  Constants from 'expo-constants';
 import colors from '../../assets/colors';
@@ -90,7 +90,7 @@ export default styles = StyleSheet.create({
     flexDirection : 'column',
     backgroundColor : theme.backgroundColor,
     alignItems : 'center',
-    height : '25%',
+    height : (Platform.OS === 'ios') ? '30%' : '25%',
     paddingTop : 8
     
   },
@@ -102,7 +102,7 @@ export default styles = StyleSheet.create({
   },
   txtuser: {
     fontFamily : theme.subHeaderFont, 
-    marginLeft : 15,
+    // marginLeft : 15,
     
   },
   sideMenuContainer: {
@@ -114,16 +114,16 @@ export default styles = StyleSheet.create({
     
   },
   sideMenuProfileIcon: {
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     width: 100,
-    height: 70,
-    marginTop: 8,
-    borderRadius: 180,
+    height: 100,
+    marginVertical: 10,
+    borderRadius: (Platform.OS === 'ios') ? 50 : 100,
   },
   draweIcon : {
     width : 25,
     height : 25,
-    resizeMode : 'contain',
+    resizeMode : 'cover',
     tintColor : theme.primaryColor,
   },
 });
