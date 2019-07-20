@@ -120,7 +120,7 @@ import * as FileSystem from 'expo-file-system';
           <View style={styles.line}></View>
           <TouchableOpacity style = {styles.downloadBtn} onPress={()=>this.downloadResource(item.url, item.title)}>
             <DisplayText
-              text = {'Download'}
+              text = {'Open'}
               styles = {StyleSheet.flatten(styles.downloadtxt)}
             />
           </TouchableOpacity>

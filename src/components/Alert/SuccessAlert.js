@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, View, Text, Modal, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, View, Text, Image,Modal, TouchableOpacity} from 'react-native';
 import colors from '../../assets/colors';
 import PropTypes from 'prop-types';
 import theme from '../../assets/theme';
@@ -37,11 +37,14 @@ export default class SuccessAlert extends Component {
 
           <View style={styles.Alert_Main_View}>
 
+            <Image
+              source={require('../../assets/images/sad.png')}
+              style={StyleSheet.flatten(styles.logoIcon)}/> 
              <Text style={styles.Alert_Title}>
                {title}
               </Text>
 
-             <View style={{ width: '100%', height: StyleSheet.hairlineWidth, backgroundColor: colors.gold}} />
+             <View style={styles.messages} />
               <Text style={styles.Alert_Message}>
                 {message} 
               </Text>
@@ -112,15 +115,18 @@ const styles = StyleSheet.create({
     
    Alert_Message:{
     fontSize: theme.SmallFont, 
-    color: colors.green,
+    color: colors.red,
     textAlign: 'center',
     fontFamily : theme.subHeaderFont,
-    // padding: 10,
-    // height: '42%'
-      
+    marginBottom : 60,
+
   },
-    
-   buttonStyle: {  
+  messages : { 
+    width: '100%', 
+    height: StyleSheet.hairlineWidth, 
+    backgroundColor: colors.gold,
+  },
+  buttonStyle: {  
     width: '100%',
     height: '100%',
     justifyContent: 'center',
@@ -128,7 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
-   },
+  },
       
    TextStyle:{
     color: theme.colorAccent,
