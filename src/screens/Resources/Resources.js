@@ -96,6 +96,7 @@ import * as FileSystem from 'expo-file-system';
             onPress={()=>this.downloadResource(item.url)}>
             <DisplayText
               text = {'Open'}
+              onPress={()=>this.downloadResource(item.url)}
               styles = {StyleSheet.flatten(styles.downloadtxt)}
             />
           </TouchableOpacity>

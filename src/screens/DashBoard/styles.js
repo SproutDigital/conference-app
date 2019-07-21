@@ -74,7 +74,7 @@ export default styles = StyleSheet.create({
     shadowOffset: {height: 2, width:0},
     shadowColor: theme.textGray, 
     shadowRadius: 2.56,
-
+    elevation : 1,
   },
   tileView : {
     flex : 1,
