@@ -16,6 +16,17 @@ export default class PeopleMain extends Component {
   handleGoBack = () => {
     return this.props.navigation.goBack();
   }
+   headerStatus() {
+    const item = this.props.navigation.getParam('item');
+    if(item.facebook_visible || item.twitter_visible || item.instagram_visible || item.linkedin_visible ) {
+      return(
+        <DisplayText
+          styles={StyleSheet.flatten(styles.titleText)}
+          text = {'Social Media'}
+        />
+      )
+    }
+  }
   webSiteLink(){
     const item = this.props.navigation.getParam('item');
     if(item.website) {
@@ -136,10 +147,7 @@ export default class PeopleMain extends Component {
             }
             
             <View style = {styles.socialMediaView}>
-              <DisplayText
-                styles={StyleSheet.flatten(styles.titleText)}
-                text = {'Social Media'}
-              />
+              {this.headerStatus()}
               {/*  facebook */}
               { item.facebook_visible ?
                 <View style = {styles.bodyView}>
