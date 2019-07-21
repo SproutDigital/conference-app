@@ -43,9 +43,20 @@ export default class SponsorDetails extends Component {
     
   }
 
+  headerStatus() {
+    const item = this.props.navigation.getParam('item');
+    if(item.profile.facebook_visible || item.profile.twitter_visible || item.profile.instagram_visible || item.profile.linkedin_visible ) {
+      return(
+        <DisplayText
+          styles={StyleSheet.flatten(styles.titleText)}
+          text = {'Social Media'}
+        />
+      )
+    }
+  }
+
   render () {
     const item = this.props.navigation.getParam('item');
-    console.log({item})
     let photo = item.profile.photo;
    return(
     <SafeAreaView style={styles.container}> 
@@ -106,12 +117,11 @@ export default class SponsorDetails extends Component {
               text = {item.profile.short_bio}
             />
             <View style = {styles.socialMediaView}>
-              <DisplayText
-                styles={StyleSheet.flatten(styles.titleText)}
-                text = {'Social Media'}
-              />
+             {this.headerStatus()}
+
               {/*  facebook */}
-            <View style = {styles.bodyView}>
+            { item.profile.facebook ?
+              <View style = {styles.bodyView}>
               <View style={styles.socialView}>
                 <View style = {styles.textInputView}>
                   <View style = {styles.hanlenameView}>
@@ -129,97 +139,125 @@ export default class SponsorDetails extends Component {
              
               </View>
             </View>
+            : null
+              
+            }
+            
             {/* Twitter */}
-            <View style = {styles.bodyView}>
-              <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
-                  <View style = {styles.hanlenameView}>
-                    <Image
-                      source = {require('../../assets/images/twitter.png')}
-                      style = {StyleSheet.flatten(styles.socialIcon)}
-                    />               
-                    <DisplayText
-                      styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {`${item.profile.twitter_visible ? item.profile.twitter: '*******'}`}
-                    />
- 
+            { 
+              item.profile.twitter ?
+
+                <View style = {styles.bodyView}>
+                <View style={styles.socialView}>
+                  <View style = {styles.textInputView}>
+                    <View style = {styles.hanlenameView}>
+                      <Image
+                        source = {require('../../assets/images/twitter.png')}
+                        style = {StyleSheet.flatten(styles.socialIcon)}
+                      />               
+                      <DisplayText
+                        styles={StyleSheet.flatten(styles.socialTitleText)}
+                        text = {`${item.profile.twitter_visible ? item.profile.twitter: '*******'}`}
+                      />
+  
+                    </View>
                   </View>
+              
                 </View>
-             
               </View>
-            </View>
-            <View style = {styles.bodyView}>
-              <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
-                  <View style = {styles.hanlenameView}>
-                    <Image
-                      source = {require('../../assets/images/linkedin.png')}
-                      style = {StyleSheet.flatten(styles.socialIcon)}
-                    />               
-                    <DisplayText
-                      styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {`${item.profile.linkedin_visible ? item.profile.linkedin: '*******'}`}
-                    />
- 
+             : null
+
+            }
+            
+            { item.profile.linkedin ? 
+                <View style = {styles.bodyView}>
+                <View style={styles.socialView}>
+                  <View style = {styles.textInputView}>
+                    <View style = {styles.hanlenameView}>
+                      <Image
+                        source = {require('../../assets/images/linkedin.png')}
+                        style = {StyleSheet.flatten(styles.socialIcon)}
+                      />               
+                      <DisplayText
+                        styles={StyleSheet.flatten(styles.socialTitleText)}
+                        text = {`${item.profile.linkedin_visible ? item.profile.linkedin: '*******'}`}
+                      />
+  
+                    </View>
                   </View>
+              
                 </View>
-             
               </View>
-            </View>
+              : null
+
+            }
               {/* Instagram */}
-              <View style = {styles.bodyView}>
-              <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
-                  <View style = {styles.hanlenameView}>
-                    <Image
-                      source = {require('../../assets/images/instagram.png')}
-                      style = {StyleSheet.flatten(styles.socialIcon)}
-                    />               
-                    <DisplayText
-                      styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {`${item.profile.instagram_visible ? item.profile.instagram: '*******'}`}
-                    />
+              { item.profile.instagram ?
+                  <View style = {styles.bodyView}>
+                    <View style={styles.socialView}>
+                      <View style = {styles.textInputView}>
+                        <View style = {styles.hanlenameView}>
+                          <Image
+                            source = {require('../../assets/images/instagram.png')}
+                            style = {StyleSheet.flatten(styles.socialIcon)}
+                          />               
+                          <DisplayText
+                            styles={StyleSheet.flatten(styles.socialTitleText)}
+                            text = {`${item.profile.instagram_visible ? item.profile.instagram: '*******'}`}
+                          />
+                        </View>
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
-            </View>
+                  :null
+
+              }
             {/* phone */}
-            <View style = {styles.bodyViewPhone}>
-              <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
-                  <DisplayText
-                    styles={StyleSheet.flatten(styles.titleText)}
-                    text = {'Phone Number'}
-                  />
-                  <View style = {styles.hanlenameView}>
-                    <Image
-                      source = {require('../../assets/images/call.png')}
-                      style = {StyleSheet.flatten(styles.socialIcon)}
-                    />               
-                    <DisplayText
-                      styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {item.profile.phone? item.profile.phone.toString(): ''}
-                    />
+             {
+               item.profile.phone ?
+                <View style = {styles.bodyViewPhone}>
+                  <View style={styles.socialView}>
+                    <View style = {styles.textInputView}>
+                      <DisplayText
+                        styles={StyleSheet.flatten(styles.titleText)}
+                        text = {'Phone Number'}
+                      />
+                      <View style = {styles.hanlenameView}>
+                        <Image
+                          source = {require('../../assets/images/call.png')}
+                          style = {StyleSheet.flatten(styles.socialIcon)}
+                        />               
+                        <DisplayText
+                          styles={StyleSheet.flatten(styles.socialTitleText)}
+                          text = {item.profile.phone? item.profile.phone.toString(): ''}
+                        />
+                      </View>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </View>
+              : null
+
+             }
             {/* website */}
-            <View style = {styles.bodyView}>
-              <View style={styles.socialView}>
-                <View style = {styles.textInputView}>
-                  <DisplayText
-                    styles={StyleSheet.flatten(styles.titleText)}
-                    text = {'Website'}
-                  />
-                  <View style = {styles.hanlenameView}>                    
-                   <View style = {styles.dot}></View>               
-                    {this.webSiteLink()}
-                    
+             {
+               item.profile.website ? 
+               <View style = {styles.bodyView}>
+                <View style={styles.socialView}>
+                  <View style = {styles.textInputView}>
+                    <DisplayText
+                      styles={StyleSheet.flatten(styles.titleText)}
+                      text = {'Website'}
+                    />
+                    <View style = {styles.hanlenameView}>                    
+                    <View style = {styles.dot}></View>               
+                      {this.webSiteLink()}
+                      
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
+              : null
+             }
 
             </View>
           </View>
