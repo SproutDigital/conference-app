@@ -160,13 +160,19 @@ export default styles = StyleSheet.create({
     flexDirection : 'row',
     justifyContent : 'space-between',
     paddingTop : 8,
-    alignItems : 'center'
+    paddingLeft : 4
+    // alignItems : 'center'
   },
 
   headerText : {
     fontFamily : theme.inputHintFont,
     fontSize : theme.SmallFont,
-    color : theme.primaryTextColor
+    color : theme.primaryTextColor,
+    // width : '60%'
+  },
+  headerProgramView:{
+    width : '60%',
+    marginTop : 2,
   },
   subHeaderText : {
     // marginTop : 4,
@@ -211,6 +217,7 @@ export default styles = StyleSheet.create({
     fontFamily : theme.primaryFont,
     fontSize : theme.thinyFont,
     color : theme.primaryColor,
+    marginLeft : 4
   },
   nameText : {
     fontFamily : theme.inputHintFont,

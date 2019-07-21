@@ -38,7 +38,7 @@ export default class SuccessAlert extends Component {
           <View style={styles.Alert_Main_View}>
 
             <Image
-              source={require('../../assets/images/sad.png')}
+              source={require('../../assets/images/success.png')}
               style={StyleSheet.flatten(styles.logoIcon)}/> 
              <Text style={styles.Alert_Title}>
                {title}
@@ -55,8 +55,7 @@ export default class SuccessAlert extends Component {
                 <TouchableOpacity 
                   style={styles.buttonStyle}
                   onPress={this.closeNotification } 
-                  activeOpacity={0.2} 
-                >
+                  activeOpacity={0.2}>
                                            
                   <TouchableOpacity onPress={this.closeNotification }>
                     <Text 
@@ -74,7 +73,6 @@ export default class SuccessAlert extends Component {
     )
   }
 }
-
 
 SuccessAlert.propTypes = {
   title: PropTypes.string.isRequired,
@@ -115,7 +113,7 @@ const styles = StyleSheet.create({
     
    Alert_Message:{
     fontSize: theme.SmallFont, 
-    color: colors.red,
+    color: colors.green,
     textAlign: 'center',
     fontFamily : theme.subHeaderFont,
     marginBottom : 60,
@@ -124,7 +122,6 @@ const styles = StyleSheet.create({
   messages : { 
     width: '100%', 
     height: StyleSheet.hairlineWidth, 
-    backgroundColor: colors.gold,
   },
   buttonStyle: {  
     width: '100%',

@@ -12,6 +12,7 @@ import { setProgramDetails } from '../../redux/actions/ProgramActions';
 import { setResources } from '../../redux/actions/ResourceActions';
 import {setSpeakers} from '../../redux/actions/SpeakerActions';
 import {setAttendees} from '../../redux/actions/AttendeeActions';
+import theme from '../../assets/theme';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -105,7 +106,7 @@ const deviceWidth = Dimensions.get('window').width;
           <Image
             key={`image${i}`}
             source={{uri: image}}
-            style={{ width: deviceWidth, marginTop:0, height:200 }}
+            style={{ width: deviceWidth, marginTop:0, height:190, resizeMode : 'cover'}}
           />
         )
         imageArray.push(thisImage) 
@@ -145,9 +146,21 @@ const deviceWidth = Dimensions.get('window').width;
             >
 
             {imageArray}
-
           </ScrollView>
-        
+            <View style = {styles.sliderDot}>
+              <View style ={styles.sliderTxtView}>
+                <DisplayText
+                  text={'Africas Leading Media Conference for Women '}
+                  styles = {styles.boxText}
+                />
+              </View>
+              <View style = {styles.dotsView}>
+                <View style ={styles.dots}></View>
+                <View style ={styles.dots}></View>
+                <View style ={styles.dots}></View>
+
+              </View>
+            </View>            
           </View>
           <View style={styles.tileView}>
             <ScrollView 
