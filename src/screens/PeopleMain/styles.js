@@ -114,7 +114,7 @@ export default styles = StyleSheet.create({
     width : 115,
     height : 115,
     borderRadius : (Platform.OS ==='ios') ? 55 : 100,
-    resizeMode : 'contain'
+    resizeMode : 'cover'
   },
   cameraTouch : {
     width : 40,
