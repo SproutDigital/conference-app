@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField} from '../../components';
+import {DisplayText, InputField, ErrorAlert, SuccessAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import {connect} from 'react-redux';
@@ -108,9 +108,17 @@ class Programs extends Component {
 
       return itemData.indexOf(textData) > -1;
     });
-    return this.setState({
-      data: newData,
-    });
+    if(newData.length) {
+      return this.setState({
+        data: newData,
+      });
+    }
+    else {
+      return this.setState({
+        showErrorAlert: true,
+        errorMessage: 'Sorry No Match Found'
+      });
+    }
   }
 
   handleViewProgram = program => {

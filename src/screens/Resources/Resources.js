@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, Linking} from 'react-native';
-import {DisplayText, InputField, Preloader, ErrorAlert, SuccessAlert} from '../../components';
+import {DisplayText, InputField, Preloader, ErrorAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import {connect} from 'react-redux';
@@ -52,44 +52,17 @@ import * as FileSystem from 'expo-file-system';
   handleGoBack = () => {
     return this.props.navigation.goBack();
   }
-  handlePeopleMain(item){
-    return this.props.navigation.navigate('PeopleMain', {
-       item
-    });
-  }
-
-
-  handleCloseNotification = () => {
-    return this.setState({
-      showSuccessAlert : false,
-      showErrorAlert: false
-    });
-  }
-
+  
    async downloadResource(remoteUri){
-    this.setState({showLoading : true})
-    FileSystem.downloadAsync(
-      'https://www.tutorialspoint.com/react_native/react_native_tutorial.pdf',
-       FileSystem.documentDirectory +`${'resource.pdf'}`
-    )
-      .then(({ uri }) => {
-        console.log('Finished downloading to ', uri);
-        this.setState({
-          showLoading: false,
-          //showSuccessAlert: true,
-         // successMessage : `${'Downloaded to'}${uri}` 
-        })
-        this.openFile(uri)
+    Linking.openURL(remoteUri)
+    .catch(err => {
+      this.setState({
+        showErrorAlert: true,
+        errorMessage : `${err}`
       })
-      .catch(error => {
-        console.error(error);
-        this.setState({
-          showLoading: false,
-          showErrorAlert: true,
-          errorMessage : `${'Downloaded to'}${error}`
-          
-        })
-      });
+    })
+
+   
   }
 
   openFile(uri) {
@@ -118,7 +91,9 @@ import * as FileSystem from 'expo-file-system';
        
           </View>
           <View style={styles.line}></View>
-          <TouchableOpacity style = {styles.downloadBtn} onPress={()=>this.downloadResource(item.url, item.title)}>
+          <TouchableOpacity 
+            style = {styles.downloadBtn} 
+            onPress={()=>this.downloadResource(item.url)}>
             <DisplayText
               text = {'Open'}
               styles = {StyleSheet.flatten(styles.downloadtxt)}
@@ -130,8 +105,14 @@ import * as FileSystem from 'expo-file-system';
       );
   }
 
+  handleCloseNotification = () => {
+    return this.setState({
+      showAlert : false
+    });
+  }
+
   render () {
-    const {showLoading, errorMessage, showErrorAlert, successMessage, showSuccessAlert} = this.state;    
+    const {errorMessage, showErrorAlert} = this.state;    
 
     return(
      <SafeAreaView style={styles.container}> 
@@ -174,42 +155,27 @@ import * as FileSystem from 'expo-file-system';
              paddingLeft  = {8}
            /> 
          </View>
-         {/* <View style = { styles.dateView}>
-          <DisplayText
-             text = {"Filter"}
-             styles = {StyleSheet.flatten(styles.txtFilter)}
-           />
-         <TouchableOpacity style = {styles.datebutton}>
-          <DisplayText
-             text = {"Date"}
-             styles = {StyleSheet.flatten(styles.txtDate)}
-           />
-         </TouchableOpacity>
-         </View> */}
+         
            <FlatList          
              data={this.state.data}          
              renderItem={this.renderRow}          
              keyExtractor={ data=> data._id}   
              showsVerticalScrollIndicator={false}
            />
+            <ErrorAlert
+              title = {'Error!'} 
+              message = {errorMessage}
+              handleCloseNotification = {this.handleCloseNotification}
+              visible = {showErrorAlert}
+            />
             
        </View>  
        <Preloader
           modalVisible={showLoading}
           animationType="fade"
         />
-        <ErrorAlert
-            title = {'Error!'} 
-            message = {errorMessage}
-            handleCloseNotification = {this.handleCloseNotification}
-            visible = {showErrorAlert}
-          />
-        <SuccessAlert
-          title = {'Success!'} 
-          message = {successMessage}
-          handleCloseNotification = {this.handleCloseNotification}
-          visible = {showSuccessAlert}
-        />
+        
+        
      </SafeAreaView>
      )
    }

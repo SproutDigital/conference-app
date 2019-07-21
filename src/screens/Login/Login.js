@@ -287,21 +287,6 @@ class Login extends Component {
                   /> 
               </View> 
             </View>
-
-            {/* <View style = {StyleSheet.flatten(styles.checkBoxView)}>
-              <CheckBox
-                style={styles.checkBox}
-                onClick={this.handleCheckBox}
-                isChecked={isChecked}
-                // rightText={"I agree to the"}
-              />
-              <DisplayText
-                text={'By continuing, you agree to our terms, \nconditions and privacy policy.'}
-                styles = {styles.termCondition}
-                onPress = {this.handleLogin}
-              />
-            </View>
-             */}
             <View style = {styles.btnView}>
               
               <SubmitButton

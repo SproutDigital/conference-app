@@ -28,7 +28,7 @@ export default class SponsorDetails extends Component {
         <DisplayText
           styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue' }]}
           text = {item.profile.website}
-          onPress={() => Linking.openURL(`https://${item.profile.website}`).catch(err => console.log('An error occurred', err))}
+          onPress={() => Linking.openURL(`${item.profile.website}`).catch(err => console.log('An error occurred', err))}
         />
       )
     }
