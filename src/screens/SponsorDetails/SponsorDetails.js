@@ -23,12 +23,12 @@ export default class SponsorDetails extends Component {
 
   webSiteLink(){
     const item = this.props.navigation.getParam('item');
-    if(item.website) {
+    if(item.profile.website) {
       return(
         <DisplayText
           styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue' }]}
-          text = {item.website}
-          onPress={() => Linking.openURL(`https://${item.website}`).catch(err => console.log('An error occurred', err))}
+          text = {item.profile.website}
+          onPress={() => Linking.openURL(`https://${item.profile.website}`).catch(err => console.log('An error occurred', err))}
         />
       )
     }
@@ -45,7 +45,8 @@ export default class SponsorDetails extends Component {
 
   render () {
     const item = this.props.navigation.getParam('item');
-    let photo = item.photo;
+    console.log({item})
+    let photo = item.profile.photo;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default"/>
@@ -89,20 +90,11 @@ export default class SponsorDetails extends Component {
                 />
                 
               }
-              {/* <TouchableOpacity 
-                style = { styles.cameraTouch}
-                // onPress={this._pickImage}
-                >
-                <Image
-                  // onPress={this._pickImage}
-                  source = {require('../../assets/images/camera.png')}
-                  style = {StyleSheet.flatten(styles.cameraIcon)}
-                />
-              </TouchableOpacity> */}
+             
             </View>
             <DisplayText
               styles={StyleSheet.flatten(styles.profileNameTxt)}
-              text = {item.company_name}
+              text = {item.profile.company_name}
             />
             <View style = {styles.line}></View>
             <DisplayText
@@ -111,7 +103,7 @@ export default class SponsorDetails extends Component {
             />
             <DisplayText
               styles={StyleSheet.flatten(styles.aboutTxt)}
-              text = {item.short_bio}
+              text = {item.profile.short_bio}
             />
             <View style = {styles.socialMediaView}>
               <DisplayText
@@ -129,7 +121,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {`${item.facebook_visible ? item.facebook: '*******'}`}
+                      text = {`${item.profile.facebook_visible ? item.profile.facebook: '*******'}`}
                     />
  
                   </View>
@@ -148,7 +140,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {`${item.twitter_visible ? item.twitter: '*******'}`}
+                      text = {`${item.profile.twitter_visible ? item.profile.twitter: '*******'}`}
                     />
  
                   </View>
@@ -166,7 +158,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {`${item.linkedin_visible ? item.linkedin: '*******'}`}
+                      text = {`${item.profile.linkedin_visible ? item.profile.linkedin: '*******'}`}
                     />
  
                   </View>
@@ -185,7 +177,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {`${item.instagram_visible ? item.instagram: '*******'}`}
+                      text = {`${item.profile.instagram_visible ? item.profile.instagram: '*******'}`}
                     />
                   </View>
                 </View>
@@ -206,7 +198,7 @@ export default class SponsorDetails extends Component {
                     />               
                     <DisplayText
                       styles={StyleSheet.flatten(styles.socialTitleText)}
-                      text = {item.phone? item.phone.toString(): ''}
+                      text = {item.profile.phone? item.profile.phone.toString(): ''}
                     />
                   </View>
                 </View>

@@ -18,20 +18,20 @@ class People extends Component {
 
 
   componentWillMount(){
-    const {speakers, sponsors, attendees} = this.props
+    const {speakers, sponsors, attendees} = this.props;
+    let combinedUsers = [ ...speakers, ...sponsors, ...attendees];
     this.setState({
       data: [ ...speakers, ...sponsors, ...attendees],
     })
-    this.arrayholder =  [ ...speakers, ...sponsors, ...attendees];
+    this.arrayholder = combinedUsers;
   }
-
 
   searchFilterFunction = text => {
     this.setState({
       value: text,
     });
     const newData = this.arrayholder.filter(item => {
-      const itemData = `${item.title.toUpperCase()} ${item.description.toUpperCase()}`;
+      const itemData = `${item.profile.name.toUpperCase()} ${item.profile.short_bio.toUpperCase()}`;
       const textData = text.toUpperCase();
 
       return itemData.indexOf(textData) > -1;
@@ -92,12 +92,7 @@ class People extends Component {
                   onPress = {()=>this.handlePeopleMain(item)}
                 />
               </View>
-              {/* <TouchableOpacity style = {styles.plusBtn}>
-                <Image
-                  source = {require('../../assets/images/plus_btn.png')}
-                  style = {StyleSheet.flatten(styles.plusIcon)}
-                />
-              </TouchableOpacity> */}
+              
           </View>
           
         </TouchableOpacity>

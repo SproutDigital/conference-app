@@ -32,7 +32,7 @@ export default class Profile extends Component {
     let endTime = new Date(moment(`${formattedDate}T${program.end_time}:00+01:00`).format());
     let currentTime = moment().valueOf();
 
-    if(  endTime.valueOf() > currentTime ) {
+    if(  endTime.valueOf() < currentTime ) {
        this.setState({
         disabled : false
       })
