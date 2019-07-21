@@ -120,6 +120,14 @@ export default styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: (Platform.OS === 'ios') ? 50 : 100,
   },
+  ProfileIcon: {
+    resizeMode: 'cover',
+    width: 100,
+    height: 100,
+    marginVertical: 10,
+    borderRadius: (Platform.OS === 'ios') ? 50 : 100,
+    tintColor : theme.textGray
+  },
   draweIcon : {
     width : 25,
     height : 25,

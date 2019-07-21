@@ -135,21 +135,21 @@ export default styles = StyleSheet.create({
   },
   txtView : {
     flexDirection : 'column',
-    height : '100%',
+    // height : '100%',
     width : '70%',
     paddingLeft : 8
   },
   headerText : {
     fontFamily : theme.secondaryFont,
-    fontSize : theme.MediumFont,
-    color : theme.primaryTextColor
+    fontSize : theme.SmallFont,
+    color : theme.primaryTextColor,
+    
   },
   subHeaderText : {
-    // marginTop : 4,
     fontFamily : theme.subHeaderFont,
     fontSize : theme.SmallFont,
     color : theme.primaryColor,
-    // height : 40
+    
   },
   bioDetailTxt : {
     fontFamily : theme.secondaryFont,
@@ -164,7 +164,8 @@ export default styles = StyleSheet.create({
   buttonMoreView : {
     paddingHorizontal: 8,
     justifyContent: 'space-between',
-    flexDirection : 'row'
+    flexDirection : 'row',
+    marginTop : 4
   },
   plusIcon : {
     height : 25,
@@ -174,7 +175,7 @@ export default styles = StyleSheet.create({
 
   },
   bioTextView : {
-    width : '95%',
+    width : '100%',
     marginBottom : 4
   },
   imageText : {

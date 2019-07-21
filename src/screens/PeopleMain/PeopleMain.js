@@ -117,7 +117,7 @@ export default class PeopleMain extends Component {
                 <View style = {styles.textViewUserRole}>
                   <DisplayText
                     styles={StyleSheet.flatten(styles.formHeaderTxt)}
-                    text = {'User Role'}
+                    text = {'Role'}
                   />
                   <View style = {styles.hanlenameView}>
                     <DisplayText
@@ -134,7 +134,7 @@ export default class PeopleMain extends Component {
               <View style = {styles.textViewUserRole}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.formHeaderTxt)}
-                text = {'Short Bio'}
+                text = {'Bio'}
               />
               <View style = {styles.hanlenameView}>
                 <DisplayText
