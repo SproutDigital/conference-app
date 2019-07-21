@@ -77,13 +77,13 @@ export default class PeopleMain extends Component {
             { 
                photo && photo.length > 0 ?
               <Image 
-                resizeMode = 'contain'
+                resizeMode = 'cover'
                 source={{ uri: photo }} 
                 style={styles.imageStyle} 
                 /> 
                 : 
               <Image
-                resizeMode = 'contain'
+                resizeMode = 'cover'
                 style = {styles.imageStyle}
                 source = {require('../../assets/images/name.png')}
                 />
