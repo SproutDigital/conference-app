@@ -63,8 +63,8 @@ const dashboard = require('../../assets/images/home.png'),
     }
     else {
       return (<Image
-        source = {require('../../assets/images/sample_pics.png')}
-        style={styles.sideMenuProfileIcon}
+        source = {require('../../assets/images/male.png')}
+        style={styles.ProfileIcon}
       />);
     } 
   }
