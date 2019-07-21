@@ -76,7 +76,11 @@ export default styles = StyleSheet.create({
   sliderView : {
     height : 160,
     width : '100%',
-    backgroundColor : theme.primaryColor
+    shadowOpacity: 0.25, 
+    shadowOffset: {height: 2, width:0},
+    shadowColor: theme.textGray, 
+    shadowRadius: 2.56,
+    elevation : 1,
   },
   viewBody :{
     flex : 1,

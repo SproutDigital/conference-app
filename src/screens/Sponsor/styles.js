@@ -116,21 +116,22 @@ export default styles = StyleSheet.create({
     width : '30%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius : (Platform.OS === 'ios') ? 15 : 18,
+    borderRadius : (Platform.OS === 'ios') ? 8 : 10,
 
   },  
   sponsorImage : {
     resizeMode : 'cover',
     height : '80%',
     width : '100%',
-    borderRadius : (Platform.OS === 'ios') ? 15 : 18
+    borderRadius : (Platform.OS === 'ios') ? 8 : 10
     
   },
   txtView : {
     flexDirection : 'column',
     height : '100%',
     width : '70%',
-    paddingLeft : 8
+    paddingLeft : 8,
+    paddingTop: 1,
   },
   headerText : {
     fontFamily : theme.secondaryFont,
@@ -142,11 +143,11 @@ export default styles = StyleSheet.create({
     // marginTop : 4,
     fontFamily : theme.subHeaderFont,
     fontSize : theme.SmallFont,
-    color : theme.secondaryTextColor,
+    color : theme.textGray,
     height : 40
   },
   moreText : {
-    marginTop : 4,
+    marginTop : 0,
     fontFamily : theme.secondaryFont,
     fontSize : theme.thinyFont,
     color : theme.primaryColor
@@ -157,7 +158,7 @@ export default styles = StyleSheet.create({
     width : 40,
   },
   buttonMoreView : {
-    paddingHorizontal: 8,
+    // paddingHorizontal: 4,
     justifyContent: 'space-between',
     flexDirection : 'row'
   },

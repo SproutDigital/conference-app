@@ -14,13 +14,15 @@ import {
 
 //Import screen
 import DashBoard from '../DashBoard/DashBoard';
-import Settings from '../Settings/Settings';
 import Programs from '../Programs/Programs';
 import People from '../People/People';
-import Help from '../Help/Help';
-import Notification from '../Notification/Notification';
-import Profile from '../Profile/Profile';
+// import Help from '../Help/Help';
+// import Settings from '../Settings/Settings';
+// import Notification from '../Notification/Notification';
+// import Profile from '../Profile/Profile';
 import Logout from '../Logout/Logout';
+import Sponsor from '../Sponsor/Sponsor';
+import Resources from '../Resources/Resources';
 
 import CustomSidebarMenu from './CustomSidebarMenu';
 
@@ -60,34 +62,34 @@ const DashBoard_StackNavigator = createStackNavigator({
   },
 });
 
-const Profile_StackNavigator = createStackNavigator({
-  //All the screen from the Profile will be indexed here
-  Profile: {
-    screen: Profile,
-    navigationOptions: {
-      header : null,
-    }
-  },
-});
-const Notification_StackNavigator = createStackNavigator({
-  //All the screen from the Investment will be indexed here
-  Notification: {
-    screen: Notification,
-    navigationOptions: {
-      header : null
-    }
-  },
-});
+// const Profile_StackNavigator = createStackNavigator({
+//   //All the screen from the Profile will be indexed here
+//   Profile: {
+//     screen: Profile,
+//     navigationOptions: {
+//       header : null,
+//     }
+//   },
+// });
+// const Notification_StackNavigator = createStackNavigator({
+//   //All the screen from the Investment will be indexed here
+//   Notification: {
+//     screen: Notification,
+//     navigationOptions: {
+//       header : null
+//     }
+//   },
+// });
 
-const Settings_StackNavigator = createStackNavigator({
-  //All the screen from the Referral will be indexed here
-  Settings: {
-    screen: Settings,
-    navigationOptions: {
-      header : null,
-    }
-  },
-});
+// const Settings_StackNavigator = createStackNavigator({
+//   //All the screen from the Referral will be indexed here
+//   Settings: {
+//     screen: Settings,
+//     navigationOptions: {
+//       header : null,
+//     }
+//   },
+// });
 const Logout_StackNavigator = createStackNavigator({
   //All the screen from the Referral will be indexed here
   Forth: {
@@ -107,24 +109,24 @@ const DrawerNavigator = createDrawerNavigator({
     }
   },
 
-  Profile : {
-    screen : Profile_StackNavigator,
-    navigationOptions: {
-      header: null
-    }
-  },
-  Notification : {
-    screen : Notification_StackNavigator,
-    navigationOptions: {
-      header : null,
-    }
-  },
-  Settings : {
-    screen : Settings_StackNavigator,
-    navigationOptions: {
-      header : null
-    }
-  },
+  // Profile : {
+  //   screen : Profile_StackNavigator,
+  //   navigationOptions: {
+  //     header: null
+  //   }
+  // },
+  // Notification : {
+  //   screen : Notification_StackNavigator,
+  //   navigationOptions: {
+  //     header : null,
+  //   }
+  // },
+  // Settings : {
+  //   screen : Settings_StackNavigator,
+  //   navigationOptions: {
+  //     header : null
+  //   }
+  // },
   Logout : {
     screen : Logout_StackNavigator,
     navigationOptions: {
@@ -176,24 +178,24 @@ const BottomTab = createBottomTabNavigator({
       )
     }
   },
-  Help: {
-    screen: Help,
+  Resources: {
+    screen: Resources,
     navigationOptions: {
       // tabBarLabel: 'Bara.ng',
       tabBarIcon: ({tintColor}) => (
       <Image 
-        source={require('../../assets/images/book.png')} 
+        source={require('../../assets/images/resources.png')} 
         style={{height: 20, width: 20, tintColor: tintColor,resizeMode: 'contain' }} />      
       )
     }
   },
-  Notification: {
-    screen: Notification,
+  Sponsor: {
+    screen: Sponsor,
     navigationOptions: {
       // tabBarLabel: 'Bara.ng',
       tabBarIcon: ({tintColor}) => (
       <Image 
-        source={require('../../assets/images/notification.png')} 
+        source={require('../../assets/images/sponsors.png')} 
         style={{height: 20, width: 20, tintColor: tintColor, resizeMode: 'contain' }} />      
       )
     }

@@ -30,7 +30,7 @@ class Organisers extends Component {
   animVal = new Animated.Value(0);
 
   handleGoBack = () => {
-    return this.props.navigation.navigate('About');
+    return this.props.navigation.goBack();
   }
   contactAddressChange = (contactAddress) => {
     if(contactAddress.length > 0) {
