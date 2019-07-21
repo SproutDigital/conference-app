@@ -5,6 +5,8 @@ import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import {connect} from 'react-redux';
+import orderBy from 'lodash.orderby';
+
 
 class People extends Component {
   constructor(props) {
@@ -20,10 +22,11 @@ class People extends Component {
   componentWillMount(){
     const {speakers, sponsors, attendees} = this.props;
     let combinedUsers = [ ...speakers, ...sponsors, ...attendees];
+     let sortedData = orderBy(combinedUsers, 'profile.name', 'asc');
     this.setState({
-      data: [ ...speakers, ...sponsors, ...attendees],
+      data: sortedData
     })
-    this.arrayholder = combinedUsers;
+    this.arrayholder = sortedData;
   }
 
   searchFilterFunction = text => {

@@ -1,11 +1,13 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, FlatList, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import {DisplayText, InputField, ErrorAlert, SuccessAlert} from '../../components';
+import {DisplayText, InputField} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import orderBy from 'lodash.orderby';
+
 
 class Programs extends Component {
   constructor(props) {
@@ -19,11 +21,13 @@ class Programs extends Component {
   }
 
   componentDidMount(){
+    let sortedData = orderBy(this.props.program, ['date', 'start_time'], ['asc', 'asc']);
+    console.log({'sortedData.... ': sortedData})
     this.setState({
-      data: this.props.program,
+      data: sortedData,
     });
     
-    this.arrayholder = this.props.program;
+    this.arrayholder =  sortedData;
   }
 
   dateToFromNowDaily = (item ) =>{
