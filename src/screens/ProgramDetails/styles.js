@@ -142,13 +142,14 @@ export default styles = StyleSheet.create({
     flexWrap : 'wrap',
   },
   cartType : {
-    color : theme.textGray,
+    color : theme.colorAccent,
     padding : 4,
   },
   textCont : {
     borderRadius : 8,
     backgroundColor : theme.primaryColor,
     marginBottom : 8,
+    paddingHorizontal: 4
   },
   blueButton : {
     width : '99%',
