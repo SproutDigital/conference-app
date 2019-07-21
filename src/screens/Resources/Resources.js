@@ -170,11 +170,7 @@ import * as FileSystem from 'expo-file-system';
             />
             
        </View>  
-       <Preloader
-          modalVisible={showLoading}
-          animationType="fade"
-        />
-        
+       
         
      </SafeAreaView>
      )
