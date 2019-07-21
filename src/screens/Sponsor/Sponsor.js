@@ -61,12 +61,14 @@ import theme from '../../assets/theme'
           style = {styles.cardView}>
           <View style = {styles.sponsorImageView}>
             <Image
+              onPress = {()=>this.handleViewSponser(item)}
               source = {{uri: item.profile.photo}}
               style = {StyleSheet.flatten(styles.sponsorImage)}
             />
           </View>
           <View style = {styles.txtView}>
             <DisplayText
+              onPress = {()=>this.handleViewSponser(item)}
               numberOfLines = { 1 } 
               ellipsizeMode = 'middle'
               text = {item.profile.name}
@@ -74,6 +76,7 @@ import theme from '../../assets/theme'
             />
 
             <DisplayText
+              onPress = {()=>this.handleViewSponser(item)}
               numberOfLines = { 2 } 
               ellipsizeMode = 'middle'
               text = {item.profile.short_bio}
@@ -81,6 +84,7 @@ import theme from '../../assets/theme'
             />
             <View style={styles.buttonMoreView}>
               <DisplayText
+                onPress = {()=>this.handleViewSponser(item)}
                 text = {"see more"}
                 styles = {StyleSheet.flatten(styles.moreText)}
               />
@@ -155,4 +159,3 @@ const mapStateToProps = (state, ownProps) =>{
 }
 
 export default connect(mapStateToProps)(Sponsor)
-

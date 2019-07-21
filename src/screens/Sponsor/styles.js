@@ -98,8 +98,7 @@ export default styles = StyleSheet.create({
     height : 110,
     backgroundColor: theme.colorAccent,
     borderRadius : 8,
-    marginTop: 4,
-    marginBottom : 4,
+    marginVertical: 8,
     shadowColor: theme.primaryTextColor,
     shadowOffset: { 
       width: 0, 
@@ -109,7 +108,7 @@ export default styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 1,
     paddingHorizontal: 8,
-    paddingVertical: 8,
+    paddingVertical: 4,
     flexDirection : 'row',
     alignItems : 'center'
   },
@@ -117,7 +116,7 @@ export default styles = StyleSheet.create({
     width : '30%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius : (Platform.OS === 'ios') ? 15 : 18
+    borderRadius : (Platform.OS === 'ios') ? 15 : 18,
 
   },  
   sponsorImage : {
@@ -125,6 +124,7 @@ export default styles = StyleSheet.create({
     height : '80%',
     width : '100%',
     borderRadius : (Platform.OS === 'ios') ? 15 : 18
+    
   },
   txtView : {
     flexDirection : 'column',
@@ -135,7 +135,8 @@ export default styles = StyleSheet.create({
   headerText : {
     fontFamily : theme.secondaryFont,
     fontSize : theme.MediumFont,
-    color : theme.primaryTextColor
+    color : theme.primaryTextColor,
+    marginTop : 4
   },
   subHeaderText : {
     // marginTop : 4,
