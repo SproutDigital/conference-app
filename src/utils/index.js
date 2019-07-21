@@ -16,6 +16,7 @@ const
     FetchProfileEndpoint = `${Baseurl}profile/query`,
     FetchCompanyEndpoint = `${Baseurl}company/query/`,
     CreateNotificationEndpoint = `${Baseurl}message/create`,
+    AddParticipantEndpoint = `${Baseurl}event/addParticipant`,
     CreateRatingEndpoint = `${Baseurl}rating/create`;
     
 export {
@@ -33,7 +34,8 @@ export {
     FetchProfileEndpoint,
     FetchCompanyEndpoint,
     CreateNotificationEndpoint,
-    CreateRatingEndpoint
+    CreateRatingEndpoint,
+    AddParticipantEndpoint
     
 }
 
@@ -137,8 +139,8 @@ export const saveProfile = async(id, name, sessionToken, status) => {
         id, name, sessionToken
     };
 
-    await AsyncStorage.setItem('isAccountVerified', JSON.stringify(status))
-    return await AsyncStorage.setItem('profile', JSON.stringify(profile))
+    await AsyncStorage.setItem('isAccountVerified', JSON.stringify(status));
+    return await AsyncStorage.setItem('profile', JSON.stringify(profile));
 }
 
 export const getProfile = async() => {
@@ -209,8 +211,6 @@ export const logout = async()=> {
 
 
 
-////add addParticipant to endpoint dueing
 /// fix splash screen for dashboard
-/// sort people
-/// sort programs
-/// fix mult role for users
+/// fix mult role for users,
+// switch not updating

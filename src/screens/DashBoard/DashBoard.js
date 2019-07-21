@@ -1,24 +1,22 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, StyleSheet, Text,TouchableOpacity, Animated,Dimensions,} from 'react-native';
-import {DisplayText, } from '../../components';
+import {DisplayText, ErrorAlert, Preloader } from '../../components';
 import styles from './styles';
 import { DrawerActions } from "react-navigation";
 import {connect} from 'react-redux';
-import {  EventCode, post, EventDetailsEndpoint, getProfile} from '../../utils';
+import {  EventCode, post, EventDetailsEndpoint, AddParticipantEndpoint, getProfile} from '../../utils';
 import { setEventDetails, } from '../../redux/actions/EventActions';
 import { setSponsorDetails } from '../../redux/actions/SponsorActions';
 import { setProgramDetails } from '../../redux/actions/ProgramActions';
 import { setResources } from '../../redux/actions/ResourceActions';
 import {setSpeakers} from '../../redux/actions/SpeakerActions';
 import {setAttendees} from '../../redux/actions/AttendeeActions';
-import theme from '../../assets/theme';
 
 const deviceWidth = Dimensions.get('window').width;
 
  class DashBoard extends Component {
   animVal = new Animated.Value(0);
-
 
   constructor(props) {
     super(props);
@@ -27,6 +25,9 @@ const deviceWidth = Dimensions.get('window').width;
       showAlert : false,
       message : '',
       restoring: true,
+      showErrorAlert: false,
+      errorMessage: '',
+      showLoading: true,
       data:{}
 
     }
@@ -34,38 +35,85 @@ const deviceWidth = Dimensions.get('window').width;
 
    async componentDidMount () {
     let profile = await getProfile();
-     await this.fetchEventDetails(profile.sessionToken);
+     await this.fetchEventDetails(profile.sessionToken, profile.id);
   }
 
  
 
-  fetchEventDetails = async(token) => {
+  fetchEventDetails = async(token, profileId) => {
     const { setEventProfile, setSponsor, setProgram, setResource, setAttendee, setSpeaker} = this.props;
 
     let data = await JSON.stringify({
       'query' :  {'eventCode' : EventCode}, 
     });
 
-     await post (EventDetailsEndpoint, data, token )
+     await post (EventDetailsEndpoint, data, token)
       .then((res) => {
-        this.setState({
-          restoring:false,
-          data:res.data[0]
-        })
+      if(res.status == 'success') {
         setEventProfile(res.data);
         setSponsor(res.data[0].sponsors);
         setProgram(res.data[0].program);
         setResource(res.data[0].resources);
         setAttendee(res.data[0].attendees);
         setSpeaker(res.data[0].speakers);
-      });
+        this.setState({
+          data:res.data[0]
+        })
+        
+        let  isAdded = res.data[0].attendees.filter(item => {return(item.profile._id ===  profileId)});
+        if(isAdded.length) {
+         return this.setState({
+            restoring:false,
+            showLoading:false,
+          })
+        }
+        return this.addParticipant(res.data[0]._id);
+      }
+        
+      }).catch((errr)=>{
+          this.setState({
+            showErrorAlert:true,
+            errorMessage: errr.toString(),
+            showLoading:false,
 
+
+          })
+      });
+  }
+
+  addParticipant = async(eventid) => {
+    let profile = await getProfile();
+     console.log({profile})
+    let data = await JSON.stringify({
+      eventid: eventid, 
+      participantid: profile.id,
+       'as': 'attendees',
+       'verified' : true
+    });
+
+     await post (AddParticipantEndpoint, data, profile.sessionToken )
+      .then((res) => {
+        if(res.status == 'success') {
+          this.setState({
+             restoring:false,
+             showLoading:false,
+
+           })
+        }
+        else {
+          this.setState({
+            showLoading: false,
+            showErrorAlert: true,
+            errorMessage : res.message,
+
+          })
+        }  
+       }).catch((ee)=>{
+       })
   }
 
   
   toggleDrawer = () => {
-    //Props to open/close the drawer
-    // this.props.navigation.toggleDrawer();
     this.props.navigation.dispatch(DrawerActions.toggleDrawer())
   };
 
@@ -86,11 +134,11 @@ const deviceWidth = Dimensions.get('window').width;
   }
 
   render () {
-    const {restoring, data} = this.state;
+    const {restoring, data, showErrorAlert, errorMessage, showLoading} = this.state;
     if(restoring) {
       return (
         <View style={styles.container} >
-          <Text>loading page... message from Dashboard</Text>
+          {/* <Text>loading page... message from Dashboard</Text> */}
         </View>
       );
     }
@@ -308,6 +356,16 @@ const deviceWidth = Dimensions.get('window').width;
               </View>
                     
             </ScrollView>
+            <ErrorAlert
+              title = {'Error!'} 
+              message = {errorMessage}
+              handleCloseNotification = {this.handleCloseNotification}
+              visible = {showErrorAlert}
+            />
+            <Preloader
+              modalVisible={showLoading}
+              animationType="fade"
+            />
           </View>
         </SafeAreaView>
         

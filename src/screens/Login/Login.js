@@ -216,7 +216,7 @@ class Login extends Component {
    
   
   render () {
-    const { title, message, showAlert, showLoading,  } = this.state
+    const { message, showAlert, showLoading,  } = this.state
 
     return(
     <View style={styles.container}> 

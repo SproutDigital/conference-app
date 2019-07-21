@@ -1,13 +1,12 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, SafeAreaView, StatusBar, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton, Preloader, SuccessAlert, ErrorAlert } from '../../components';
+import {DisplayText, InputField, SubmitButton, Preloader, SuccessAlert, ErrorAlert } from '../../components';
 import colors from '../../assets/colors';
 import styles from './styles';
 import {isEmailValid, sendRoute, RegisterEndpoint, getExpoToken, isEmpty} from '../../utils';
 import WomanSvg from './WomanSvg';
 import { NavigationActions, StackActions } from 'react-navigation';
-import * as Facebook from 'expo-facebook';
 import CheckBox from 'react-native-check-box';
 
 export default class Register extends Component {
@@ -199,34 +198,8 @@ export default class Register extends Component {
       });
   }
 
-
-
-  handleFaceBookLogin =async()=> {
-    try {
-      const {
-        type, token, expires, permissions, declinedPermissions} = await Facebook.logInWithReadPermissionsAsync('377061942992401', {
-        permissions: ['public_profile'],
-      });
-      if (type === 'success') {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-
-       // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
-        console.log({'response...': await response.json()})
-      } else {
-        // type === 'cancel'
-      }
-      this.setState({showLoading:false})
-
-    } catch ({ message }) {
-      console.log({message})
-     // alert(`Facebook Login Error: ${message}`);
-      this.setState({showLoading:false})
-    }
-  }
-  
   render () {
-    const {showLoading, showAlert, isChecked, successMessage, errorMessage, showSuccessAlert, showErrorAlert} = this.state;
+    const {showLoading, isChecked, successMessage, errorMessage, showSuccessAlert, showErrorAlert} = this.state;
     return(
       <SafeAreaView style={styles.container}> 
         <StatusBar barStyle="default"/>
@@ -345,36 +318,7 @@ export default class Register extends Component {
                   imgStyle={StyleSheet.flatten(styles.iconDoor)}
                   titleStyle={StyleSheet.flatten(styles.buttonTxt)}
                 />
-                {/* <View style = { styles.signWithView}>
-                  <DisplayText
-                    text={'Or Sign up with?'}
-                    styles = {styles.signupWith}
-                    onPress = {this.handleForgetPassword}/>
-                  <View style = {styles.socialIconView}>
-                    <TouchableOpacity
-                      onPress={this.handleFaceBookLogin}>
-                      <Image
-                        onPress={this.handleFaceBookLogin}
-                        source={require('../../assets/images/linkedin.png')}
-                        style={StyleSheet.flatten(styles.socialIcons)}/> 
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={this.handleFaceBookLogin}>
-                      <Image
-                        onPress={this.handleFaceBookLogin}
-                        source={require('../../assets/images/twitter.png')}
-                        style={StyleSheet.flatten(styles.socialIcons)}/> 
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={this.handleFaceBookLogin}>
-                                        
-                      <Image
-                        onPress={this.handleFaceBookLogin}
-                        source={require('../../assets/images/facebook.png')}
-                        style={StyleSheet.flatten(styles.socialIcons)}/> 
-                    </TouchableOpacity>
-                  </View> */}
-                {/* </View> */}
+                
                 <View style = {StyleSheet.flatten(styles.signupLinkView)}>
                   <DisplayText
                     text={'Already have an Account? '}
@@ -387,20 +331,10 @@ export default class Register extends Component {
                     onPress = {this.handleLoginRoute}
                   />
                 </View>
-                {/* <Toast
-                  ref="toast"
-                  style={{backgroundColor: 'green'}}
-                  position='bottom'
-                  positionValue={200}
-                  fadeInDuration={750}
-                  fadeOutDuration={5000}
-                  opacity={0.8}
-                  textStyle={{color:'white'}}
-                />  */}
-
+                
                 <Preloader
                   modalVisible={showLoading}
-                animationType="fade"
+                  animationType="fade"
                 />
                
                 <SuccessAlert
@@ -409,11 +343,12 @@ export default class Register extends Component {
                   handleCloseNotification = {this.handleCloseNotification}
                   visible = {showSuccessAlert}
                 />
+
                 <ErrorAlert
                   title = {'Error!'} 
                   message = {errorMessage}
                   handleCloseNotification = {this.handleCloseNotification}
-                  visible = {showAlert}
+                  visible = {showErrorAlert}
                 />
               </View>
               {/* </ScrollView> */}

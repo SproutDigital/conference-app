@@ -7,8 +7,6 @@ import theme from '../../assets/theme';
 import {connect} from 'react-redux';
 import {DisplayText } from '../../components';
 
-
-
 const dashboard = require('../../assets/images/home.png'),
  profile = require('../../assets/images/profile.png'),
  notification = require('../../assets/images/notification.png'),
@@ -27,7 +25,7 @@ const dashboard = require('../../assets/images/home.png'),
       {
         navOptionThumb: profile,
         navOptionName: 'Profile',
-        screenToNavigate: 'Profile',
+        screenToNavigate: 'OnboardingProfile',
       },
       {
         navOptionThumb: notification,

@@ -22,7 +22,6 @@ class Programs extends Component {
 
   componentDidMount(){
     let sortedData = orderBy(this.props.program, ['date', 'start_time'], ['asc', 'asc']);
-    console.log({'sortedData.... ': sortedData})
     this.setState({
       data: sortedData,
     });
