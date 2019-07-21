@@ -124,13 +124,16 @@ const deviceWidth = Dimensions.get('window').width;
     return this.props.navigation.navigate('Programs');
   }
   handleResources = () => {
-    return this.props.navigation.navigate('Resources')
+    return this.props.navigation.navigate('Resources');
   }
   handleSponsors = () => {
-    return this.props.navigation.navigate('Sponsor')
+    return this.props.navigation.navigate('Sponsor');
   }
   handlepeople = () => {
-    return this.props.navigation.navigate('People')
+    return this.props.navigation.navigate('People');
+  }
+  handleOrganiser = () => {
+    return this.props.navigation.navigate('Organisers')
   }
 
   render () {
@@ -283,17 +286,21 @@ const deviceWidth = Dimensions.get('window').width;
                     styles = {styles.boxText}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.boxes}>
+                <TouchableOpacity 
+                  onPress = {this.handleOrganiser}
+                  style={styles.boxes}>
                   <Image
+                    onPress = {this.handleOrganiser}
                     source = {require('../../assets/images/news_feed.png')}
                     style = {StyleSheet.flatten(styles.boxIcon)}
                   />
                   <DisplayText
-                    text={'News Feed'}
+                    onPress = {this.handleOrganiser}
+                    text={'Organiser'}
                     styles = {styles.boxText}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.boxes}>
+                {/* <TouchableOpacity style={styles.boxes}>
                   <Image
                     source = {require('../../assets/images/contact.png')}
                     style = {StyleSheet.flatten(styles.boxIcon)}
@@ -352,7 +359,7 @@ const deviceWidth = Dimensions.get('window').width;
                     text={'Feedback/\nSurvey'}
                     styles = {styles.boxText}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
                     
             </ScrollView>

@@ -8,9 +8,9 @@ import {connect} from 'react-redux';
 import {DisplayText } from '../../components';
 
 const dashboard = require('../../assets/images/home.png'),
- profile = require('../../assets/images/profile.png'),
- notification = require('../../assets/images/notification.png'),
- settings = require('../../assets/images/setting.png'),
+//  profile = require('../../assets/images/profile.png'),
+//  notification = require('../../assets/images/notification.png'),
+//  settings = require('../../assets/images/setting.png'),
  logout = require('../../assets/images/logout.png');
 
  class CustomSidebarMenu extends Component {
@@ -22,21 +22,21 @@ const dashboard = require('../../assets/images/home.png'),
         navOptionName: 'DashBoard',
         screenToNavigate: 'DashBoard',
       },
-      {
-        navOptionThumb: profile,
-        navOptionName: 'Profile',
-        screenToNavigate: 'OnboardingProfile',
-      },
-      {
-        navOptionThumb: notification,
-        navOptionName: 'Notification',
-        screenToNavigate: 'Notification',
-      },
-      {
-        navOptionThumb: settings,
-        navOptionName: 'Settings',
-        screenToNavigate: 'Settings',
-      },
+      // {
+      //   navOptionThumb: profile,
+      //   navOptionName: 'Profile',
+      //   screenToNavigate: 'Profile',
+      // },
+      // {
+      //   navOptionThumb: notification,
+      //   navOptionName: 'Notification',
+      //   screenToNavigate: 'Notification',
+      // },
+      // {
+      //   navOptionThumb: settings,
+      //   navOptionName: 'Settings',
+      //   screenToNavigate: 'Settings',
+      // },
       { 
         navOptionThumb: logout,
         navOptionName: 'Logout',

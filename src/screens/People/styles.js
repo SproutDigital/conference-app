@@ -1,7 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
-const window = Dimensions.get('window');
+import { StyleSheet, Platform } from 'react-native';
+// const window = Dimensions.get('window');
 import theme from '../../assets/theme';
-import { Platform } from '@unimodules/core';
 
 export default styles = StyleSheet.create({
 
@@ -11,7 +10,7 @@ export default styles = StyleSheet.create({
   navBar: {
     flexDirection : 'row',
     // paddingTop : (Platform.OS === "ios") ? 16 : 14,
-    height : 60,
+    height : (Platform.OS === "ios") ? 40 : 60,
     backgroundColor: theme.toolBarColor,
     width: '100%',
     alignItems: 'center',
