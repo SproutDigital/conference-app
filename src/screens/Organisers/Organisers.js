@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, TouchableOpacity, StyleSheet, KeyboardAvoidingView, 
    Animated,Dimensions, Linking, Platform} from 'react-native';
-import {DisplayText} from '../../components';
+import {DisplayText, ErrorAlert} from '../../components';
 import styles from './styles';
 import {connect} from 'react-redux';
 
@@ -15,6 +15,8 @@ class Organisers extends Component {
     this.state ={
       token : '',
       showAlert : false,
+      showErrorAlert:false,
+      errorMessage:'',
       message : '',
       contactAddress : '',
       phoneNumber : '',
@@ -24,7 +26,6 @@ class Organisers extends Component {
     }
     this.contact_address = React.createRef();
     this.phone_number = React.createRef();
-   // this.fetchProfile();
 
   }
   animVal = new Animated.Value(0);
@@ -47,6 +48,12 @@ class Organisers extends Component {
       }
     }
   }
+
+  handleCloseNotification = () => {
+    return this.setState({
+       showErrorAlert : false
+     })
+   }
   handlePhoneNumberChange = (phoneNumber) => {
     if(phoneNumber.length > 0) {
       this.setState({
@@ -83,11 +90,17 @@ class Organisers extends Component {
     const {data} = this.state
     if(data.company.website) {
       return(
+        <View style = {styles.formView}>
+          <DisplayText
+            styles={StyleSheet.flatten(styles.titleText)}
+            text = {'Website'}
+          />
           <DisplayText
             styles={[StyleSheet.flatten(styles.textInfo), {color:'blue' }]}
             text = {data.company.website}
-            onPress={() => Linking.openURL(`https://${data.company.website}`).catch(err => console.log('An error occurred', err))}
+            onPress={() => Linking.openURL(`${data.company.website}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
           />
+        </View>
       )
     }
     else  {
@@ -101,11 +114,24 @@ class Organisers extends Component {
     
   }
 
+  headerStatus() {
+    const item = this.props.data;
+    if(item.facebook_visible || item.twitter_visible || item.instagram_visible || item.linkedin_visible ) {
+      return(
+        <DisplayText
+          styles={StyleSheet.flatten(styles.titleText)}
+          text = {'Social Media'}
+        />
+      )
+    }
+  }
+
 
   render () {
-    const { data} = this.state;
+    const { data, showErrorAlert, errorMessage} = this.state;
     let d = data.company.phone ? false : true;
     let emailStatus = data.company.email ? false : true;
+    //console.log({data})
 
 
     let imageArray = [],
@@ -202,77 +228,70 @@ class Organisers extends Component {
                 />
               </View>
               {/* Email Address Texf */}
-              <View style = {styles.formView}>
-                <DisplayText
-                  styles={StyleSheet.flatten(styles.titleText)}
-                  text = {'Email Address'}
-                />
-                <DisplayText
-                  styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {data.company.email ? data.company.email : ''}
-                />
-              </View>
-              {/* Website text */}
-              <View style = {styles.formView}>
-                <DisplayText
-                  styles={StyleSheet.flatten(styles.titleText)}
-                  text = {'Website'}
-                />
-                 {this.webSiteLink()}
-               
-              </View>
-              {/* Social Media */}
-              <View style = {styles.formView}>
-                <DisplayText
-                  styles={StyleSheet.flatten(styles.titleText)}
-                  text = {'Social Media'}
-                />
-              
-                {/* <DisplayText
-                  styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Facebook: ${data.facebook_visible ? data.facebook: '*******'} \nInstagram: ${data.instagram_visible ? data.instagram: '*******'} \nTwitter: ${data.twitter_visible ? data.twitter  : '*******'} \nLinkedIn: ${data.linkedin_visible ? data.linkedin : '********'}`}
-                /> */}
-                {data.company.facebook_visible ?
+              {
+                data.company.email ?
+                  <View style = {styles.formView}>
                   <DisplayText
-                  styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Facebook: ${data.company.facebook}`}
-                />
+                    styles={StyleSheet.flatten(styles.titleText)}
+                    text = {'Email Address'}
+                  />
+                  <DisplayText
+                    styles={StyleSheet.flatten(styles.textInfo)}
+                    text = {data.company.email ? data.company.email : ''}
+                  />
+                </View>
+                : null
+              }
+              
+              {/* Website text */}
+                {this.webSiteLink()}
+              {/* Social Media */}
+                {/* {this.headerStatus()} */}
+                {data.company.facebook_visible ?
+                  <View style = {styles.formView}>
+
+                      <DisplayText
+                      styles={StyleSheet.flatten(styles.textInfo)}
+                      text = {`Facebook: ${data.company.facebook}`}
+                    />
+                  </View>
                 : null
                 }
                 
                 {data.company.instagram_visible ?
-                  <DisplayText
-                  styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Instagram: ${ data.company.instagram}`}
-                />
+                  <View style = {styles.formView}>
+
+                    <DisplayText
+                      styles={StyleSheet.flatten(styles.textInfo)}
+                      text = {`Instagram: ${ data.company.instagram}`}
+                    />
+                  </View>
                  : null
                 }
                 
                 { data.company.twitter_visible ?
-                  <DisplayText
-                  styles={StyleSheet.flatten(styles.textInfo)}
-                  text = {`Twitter: ${data.company.twitter}`}
-                />
+                  <View style = {styles.formView}>
+
+                    <DisplayText
+                    styles={StyleSheet.flatten(styles.textInfo)}
+                    text = {`Twitter: ${data.company.twitter}`}
+                  />
+                   </View>
                  : null
                 }
                 
                 { data.company.linkedin_visible ? 
-                  <DisplayText
-                    styles={StyleSheet.flatten(styles.textInfo)}
-                    text = {`LinkedIn: ${data.company.linkedin}`}
-                  />
+                  <View style = {styles.formView}>
+
+                    <DisplayText
+                      styles={StyleSheet.flatten(styles.textInfo)}
+                      text = {`LinkedIn: ${data.company.linkedin}`}
+                    />
+                  </View>
                   : null
                 }
+               <View style = {styles.buttonView}>
                 
-              </View>
-              <View style = {styles.buttonView}>
-                {/* <Icons 
-                  disabled={data.phone ? false : true}
-                  onPress ={this.dialCall(data.phone)}
-                  name ={}
-                  btnstyle ={styles.buttonCall} 
-                  iconColor ={'white'} 
-                  iconSize={24} */}
                 
                 <TouchableOpacity
                   style = {[{opacity: d ? 0.2 : null}]}
@@ -295,6 +314,12 @@ class Organisers extends Component {
                     style = {StyleSheet.flatten(styles.buttonIcon)}
                   />
                 </TouchableOpacity> 
+                <ErrorAlert
+                  title = {'Error!'} 
+                  message = {errorMessage}
+                  handleCloseNotification = {this.handleCloseNotification}
+                  visible = {showErrorAlert}
+                />
               </View>
           </View>
         </ScrollView>

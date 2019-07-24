@@ -38,7 +38,11 @@ const deviceWidth = Dimensions.get('window').width;
      await this.fetchEventDetails(profile.sessionToken, profile.id);
   }
 
- 
+  handleCloseNotification = () => {
+    return this.setState({
+       showErrorAlert : false
+     })
+   }
 
   fetchEventDetails = async(token, profileId) => {
     const { setEventProfile, setSponsor, setProgram, setResource, setAttendee, setSpeaker} = this.props;
@@ -50,6 +54,7 @@ const deviceWidth = Dimensions.get('window').width;
      await post (EventDetailsEndpoint, data, token)
       .then((res) => {
       if(res.status == 'success') {
+       // console.log({'programssssssssssss': res.data[0].program})
         setEventProfile(res.data);
         setSponsor(res.data[0].sponsors);
         setProgram(res.data[0].program);
@@ -83,7 +88,7 @@ const deviceWidth = Dimensions.get('window').width;
 
   addParticipant = async(eventid) => {
     let profile = await getProfile();
-     console.log({profile})
+    // console.log({profile})
     let data = await JSON.stringify({
       eventid: eventid, 
       participantid: profile.id,

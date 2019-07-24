@@ -3,7 +3,6 @@ import {SafeAreaView,} from 'react-native';
 import {logout} from '../../utils/index';
 import {Preloader} from '../../components';
 
-
 export default class Logout extends Component {
 
   constructor(){

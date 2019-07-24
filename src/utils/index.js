@@ -1,8 +1,9 @@
-const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
+//const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
+const Baseurl = 'https://sprout-conference-app-prod.herokuapp.com/spr/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
 const 
-    EventCode = 'Afric821340KEN',
+    EventCode = 'Afric304059KEN',
     LoginEndpoint = `${Baseurl}user/login`,
     RegisterEndpoint = `${Baseurl}user/register`,
     VerificationStatusEndpoint = `${Baseurl}user/check_status`,

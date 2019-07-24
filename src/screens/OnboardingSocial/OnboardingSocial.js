@@ -145,7 +145,7 @@ class OnboardingSocial extends Component {
       await this.hideModal()
     }
     catch (err) {
-      console.log(err)
+     // console.log(err)
     }
   }
 
@@ -229,7 +229,7 @@ class OnboardingSocial extends Component {
 
     await putRoute (ProfileUpdateEndpoint, body, token)
       .then((res) => {
-        console.log({res})
+       // console.log({res})
         this.setState({ 
           showLoading : false, 
         });

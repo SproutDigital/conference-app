@@ -61,7 +61,7 @@ export default class Verification extends Component {
 
     getRoute(`${VerifyUserEndpoint}${this.state.token}`, null)
       .then((res) => {
-        console.log({res})
+       // console.log({res})
         if (res.status == 'failure') { 
           if(res.message== 'Acccount still not verified. Request for new token')  {
             return this.resetNavigationStack('LinkExpire'); 

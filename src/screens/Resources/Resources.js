@@ -69,7 +69,7 @@ import * as FileSystem from 'expo-file-system';
     Linking.openURL(uri)
   }
   renderRow = ({item}) => {
-    console.log({item})
+    //console.log({item})
     return (
        <View style = {styles.listViewItem}>    
         <View style = {styles.cardView}>

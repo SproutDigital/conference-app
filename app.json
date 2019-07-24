@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "conference-app",
-    "slug": "conference-app",
+    "name": "AWIM19",
+    "slug": "",
     "privacy": "public",
     "sdkVersion": "33.0.0",
+    "description": "Africa Women in Media Conference and Festival Mobile",
     "platforms": [
       "ios",
       "android"
@@ -17,14 +18,17 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 300000
     },
+
     "assetBundlePatterns": [
       "**/*"
     ],
 
     "android": {
-      "package": "ng.sprout.www",
+      "package": "com.africawomeninmedia.awim",
       "versionCode":1,
       "playStoreUrl":"https://play.google.com/store/apps/details?id=",
       "permissions": [
@@ -50,9 +54,9 @@
     
       "splash":{ 
         "resizeMode": "contain",
-        "mdpi": "./src/assets/images/splash.png", 
-        "hdpi": "./src/assets/images/splash.png", 
-        "xhdpi": "./src/assets/images/splash.png"
+        "mdpi": "./src/assets/images/splash_mdpi.png", 
+        "hdpi": "./src/assets/images/splash_hdpi.png", 
+        "xhdpi": "./src/assets/images/splash_xhdpi.png"
       },
     
       "config": {
@@ -67,9 +71,20 @@
       "androidMode": "collapse",
       "androidCollapsedTitle":"New Messages"
     },
+    
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.sprout.conferenceapp"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sprout.conferenceapp",
+      "buildNumber": "1.0.0",
+      "icon":"./src/assets/images/icon.png",
+      "splash": {
+        "backgroundColor":"#ffffff",
+        "resizeMode":"contain",
+        "image": "./src/assets/images/splash.png"
+      }
+
+
+
     }
   }
 }

@@ -117,7 +117,7 @@ class OnboardingBio extends Component {
       await this.hideNationalityModal()
     }
     catch (err) {
-      console.log(err)
+     // console.log(err)
     }
   }
   showNationalityModal = ()=> {

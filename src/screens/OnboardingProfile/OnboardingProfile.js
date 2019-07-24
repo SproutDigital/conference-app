@@ -108,7 +108,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
         uploadResponse = await this.uploadImageAsync(pickerResult); 
       }
     } catch (e) {
-      console.log({'e..': e})
+     // console.log({'e..': e})
       this.setState({
         showAlert: true,
         message: 'Oops Something Went Wrong',
@@ -138,7 +138,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
     
      await sendRoute (ImageUploadEndpoint, data)
       .then((res) => {
-        console.log({'upload to s3 ': res})
+        //console.log({'upload to s3 ': res})
         this.setState({ 
           showLoading : false, 
         });
@@ -165,10 +165,10 @@ import { addProfile } from '../../redux/actions/ProfileActions';
       'query':{_id},
       'update' : {photo}   
     });
-      console.log({data})
+     // console.log({data})
     await putRoute (ProfileUpdateEndpoint, data, token)
       .then((res) => {
-        console.log({'upload uri ': res})
+       // console.log({'upload uri ': res})
         this.setState({ 
           showLoading : false, 
         });

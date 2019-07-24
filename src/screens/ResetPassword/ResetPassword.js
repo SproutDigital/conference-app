@@ -88,7 +88,7 @@ export default class ForgetPassword extends Component {
 
      await sendRoute (ResetPassword, data)
       .then((res) => {
-        console.log({res})
+       // console.log({res})
         if (res.status !== 'success') {  
           return  this.setState({ 
             showLoading : false,

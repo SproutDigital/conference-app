@@ -22,21 +22,7 @@ const dashboard = require('../../assets/images/home.png'),
         navOptionName: 'DashBoard',
         screenToNavigate: 'DashBoard',
       },
-      // {
-      //   navOptionThumb: profile,
-      //   navOptionName: 'Profile',
-      //   screenToNavigate: 'Profile',
-      // },
-      // {
-      //   navOptionThumb: notification,
-      //   navOptionName: 'Notification',
-      //   screenToNavigate: 'Notification',
-      // },
-      // {
-      //   navOptionThumb: settings,
-      //   navOptionName: 'Settings',
-      //   screenToNavigate: 'Settings',
-      // },
+      
       { 
         navOptionThumb: logout,
         navOptionName: 'Logout',

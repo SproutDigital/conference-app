@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import orderBy from 'lodash.orderby';
 
 
-class People extends Component {
+class People extends  React.PureComponent {
   constructor(props) {
     super(props);
     this.state ={
@@ -21,8 +21,37 @@ class People extends Component {
 
   componentWillMount(){
     const {speakers, sponsors, attendees} = this.props;
-    let combinedUsers = [ ...speakers, ...sponsors, ...attendees];
-     let sortedData = orderBy(combinedUsers, 'profile.name', 'asc');
+  
+      let  data = [];
+         speakers.forEach(function(profile) {
+          if (!data.includes(profile)) {
+            data.push({
+              profile,
+              'role': 'speaker'
+            })
+          }
+        });
+
+        sponsors.forEach(function(profile) {
+          if (!data.includes(profile)) {
+            data.push({
+              profile,
+              'role': 'sponsor'
+            })
+          }
+        });
+
+        attendees.forEach(function(profile) {
+          if (!data.includes(profile)) {
+            data.push({
+              profile,
+              'role': 'attendee'
+            })
+          }
+        });
+        
+
+     let sortedData = orderBy(data, 'profile.profile.name', 'asc');
     this.setState({
       data: sortedData
     })
@@ -34,7 +63,7 @@ class People extends Component {
       value: text,
     });
     const newData = this.arrayholder.filter(item => {
-      const itemData = `${item.profile.name.toUpperCase()} ${item.profile.short_bio.toUpperCase()}`;
+      const itemData = `${item.profile.profile.name.toUpperCase()} ${item.profile.profile.short_bio.toUpperCase()}`;
       const textData = text.toUpperCase();
 
       return itemData.indexOf(textData) > -1;
@@ -43,6 +72,7 @@ class People extends Component {
       data: newData,
     });
   }
+  
 
 
   handleGoBack = () => {
@@ -50,20 +80,21 @@ class People extends Component {
   }
   handlePeopleMain(item){
     return this.props.navigation.navigate('PeopleMain', {
-       'item': item.profile
+       'item': item
     });
   }
   renderRow = ({item}) => {
     return (
        <View style = {styles.listViewItem}>    
         <TouchableOpacity 
-          onPress = {()=>this.handlePeopleMain(item)}
+          onPress = {()=>{this.handlePeopleMain(item)}}
+          key={item.profile._id}
           style = {styles.cardView}>
           <View style ={styles.imageText}>
           <View style = {styles.ImageView}>
             <Image
-              onPress = {()=>this.handlePeopleMain(item)}
-              source = {{uri: item.profile.photo}}
+              onPress = {()=>{this.handlePeopleMain(item)}}
+              source = {{uri: item.profile.profile.photo}}
               style = {StyleSheet.flatten(styles.personImage)}
             />
           </View>
@@ -71,17 +102,17 @@ class People extends Component {
             <DisplayText
               numberOfLines = { 1 } 
               ellipsizeMode = 'middle'
-              text = {item.profile.name}
+              text = {item.profile.profile.name}
               styles = {StyleSheet.flatten(styles.headerText)}
-              onPress = {()=>this.handlePeopleMain(item)}
+              onPress = {()=>{this.handlePeopleMain(item)}}
             />
 
             <DisplayText
               numberOfLines = { 1 } 
               // ellipsizeMode = 'middle'
-              text = {item.profile.company_name}
+              text = {item.profile.profile.company_name}
               styles = {StyleSheet.flatten(styles.subHeaderText)}
-              onPress = {()=>this.handlePeopleMain(item)}
+              onPress = {()=>{this.handlePeopleMain(item)}}
             />
           </View>
           </View>
@@ -90,9 +121,9 @@ class People extends Component {
                 <DisplayText
                   numberOfLines = { 2 } 
                   ellipsizeMode = 'middle'
-                  text = {item.profile.short_bio}
+                  text = {item.profile.profile.short_bio}
                   styles = {StyleSheet.flatten(styles.bioDetailTxt)}
-                  onPress = {()=>this.handlePeopleMain(item)}
+                  onPress = {()=>{this.handlePeopleMain(item)}}
                 />
               </View>
               
@@ -146,10 +177,15 @@ class People extends Component {
            /> 
          </View>
            <FlatList          
-             data={this.state.data}          
+             data={this.state.data} 
+             initialNumToRender={this.state.data.length}
              renderItem={this.renderRow}          
              keyExtractor={ data=> data._id}   
              showsVerticalScrollIndicator={false}
+            // initialNumToRender={10}
+             maxToRenderPerBatch={5}
+             removeClippedSubviews={true}
+
            />
        </View>  
      </SafeAreaView>

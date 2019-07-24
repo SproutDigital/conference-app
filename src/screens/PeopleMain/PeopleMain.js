@@ -1,14 +1,17 @@
 'use strict';
 import React, {Component} from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Image, KeyboardAvoidingView,TouchableOpacity, StyleSheet, Linking} from 'react-native';
-import {DisplayText, } from '../../components';
+import { View, ScrollView, SafeAreaView, StatusBar, Image, KeyboardAvoidingView,TouchableOpacity, 
+  StyleSheet, Linking} from 'react-native';
+import {DisplayText, ErrorAlert } from '../../components';
 import styles from './styles';
 
 export default class PeopleMain extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      photo : ''
+      photo : '',
+      showErrorAlert:false,
+      errorMessage:'',
     }
   }
 
@@ -16,9 +19,16 @@ export default class PeopleMain extends Component {
   handleGoBack = () => {
     return this.props.navigation.goBack();
   }
+
+  handleCloseNotification = () => {
+    return this.setState({
+       showErrorAlert : false
+     })
+   }
+
    headerStatus() {
     const item = this.props.navigation.getParam('item');
-    if(item.facebook_visible || item.twitter_visible || item.instagram_visible || item.linkedin_visible ) {
+    if(item.profile.profile.facebook_visible || item.profile.profile.twitter_visible || item.profile.profile.instagram_visible || item.profile.profile.linkedin_visible ) {
       return(
         <DisplayText
           styles={StyleSheet.flatten(styles.titleText)}
@@ -29,7 +39,7 @@ export default class PeopleMain extends Component {
   }
   webSiteLink(){
     const item = this.props.navigation.getParam('item');
-    if(item.website) {
+    if(item.profile.profile.website) {
       return(
         <View style = {styles.bodyView}>
         <View style={styles.socialView}>
@@ -42,8 +52,8 @@ export default class PeopleMain extends Component {
             <View style = {styles.dot}></View>               
               <DisplayText
                 styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue' }]}
-                text = {item.website}
-                onPress={() => Linking.openURL(`https://${item.website}`).catch(err => console.log('An error occurred', err))}
+                text = {item.profile.profile.website}
+                onPress={() => Linking.openURL(`${item.profile.profile.website}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
               />
             </View>
           </View>
@@ -55,7 +65,8 @@ export default class PeopleMain extends Component {
 
   render () {
     const item = this.props.navigation.getParam('item');
-    let photo = item.photo;
+    const {errorMessage, showErrorAlert} = this.state;
+    let photo = item.profile.profile.photo;
    return(
     <SafeAreaView style={styles.container}> 
       <StatusBar barStyle="default"/>
@@ -103,17 +114,17 @@ export default class PeopleMain extends Component {
             </View>
             <DisplayText
               styles={StyleSheet.flatten(styles.profileNameTxt)}
-              text = {item.name}
+              text = {item.profile.profile.name}
             />
              <DisplayText
               styles={StyleSheet.flatten(styles.jobName)}
-              text = {item.job_title}
+              text = {item.profile.profile.job_title}
             />
             <View style = {styles.line}></View>
 
             {/*  User Role */}
             {
-              item.event.length ?
+              item.profile.profile.event.length ?
                 <View style = {styles.textViewUserRole}>
                   <DisplayText
                     styles={StyleSheet.flatten(styles.formHeaderTxt)}
@@ -122,7 +133,7 @@ export default class PeopleMain extends Component {
                   <View style = {styles.hanlenameView}>
                     <DisplayText
                       styles={StyleSheet.flatten(styles.roleTitleText)}
-                      text = {item.event[0].event_role}
+                      text = {item.role}
                     />             
                   </View>
                 </View>
@@ -130,7 +141,7 @@ export default class PeopleMain extends Component {
             }
             
             {/* Short Bio */}
-            { item.short_bio ?
+            { item.profile.profile.short_bio ?
               <View style = {styles.textViewUserRole}>
               <DisplayText
                 styles={StyleSheet.flatten(styles.formHeaderTxt)}
@@ -138,7 +149,7 @@ export default class PeopleMain extends Component {
               />
               <View style = {styles.hanlenameView}>
                 <DisplayText
-                  text = {item.short_bio}
+                  text = {item.profile.profile.short_bio}
                   styles = {StyleSheet.flatten(styles.bioTxt)}
                 />            
               </View>
@@ -149,7 +160,7 @@ export default class PeopleMain extends Component {
             <View style = {styles.socialMediaView}>
               {this.headerStatus()}
               {/*  facebook */}
-              { item.facebook_visible ?
+              { item.profile.profile.facebook_visible ?
                 <View style = {styles.bodyView}>
                 <View style={styles.socialView}>
                   <View style = {styles.textView}>
@@ -160,7 +171,7 @@ export default class PeopleMain extends Component {
                       />               
                       <DisplayText
                         styles={StyleSheet.flatten(styles.socialTitleText)}
-                        text = {`${item.facebook_visible ? item.facebook: '*******'}`}
+                        text = {`${item.profile.profile.facebook_visible ? item.profile.profile.facebook: '*******'}`}
                       />
   
                     </View>
@@ -172,7 +183,7 @@ export default class PeopleMain extends Component {
               }
               
               {/* Twitter */}
-              { item.twitter_visible ?
+              { item.profile.profile.twitter_visible ?
 
                 <View style = {styles.bodyView}>
                   <View style={styles.socialView}>
@@ -184,7 +195,7 @@ export default class PeopleMain extends Component {
                         />               
                         <DisplayText
                           styles={StyleSheet.flatten(styles.socialTitleText)}
-                          text = {`${item.twitter_visible ? item.twitter: '*******'}`}
+                          text = {`${item.profile.profile.twitter_visible ? item.profile.profile.twitter: '*******'}`}
                         />
 
                       </View>
@@ -196,7 +207,7 @@ export default class PeopleMain extends Component {
               }
               
               {
-                 item.linkedin_visible ? 
+                 item.profile.profile.linkedin_visible ? 
                 <View style = {styles.bodyView}>
                 <View style={styles.socialView}>
                   <View style = {styles.textView}>
@@ -207,7 +218,7 @@ export default class PeopleMain extends Component {
                       />               
                       <DisplayText
                         styles={StyleSheet.flatten(styles.socialTitleText)}
-                        text = {`${item.linkedin_visible ? item.linkedin: '*******'}`}
+                        text = {`${item.profile.profile.linkedin_visible ? item.profile.profile.linkedin: '*******'}`}
                       />
 
                     </View>
@@ -220,7 +231,7 @@ export default class PeopleMain extends Component {
               }
                 {/* Instagram */}
                {
-                 item.instagram_visible ? 
+                 item.profile.profile.instagram_visible ? 
                   <View style = {styles.bodyView}>
                   <View style={styles.socialView}>
                     <View style = {styles.textView}>
@@ -231,7 +242,7 @@ export default class PeopleMain extends Component {
                         />               
                         <DisplayText
                           styles={StyleSheet.flatten(styles.socialTitleText)}
-                          text = {`${item.instagram_visible ? item.instagram: '*******'}`}
+                          text = {`${item.profile.profile.instagram_visible ? item.profile.profile.instagram: '*******'}`}
                         />
                       </View>
                     </View>
@@ -243,14 +254,14 @@ export default class PeopleMain extends Component {
                }
               {/* phone */}
                {
-                 item.phone ?
+                 item.profile.profile.phone ?
                  <View style = {styles.bodyViewPhone}>
                  <View style={styles.socialView}>
                    <View style = {styles.textView}>
-                     <DisplayText
+                     {/* <DisplayText
                        styles={StyleSheet.flatten(styles.titleText)}
                        text = {'Phone Number'}
-                     />
+                     /> */}
                      <View style = {styles.hanlenameView}>
                        <Image
                          source = {require('../../assets/images/call.png')}
@@ -258,7 +269,7 @@ export default class PeopleMain extends Component {
                        />               
                        <DisplayText
                          styles={StyleSheet.flatten(styles.socialTitleText)}
-                         text = {item.phone? item.phone.toString(): ''}
+                         text = {item.profile.profile.phone? item.profile.profile.phone.toString(): ''}
                        />
                      </View>
                    </View>
@@ -271,6 +282,12 @@ export default class PeopleMain extends Component {
 
             </View>
           </View>
+          <ErrorAlert
+            title = {'Error!'} 
+            message = {errorMessage}
+            handleCloseNotification = {this.handleCloseNotification}
+            visible = {showErrorAlert}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
       </View>

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { View, Image } from 'react-native';
 import {DisplayText} from '../../components';
 import styles  from './styles';
-import { saveExpoToken, logout, post, FetchProfileEndpoint, getOnBoardingStatus, getVerification, getProfile} from '../../utils';
+import { saveExpoToken, post, FetchProfileEndpoint, getOnBoardingStatus, getVerification, getProfile} from '../../utils';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { Ionicons } from '@expo/vector-icons';
 import  * as Permissions from 'expo-permissions';
@@ -50,7 +50,7 @@ const slides = [
   }
 
    async componentWillMount(){
-  // logout();
+  //logout();
     this.checkLogin();
   }
 
@@ -76,9 +76,9 @@ const slides = [
 
   handleNotification = ({ origin, data }) => {
     //this.props.navigation.navigate('Notification')
-    console.log(
-      `Push notification ${origin} with data: ${JSON.stringify(data)}`,
-    );
+    // console.log(
+    //   `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+    // );
   };
 
   registerForPushNotificationsAsync = async()=> {
@@ -183,7 +183,9 @@ const slides = [
 
    await post (FetchProfileEndpoint, data, token)
      .then((res) => {
+       //console.log({res})
        if(res.status == 'success') {
+
         this.props.setProfile(res.data[0]);
         if(isVerified == true && completed) {
           this.setState({

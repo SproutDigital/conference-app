@@ -7,7 +7,6 @@ import colors from '../../assets/colors';
 import styles from './styles';
 import LockSvg from './LockSvg';
 import Toast from 'react-native-easy-toast';
-import { ProgressDialog } from 'react-native-simple-dialogs';
 import {isEmailValid, sendRoute, Forgetpassword} from '../../utils';
 
 export default class ForgetPassword extends Component {
@@ -86,7 +85,7 @@ export default class ForgetPassword extends Component {
 
      await sendRoute (Forgetpassword, data)
       .then((res) => {
-        console.log({res})
+      //  console.log({res})
         if (res.status !== 'success') {  
           return  this.setState({ 
             showLoading : false,

@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Image, KeyboardAvoidingView,TouchableOpacity, StyleSheet, Linking} from 'react-native';
-import {DisplayText} from '../../components';
+import {DisplayText, ErrorAlert} from '../../components';
 import styles from './styles';
 
 export default class SponsorDetails extends Component {
@@ -12,6 +12,8 @@ export default class SponsorDetails extends Component {
       showAlert : false,
       message : '',
       photo : '',
+      showErrorAlert:false,
+      errorMessage: '',
     }
   }
 
@@ -28,7 +30,7 @@ export default class SponsorDetails extends Component {
         <DisplayText
           styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue' }]}
           text = {item.profile.website}
-          onPress={() => Linking.openURL(`${item.profile.website}`).catch(err => console.log('An error occurred', err))}
+          onPress={() => Linking.openURL(`${item.profile.website}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
         />
       )
     }
@@ -43,6 +45,12 @@ export default class SponsorDetails extends Component {
     
   }
 
+  handleCloseNotification = () => {
+    return this.setState({
+       showErrorAlert : false
+     })
+   }
+
   headerStatus() {
     const item = this.props.navigation.getParam('item');
     if(item.profile.facebook_visible || item.profile.twitter_visible || item.profile.instagram_visible || item.profile.linkedin_visible ) {
@@ -56,6 +64,7 @@ export default class SponsorDetails extends Component {
   }
 
   render () {
+    const {showErrorAlert, errorMessage} = this.state;
     const item = this.props.navigation.getParam('item');
     let photo = item.profile.photo;
    return(
@@ -260,6 +269,12 @@ export default class SponsorDetails extends Component {
              }
 
             </View>
+            <ErrorAlert
+              title = {'Error!'} 
+              message = {errorMessage}
+              handleCloseNotification = {this.handleCloseNotification}
+              visible = {showErrorAlert}
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
