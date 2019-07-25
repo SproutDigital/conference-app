@@ -19,7 +19,7 @@ import People from '../People/People';
 // import Help from '../Help/Help';
 // import Settings from '../Settings/Settings';
 // import Notification from '../Notification/Notification';
-// import Profile from '../Profile/Profile';
+ import Profile from '../Profile/Profile';
 import Logout from '../Logout/Logout';
 import Sponsor from '../Sponsor/Sponsor';
 import Resources from '../Resources/Resources';
@@ -62,15 +62,15 @@ const DashBoard_StackNavigator = createStackNavigator({
   },
 });
 
-// const Profile_StackNavigator = createStackNavigator({
-//   //All the screen from the Profile will be indexed here
-//   Profile: {
-//     screen: Profile,
-//     navigationOptions: {
-//       header : null,
-//     }
-//   },
-// });
+const Profile_StackNavigator = createStackNavigator({
+  //All the screen from the Profile will be indexed here
+  Profile: {
+    screen: Profile,
+    navigationOptions: {
+      header : null,
+    }
+  },
+});
 // const Notification_StackNavigator = createStackNavigator({
 //   //All the screen from the Investment will be indexed here
 //   Notification: {
@@ -109,12 +109,12 @@ const DrawerNavigator = createDrawerNavigator({
     }
   },
 
-  // Profile : {
-  //   screen : Profile_StackNavigator,
-  //   navigationOptions: {
-  //     header: null
-  //   }
-  // },
+  Profile : {
+    screen : Profile_StackNavigator,
+    navigationOptions: {
+      header: null
+    }
+  },
   // Notification : {
   //   screen : Notification_StackNavigator,
   //   navigationOptions: {

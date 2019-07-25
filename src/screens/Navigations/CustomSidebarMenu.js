@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import {DisplayText } from '../../components';
 
 const dashboard = require('../../assets/images/home.png'),
-//  profile = require('../../assets/images/profile.png'),
+  profile = require('../../assets/images/profile.png'),
 //  notification = require('../../assets/images/notification.png'),
 //  settings = require('../../assets/images/setting.png'),
  logout = require('../../assets/images/logout.png');
@@ -21,6 +21,12 @@ const dashboard = require('../../assets/images/home.png'),
         navOptionThumb: dashboard,
         navOptionName: 'DashBoard',
         screenToNavigate: 'DashBoard',
+      },
+
+      {
+        navOptionThumb: profile,
+        navOptionName: 'Survey/FeedBack',
+        screenToNavigate: 'Profile',
       },
       
       { 

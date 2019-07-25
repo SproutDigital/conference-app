@@ -5,6 +5,8 @@ import {DisplayText, } from '../../components';
 import styles from './styles';
 import colors from '../../assets/colors';
 import { DrawerActions } from "react-navigation";
+import {WebView} from 'react-native';
+
 
 
 
@@ -48,13 +50,19 @@ export default class Profile extends Component {
           />
       </View>
       </View>
-      <View>
+      {/* <View>
         <DisplayText
           styles={StyleSheet.flatten(styles.exitTxt)}
           text = {'Profile'}
           onPress = {this.handleLogout}
         />  
-      </View>
+      </View> */}
+      <WebView
+        source={{uri: 'https://awim19.africanwomeninmedia.com/feedback-and-survey/'}}
+        style={{marginTop: 10}}
+        javaScriptEnabled={true}
+
+      />
     </SafeAreaView>
     
    )

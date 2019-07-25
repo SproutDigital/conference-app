@@ -139,8 +139,10 @@ export default class SponsorDetails extends Component {
                       style = {StyleSheet.flatten(styles.socialIcon)}
                     />               
                     <DisplayText
-                      styles={StyleSheet.flatten(styles.socialTitleText)}
+                      styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue'}]}
                       text = {`${item.profile.facebook_visible ? item.profile.facebook: '*******'}`}
+                      onPress={() => Linking.openURL(`${item.profile.facebook}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+
                     />
  
                   </View>
@@ -165,9 +167,9 @@ export default class SponsorDetails extends Component {
                         style = {StyleSheet.flatten(styles.socialIcon)}
                       />               
                       <DisplayText
-                        styles={StyleSheet.flatten(styles.socialTitleText)}
-                        text = {`${item.profile.twitter_visible ? item.profile.twitter: '*******'}`}
-                      />
+                        styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue'}]}
+                        onPress={() => Linking.openURL(`${item.profile.twitter}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+                        />
   
                     </View>
                   </View>
@@ -188,8 +190,10 @@ export default class SponsorDetails extends Component {
                         style = {StyleSheet.flatten(styles.socialIcon)}
                       />               
                       <DisplayText
-                        styles={StyleSheet.flatten(styles.socialTitleText)}
+                        styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue'}]}
                         text = {`${item.profile.linkedin_visible ? item.profile.linkedin: '*******'}`}
+                        onPress={() => Linking.openURL(`${item.profile.linkedin}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+
                       />
   
                     </View>
@@ -211,8 +215,10 @@ export default class SponsorDetails extends Component {
                             style = {StyleSheet.flatten(styles.socialIcon)}
                           />               
                           <DisplayText
-                            styles={StyleSheet.flatten(styles.socialTitleText)}
+                            styles={[StyleSheet.flatten(styles.socialTitleText), {color:'blue'}]}
                             text = {`${item.profile.instagram_visible ? item.profile.instagram: '*******'}`}
+                            onPress={() => Linking.openURL(`${item.profile.instagram}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+
                           />
                         </View>
                       </View>

@@ -251,8 +251,10 @@ class Organisers extends Component {
                   <View style = {styles.formView}>
 
                       <DisplayText
-                      styles={StyleSheet.flatten(styles.textInfo)}
-                      text = {`Facebook: ${data.company.facebook}`}
+
+                      styles={[StyleSheet.flatten(styles.textInfo), {color:'blue'}]}
+                      onPress={() => Linking.openURL(`${data.company.facebook}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+
                     />
                   </View>
                 : null
@@ -262,8 +264,9 @@ class Organisers extends Component {
                   <View style = {styles.formView}>
 
                     <DisplayText
-                      styles={StyleSheet.flatten(styles.textInfo)}
-                      text = {`Instagram: ${ data.company.instagram}`}
+                      styles={[StyleSheet.flatten(styles.textInfo), {color:'blue'}]}
+                      onPress={() => Linking.openURL(`${data.company.instagram}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+
                     />
                   </View>
                  : null
@@ -273,8 +276,9 @@ class Organisers extends Component {
                   <View style = {styles.formView}>
 
                     <DisplayText
-                    styles={StyleSheet.flatten(styles.textInfo)}
-                    text = {`Twitter: ${data.company.twitter}`}
+                    styles={[StyleSheet.flatten(styles.textInfo), {color:'blue'}]}
+                    onPress={() => Linking.openURL(`${data.company.twitter}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+
                   />
                    </View>
                  : null
@@ -284,8 +288,9 @@ class Organisers extends Component {
                   <View style = {styles.formView}>
 
                     <DisplayText
-                      styles={StyleSheet.flatten(styles.textInfo)}
-                      text = {`LinkedIn: ${data.company.linkedin}`}
+                      styles={[StyleSheet.flatten(styles.textInfo), {color:'blue'}]}
+                      onPress={() => Linking.openURL(`${data.company.linkedin}`).catch(err => {this.setState({errorMessage:err.toString(), showErrorAlert:true})})}
+
                     />
                   </View>
                   : null
