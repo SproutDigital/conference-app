@@ -183,7 +183,7 @@ const slides = [
 
    await post (FetchProfileEndpoint, data, token)
      .then((res) => {
-       //console.log({res})
+      // console.log({res})
        if(res.status == 'success') {
 
         this.props.setProfile(res.data[0]);

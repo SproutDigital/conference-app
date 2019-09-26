@@ -20,7 +20,6 @@ export default class Register extends Component {
       isEmailValid : false,
       isPasswordValid : false,
       isNameValid : false,
-      showAlert : false,
       message : '',
       successMessage : '',
       errorMessage : '',
@@ -121,7 +120,6 @@ export default class Register extends Component {
 
   handleCloseNotification = () => {
     return this.setState({
-       showAlert : false,
        showSuccessAlert : false,
        showErrorAlert : false
      })
@@ -144,25 +142,25 @@ export default class Register extends Component {
 
     if(isEmpty(name)) {
       return this.setState({
-        showAlert:true,
+        showErrorAlert:true,
         errorMessage: 'Enter Valid Name'
       })
     }
     else if(!isEmailValid(email)) {
       return this.setState({
-        showAlert:true,
+        showErrorAlert:true,
         errorMessage: 'Invalid Email Address'
       })
     }
     else if(isEmpty(password)) {
       return this.setState({
-        showAlert:true,
+        showErrorAlert:true,
         errorMessage: 'Enter Valid Password'
       })
     }
     else if(!isChecked) {
       return this.setState({
-        showAlert:true,
+        showErrorAlert:true,
         errorMessage: 'Please check the Box to Continue'
       })
     }
@@ -176,6 +174,7 @@ export default class Register extends Component {
       'email' : email.toLowerCase(), 
       'name' : name, 
       'expo_token' : expoToken,
+      'isVerified' : true,
     });
 
      await sendRoute (RegisterEndpoint, data)
@@ -185,7 +184,7 @@ export default class Register extends Component {
             showLoading : false,
             title : 'Hello',
             errorMessage : res.message,
-            showAlert : true,
+            showErrorAlert : true,
           }); 
         }
         else {
