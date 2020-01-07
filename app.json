@@ -1,9 +1,9 @@
 {
   "expo": {
     "name": "AWIM19",
-    "slug": "",
+    "slug": "AWIM19",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "36.0.0",
     "description": "Africa Women in Media Conference and Festival Mobile",
     "platforms": [
       "ios",
@@ -22,20 +22,18 @@
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 300000
     },
-
     "assetBundlePatterns": [
       "**/*"
     ],
-
     "android": {
       "package": "com.africawomeninmedia.awim",
-      "versionCode":3,
-      "playStoreUrl":"https://play.google.com/store/apps/details?id=",
+      "versionCode": 3,
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=",
       "permissions": [
         "CAMERA",
         "MANAGE_DOCUMENTS",
-        "READ_INTERNAL_STORAGE", 
-        "READ_EXTERNAL_STORAGE", 
+        "READ_INTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
         "READ_PHONE_STATE",
         "VIBRATE",
@@ -51,40 +49,34 @@
         "com.sec.android.provider.badge.permission.WRITE",
         "com.sonyericsson.home.permission.BROADCAST_BADGE"
       ],
-    
-      "splash":{ 
+      "splash": {
         "resizeMode": "contain",
-        "mdpi": "./src/assets/images/splash_mdpi.png", 
-        "hdpi": "./src/assets/images/splash_hdpi.png", 
+        "mdpi": "./src/assets/images/splash_mdpi.png",
+        "hdpi": "./src/assets/images/splash_hdpi.png",
         "xhdpi": "./src/assets/images/splash_xhdpi.png"
       },
-    
       "config": {
         "fabric": {
-          "apiKey":"f4c6d386ecadd3ebe0d71c5769113ac0ecfa76ac",
-          "buildSecret":"3d37edf3c238007caee6d09968c4a3f7334267b9c0015bdc604f2169abf01831"
+          "apiKey": "f4c6d386ecadd3ebe0d71c5769113ac0ecfa76ac",
+          "buildSecret": "3d37edf3c238007caee6d09968c4a3f7334267b9c0015bdc604f2169abf01831"
         }
-      }  
-    },  
-    "notification": {
-      "icon":"./src/assets/images/icon.png",
-      "androidMode": "collapse",
-      "androidCollapsedTitle":"New Messages"
+      }
     },
-    
+    "notification": {
+      "icon": "./src/assets/images/icon.png",
+      "androidMode": "collapse",
+      "androidCollapsedTitle": "New Messages"
+    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.sprout.conferenceapp",
       "buildNumber": "1.0.0",
-      "icon":"./src/assets/images/icon.png",
+      "icon": "./src/assets/images/icon.png",
       "splash": {
-        "backgroundColor":"#ffffff",
-        "resizeMode":"contain",
+        "backgroundColor": "#ffffff",
+        "resizeMode": "contain",
         "image": "./src/assets/images/splash.png"
       }
-
-
-
     }
   }
 }

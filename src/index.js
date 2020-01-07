@@ -7,48 +7,39 @@ import Navigator from './routes';
 import colors from './assets/colors';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-
-
 TextInput.defaultProps.selectionColor = colors.green;
 
 export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      fontsLoaded:false,
+      fontsLoaded : false,
     };
   }
   
-  componentDidMount() {
-
-    (async() => {
-      await Font.loadAsync({
-        'Orkney-Light' : require('../src/assets/fonts/Orkney-Light.otf'),
-        'Poppins-Bold' : require('../src/assets/fonts/Poppins-Bold.ttf'),
-        'Poppins-ExtraBold' : require('../src/assets/fonts/Poppins-ExtraBold.ttf'),  
-        'Poppins-ExtraLight' : require('../src/assets/fonts/Poppins-ExtraLight.ttf'),
-        'Poppins-Light' : require('../src/assets/fonts/Poppins-Light.ttf'),
-        'Poppins-Medium' : require('../src/assets/fonts/Poppins-Medium.ttf'),
-        'Poppins-Regular' : require('../src/assets/fonts/Poppins-Regular.ttf'),    
-        'Poppins-Thin' : require('../src/assets/fonts/Poppins-Thin.ttf'),  
-        'Poppins-SemiBold' : require('../src/assets/fonts/Poppins-SemiBold.ttf'),
-        'Orkney-Medium.otf' : require('../src/assets/fonts/Orkney-Medium.otf'),
-
-      });
-      
-      this.setState({ fontsLoaded: true });
-  
-    })();
+  async componentDidMount() {
+    await Font.loadAsync({
+      'Orkney-Light' : require('../src/assets/fonts/OrkneyLight.otf'),
+      'Orkney-Medium' : require('../src/assets/fonts/OrkneyMedium.otf'),
+      'Poppins-Bold' : require('../src/assets/fonts/PoppinsBold.ttf'),
+      'Poppins-ExtraBold' : require('../src/assets/fonts/PoppinsExtraBold.ttf'),  
+      'Poppins-ExtraLight' : require('../src/assets/fonts/PoppinsExtraLight.ttf'),
+      'Poppins-Light' : require('../src/assets/fonts/PoppinsLight.ttf'),
+      'Poppins-Medium' : require('../src/assets/fonts/PoppinsMedium.ttf'),
+      'Poppins-Regular' : require('../src/assets/fonts/PoppinsRegular.ttf'),    
+      'Poppins-Thin' : require('../src/assets/fonts/PoppinsThin.ttf'),  
+      'Poppins-SemiBold' : require('../src/assets/fonts/PoppinsSemiBold.ttf'),
+    });    
+    this.setState({ fontsLoaded: true });
   }
   
   render() {
     const { fontsLoaded } = this.state
-
     return (
       
       <View style={styles.container}>
         <Provider store={store}>
-          {fontsLoaded?
+          {fontsLoaded ?
             <Navigator/>
             :
             null }

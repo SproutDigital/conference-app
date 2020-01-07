@@ -6,7 +6,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import styles from './styles';
 import LockSvg from './LockSvg';
-import Toast from 'react-native-easy-toast';
 import {isEmailValid, sendRoute, Forgetpassword} from '../../utils';
 
 export default class ForgetPassword extends Component {
@@ -163,17 +162,6 @@ export default class ForgetPassword extends Component {
               imgStyle={StyleSheet.flatten(styles.iconDoor)}
               titleStyle={StyleSheet.flatten(styles.buttonTxt)}
             />
-
-            <Toast
-              ref="toast"
-              style={{backgroundColor: 'green'}}
-              position='bottom'
-              positionValue={200}
-              fadeInDuration={750}
-              fadeOutDuration={5000}
-              opacity={0.8}
-              textStyle={{color:'white'}}
-            /> 
 
             <Preloader
               modalVisible={showLoading}

@@ -53,7 +53,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
      let asyncProfile = await getProfile();  
     const {profile} = this.props;
       try {
-        await this.setState({
+        this.setState({
           'token':asyncProfile.sessionToken,
           '_id' : profile._id,
           'name': profile.name,
@@ -63,7 +63,7 @@ import { addProfile } from '../../redux/actions/ProfileActions';
         })
       }
       catch(e){
-        await this.setState({
+         this.setState({
           'token':asyncProfile.sessionToken,
           '_id' : asyncProfile.id
         })

@@ -49,90 +49,79 @@ export const  isEmpty =(str)  => {
     return (!str || 0 === str.toString().trim().length); 
 }
 
-export const sendRoute = (endpoint, body) => {
+export const sendRoute = async (endpoint, body) => {
 
-    return fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: body
-    })
-    .then((res) => {
-        return res.json();
-    })
-    .then((res) => {
-
-        return res;
-    })
-    .catch((error) => {
+    try {
+        const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: body
+        });
+        const res_1 = await res.json();
+        return res_1;
+    }
+    catch (error) {
         return error;
-    });
+    }
 }
 
-export const post = (endpoint, body, token) => {
+export const post = async (endpoint, body, token) => {
 
-    return fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'access_token': `JWT ${token}`,
-        },
-        body: body
-    })
-    .then((res) => {
-        return res.json();
-    })
-    .then((res) => {
-
-        return res;
-    })
-    .catch((error) => {
+    try {
+        const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'access_token': `JWT ${token}`,
+            },
+            body: body
+        });
+        const res_1 = await res.json();
+        return res_1;
+    }
+    catch (error) {
         return error;
-    });
+    }
 }
 
 
-export const getRoute = (endpoint, token) => {
+export const getRoute = async (endpoint, token) => {
 
-    return fetch(endpoint, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': token,
-        },
-    })
-    .then((res) => {
-        return res.json();
-    })
-    .then((res) => {
-        return res;
-    })
-    .catch((error) => {
-        return Alert.alert(error.toString())
-    });
+    try {
+        const res = await fetch(endpoint, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': token,
+            },
+        });
+        const res_1 = await res.json();
+        return res_1;
+    }
+    catch (error) {
+        return error;
+    }
 
 }
 
-export const putRoute = (endpoint, body, token) => {
-    return fetch(endpoint, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'access_token': `JWT ${token}`,
-        },
-        body: body
-    })
-    .then((res) => {
-        return res.json();
-    })
-    .then((res) => {
-
-        return res;
-    })
-    .catch((error) => {
+export const putRoute = async (endpoint, body, token) => {
+    try {
+        const res = await fetch(endpoint, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'access_token': `JWT ${token}`,
+            },
+            body: body
+        });
+        const res_1 = await res.json();
+        return res_1;
+    }
+    catch (error) {
         return error;
-    });
+    }
 }
 
 export const saveProfile = async(id, name, sessionToken, status) => {
@@ -201,7 +190,7 @@ export const getOnBoardingStatus = async () => {
             } else {
                 return false;
             }
-        });
+        }).catch(error => error);
 }
 
 export const logout = async()=> {

@@ -27,7 +27,7 @@ export default defaultTheme = {
     LightPoppins : 'Poppins-Light',
     headerFont : 'Poppins-Medium',
     subHeaderFont : 'Orkney-Light',
-    inputHintFont : 'Orkney-Medium.otf',
+    inputHintFont : 'Orkney-Medium',
 
 }
 

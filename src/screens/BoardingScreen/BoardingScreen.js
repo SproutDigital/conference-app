@@ -49,11 +49,6 @@ const slides = [
 
   }
 
-   async componentWillMount(){
-  //logout();
-    this.checkLogin();
-  }
-
 
   resetNavigationStack = (location) => {
     const navigateAction =  StackActions.reset({
@@ -70,6 +65,7 @@ const slides = [
  
 
   componentDidMount () {
+    this.checkLogin();
     this.registerForPushNotificationsAsync();
     this.listener = Notifications.addListener(this.handleNotification);
   }
@@ -177,13 +173,13 @@ const slides = [
 
   fetchProfile =async(token, _id, isVerified, completed)=>{
  
-   let data = await JSON.stringify({
+   let data = JSON.stringify({
      'query':{_id},
    });
 
    await post (FetchProfileEndpoint, data, token)
      .then((res) => {
-      // console.log({res})
+       console.log({res})
        if(res.status == 'success') {
 
         this.props.setProfile(res.data[0]);

@@ -5,8 +5,6 @@ import {DisplayText, InputField, Preloader, ErrorAlert} from '../../components';
 import styles from './styles';
 import theme from '../../assets/theme';
 import {connect} from 'react-redux';
-import * as FileSystem from 'expo-file-system';
-
 
  class Resources extends Component {
   constructor(props) {
