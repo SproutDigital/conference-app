@@ -1,20 +1,13 @@
 export default {
   black : '#000000',
-  blackShade: '#1d2025',
-  darkCard: '#2a2b30',
-  dakerCard: '#0f1011',
-  darkText: '#46474a',
+  blackShade: '#4C4C4C',
+  darkText: '#4C4A4A',
   white : '#ffffff',
   whiteShade: '#dcdde1',
-  gray: '#dddddd',
-  liteGray2:'#dedede',
-  liteGray: '#ecf0f2',
-  errorColor : '#d93900',
-  lightGray : '#607D8B',
-  gold: '#deaf1b',
+  gray: '#D4D4D4',
+  textGray : '#898989',
   lightGold: '#e6be0b',
-  // green: '#27ae60',
-  green: '#508762',
+  green: '#38d39f',
   softBlue: '#3498db',
   darkRed: '#c0392b',
   midnightBlue: '#2c3e50',
@@ -23,9 +16,14 @@ export default {
   darkSilver: '#757575',
   purple: '#5B4CAC',
   red: '#d63031',
+  errorRed: '#FF6E6A',
   blue : '#1f78d1',
   orange: '#f8b45d',
-  bg1 : '#27ae60'
- // 
-
+  bg1 : '#27ae60',
+  blueBg : '#6633FF',
+  yellow : '#FFBB00',
+  buttonBlue : '#23B2D6',
+  skyBlue : '#23B2D6',
+  backGround : '#F1FAFC',
+  
 }

@@ -5,6 +5,10 @@ import { PropTypes } from 'prop-types';
 import { View, Image, Modal, StyleSheet,} from 'react-native';
 
 export default class Preloader extends Component {
+
+  closeNotification = () => {
+    return;  
+  }
  
   render() {
     const { animationType, modalVisible } = this.props;
@@ -19,7 +23,7 @@ export default class Preloader extends Component {
           <View style={styles.loaderContainer}>
             <Image
               style={styles.loaderImage}
-              source={require('../../assets/images/aye_loader.gif')}
+              source={require('../../assets/images/loader.gif')}
               /* source={require('../../assets/images/whiteLoader.gif')} */
 
             />

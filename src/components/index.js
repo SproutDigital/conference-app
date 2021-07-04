@@ -1,17 +1,19 @@
-import { Alert , SingleButtonAlert} from './Alert';
+import { Alert , SingleButtonAlert, SuccessAlert, ErrorAlert} from './Alert';
 import {SubmitButton} from './Buttons';
-import {InputField, InputFieldBorder}  from './TextInput';
-import {Preloader}  from './Preloader';
+import {InputField}  from './TextInput';
 import {DisplayText}  from './Text';
-import  {Icons} from './Icons/Icons';
+ import  {Icons} from './Icons/Icons';
+ import {Preloader} from './Preloader';
 
-export {
+ export {
   Alert , 
   SingleButtonAlert, 
   SubmitButton, 
   InputField, 
-  Preloader, 
   DisplayText, 
   Icons, 
-  InputFieldBorder
+  SuccessAlert,
+  ErrorAlert,
+  Preloader,
+  //InputFieldBorder
 } 

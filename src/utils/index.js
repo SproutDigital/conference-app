@@ -1,28 +1,53 @@
-const Baseurl = 'https://plateauyc.herokuapp.com/pyc/';
+const Baseurl = 'https://sprout-conference-app.herokuapp.com/spr/';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
-const LoginEndpoint = `${Baseurl}loginUser`,
-    RegisterEndpoint = `${Baseurl}RegisterUser`,
-    ProfileEndpoint = `${Baseurl}profile`,
-    UpdateProfileEndoint = `${Baseurl}profile`,
-    ImageUploadEndoint = `${Baseurl}upload`;
+const 
+    EventCode = 'Afric821340KEN',
+    LoginEndpoint = `${Baseurl}user/login`,
+    RegisterEndpoint = `${Baseurl}user/register`,
+    VerificationStatusEndpoint = `${Baseurl}user/check_status`,
+    VerifyUserEndpoint = `${Baseurl}user/confirmation/`,
+    Forgetpassword = `${Baseurl}user/forgotPassword`,
+    ResetPassword = `${Baseurl}user/resetPassword`,
+    RequestNewTokenEndpoint = `${Baseurl}user/resendEmailCode`,
+    ProfileUpdateEndpoint = `${Baseurl}profile/`,
+    ImageUploadEndpoint = `${Baseurl}upload/`,
+    EventDetailsEndpoint = `${Baseurl}event/query`,
+    FetchProfileEndpoint = `${Baseurl}profile/query`,
+    FetchCompanyEndpoint = `${Baseurl}company/query/`,
+    CreateNotificationEndpoint = `${Baseurl}message/create`,
+    CreateRatingEndpoint = `${Baseurl}rating/create`;
+    
 
 export {
+    EventCode,
     LoginEndpoint,
     RegisterEndpoint,
-    ProfileEndpoint,
-    UpdateProfileEndoint,
-    ImageUploadEndoint,
+    VerificationStatusEndpoint,
+    Forgetpassword,
+    ResetPassword,
+    VerifyUserEndpoint,
+    RequestNewTokenEndpoint,
+    ProfileUpdateEndpoint,
+    ImageUploadEndpoint,
+    EventDetailsEndpoint,
+    FetchProfileEndpoint,
+    FetchCompanyEndpoint,
+    CreateNotificationEndpoint,
+    CreateRatingEndpoint
+    
 }
-
 
 export const isEmailValid = (email) => {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
 
+export const  isEmpty =(str)  => {
+    return (!str || 0 === str.toString().trim().length); 
+}
 
-export const postRoute = (endpoint, body) => {
+export const sendRoute = (endpoint, body) => {
 
     return fetch(endpoint, {
         method: 'POST',
@@ -49,7 +74,7 @@ export const post = (endpoint, body, token) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'x-access-token': token,
+            'access_token': `JWT ${token}`,
         },
         body: body
     })
@@ -87,12 +112,12 @@ export const getRoute = (endpoint, token) => {
 
 }
 
-export const putRoute = (endpoint, body) => {
-
+export const putRoute = (endpoint, body, token) => {
     return fetch(endpoint, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'access_token': `JWT ${token}`,
         },
         body: body
     })
@@ -108,39 +133,17 @@ export const putRoute = (endpoint, body) => {
     });
 }
 
-export const saveProfile = async (token, phone, profile_id, image, data) => {
+export const saveProfile = async(id, name, sessionToken, status) => {
     let profile = {
-        'token': token,
-        'phone': phone,
-        'profile_id': profile_id,
-        'image': image,
-        'data': data
+        id, name, sessionToken
     };
 
+    await AsyncStorage.setItem('isAccountVerified', JSON.stringify(status))
     return await AsyncStorage.setItem('profile', JSON.stringify(profile))
 }
 
-export const getProfile = async () => {
+export const getProfile = async() => {
     return await AsyncStorage.getItem('profile')
-        .then((value) => {
-        if (value) {
-            return JSON.parse(value);
-        } else {
-            return false;
-        }
-    });
-}
-
-
-export const saveExpoToken = async (expoToken) => {
-    let token = {
-        'token': expoToken
-    };
-    return await AsyncStorage.setItem('expoToken', JSON.stringify(token))
-}
-
-export const getExpoToken = async () => {
-    return await AsyncStorage.getItem('expoToken')
         .then((value) => {
             if (value) {
                 return JSON.parse(value);
@@ -148,4 +151,59 @@ export const getExpoToken = async () => {
                 return false;
             }
         });
+}
+
+
+export const saveExpoToken = async (expoToken) => {  
+    return await AsyncStorage.setItem('expoToken', expoToken);
+}
+
+export const getExpoToken = async () => {
+    return await AsyncStorage.getItem('expoToken')
+        .then((value) => {
+            if (value) {
+                return value;
+            } else {
+                return false;
+            }
+        });
+}
+
+
+
+export const getVerification = async () => {
+    return await AsyncStorage.getItem('isAccountVerified')
+        .then((value) => {
+            if (value) {    
+                return JSON.parse(value);
+            } else {
+                return false;
+            }
+        });
+}
+
+
+export const updateVerification = async() => {
+    return await AsyncStorage.setItem('isAccountVerified', JSON.stringify(true));
+}
+
+export const updateOnBoarding = async() => {
+    return await AsyncStorage.setItem('completed', JSON.stringify(true));
+}
+
+export const getOnBoardingStatus = async () => {
+    return await AsyncStorage.getItem('completed')
+        .then((value) => {
+            if (value) {
+                return JSON.parse(value);
+            } else {
+                return false;
+            }
+        });
+}
+
+export const logout = async()=> {
+    let keys = ['email', 'expoToken', 'registered', 'profile', 'isAccountVerified', 'completed' ];
+     return await AsyncStorage.multiRemove(keys, (err) => {
+    })
 }

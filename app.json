@@ -6,14 +6,13 @@
     "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": ".src/assets/icon.png",
+    "icon": "./src/assets/images/icon.png",
     "splash": {
-      "image": ".src/assets/splash.png",
+      "image": "./src/assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -25,9 +24,9 @@
     ],
 
     "android": {
-      "package": "com.plateauyouthcouncil.www",
-      "versionCode":6,
-      "playStoreUrl":"https://play.google.com/store/apps/details?id=com.plateauyouthcouncil.www",
+      "package": "ng.sprout.www",
+      "versionCode":1,
+      "playStoreUrl":"https://play.google.com/store/apps/details?id=",
       "permissions": [
         "CAMERA",
         "MANAGE_DOCUMENTS",
@@ -50,7 +49,7 @@
       ],
     
       "splash":{ 
-        "resizeMode": "cover",
+        "resizeMode": "contain",
         "mdpi": "./src/assets/images/splash.png", 
         "hdpi": "./src/assets/images/splash.png", 
         "xhdpi": "./src/assets/images/splash.png"
@@ -64,12 +63,13 @@
       }  
     },  
     "notification": {
-      "icon":"./src/assets/images/logo.png",
+      "icon":"./src/assets/images/icon.png",
       "androidMode": "collapse",
       "androidCollapsedTitle":"New Messages"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sprout.conferenceapp"
     }
   }
 }

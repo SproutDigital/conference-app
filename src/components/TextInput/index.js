@@ -1,4 +1,4 @@
 import InputField from './InputField';
-import InputFieldBorder from './InputFieldBorder'
+// import styles from './styles';
 
-export {InputField, InputFieldBorder};
+export {InputField};

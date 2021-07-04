@@ -1,14 +1,16 @@
 'use strict';
 
 import React, {Component} from 'react';
- import { View , StyleSheet, ScrollView, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
-import {DisplayText, InputField, SingleButtonAlert, SubmitButton} from '../../components';
+ import { View, Image,StyleSheet, Animated, Keyboard, KeyboardAvoidingView,Platform} from 'react-native';
+import {DisplayText, InputField, SubmitButton, ErrorAlert, Preloader} from '../../components';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }  from './styles';
-import { ProgressDialog } from 'react-native-simple-dialogs';
-import { saveProfile } from '../Utils/Utils';
-import Toast from 'react-native-easy-toast';
-import gql from 'graphql-tag';
-import { compose, graphql } from 'react-apollo';
+import {isEmailValid, sendRoute, LoginEndpoint, saveProfile, isEmpty} from '../../utils';
+import colors from '../../assets/colors';
+import { NavigationActions, StackActions } from 'react-navigation';
+import theme from '../../assets/theme';
+// import CheckBox from 'react-native-check-box';
+import {connect} from 'react-redux';
+import { addProfile } from '../../redux/actions/ProfileActions';
 
 class Login extends Component {
   constructor(props) {
@@ -18,14 +20,15 @@ class Login extends Component {
       isPasswordValid: false,
       showAlert: false,
       showLoading: false,
-      username : '',
-      passwordb: '',
+      // isChecked: false,
+      email : '',
       title: '',
       message: '',
+      isEmailFocused:false,
+      isPasswordFocused:false,
       
     };
     this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
-
   }
 
    async componentWillMount () {
@@ -44,6 +47,26 @@ class Login extends Component {
     this.keyboardWillShowSub.remove();
     this.keyboardWillHideSub.remove();
   }
+
+  // handleCheckBox = () => {
+  //   this.setState(prevState=>({
+  //       isChecked:!prevState.isChecked,
+  //   })
+  //   )
+  // }
+
+  resetNavigationStack = (location) => {
+    const navigateAction =  StackActions.reset({
+       index: 0,
+       actions: [
+         NavigationActions.navigate({
+           routeName: location,
+           params: 'login',
+         }),
+       ],
+     });
+     this.props.navigation.dispatch(navigateAction);
+   }
 
   keyboardWillShow = (event) => {
     Animated.timing(this.imageHeight, {
@@ -73,66 +96,23 @@ class Login extends Component {
   };
   onBlur() {
   }
-  handleSignIn = async() => {
-    const { username, password, } = this.state;
-
-    this.setState({
-      showLoading: true,
-    });
-
-    this.props.loginMutation({
-      variables : {
-        username, password, 
-      }
-    })
-    .then(data => {
-      let token = data.data.signIn.token,
-        role = data.data.signIn.user.role
-      
-      if(role !== 'user') {
-        return this.setState({
-          showLoading : false,
-          title : 'Hello',
-          showAlert : true,
-          message: 'You re not Authorized to Use this App'
-        });
-      }
-
-      this.setState({
-        showLoading : false
-      });
-      saveProfile(token)
-       return this.refs.toast.show('Login Successful', 300, ()=>{
-        this.props.navigation.navigate('Navigations')
-       });
-       
-    })
-    .catch(err => {
-      return  this.setState({ 
-        showLoading : false,
-        title : 'Hello',
-        message : err.message.split(':')[1],
-        showAlert : true,
-      });
-    })
-  }
-
+ 
 
   handleCloseNotification = () => {
     return this.setState({
       showAlert : false
     });
   }
-
-  handleUsernameChange = (username) => {
-    if(username.length > 0) {
+  
+  handleEmailChange = (email) => {
+    if(email.length > 0) {
       this.setState({
         isUsernameValid: true,
-        username : username
+        email : email
       });
     }
     else {
-      if (username.length < 1) {
+      if (email.length < 1) {
         this.setState({
           isUsernameValid : false
         });
@@ -170,94 +150,194 @@ class Login extends Component {
   handleRegistration = () => {
     return this.props.navigation.navigate('Register');
   }
-  
+  handleForgetPassword = () => {
+    return this.props.navigation.navigate('ForgetPassword');
+  }
 
+
+  handleSignIn = async()=>{
+    const {email, password} = this.state;
+    if(!isEmailValid(email)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Invalid Email Address'
+      });
+    }
+    else if(isEmpty(password)) {
+      return this.setState({
+        showAlert:true,
+        message: 'Enter Valid Password'
+      });
+    }
+    
+    
+    this.setState({
+      showLoading: true,
+    });
+
+    let data = await JSON.stringify({
+      'password' : password, 
+      'email' : email.toLowerCase(), 
+    });
+
+     await sendRoute (LoginEndpoint, data)
+      .then((res) => {
+        if(typeof res.status == 'undefined') {
+          this.props.setProfile(res.payload.profile);
+          if(!res.payload.verified) {
+            saveProfile(res.payload.id, res.payload.name, res.token, false);
+            this.setState({ 
+              showLoading : false, 
+            });
+            return this.resetNavigationStack('Verification');         
+          }
+          else if(res.payload.verified) {
+            saveProfile(res.payload.id, res.payload.name, res.token, true);
+            this.setState({ 
+              showLoading : false, 
+            });
+            return this.props.navigation.navigate('OnBoard') ; 
+
+          }
+         
+        } 
+        else {
+          this.setState({ 
+            showLoading : false, 
+            message: res.message,
+            showAlert: true,
+          });
+        }
+      });
+    }
+
+
+
+   
+  
   render () {
-    const { title, message, showAlert, showLoading } = this.state
+    const { title, message, showAlert, showLoading,  } = this.state
 
     return(
     <View style={styles.container}> 
-      <Animated.Image source={require('../../assets/images/icon.png')} style={[styles.logo, { height: this.imageHeight }]} />
-        <ScrollView style={{flex:1}}>
-          <KeyboardAvoidingView
-            style={styles.wrapper}
-            behavior="padding"
-            >
-
-            <InputField
-              placeholder={'Email or Phone'}
-              inputType = {'email'} 
-              onChangeText ={this.handleUsernameChange}
-              onBlur={this.onBlur}
-            />
-
-            <InputField
-              placeholder={'Password'}
-              inputType = {'password'} 
-              onChangeText ={this.handlePasswordChange}
-              onBlur={this.onBlur}
-            />
-            <Toast
-              ref="toast"
-              style={{backgroundColor: 'green'}}
-              position='bottom'
-              positionValue={200}
-              fadeInDuration={750}
-              fadeOutDuration={5000}
-              opacity={0.8}
-              textStyle={{color:'white'}}
-            /> 
-
-            <ProgressDialog
-              visible={showLoading}
-              title="Processing"
-              message="Please wait..."
-            />
+     
+      <KeyboardAvoidingView
+        style={styles.wrapper}
+        behavior="padding">
+                 
+          <View style = {styles.imageView}>
+            <Image
+              source={require('../../assets/images/logo.png')}
+              style={StyleSheet.flatten(styles.logoIcon)}/> 
+          </View>
+            <View>
+              <View style = {[styles.textInputView,{ borderColor: this.state.isEmailFocused
+                 ? colors.green
+                 : colors.whiteShade}]}> 
+                <Image
+                  source={require('../../assets/images/email.png')}
+                  style={StyleSheet.flatten(styles.iconForm)}/> 
+                  <InputField
+                    placeholder={'Email'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'email'}
+                    keyboardType={'email'}
+                    onChangeText = {this.handleEmailChange}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    blurOnSubmit={false}
+                    borderColor = {theme.colorAccent}
+                    returnKeyType = {"next"}
+                    blurOnSubmit={false}
+                    onFocus={()=>this.setState({isEmailFocused:true})}
+                    onBlur={()=>this.setState({isEmailFocused:false})}
+                    onSubmitEditing={() => { 
+                      this.passwordRef && this.passwordRef.focus()
+                    }}
+                    /> 
+              </View>
+              <View style = {[styles.textInputView,{ borderColor: this.state.isPasswordFocused
+                 ? colors.green
+                 : colors.whiteShade}]}> 
+                <Image
+                  source={require('../../assets/images/padlock.png')}
+                  style={StyleSheet.flatten(styles.iconForm)}/> 
+                    <InputField
+                    placeholder={'Password'}
+                    placeholderTextColor = {colors.blackShade}
+                    textColor={colors.blackShade}
+                    inputType={'password'}
+                    onChangeText = {this.handlePasswordChange}
+                    autoCapitalize = "none"
+                    height = {40}
+                    width = {'90%'}
+                    borderWidth = {1}
+                    borderColor = {colors.white}
+                    refs={(input) => { this.passwordRef = input; }}
+                    returnKeyType={'done'}
+                    blurOnSubmit={false}
+                    onFocus={()=>this.setState({isPasswordFocused:true})}
+                    onBlur={()=>this.setState({isPasswordFocused:false})}
+                    onSubmitEditing={() => { 
+                      this.handleSignIn();
+                    }}
+                  /> 
+              </View> 
+            </View>
             <View style = {styles.btnView}>
-
+              
               <SubmitButton
-                title={'LOGIN'}
+                title={'Log in'}
                 disabled={!this.toggleButtonState()}
                 onPress={this.handleSignIn}
+                imgSrc={require('../../assets/images/loginIcon.png')}
+                btnStyle={styles.buttonWithImage}
+                imgStyle={StyleSheet.flatten(styles.iconDoor)}
+                titleStyle={StyleSheet.flatten(styles.buttonTxt)}
               />
+              <View style = {StyleSheet.flatten(styles.signupLinkView)}>
+                <DisplayText
+                  text={'Forgot Password?'}
+                  styles = {styles.forgotPwd}
+                  onPress = {this.handleForgetPassword}/>
+              </View>
+             
             </View>
-              
-            <SingleButtonAlert
-              title = {title} 
+            
+            <Preloader
+              modalVisible={showLoading}
+             animationType="fade"
+            />
+
+            <ErrorAlert
+              title = {'Error!'} 
               message = {message}
               handleCloseNotification = {this.handleCloseNotification}
               visible = {showAlert}
             />
-          </KeyboardAvoidingView>
-        </ScrollView>
-        <View style = {StyleSheet.flatten(styles.signupLinkView)}>
-          <DisplayText
-            text={'Dont have an account? Sign Up '}
-            styles = {styles.signupText}
-            onPress = {this.handleRegistration}
-          />
-        </View>
-     </View>
-   )
-   
-  }
-  
+            
+        </KeyboardAvoidingView>
+        {/* </ScrollView> */}
+
+      </View>
+    )
+  } 
 } 
 
-const loginMutation = gql`
-  mutation SignIn( $username: String!, $password: String!, ) {
-    signIn( username : $username, password: $password){
-      token
-      user {
-        company_name
-        surname
-        role
-      }
-    }
+
+const mapStateToProps = (state, ownProps) =>{
+  return  {
   }
-`
-export default compose(
-  graphql(loginMutation, {
-    name : 'loginMutation',
-  })
-)(Login);
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+      setProfile: (data) =>{dispatch(addProfile(data))},
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
+

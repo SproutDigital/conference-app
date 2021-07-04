@@ -8,15 +8,32 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@twotalltotems/react-native-otp-input": "^1.0.21",
     "expo": "^33.0.0",
+    "expo-constants": "^5.0.1",
+    "expo-facebook": "~5.0.1",
+    "expo-font": "^5.0.1",
+    "expo-permissions": "~5.0.1",
+    "moment": "^2.24.0",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-app-intro-slider": "^2.0.1",
+    "react-native-autogrow-input": "^0.2.1",
+    "react-native-check-box": "^2.1.7",
+    "react-native-easy-toast": "^1.2.0",
+    "react-native-elements": "^1.1.0",
+    "react-native-otp-inputs": "^3.2.0",
+    "react-native-ratings": "^6.3.1",
+    "react-native-simple-dialogs": "^1.1.0",
+    "react-native-svg": "^9.5.1",
+    "react-native-svg-uri": "^1.2.3",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
     "react-redux": "^7.1.0",
+    "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
-  }, 
+  },
   "devDependencies": {
     "babel-preset-expo": "^5.1.1"
   },
